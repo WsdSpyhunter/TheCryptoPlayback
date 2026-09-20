@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Archive — The Crypto Playback</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Playfair+Display:ital@1&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%82%BF</text></svg>">
+
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo-link" href="index.html">
+      <img class="logo" src="assets/logo.png" alt="The Crypto Playback">
+    </a>
+    <nav class="site-nav">
+      <a href="archive.html">Archive</a>
+      <a href="resources.html">Resources</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="archive-list">
+    <h1>Archive</h1>
+    <div class="archive-filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="Daily">Daily</button>
+      <button data-filter="Weekly">Weekly</button>
+    </div>
+    <div id="archive-items"></div>
+  </div>
+  <script>
+    document.querySelectorAll('.archive-filters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.archive-filters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.archive-item').forEach(item => {
+          item.style.display = (f === 'all' || item.dataset.tag === f) ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
+<div class="disclaimer">
+  <div class="wrap">
+    <strong>THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong>
+    The material in this newsletter has no regard to any specific investment objectives, financial situation,
+    or particular needs of any reader. It is published solely for informational purposes and is not to be
+    construed as a solicitation nor does it constitute advice, investment or otherwise. References made to
+    third parties are based on information obtained from sources believed to be reliable but not guaranteed
+    as being accurate. Readers should not regard it as a substitute for the exercise of their own judgment.
+    Our comments are an expression of opinion. While we believe our statements to be true, they always depend
+    on the reliability of our own credible sources. We recommend that you consult with a licensed, qualified
+    investment advisor before making any investment decisions.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    &copy; 2026 The Crypto Playback &middot; <a href="about.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
