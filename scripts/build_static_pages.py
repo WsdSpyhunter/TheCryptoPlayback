@@ -15,8 +15,7 @@ ABOUT_BODY = """<div class="page-content">
   <p>Nothing here is financial advice. See the note at the bottom of every
   page for the full disclosure.</p>
   <h1 style="margin-top:2em;">Contact</h1>
-  <p>Questions, tips, or feedback: <a href="mailto:scottydcrypto@gmail.com">scottydcrypto@gmail.com</a></p>
-  <p>Follow on Twitter/X: <a href="https://twitter.com/scottydcrypto" target="_blank" rel="noopener">@scottydcrypto</a></p>
+  <p>Questions, tips, or feedback: <a href="mailto:cryptoplayback@gmail.com">cryptoplayback@gmail.com</a></p>
 </div>"""
 
 RESOURCES_BODY = """<div class="page-content">
