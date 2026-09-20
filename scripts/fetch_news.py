@@ -1,6 +1,11 @@
 """
 fetch_news.py — pulls recent headlines from crypto news RSS feeds.
 No API key needed — RSS is public and free.
+
+Also pulls an image URL per story when the feed provides one (most do, via
+the media:content or media:thumbnail RSS extensions, or an enclosure tag).
+If a feed doesn't include one for a given story, image_url is just None —
+the site/email templates already handle that case by skipping the image.
 """
 import feedparser
 from datetime import datetime, timezone, timedelta
@@ -14,9 +19,31 @@ FEEDS = {
 }
 
 
+def _extract_image_url(entry):
+    """Try the common RSS image extensions, in order, and return the first
+    real image URL found. Returns None if the feed didn't include one."""
+    if getattr(entry, "media_thumbnail", None):
+        return entry.media_thumbnail[0].get("url")
+    if getattr(entry, "media_content", None):
+        return entry.media_content[0].get("url")
+    for enc in getattr(entry, "enclosures", []):
+        if enc.get("type", "").startswith("image/"):
+            return enc.get("href") or enc.get("url")
+    summary = entry.get("summary", "")
+    if "<img" in summary:
+        start = summary.find('src="')
+        if start != -1:
+            start += len('src="')
+            end = summary.find('"', start)
+            if end != -1:
+                return summary[start:end]
+    return None
+
+
 def get_recent_headlines(hours=36, max_per_feed=8):
-    """Returns a list of {headline, summary, link, source, published} dicts,
-    newest first, from the last `hours` hours across all feeds."""
+    """Returns a list of {headline, summary, link, source, published, image_url}
+    dicts, newest first, from the last `hours` hours across all feeds.
+    image_url is None when the feed didn't provide one for that story."""
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
     items = []
     for source, url in FEEDS.items():
@@ -37,6 +64,7 @@ def get_recent_headlines(hours=36, max_per_feed=8):
                 "link": entry.get("link", ""),
                 "source": source,
                 "published": published.isoformat() if published else None,
+                "image_url": _extract_image_url(entry),
             })
     items.sort(key=lambda x: x["published"] or "", reverse=True)
     return items
