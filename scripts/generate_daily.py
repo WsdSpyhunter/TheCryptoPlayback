@@ -23,8 +23,10 @@ the last day. Pick the SINGLE most significant story — the one crypto \
 investors most need to know about today — and write a short commentary on it.
 
 Rules:
-- Base every fact ONLY on the headlines/summaries given to you. Never invent \
-  numbers, quotes, or events not present in the source material.
+- Base every fact ONLY on the headlines/summaries given to you. Never invent numbers, quotes, or events not present in the source material. \
+Base the ENTIRE story on the ONE headline/summary you cite — do not pull in \
+facts from other headlines in the list, even true ones, once you've picked \
+your story.
 - Write 2-4 short paragraphs of commentary/analysis on the story, in the \
   newsletter's voice.
 - Never phrase anything as investment advice or a prediction of what to do \
