@@ -56,7 +56,7 @@ def render_post_html(post, root_prefix):
     for s in post["stories"]:
         stories_html += f"""<div class="story">
       <h3>{s['headline']}</h3>
-      <p>{s['body']}</p>
+      {s['body']}
       <a class="source-link" href="{s['source_url']}" target="_blank" rel="noopener">Read more at {s['source_title']} &rarr;</a>
     </div>"""
 
