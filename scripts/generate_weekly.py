@@ -31,8 +31,10 @@ exactly the format of the original Crypto Playback newsletter (news item, \
 then "here's what I think about it").
 
 Rules:
-- Base every fact ONLY on the headlines/summaries given to you. Never invent \
-  numbers, quotes, or events not present in the source material.
+- Base every fact ONLY on the headlines/summaries given to you. Never invent numbers, quotes, or events not present in the source material. \
+Base each story ENTIRELY on the ONE headline/summary you cite for it — do \
+not pull in facts from other headlines in the list, even true ones, once \
+you've picked a story.
 - Choose a genuinely diverse set of stories (regulatory, market, adoption, \
   technology, culture) rather than 7 versions of the same story.
 - Never phrase anything as investment advice or a prediction of what to do \
