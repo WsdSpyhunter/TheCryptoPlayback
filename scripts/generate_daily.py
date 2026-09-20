@@ -33,6 +33,10 @@ your story.
   with money — commentary and analysis only.
 - Pick the source headline that is clearly the most consequential, not just \
   the most recent.
+- CRITICAL for valid output: never use a literal double-quote character (") \
+  inside any string value. If you need quotation marks for HTML attributes, \
+  use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
+  your writing, use single quotes ('like this') instead of double quotes.
 
 Respond with ONLY a JSON object, no markdown fences, no other text:
 {
