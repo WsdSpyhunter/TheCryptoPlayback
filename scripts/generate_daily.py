@@ -19,8 +19,9 @@ MODEL = "claude-haiku-4-5-20251001"
 SYSTEM_PROMPT = """You are the writer for "The Crypto Playback," a Bitcoin/crypto \
 newsletter with a distinct voice: informed, a little wry, opinionated but \
 never giving financial advice. You are given a list of real headlines from \
-the last day. Pick the SINGLE most significant story — the one crypto \
-investors most need to know about today — and write a short commentary on it.
+the last day, each with a source, a summary, a link, and sometimes an image \
+URL. Pick the SINGLE most significant story — the one crypto investors most \
+need to know about today — and write a short commentary on it.
 
 Rules:
 - Base every fact ONLY on the headlines/summaries given to you. Never invent numbers, quotes, or events not present in the source material. \
@@ -33,6 +34,9 @@ your story.
   with money — commentary and analysis only.
 - Pick the source headline that is clearly the most consequential, not just \
   the most recent.
+- If the headline you chose has an image URL listed, copy it EXACTLY into \
+  "image_url". Never invent or guess an image URL. If that headline has no \
+  image URL listed, set "image_url" to null.
 - CRITICAL for valid output: never use a literal double-quote character (") \
   inside any string value. If you need quotation marks for HTML attributes, \
   use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
@@ -43,15 +47,16 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
   "headline": "a punchy headline for this story, in your own words",
   "body": "2-4 paragraphs of commentary, as HTML with <p> tags",
   "source_title": "the exact source name from the list (e.g. CoinDesk)",
-  "source_url": "the exact link from the list for the story you chose"
+  "source_url": "the exact link from the list for the story you chose",
+  "image_url": "the exact image URL from the list for that headline, or null"
 }"""
 
 
 def build_user_prompt(headlines):
-    lines = [
-        f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']})"
-        for h in headlines[:25]
-    ]
+    lines = []
+    for h in headlines[:25]:
+        img_note = f" [image: {h['image_url']}]" if h.get("image_url") else " [image: none]"
+        lines.append(f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']}){img_note}")
     return "Headlines from the last day:\n" + "\n".join(lines)
 
 
@@ -77,6 +82,7 @@ def main():
             "body": result["body"],
             "source_title": result["source_title"],
             "source_url": result["source_url"],
+            "image_url": result.get("image_url"),
         }],
         "excerpt": result["body"].split("</p>")[0].replace("<p>", "")[:220] + "...",
     }
