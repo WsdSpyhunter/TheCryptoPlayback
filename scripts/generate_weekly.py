@@ -24,7 +24,8 @@ STORY_COUNT_MIN, STORY_COUNT_MAX = 5, 7
 SYSTEM_PROMPT = f"""You are the writer for "The Crypto Playback," a weekly \
 Bitcoin/crypto newsletter. Your voice: informed, a little wry, willing to \
 share an opinion, but you NEVER give financial advice or tell readers what \
-to buy/sell. You are given real headlines from the past week. Select the \
+to buy/sell. You are given real headlines from the past week, each with a \
+source, a summary, a link, and sometimes an image URL. Select the \
 {STORY_COUNT_MIN}-{STORY_COUNT_MAX} most significant, and for each write a \
 short summary plus a sentence or two of personal take/analysis — this is \
 exactly the format of the original Crypto Playback newsletter (news item, \
@@ -41,6 +42,9 @@ Rules:
 - Never phrase anything as investment advice or a prediction of what to do \
   with money.
 - Write a one-sentence intro for the whole issue (a "this week in crypto" framing line).
+- For each story, if its headline has an image URL listed, copy it EXACTLY \
+  into that story's "image_url". Never invent or guess an image URL. If a \
+  headline has no image URL listed, set that story's "image_url" to null.
 - CRITICAL for valid output: never use a literal double-quote character (") \
   inside any string value. If you need quotation marks for HTML attributes, \
   use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
@@ -55,17 +59,18 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
       "headline": "punchy headline, your own words",
       "body": "1-2 paragraphs: summary + your take, as HTML with <p> tags",
       "source_title": "exact source name from the list",
-      "source_url": "exact link from the list"
+      "source_url": "exact link from the list",
+      "image_url": "exact image URL from the list for this headline, or null"
     }}
   ]
 }}"""
 
 
 def build_user_prompt(headlines):
-    lines = [
-        f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']})"
-        for h in headlines[:60]
-    ]
+    lines = []
+    for h in headlines[:60]:
+        img_note = f" [image: {h['image_url']}]" if h.get("image_url") else " [image: none]"
+        lines.append(f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']}){img_note}")
     return "Headlines from the past week:\n" + "\n".join(lines)
 
 
@@ -77,7 +82,8 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices):
     )
     parts = [f"<p><em>{intro}</em></p>", f"<p><strong>{price_line}</strong></p><hr>"]
     for s in stories:
-        parts.append(f"<h3>{s['headline']}</h3>{s['body']}"
+        img_html = f"<p><img src='{s['image_url']}' style='max-width:100%;'></p>" if s.get("image_url") else ""
+        parts.append(f"<h3>{s['headline']}</h3>{img_html}{s['body']}"
                       f"<p><a href='{s['source_url']}'>Read more at {s['source_title']}</a></p><hr>")
     return "\n".join(parts)
 
