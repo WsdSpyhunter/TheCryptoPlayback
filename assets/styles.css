@@ -123,6 +123,7 @@ h1, h2, h3 {
 .post h1 { font-size: 34px; margin-top: 6px; }
 .post .story { border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 24px; }
 .post .story h3 { font-size: 20px; }
+.post .story-image { width: 100%; border-radius: 6px; margin: 12px 0; }
 .post .story .source-link { font-size: 14px; font-family: 'Oswald', sans-serif; }
 
 /* Archive */
