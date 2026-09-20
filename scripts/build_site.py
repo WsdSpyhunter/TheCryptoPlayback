@@ -51,11 +51,16 @@ def render_ticker(prices):
 
 
 def render_post_html(post, root_prefix):
-    """post: dict with title, date, tag, ticker_html, stories (list of {headline, body, source_title, source_url})"""
+    """post: dict with title, date, tag, ticker_html, stories (list of
+    {headline, body, source_title, source_url, image_url})"""
     stories_html = ""
     for s in post["stories"]:
+        img_html = ""
+        if s.get("image_url"):
+            img_html = f'<img class="story-image" src="{s["image_url"]}" alt="" loading="lazy">'
         stories_html += f"""<div class="story">
       <h3>{s['headline']}</h3>
+      {img_html}
       {s['body']}
       <a class="source-link" href="{s['source_url']}" target="_blank" rel="noopener">Read more at {s['source_title']} &rarr;</a>
     </div>"""
@@ -129,16 +134,13 @@ def render_archive(entries):
 def add_post_and_rebuild(post):
     """post: dict as passed to render_post_html, plus 'excerpt' and 'slug'.
     Writes the post's HTML page, updates the index, and rebuilds index.html + archive.html."""
-    # Write per-post data (for record-keeping / debugging)
     with open(os.path.join(POSTS_DATA_DIR, f"{post['slug']}.json"), "w") as f:
         json.dump(post, f, indent=2)
 
-    # Write the post's HTML page (root_prefix = "../" since posts/ is one level deep)
     post_html = render_post_html(post, "../")
     with open(os.path.join(POSTS_HTML_DIR, f"{post['slug']}.html"), "w") as f:
         f.write(post_html)
 
-    # Update index (newest first)
     entries = load_index()
     entries.insert(0, {
         "slug": post["slug"],
@@ -149,7 +151,6 @@ def add_post_and_rebuild(post):
     })
     save_index(entries)
 
-    # Rebuild homepage and archive
     with open(os.path.join(ROOT, "index.html"), "w") as f:
         f.write(render_index(entries))
     with open(os.path.join(ROOT, "archive.html"), "w") as f:
@@ -157,7 +158,6 @@ def add_post_and_rebuild(post):
 
 
 if __name__ == "__main__":
-    # Manual test / rebuild from existing index without adding a post
     entries = load_index()
     with open(os.path.join(ROOT, "index.html"), "w") as f:
         f.write(render_index(entries))
