@@ -12,6 +12,8 @@ than Haiku — see notes on when to reconsider this in README.md).
 Also creates a DRAFT (never sends) in Buttondown, so the email version is
 ready the moment you approve the site post.
 """
+import base64
+import os
 import sys
 from datetime import datetime, timezone
 
@@ -22,7 +24,7 @@ from claude_client import ask_claude_json
 from build_site import (
     add_post_and_rebuild, render_ticker, render_sentiment_bar,
     render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
-    save_gauge_image,
+    save_gauge_image, ROOT,
 )
 from buttondown_client import create_draft
 
@@ -121,7 +123,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#171512;">
 <tr>
   <td style="padding:14px 10px 14px 16px; vertical-align:top; white-space:nowrap;">
-    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:12px;padding:6px 10px;border-radius:3px;">Top 5 Market</span><span style="display:inline-block;width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:7px solid #DE9547;vertical-align:middle;"></span>
+    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:15px;padding:12px 14px;border-radius:3px 0 0 3px;vertical-align:middle;">Top 5 Market</span><span style="display:inline-block;width:0;height:0;border-top:22px solid transparent;border-bottom:22px solid transparent;border-left:16px solid #DE9547;vertical-align:middle;"></span>
     <div style="color:#FBF9F5;opacity:0.7;font-size:9px;margin-top:4px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</div>
   </td>
   <td style="padding:14px 10px; vertical-align:top; color:#FBF9F5; font-family:Arial,sans-serif; font-size:12px; line-height:1.5; white-space:nowrap;">
@@ -145,10 +147,11 @@ def ticker_bar_email_html(prices, date_abbrev):
 </table>"""
 
 
-def sentiment_to_email_html(fng, mover, gauge_url):
-    """Email version of the Fear & Greed + Biggest Mover callout. Uses the
-    SAME gauge PNG (gauge_url, a real hosted URL) that the website uses —
-    one shared image, so the two surfaces can't drift apart again."""
+def sentiment_to_email_html(fng, mover, gauge_data_uri):
+    """Email version of the Fear & Greed + Biggest Mover callout. Embeds the
+    gauge image directly as base64 data (gauge_data_uri) instead of linking to
+    a hosted URL, since a hosted URL only goes live once the PR is merged —
+    it would show broken while the draft is still being reviewed."""
     fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
     mover_up = mover["change_24h"] >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
@@ -157,7 +160,7 @@ def sentiment_to_email_html(fng, mover, gauge_url):
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed;"><tr>
 <td width="50%" style="background:#F1EEE7;border:1.5px solid {fng_color};border-radius:6px;padding:10px 14px;width:50%;">
 <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-<td style="padding-right:8px;"><img src="{gauge_url}" width="46" height="28" alt="Fear and Greed gauge"></td>
+<td style="padding-right:8px;"><img src="{gauge_data_uri}" width="46" height="28" alt="Fear and Greed gauge"></td>
 <td>
 <strong style="color:#975F25;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.05em;">FEAR &amp; GREED</strong><br>
 <span style="color:{fng_color};font-family:Arial,sans-serif;font-weight:bold;font-size:19px;">{fng['value']}</span>
@@ -206,13 +209,13 @@ def footer_email_html():
 </tr></table>"""
 
 
-def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, date_abbrev, issue_number, gauge_url):
+def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, date_abbrev, issue_number, gauge_data_uri):
     """Full HTML rendering for the email body — masthead through footer,
     matching the approved design exactly."""
     parts = [
         masthead_email_html(),
         ticker_bar_email_html(ticker_prices, date_abbrev),
-        sentiment_to_email_html(fng, mover, gauge_url),
+        sentiment_to_email_html(fng, mover, gauge_data_uri),
         release_row_email_html(date_display, issue_number),
         issue_title_block_email_html(tag, issue_title),
         top_story_to_email_html(intro),
@@ -246,7 +249,10 @@ def main():
     date_abbrev = now.strftime("%b %d, %Y").upper()
     slug = now.strftime("%Y-%m-%d") + "-weekly"
     gauge_path = save_gauge_image(fng["value"], slug)
-    gauge_url = f"{ASSET_BASE}/gauges/{slug}.png"
+    # Website: relative path, goes live atomically with the post when the PR merges.
+    # Email: base64-embedded, so it works immediately, before/without any merge at all.
+    with open(os.path.join(ROOT, gauge_path), "rb") as f:
+        gauge_data_uri = "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
     post = {
         "slug": slug,
         "title": result["issue_title"],
@@ -265,7 +271,7 @@ def main():
 
     email_body = stories_to_plain_email_html(
         result["issue_title"], result["intro"], result["stories"], prices,
-        fng, mover, "Weekly", date_display, date_abbrev, issue_number, gauge_url,
+        fng, mover, "Weekly", date_display, date_abbrev, issue_number, gauge_data_uri,
     )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
