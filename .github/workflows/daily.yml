@@ -22,11 +22,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate today's post
+      - name: Generate today's post (+ Buttondown draft)
         working-directory: scripts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
         run: python generate_daily.py
 
       - name: Open a PR for review
@@ -35,4 +36,4 @@ jobs:
           commit-message: "Daily post: ${{ github.run_id }}"
           branch: "daily-post-${{ github.run_number }}"
           title: "Daily Playback draft — ready for review"
-          body: "Auto-generated daily post. Review it in the Files changed tab, then merge to publish it live on the site."
+          body: "Auto-generated daily post. A matching draft was also created in Buttondown. Review this PR, merge to publish it live on the site, then go send the Buttondown draft when you're ready."
