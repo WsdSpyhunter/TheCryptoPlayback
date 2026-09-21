@@ -2,7 +2,9 @@
 generate_weekly.py — the flagship weekly Playback: 5-7 stories from the
 past week, each with a short summary + your editorial take, plus the price
 ticker, Fear & Greed Index, and biggest mover of the week. Mirrors the
-original newsletter's format exactly.
+approved design exactly: masthead, Top 5 Market/subscribe bar, sentiment
+band, release-date box, issue pill + headline, top-story callout, stories,
+disclaimer, footer.
 
 Model: Sonnet (holds voice/quality across a longer, multi-story piece better
 than Haiku — see notes on when to reconsider this in README.md).
@@ -107,29 +109,37 @@ def masthead_email_html():
     )
 
 
-def ticker_bar_email_html(prices):
-    coins = " &middot; ".join(
-        f"{c['symbol']} ${c['price']:,.2f} ({c['change_24h']:+.1f}%)" for c in prices
+def ticker_bar_email_html(prices, date_display):
+    """Matches the approved design: Top 5 Market tab + stacked prices +
+    caption, a separate news-date pill, and a subscribe callout. Uses text
+    symbols instead of inline SVG icons — SVG rendering is unreliable across
+    email clients (especially Outlook), plain text/emoji is not."""
+    price_lines = "<br>".join(
+        f"{c['symbol']} &nbsp;${c['price']:,.2f} ({c['change_24h']:+.1f}%)" for c in prices
     )
-    return (
-        f"<table role='presentation' width='100%' style='background:#171512;margin:0;'><tr>"
-        f"<td style='padding:14px 20px;'>"
-        f"<span style='display:inline-block;background:#DE9547;color:#171512;"
-        f"font-weight:bold;font-size:12px;padding:6px 10px;border-radius:3px;'>Top 5 Market</span> "
-        f"<span style='color:#FBF9F5;font-size:13px;'>{coins}</span>"
-        f"</td></tr></table>"
-    )
-
-
-def issue_meta_email_html(tag, date_display, issue_number):
-    label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
-    return (
-        f"<p style='margin:16px 0 0;'>"
-        f"<span style='display:inline-block;background:#268CCA;color:#FBF9F5;"
-        f"font-weight:bold;font-size:11px;padding:4px 10px;border-radius:3px;'>{label}</span> "
-        f"<span style='color:#666666;font-size:12px;'>&middot; {date_display} &middot; Issue #{issue_number}</span>"
-        f"</p>"
-    )
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#171512;">
+<tr>
+  <td style="padding:14px 10px 14px 16px; vertical-align:top; white-space:nowrap;">
+    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:12px;padding:6px 10px;border-radius:3px;">Top 5 Market</span>
+    <div style="color:#FBF9F5;opacity:0.7;font-size:9px;margin-top:4px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</div>
+  </td>
+  <td style="padding:14px 10px; vertical-align:top; color:#FBF9F5; font-family:Arial,sans-serif; font-size:12px; line-height:1.5; white-space:nowrap;">
+    {price_lines}
+  </td>
+  <td style="padding:14px 10px; vertical-align:middle;">
+    <div style="background:#3a3835; border-radius:3px; padding:8px 12px; text-align:center; color:#FBF9F5; font-family:Arial,sans-serif; font-size:11px; white-space:nowrap;">
+      TOP NEWS: <span style="color:#DDD5C7;">{date_display}</span>
+    </div>
+  </td>
+  <td style="padding:14px 16px 14px 10px; vertical-align:middle; text-align:right; white-space:nowrap;">
+    <div style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:10px; line-height:1.3;">SUBSCRIBE<br>HERE</div>
+    <div style="margin-top:4px;">
+      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#B5702E;color:#FBF9F5;text-align:center;font-size:11px;">&#9993;</span>
+      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#4A90D9;color:#FBF9F5;text-align:center;font-size:11px;">X</span>
+    </div>
+  </td>
+</tr>
+</table>"""
 
 
 def sentiment_to_email_html(fng, mover):
@@ -139,53 +149,63 @@ def sentiment_to_email_html(fng, mover):
     mover_up = mover["change_24h"] >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
     mover_sign = "+" if mover_up else ""
-    return (
-        f"<table role='presentation' width='100%' style='margin:14px 0;'><tr>"
-        f"<td style='background:#F1EEE7;border:1.5px solid {fng_color};border-radius:6px;padding:10px 14px;'>"
-        f"<strong style='color:#975F25;font-size:11px;letter-spacing:0.05em;'>FEAR &amp; GREED</strong><br>"
-        f"<span style='color:{fng_color};font-weight:bold;font-size:19px;'>{fng['value']}</span> "
-        f"<span style='color:{fng_color};'>{fng['classification']}</span>"
-        f"</td>"
-        f"<td style='width:14px;'></td>"
-        f"<td style='background:#F1EEE7;border:1.5px solid {mover_color};border-radius:6px;padding:10px 14px;'>"
-        f"<strong style='color:#975F25;font-size:11px;letter-spacing:0.05em;'>BIGGEST MOVER OF THE WEEK</strong><br>"
-        f"<span style='color:{mover_color};font-weight:bold;font-size:19px;'>{mover['symbol']}</span> "
-        f"<span style='color:{mover_color};font-weight:bold;'>{mover_sign}{mover['change_24h']:.1f}%</span>"
-        f"</td>"
-        f"</tr></table>"
-    )
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#948D7E;margin:0;"><tr><td style="padding:14px 16px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+<td style="background:#F1EEE7;border:1.5px solid {fng_color};border-radius:6px;padding:10px 14px;">
+<strong style="color:#975F25;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.05em;">FEAR &amp; GREED</strong><br>
+<span style="color:{fng_color};font-family:Arial,sans-serif;font-weight:bold;font-size:19px;">{fng['value']}</span>
+<span style="color:{fng_color};font-family:Arial,sans-serif;">{fng['classification']}</span>
+</td>
+<td style="width:14px;">&nbsp;</td>
+<td style="background:#F1EEE7;border:1.5px solid {mover_color};border-radius:6px;padding:10px 14px;">
+<strong style="color:#975F25;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.05em;">BIGGEST MOVER OF THE WEEK</strong><br>
+<span style="color:{mover_color};font-family:Arial,sans-serif;font-weight:bold;font-size:19px;">{mover['symbol']}</span>
+<span style="color:{mover_color};font-family:Arial,sans-serif;font-weight:bold;">{mover_sign}{mover['change_24h']:.1f}%</span>
+</td>
+</tr></table>
+</td></tr></table>"""
+
+
+def release_row_email_html(date_display, issue_number):
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F1EEE7;border-radius:4px;margin:20px 0 0;"><tr>
+<td style="padding:10px 16px; font-family:Arial,sans-serif; font-size:12px; color:#666666;">Release date: {date_display}</td>
+<td style="padding:10px 16px; text-align:right; font-family:Arial,sans-serif; font-size:12px; color:#666666;">Issue #{issue_number}</td>
+</tr></table>"""
+
+
+def issue_title_block_email_html(tag, title):
+    label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
+    return f"""<div style="margin:12px 0 0;">
+<span style="display:inline-block;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;letter-spacing:0.04em;color:#FBF9F5;background:#268CCA;padding:4px 10px;border-radius:3px;">{label}</span>
+<h1 style="font-family:Arial,sans-serif;font-weight:bold;font-size:26px;color:#171512;margin:8px 0 0;line-height:1.15;">{title}</h1>
+</div>"""
 
 
 def top_story_to_email_html(intro):
-    return (
-        f"<table role='presentation' width='100%' style='margin:14px 0;background:#F1EEE7;border-radius:4px;'><tr>"
-        f"<td style='width:26px;background:#F2C94C;text-align:center;font-weight:bold;font-size:11px;'>TOP<br>STORY</td>"
-        f"<td style='padding:14px 16px;font-style:italic;'>{intro}</td>"
-        f"</tr></table>"
-    )
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0;background:#F1EEE7;border-radius:4px;"><tr>
+<td style="width:26px;background:#F2C94C;text-align:center;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;">TOP<br>STORY</td>
+<td style="padding:14px 16px;font-family:Georgia,serif;font-style:italic;">{intro}</td>
+</tr></table>"""
 
 
 def footer_email_html():
     year = datetime.now().year
-    return (
-        f"<img src='{ASSET_BASE}/disclaimer.png' width='640' "
-        f"style='width:100%;max-width:640px;display:block;margin-top:24px;' alt='Legal disclaimer: The Crypto Playback is not financial advice.'>"
-        f"<table role='presentation' width='100%' style='background:#975F25;margin:0;'><tr>"
-        f"<td style='padding:14px 20px;color:#FBF9F5;font-size:12px;'>&copy; {year} The Crypto Playback &middot; cryptoplayback@gmail.com</td>"
-        f"<td style='padding:14px 20px;text-align:right;'>"
-        f"<img src='{ASSET_BASE}/logo-white.png' width='90' style='width:90px;display:inline-block;' alt='The Crypto Playback'>"
-        f"</td></tr></table>"
-    )
+    return f"""<img src='{ASSET_BASE}/disclaimer.png' width='640' style='width:100%;max-width:640px;display:block;margin-top:24px;' alt='Legal disclaimer: The Crypto Playback is not financial advice.'>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#975F25;margin:0;"><tr>
+<td style="padding:14px 20px;color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;">&copy; {year} The Crypto Playback &middot; cryptoplayback@gmail.com</td>
+<td style="padding:14px 20px;text-align:right;"><img src='{ASSET_BASE}/logo-white.png' width='90' style='width:90px;display:inline-block;' alt='The Crypto Playback'></td>
+</tr></table>"""
 
 
 def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, issue_number):
     """Full HTML rendering for the email body — masthead through footer,
-    matching the approved design."""
+    matching the approved design exactly."""
     parts = [
         masthead_email_html(),
-        ticker_bar_email_html(ticker_prices),
-        issue_meta_email_html(tag, date_display, issue_number),
+        ticker_bar_email_html(ticker_prices, date_display),
         sentiment_to_email_html(fng, mover),
+        release_row_email_html(date_display, issue_number),
+        issue_title_block_email_html(tag, issue_title),
         top_story_to_email_html(intro),
     ]
     for s in stories:
