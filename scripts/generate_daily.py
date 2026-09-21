@@ -6,6 +6,9 @@ crypto today, with a short take.
 Model: Haiku (cheap, fast, plenty for one story a day).
 Output: writes the post via build_site.py, then leaves it staged for the
 GitHub Actions workflow to open as a Pull Request (see daily.yml).
+
+Also creates a DRAFT (never sends) in Buttondown, same as the weekly one,
+so the email version is ready the moment you approve the site post.
 """
 import sys
 from datetime import datetime, timezone
@@ -19,6 +22,8 @@ from build_site import (
     render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
     save_gauge_image, format_date_abbrev,
 )
+from email_render import stories_to_plain_email_html, embed_gauge_data_uri
+from buttondown_client import create_draft
 
 MODEL = "claude-haiku-4-5-20251001"
 
@@ -83,13 +88,21 @@ def main():
     issue_number = sum(1 for e in load_index() if e["tag"] == "Daily") + 1
 
     now = datetime.now(timezone.utc)
+    date_display = now.strftime("%B %d, %Y")
     slug = now.strftime("%Y-%m-%d") + "-daily"
     gauge_path = save_gauge_image(fng["value"], slug)
     date_abbrev = format_date_abbrev(now)
+    stories = [{
+        "headline": result["headline"],
+        "body": result["body"],
+        "source_title": result["source_title"],
+        "source_url": result["source_url"],
+        "image_url": result.get("image_url"),
+    }]
     post = {
         "slug": slug,
         "title": result["headline"],
-        "date_display": now.strftime("%B %d, %Y"),
+        "date_display": date_display,
         "tag": "Daily",
         "issue_number": issue_number,
         "gauge_path": gauge_path,
@@ -97,17 +110,19 @@ def main():
         "sentiment_html": render_sentiment_combined(fng, mover, "Daily"),
         "issue_pill_html": render_issue_pill("Daily"),
         "top_story_html": render_top_story_box(result["intro"]),
-        "stories": [{
-            "headline": result["headline"],
-            "body": result["body"],
-            "source_title": result["source_title"],
-            "source_url": result["source_url"],
-            "image_url": result.get("image_url"),
-        }],
+        "stories": stories,
         "excerpt": result["body"].split("</p>")[0].replace("<p>", "")[:220] + "...",
     }
     add_post_and_rebuild(post)
     print(f"Generated daily post: {slug}")
+
+    gauge_data_uri = embed_gauge_data_uri(gauge_path)
+    email_body = stories_to_plain_email_html(
+        result["headline"], result["intro"], stories, prices,
+        fng, mover, "Daily", date_display, date_abbrev, issue_number, gauge_data_uri,
+    )
+    draft = create_draft(f"The Crypto Playback — {result['headline']}", email_body)
+    print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
 
 
 if __name__ == "__main__":
