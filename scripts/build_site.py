@@ -26,6 +26,17 @@ os.makedirs(POSTS_DATA_DIR, exist_ok=True)
 os.makedirs(POSTS_HTML_DIR, exist_ok=True)
 os.makedirs(GAUGES_DIR, exist_ok=True)
 
+# House style for dates shown as "TOP NEWS: SEPT. 21, 2026" — shared by the
+# website and the email so the two can never drift apart on this again.
+MONTH_ABBREV = {
+    1: "JAN.", 2: "FEB.", 3: "MAR.", 4: "APR.", 5: "MAY.", 6: "JUN.",
+    7: "JUL.", 8: "AUG.", 9: "SEPT.", 10: "OCT.", 11: "NOV.", 12: "DEC.",
+}
+
+
+def format_date_abbrev(dt):
+    return f"{MONTH_ABBREV[dt.month]} {dt.day}, {dt.year}"
+
 
 def load_index():
     if not os.path.exists(INDEX_FILE):
@@ -39,21 +50,6 @@ def save_index(entries):
         json.dump(entries, f, indent=2)
 
 
-def render_ticker(prices):
-    """prices: list of {symbol, name, price, change_24h}"""
-    coins = ""
-    for c in prices:
-        arrow = "+" if c["change_24h"] >= 0 else ""
-        coins += (
-            f'<div class="coin"><span class="sym">{c["symbol"]}</span>'
-            f'<span>${c["price"]:,.2f}</span>'
-            f'<span>({arrow}{c["change_24h"]:.1f}%)</span></div>'
-        )
-    updated = datetime.now(timezone.utc).strftime("%b %d, %Y %H:%M UTC")
-    return f"""<div class="ticker"><div class="wrap">{coins}
-    <span class="updated">Updated {updated}</span></div></div>"""
-
-
 def compute_biggest_mover(prices):
     """Returns the price dict (symbol, change_24h, ...) with the largest absolute move."""
     return max(prices, key=lambda c: abs(c["change_24h"]))
@@ -63,7 +59,7 @@ def save_gauge_image(value, slug):
     """Draws the Fear & Greed gauge (colored arc + needle) as a real PNG and
     saves it to assets/gauges/<slug>.png. This ONE file is used by both the
     website and the email — no separate hand-coded copies to drift apart.
-    Returns the path fragment relative to the site root, e.g. 'assets/gauges/2026-09-21-weekly.png'."""
+    Returns the path fragment relative to the site root."""
     w, h = 200, 120
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
@@ -93,18 +89,60 @@ def save_gauge_image(value, slug):
 
 def _fng_color(value):
     if value <= 45:
-        return "#E24C4C"  # red — Fear / Extreme Fear
+        return "#E24C4C"
     if value >= 55:
-        return "#256B32"  # green — Greed / Extreme Greed
-    return "#8A7F5C"  # neutral tan
+        return "#256B32"
+    return "#8A7F5C"
 
 
-def render_sentiment_bar(fng, mover, tag, gauge_path, root_prefix):
-    """fng: {'value': int, 'classification': str}
-    mover: a price dict (symbol, change_24h, ...) — the biggest mover
-    tag: 'Daily' or 'Weekly' — controls the mover box's label wording
-    gauge_path: relative path from save_gauge_image(), e.g. 'assets/gauges/<slug>.png'
-    root_prefix: '' for pages at the site root, '../' for pages under posts/"""
+def render_masthead():
+    return '<img class="post-masthead" src="{root}assets/header-a.png" alt="The Crypto Playback">'
+
+
+def render_ticker_bar(prices, date_abbrev):
+    """The full 'Header B' bar: Top 5 Market tab (arrow pointing into a
+    centered, evenly-spaced price grid, caption underneath the tab), the
+    TOP NEWS date pill, and a subscribe/share row. Matches the approved
+    email design exactly — same visual language, website's own CSS classes."""
+    row1 = prices[:3]
+    row2 = prices[3:]
+
+    def chip(c):
+        arrow_color = "#8FBF5C" if c["change_24h"] >= 0 else "#E8837A"
+        return (f'<span class="price-chip">{c["symbol"]} ${c["price"]:,.2f} '
+                f'<span style="color:{arrow_color};">({c["change_24h"]:+.1f}%)</span></span>')
+
+    prices_html = (
+        f'<div class="price-row">{"".join(chip(c) for c in row1)}</div>'
+        f'<div class="price-row" style="margin-top:9px;">{"".join(chip(c) for c in row2)}</div>'
+    )
+
+    return f"""<div class="ticker-bar">
+    <div class="ticker-top5-col">
+      <div class="ticker-tab-wrap">
+        <span class="ticker-tab">Top 5 Market</span>
+        <span class="ticker-arrow"></span>
+      </div>
+      <span class="ticker-caption">prices as of 6AM (cst)<br>on printed date</span>
+    </div>
+    <div class="ticker-prices">{prices_html}</div>
+  </div>
+  <div class="ticker-news-pill">
+    <span>TOP NEWS: <em style="color:#F2C94C;">{date_abbrev}</em></span>
+  </div>
+  <div class="ticker-subscribe-row">
+    <span class="ticker-share-prompt">Enjoying this? Share it with a friend &rarr;</span>
+    <span class="ticker-subscribe-text">SUBSCRIBE HERE</span>
+    <a class="ticker-icon" href="#" style="background:#B5702E;" aria-label="Email">&#9993;</a>
+    <a class="ticker-icon" href="https://x.com/cryptoplayback" style="background:#4A90D9;" aria-label="X">X</a>
+  </div>"""
+
+
+def render_sentiment_combined(fng, mover, tag):
+    """The single combined box (Fear & Greed + Biggest Mover on one line,
+    separated by a divider) inside a light-grey band. Needs gauge_path and
+    root_prefix filled in by the caller since the gauge image path depends
+    on where the page lives on the site."""
     fng_color = _fng_color(fng["value"])
     mover_up = mover["change_24h"] >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
@@ -115,22 +153,17 @@ def render_sentiment_bar(fng, mover, tag, gauge_path, root_prefix):
         else '<path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/>'
     )
 
-    return f"""<div class="sentiment-bar">
-    <div class="stat-box" style="border-color:{fng_color};">
-      <img src="{root_prefix}{gauge_path}" width="46" height="28" alt="Fear and Greed gauge">
-      <div class="stat-text">
-        <span class="stat-label">FEAR &amp; GREED</span><br>
-        <span class="stat-value" style="color:{fng_color};">{fng['value']}</span>
-        <span class="stat-word" style="color:{fng_color};">&nbsp;{fng['classification']}</span>
-      </div>
-    </div>
-    <div class="stat-box" style="border-color:#3A362F;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{mover_color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">{icon_path}</svg>
-      <div class="stat-text">
-        <span class="stat-label">{mover_label}</span><br>
-        <span class="stat-value" style="color:{mover_color};">{mover['symbol']}</span>
-        <span class="stat-word-bold" style="color:{mover_color};">&nbsp;{mover_sign}{mover['change_24h']:.1f}%</span>
-      </div>
+    return f"""<div class="sentiment-band">
+    <div class="sentiment-box" style="border-color:#3A362F;">
+      <img class="sentiment-gauge" src="{{gauge_src}}" alt="Fear and Greed gauge">
+      <span class="sentiment-label" style="color:#975F25;">FEAR &amp; GREED</span>
+      <span class="sentiment-value" style="color:{fng_color};">{fng['value']}</span>
+      <span class="sentiment-word" style="color:{fng_color};">{fng['classification']}</span>
+      <span class="sentiment-divider"></span>
+      <svg class="sentiment-mover-icon" viewBox="0 0 24 24" fill="none" stroke="{mover_color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">{icon_path}</svg>
+      <span class="sentiment-label" style="color:#975F25;">{mover_label}</span>
+      <span class="sentiment-value" style="color:{mover_color};">{mover['symbol']}</span>
+      <span class="sentiment-word-bold" style="color:{mover_color};">{mover_sign}{mover['change_24h']:.1f}%</span>
     </div>
   </div>"""
 
@@ -162,19 +195,22 @@ def render_post_html(post, root_prefix):
       <a class="source-link" href="{s['source_url']}" target="_blank" rel="noopener">Read more at {s['source_title']} &rarr;</a>
     </div>"""
 
+    masthead_html = render_masthead().replace("{root}", root_prefix)
+    sentiment_html = post.get('sentiment_html', '').replace("{gauge_src}", f"{root_prefix}{post.get('gauge_path', '')}")
+
     body = f"""<article class="post">
-    <span class="date">{post['date_display']} &middot; {post['tag']}</span>
-    <h1>{post['title']}</h1>
+    {masthead_html}
     {post.get('ticker_html', '')}
-    {post.get('sentiment_html', '')}
+    {sentiment_html}
     <div class="release-row">
       <span class="release-date">{post['date_display']}</span>
       <span class="release-issue">Issue #{post.get('issue_number', 1)}</span>
     </div>
     <div class="title-block">
       {post.get('issue_pill_html', '')}
-      {post.get('top_story_html', '')}
+      <h1>{post['title']}</h1>
     </div>
+    {post.get('top_story_html', '')}
     {stories_html}
   </article>"""
     return page(root_prefix, f"{post['title']} — The Crypto Playback", body, datetime.now().year)

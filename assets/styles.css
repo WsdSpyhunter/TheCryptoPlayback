@@ -279,3 +279,98 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   margin: 0;
   padding: 14px 16px;
 }
+
+/* ============ Newsletter-style post header (masthead + ticker) ============ */
+.post-masthead { width: 100%; max-width: 760px; display: block; margin: 0 auto; }
+
+.ticker-bar {
+  background: #171512;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.ticker-top5-col { flex-shrink: 0; display: flex; flex-direction: column; }
+.ticker-tab-wrap { display: flex; align-items: center; }
+.ticker-tab {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 12px;
+  white-space: nowrap;
+}
+.ticker-arrow {
+  display: inline-block; width: 0; height: 0;
+  border-top: 19px solid transparent; border-bottom: 19px solid transparent;
+  border-left: 14px solid var(--accent);
+}
+.ticker-caption { color: var(--paper); opacity: 0.6; font-size: 10px; margin-top: 8px; line-height: 1.3; }
+.ticker-prices { flex: 1; padding-top: 6px; }
+.price-row { display: flex; justify-content: center; gap: 22px; }
+.price-chip { color: var(--paper); font-family: 'Oswald', sans-serif; font-size: 12px; white-space: nowrap; }
+
+.ticker-news-pill {
+  background: #3a3835;
+  padding: 10px 24px;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  color: var(--paper);
+}
+
+.ticker-subscribe-row {
+  background: #171512;
+  padding: 12px 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.ticker-share-prompt { font-family: 'Playfair Display', serif; font-style: italic; font-size: 12px; color: var(--paper); opacity: 0.75; }
+.ticker-subscribe-text { font-family: 'Oswald', sans-serif; font-size: 16px; font-weight: 700; color: var(--paper); }
+.ticker-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 27px; height: 27px; border-radius: 50%;
+  color: var(--paper); text-align: center; font-size: 13px;
+  text-decoration: none;
+}
+
+/* ============ Combined sentiment box ============ */
+.sentiment-band { background: #AFAA9E; padding: 14px 24px; max-width: 760px; margin: 0 auto; }
+.sentiment-box {
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid;
+  border-radius: 6px;
+  padding: 12px 16px;
+  text-align: center;
+}
+.sentiment-gauge { width: 40px; height: 26px; vertical-align: middle; display: inline; }
+.sentiment-mover-icon { width: 20px; height: 20px; vertical-align: middle; display: inline; }
+.sentiment-label { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; vertical-align: middle; margin-left: 6px; }
+.sentiment-value { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 18px; vertical-align: middle; margin-left: 4px; }
+.sentiment-word { font-size: 12px; vertical-align: middle; }
+.sentiment-word-bold { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px; vertical-align: middle; }
+.sentiment-divider { display: inline-block; width: 1.5px; height: 26px; background: #3A362F; vertical-align: middle; margin: 0 16px; }
+
+/* ============ Release row / issue pill (updated: shadow, blue pill) ============ */
+.post .release-row {
+  max-width: 760px; margin: 20px auto 0;
+  display: flex; justify-content: space-between; align-items: baseline;
+  background: #F1EEE7; border-radius: 4px; padding: 10px 16px;
+  box-shadow: 0 2px 5px rgba(23,21,18,0.18);
+  font-size: 12px; color: rgba(23,21,18,0.6);
+}
+.issue-pill {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.04em;
+  color: var(--paper); background: #268CCA; padding: 4px 10px; border-radius: 3px; margin-bottom: 8px;
+}
+.post .title-block { max-width: 760px; margin: 8px auto 0; padding: 0 24px; }

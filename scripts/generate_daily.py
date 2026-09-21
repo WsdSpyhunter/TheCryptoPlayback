@@ -15,9 +15,9 @@ from fetch_news import get_recent_headlines
 from fetch_sentiment import get_fear_greed
 from claude_client import ask_claude_json
 from build_site import (
-    add_post_and_rebuild, render_ticker, render_sentiment_bar,
+    add_post_and_rebuild, render_ticker_bar, render_sentiment_combined,
     render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
-    save_gauge_image,
+    save_gauge_image, format_date_abbrev,
 )
 
 MODEL = "claude-haiku-4-5-20251001"
@@ -85,14 +85,16 @@ def main():
     now = datetime.now(timezone.utc)
     slug = now.strftime("%Y-%m-%d") + "-daily"
     gauge_path = save_gauge_image(fng["value"], slug)
+    date_abbrev = format_date_abbrev(now)
     post = {
         "slug": slug,
         "title": result["headline"],
         "date_display": now.strftime("%B %d, %Y"),
         "tag": "Daily",
         "issue_number": issue_number,
-        "ticker_html": render_ticker(prices),
-        "sentiment_html": render_sentiment_bar(fng, mover, "Daily", gauge_path, "../"),
+        "gauge_path": gauge_path,
+        "ticker_html": render_ticker_bar(prices, date_abbrev),
+        "sentiment_html": render_sentiment_combined(fng, mover, "Daily"),
         "issue_pill_html": render_issue_pill("Daily"),
         "top_story_html": render_top_story_box(result["intro"]),
         "stories": [{
