@@ -26,6 +26,11 @@ from buttondown_client import create_draft
 MODEL = "claude-sonnet-5"
 STORY_COUNT_MIN, STORY_COUNT_MAX = 5, 7
 
+# Real, public URLs — these images live in the site's own assets/ folder,
+# so they resolve correctly inside an actual email sent to real inboxes
+# (unlike design-tool preview URLs, which only work inside that tool).
+ASSET_BASE = "https://cryptoplayback.com/assets"
+
 SYSTEM_PROMPT = f"""You are the writer for "The Crypto Playback," a weekly \
 Bitcoin/crypto newsletter. Your voice: informed, a little wry, willing to \
 share an opinion, but you NEVER give financial advice or tell readers what \
@@ -47,6 +52,9 @@ Rules:
 - Never phrase anything as investment advice or a prediction of what to do \
   with money.
 - Write a one-sentence intro for the whole issue (a "this week in crypto" framing line).
+- "issue_title" must NOT include the words "The Crypto Playback" — the brand \
+  name is already shown separately in the header and subject line. Write \
+  just the punchy theme of the week (e.g. "Clarity Act RIP, Bitcoin Says Hi").
 - For each story, if its headline has an image URL listed, copy it EXACTLY \
   into that story's "image_url". Never invent or guess an image URL. If a \
   headline has no image URL listed, set that story's "image_url" to null.
@@ -57,7 +65,7 @@ Rules:
 
 Respond with ONLY a JSON object, no markdown fences, no other text:
 {{
-  "issue_title": "a short title for this week's issue",
+  "issue_title": "a short title for this week's issue (no brand name in it)",
   "intro": "one sentence framing the week",
   "stories": [
     {{
@@ -77,6 +85,51 @@ def build_user_prompt(headlines):
         img_note = f" [image: {h['image_url']}]" if h.get("image_url") else " [image: none]"
         lines.append(f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']}){img_note}")
     return "Headlines from the past week:\n" + "\n".join(lines)
+
+
+def clean_issue_title(title):
+    """Defensive backstop: strip a leading brand-name prefix if the model
+    includes it anyway, so the subject/headline never doubles up."""
+    prefixes = ["the crypto playback:", "the crypto playback -", "the crypto playback —"]
+    stripped = title.strip()
+    lower = stripped.lower()
+    for p in prefixes:
+        if lower.startswith(p):
+            stripped = stripped[len(p):].strip()
+            break
+    return stripped
+
+
+def masthead_email_html():
+    return (
+        f"<img src='{ASSET_BASE}/header-a.png' width='640' "
+        f"style='width:100%;max-width:640px;display:block;' alt='The Crypto Playback'>"
+    )
+
+
+def ticker_bar_email_html(prices):
+    coins = " &middot; ".join(
+        f"{c['symbol']} ${c['price']:,.2f} ({c['change_24h']:+.1f}%)" for c in prices
+    )
+    return (
+        f"<table role='presentation' width='100%' style='background:#171512;margin:0;'><tr>"
+        f"<td style='padding:14px 20px;'>"
+        f"<span style='display:inline-block;background:#DE9547;color:#171512;"
+        f"font-weight:bold;font-size:12px;padding:6px 10px;border-radius:3px;'>Top 5 Market</span> "
+        f"<span style='color:#FBF9F5;font-size:13px;'>{coins}</span>"
+        f"</td></tr></table>"
+    )
+
+
+def issue_meta_email_html(tag, date_display, issue_number):
+    label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
+    return (
+        f"<p style='margin:16px 0 0;'>"
+        f"<span style='display:inline-block;background:#268CCA;color:#FBF9F5;"
+        f"font-weight:bold;font-size:11px;padding:4px 10px;border-radius:3px;'>{label}</span> "
+        f"<span style='color:#666666;font-size:12px;'>&middot; {date_display} &middot; Issue #{issue_number}</span>"
+        f"</p>"
+    )
 
 
 def sentiment_to_email_html(fng, mover):
@@ -112,14 +165,26 @@ def top_story_to_email_html(intro):
     )
 
 
-def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover):
-    """A simpler HTML rendering for the email body (Buttondown handles its
-    own layout/branding chrome around this)."""
-    price_line = " &middot; ".join(
-        f"{c['symbol']} ${c['price']:,.2f} ({c['change_24h']:+.1f}%)" for c in ticker_prices
+def footer_email_html():
+    year = datetime.now().year
+    return (
+        f"<img src='{ASSET_BASE}/disclaimer.png' width='640' "
+        f"style='width:100%;max-width:640px;display:block;margin-top:24px;' alt='Legal disclaimer: The Crypto Playback is not financial advice.'>"
+        f"<table role='presentation' width='100%' style='background:#975F25;margin:0;'><tr>"
+        f"<td style='padding:14px 20px;color:#FBF9F5;font-size:12px;'>&copy; {year} The Crypto Playback &middot; cryptoplayback@gmail.com</td>"
+        f"<td style='padding:14px 20px;text-align:right;'>"
+        f"<img src='{ASSET_BASE}/logo-white.png' width='90' style='width:90px;display:inline-block;' alt='The Crypto Playback'>"
+        f"</td></tr></table>"
     )
+
+
+def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, issue_number):
+    """Full HTML rendering for the email body — masthead through footer,
+    matching the approved design."""
     parts = [
-        f"<p><strong>{price_line}</strong></p>",
+        masthead_email_html(),
+        ticker_bar_email_html(ticker_prices),
+        issue_meta_email_html(tag, date_display, issue_number),
         sentiment_to_email_html(fng, mover),
         top_story_to_email_html(intro),
     ]
@@ -127,6 +192,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
         img_html = f"<p><img src='{s['image_url']}' style='max-width:100%;'></p>" if s.get("image_url") else ""
         parts.append(f"<h3>{s['headline']}</h3>{img_html}{s['body']}"
                       f"<p><a href='{s['source_url']}'>Read more at {s['source_title']}</a></p><hr>")
+    parts.append(footer_email_html())
     return "\n".join(parts)
 
 
@@ -138,17 +204,19 @@ def main():
         sys.exit(1)
 
     result = ask_claude_json(MODEL, SYSTEM_PROMPT, build_user_prompt(headlines), max_tokens=6000)
+    result["issue_title"] = clean_issue_title(result["issue_title"])
 
     fng = get_fear_greed()
     mover = compute_biggest_mover(prices)
     issue_number = sum(1 for e in load_index() if e["tag"] == "Weekly") + 1
 
     now = datetime.now(timezone.utc)
+    date_display = now.strftime("%B %d, %Y")
     slug = now.strftime("%Y-%m-%d") + "-weekly"
     post = {
         "slug": slug,
         "title": result["issue_title"],
-        "date_display": now.strftime("%B %d, %Y"),
+        "date_display": date_display,
         "tag": "Weekly",
         "issue_number": issue_number,
         "ticker_html": render_ticker(prices),
@@ -162,7 +230,8 @@ def main():
     print(f"Generated weekly post: {slug}")
 
     email_body = stories_to_plain_email_html(
-        result["issue_title"], result["intro"], result["stories"], prices, fng, mover
+        result["issue_title"], result["intro"], result["stories"], prices,
+        fng, mover, "Weekly", date_display, issue_number,
     )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
