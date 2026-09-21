@@ -110,7 +110,7 @@ def masthead_email_html():
     )
 
 
-def ticker_bar_email_html(prices, date_display):
+def ticker_bar_email_html(prices, date_abbrev):
     """Matches the approved design: Top 5 Market tab + stacked prices +
     caption, a separate news-date pill, and a subscribe callout. Uses text
     symbols instead of inline SVG icons — SVG rendering is unreliable across
@@ -121,7 +121,7 @@ def ticker_bar_email_html(prices, date_display):
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#171512;">
 <tr>
   <td style="padding:14px 10px 14px 16px; vertical-align:top; white-space:nowrap;">
-    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:12px;padding:6px 10px;border-radius:3px;">Top 5 Market</span>
+    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:12px;padding:6px 10px;border-radius:3px;">Top 5 Market</span><span style="display:inline-block;width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:7px solid #DE9547;vertical-align:middle;"></span>
     <div style="color:#FBF9F5;opacity:0.7;font-size:9px;margin-top:4px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</div>
   </td>
   <td style="padding:14px 10px; vertical-align:top; color:#FBF9F5; font-family:Arial,sans-serif; font-size:12px; line-height:1.5; white-space:nowrap;">
@@ -129,7 +129,7 @@ def ticker_bar_email_html(prices, date_display):
   </td>
   <td style="padding:14px 10px; vertical-align:middle;">
     <div style="background:#3a3835; border-radius:3px; padding:8px 12px; text-align:center; color:#FBF9F5; font-family:Arial,sans-serif; font-size:11px; white-space:nowrap;">
-      TOP NEWS: <span style="color:#DDD5C7;">{date_display}</span>
+      TOP NEWS: <span style="color:#DDD5C7;">{date_abbrev}</span>
     </div>
   </td>
   <td style="padding:14px 16px 14px 10px; vertical-align:middle; white-space:nowrap;">
@@ -206,12 +206,12 @@ def footer_email_html():
 </tr></table>"""
 
 
-def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, issue_number, gauge_url):
+def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, date_abbrev, issue_number, gauge_url):
     """Full HTML rendering for the email body — masthead through footer,
     matching the approved design exactly."""
     parts = [
         masthead_email_html(),
-        ticker_bar_email_html(ticker_prices, date_display),
+        ticker_bar_email_html(ticker_prices, date_abbrev),
         sentiment_to_email_html(fng, mover, gauge_url),
         release_row_email_html(date_display, issue_number),
         issue_title_block_email_html(tag, issue_title),
@@ -219,10 +219,12 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
     ]
     for s in stories:
         img_html = f"<p><img src='{s['image_url']}' style='max-width:100%;'></p>" if s.get("image_url") else ""
-        parts.append(f"<h3>{s['headline']}</h3>{img_html}{s['body']}"
-                      f"<p><a href='{s['source_url']}'>Read more at {s['source_title']}</a></p><hr>")
+        parts.append(f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:#171512;margin:0 0 10px;'>{s['headline']}</h3>{img_html}{s['body']}"
+                      f"<p><a href='{s['source_url']}' style='color:#B5702E;font-weight:bold;text-decoration:none;'>Read more at {s['source_title']} &rarr;</a></p><hr>")
     parts.append(footer_email_html())
-    return "\n".join(parts)
+    body_html = "\n".join(parts[1:])  # everything except the masthead image
+    wrapped = f"<div style='font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
+    return parts[0] + "\n" + wrapped
 
 
 def main():
@@ -241,6 +243,7 @@ def main():
 
     now = datetime.now(timezone.utc)
     date_display = now.strftime("%B %d, %Y")
+    date_abbrev = now.strftime("%b %d, %Y").upper()
     slug = now.strftime("%Y-%m-%d") + "-weekly"
     gauge_path = save_gauge_image(fng["value"], slug)
     gauge_url = f"{ASSET_BASE}/gauges/{slug}.png"
@@ -262,7 +265,7 @@ def main():
 
     email_body = stories_to_plain_email_html(
         result["issue_title"], result["intro"], result["stories"], prices,
-        fng, mover, "Weekly", date_display, issue_number, gauge_url,
+        fng, mover, "Weekly", date_display, date_abbrev, issue_number, gauge_url,
     )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
