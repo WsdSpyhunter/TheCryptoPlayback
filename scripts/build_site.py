@@ -9,6 +9,7 @@ generate_daily.py and generate_weekly.py call into this after they've
 produced a new post's content.
 """
 import json
+import math
 import os
 from datetime import datetime, timezone
 from partials import page
@@ -50,9 +51,89 @@ def render_ticker(prices):
     <span class="updated">Updated {updated}</span></div></div>"""
 
 
+def compute_biggest_mover(prices):
+    """Returns the price dict (symbol, change_24h, ...) with the largest absolute move."""
+    return max(prices, key=lambda c: abs(c["change_24h"]))
+
+
+def _fng_needle_point(value, cx=50, cy=52, length=30):
+    """Angle sweeps from 180deg (value=0) to 0deg (value=100) across the gauge's semicircle."""
+    angle_deg = 180 - (value / 100 * 180)
+    angle_rad = math.radians(angle_deg)
+    x = cx + length * math.cos(angle_rad)
+    y = cy - length * math.sin(angle_rad)
+    return round(x, 1), round(y, 1)
+
+
+def _fng_color(value):
+    if value <= 45:
+        return "#E24C4C"  # red — Fear / Extreme Fear
+    if value >= 55:
+        return "#256B32"  # green — Greed / Extreme Greed
+    return "#8A7F5C"  # neutral tan
+
+
+def render_sentiment_bar(fng, mover, tag):
+    """fng: {'value': int, 'classification': str}
+    mover: a price dict (symbol, change_24h, ...) — the biggest mover
+    tag: 'Daily' or 'Weekly' — controls the mover box's label wording"""
+    nx, ny = _fng_needle_point(fng["value"])
+    fng_color = _fng_color(fng["value"])
+    mover_up = mover["change_24h"] >= 0
+    mover_color = "#256B32" if mover_up else "#E24C4C"
+    mover_sign = "+" if mover_up else ""
+    mover_label = "BIGGEST MOVER TODAY" if tag == "Daily" else "BIGGEST MOVER OF THE WEEK"
+    icon_path = (
+        '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>' if mover_up
+        else '<path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/>'
+    )
+
+    return f"""<div class="sentiment-bar">
+    <div class="stat-box" style="border-color:{fng_color};">
+      <svg width="46" height="30" viewBox="0 0 100 60">
+        <defs>
+          <linearGradient id="fngGrad" x1="12" y1="52" x2="88" y2="52" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#E24C4C"/>
+            <stop offset="50%" stop-color="#F2C94C"/>
+            <stop offset="100%" stop-color="#256B32"/>
+          </linearGradient>
+        </defs>
+        <path d="M12,52 A38,38 0 0 1 88,52" fill="none" stroke="url(#fngGrad)" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="50" cy="52" r="3.5" fill="#FBF9F5"/>
+        <line x1="50" y1="52" x2="{nx}" y2="{ny}" stroke="#FBF9F5" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="stat-text">
+        <span class="stat-label">FEAR &amp; GREED</span><br>
+        <span class="stat-value" style="color:{fng_color};">{fng['value']}</span>
+        <span class="stat-word" style="color:{fng_color};">&nbsp;{fng['classification']}</span>
+      </div>
+    </div>
+    <div class="stat-box" style="border-color:#3A362F;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{mover_color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">{icon_path}</svg>
+      <div class="stat-text">
+        <span class="stat-label">{mover_label}</span><br>
+        <span class="stat-value" style="color:{mover_color};">{mover['symbol']}</span>
+        <span class="stat-word-bold" style="color:{mover_color};">&nbsp;{mover_sign}{mover['change_24h']:.1f}%</span>
+      </div>
+    </div>
+  </div>"""
+
+
+def render_issue_pill(tag):
+    label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
+    return f'<span class="issue-pill">{label}</span>'
+
+
+def render_top_story_box(intro):
+    return f"""<div class="top-story">
+    <span class="top-story-tab">TOP STORY</span>
+    <p class="top-story-text">{intro}</p>
+  </div>"""
+
+
 def render_post_html(post, root_prefix):
-    """post: dict with title, date, tag, ticker_html, stories (list of
-    {headline, body, source_title, source_url, image_url})"""
+    """post: dict with title, date, tag, ticker_html, sentiment_html, issue_pill_html,
+    top_story_html, stories (list of {headline, body, source_title, source_url, image_url})"""
     stories_html = ""
     for s in post["stories"]:
         img_html = ""
@@ -69,6 +150,15 @@ def render_post_html(post, root_prefix):
     <span class="date">{post['date_display']} &middot; {post['tag']}</span>
     <h1>{post['title']}</h1>
     {post.get('ticker_html', '')}
+    {post.get('sentiment_html', '')}
+    <div class="release-row">
+      <span class="release-date">{post['date_display']}</span>
+      <span class="release-issue">Issue #{post.get('issue_number', 1)}</span>
+    </div>
+    <div class="title-block">
+      {post.get('issue_pill_html', '')}
+      {post.get('top_story_html', '')}
+    </div>
     {stories_html}
   </article>"""
     return page(root_prefix, f"{post['title']} — The Crypto Playback", body, datetime.now().year)
