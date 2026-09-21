@@ -36,6 +36,16 @@ STORY_COUNT_MIN, STORY_COUNT_MAX = 5, 7
 # (unlike design-tool preview URLs, which only work inside that tool).
 ASSET_BASE = "https://cryptoplayback.com/assets"
 
+MONTH_ABBREV = {
+    1: "JAN.", 2: "FEB.", 3: "MAR.", 4: "APR.", 5: "MAY.", 6: "JUN.",
+    7: "JUL.", 8: "AUG.", 9: "SEPT.", 10: "OCT.", 11: "NOV.", 12: "DEC.",
+}
+
+
+def format_date_abbrev(dt):
+    """House style for the 'TOP NEWS:' date, e.g. 'SEPT. 21, 2026'."""
+    return f"{MONTH_ABBREV[dt.month]} {dt.day}, {dt.year}"
+
 SYSTEM_PROMPT = f"""You are the writer for "The Crypto Playback," a weekly \
 Bitcoin/crypto newsletter. Your voice: informed, a little wry, willing to \
 share an opinion, but you NEVER give financial advice or tell readers what \
@@ -136,7 +146,7 @@ def ticker_bar_email_html(prices, date_abbrev):
   </td>
   <td width="175" style="width:175px; padding:14px 6px; vertical-align:middle;">
     <div style="background:#3a3835; border-radius:3px; padding:8px 10px; text-align:center; color:#FBF9F5; font-family:Arial,sans-serif; font-size:11px; white-space:nowrap;">
-      TOP NEWS: <span style="color:#DDD5C7;">{date_abbrev}</span>
+      TOP NEWS: <span style="color:#F2C94C;">{date_abbrev}</span>
     </div>
   </td>
   <td width="120" style="width:120px; padding:14px 16px 14px 6px; vertical-align:middle;">
@@ -254,7 +264,7 @@ def main():
 
     now = datetime.now(timezone.utc)
     date_display = now.strftime("%B %d, %Y")
-    date_abbrev = now.strftime("%b %d, %Y").upper()
+    date_abbrev = format_date_abbrev(now)
     slug = now.strftime("%Y-%m-%d") + "-weekly"
     gauge_path = save_gauge_image(fng["value"], slug)
     # Website: relative path, goes live atomically with the post when the PR merges.
