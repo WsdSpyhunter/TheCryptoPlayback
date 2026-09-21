@@ -211,7 +211,10 @@ def footer_email_html():
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#975F25;margin:0;"><tr>
 <td style="padding:14px 20px;color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;">&copy; {year} The Crypto Playback &middot; cryptoplayback@gmail.com</td>
 <td style="padding:14px 20px;text-align:right;"><img src='{ASSET_BASE}/logo-white.png' width='90' style='width:90px;display:inline-block;' alt='The Crypto Playback'></td>
-</tr></table>"""
+</tr></table>
+<p style="text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#666666;padding:10px 0;margin:0;background:#FBF9F5;">
+  <a href="{{{{ unsubscribe_url }}}}" style="color:#666666;">Unsubscribe from The Crypto Playback</a>
+</p>"""
 
 
 def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, date_abbrev, issue_number, gauge_data_uri):
