@@ -12,16 +12,19 @@ import json
 import math
 import os
 from datetime import datetime, timezone
+from PIL import Image, ImageDraw
 from partials import page
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
 POSTS_DATA_DIR = os.path.join(DATA_DIR, "posts")
 POSTS_HTML_DIR = os.path.join(ROOT, "posts")
+GAUGES_DIR = os.path.join(ROOT, "assets", "gauges")
 INDEX_FILE = os.path.join(DATA_DIR, "posts_index.json")
 
 os.makedirs(POSTS_DATA_DIR, exist_ok=True)
 os.makedirs(POSTS_HTML_DIR, exist_ok=True)
+os.makedirs(GAUGES_DIR, exist_ok=True)
 
 
 def load_index():
@@ -56,13 +59,36 @@ def compute_biggest_mover(prices):
     return max(prices, key=lambda c: abs(c["change_24h"]))
 
 
-def _fng_needle_point(value, cx=50, cy=52, length=30):
-    """Angle sweeps from 180deg (value=0) to 0deg (value=100) across the gauge's semicircle."""
-    angle_deg = 180 - (value / 100 * 180)
+def save_gauge_image(value, slug):
+    """Draws the Fear & Greed gauge (colored arc + needle) as a real PNG and
+    saves it to assets/gauges/<slug>.png. This ONE file is used by both the
+    website and the email — no separate hand-coded copies to drift apart.
+    Returns the path fragment relative to the site root, e.g. 'assets/gauges/2026-09-21-weekly.png'."""
+    w, h = 200, 120
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    cx, cy = w // 2, int(h * 0.87)
+    r_outer = int(w * 0.42)
+    thickness = int(w * 0.09)
+    bbox = [cx - r_outer, cy - r_outer, cx + r_outer, cy + r_outer]
+    bands = [
+        (180, 216, "#E24C4C"), (216, 252, "#EB7A3C"), (252, 288, "#F2C94C"),
+        (288, 324, "#8FBF5C"), (324, 360, "#256B32"),
+    ]
+    for start, end, color in bands:
+        draw.arc(bbox, start=start, end=end, fill=color, width=thickness)
+    angle_deg = 180 + (value / 100) * 180
     angle_rad = math.radians(angle_deg)
-    x = cx + length * math.cos(angle_rad)
-    y = cy - length * math.sin(angle_rad)
-    return round(x, 1), round(y, 1)
+    needle_len = r_outer - thickness // 2
+    nx = cx + needle_len * math.cos(angle_rad)
+    ny = cy + needle_len * math.sin(angle_rad)
+    draw.line([(cx, cy), (nx, ny)], fill="#171512", width=max(3, w // 40))
+    pivot_r = max(4, w // 25)
+    draw.ellipse([cx - pivot_r, cy - pivot_r, cx + pivot_r, cy + pivot_r], fill="#171512")
+
+    out_path = os.path.join(GAUGES_DIR, f"{slug}.png")
+    img.save(out_path)
+    return f"assets/gauges/{slug}.png"
 
 
 def _fng_color(value):
@@ -73,11 +99,12 @@ def _fng_color(value):
     return "#8A7F5C"  # neutral tan
 
 
-def render_sentiment_bar(fng, mover, tag):
+def render_sentiment_bar(fng, mover, tag, gauge_path, root_prefix):
     """fng: {'value': int, 'classification': str}
     mover: a price dict (symbol, change_24h, ...) — the biggest mover
-    tag: 'Daily' or 'Weekly' — controls the mover box's label wording"""
-    nx, ny = _fng_needle_point(fng["value"])
+    tag: 'Daily' or 'Weekly' — controls the mover box's label wording
+    gauge_path: relative path from save_gauge_image(), e.g. 'assets/gauges/<slug>.png'
+    root_prefix: '' for pages at the site root, '../' for pages under posts/"""
     fng_color = _fng_color(fng["value"])
     mover_up = mover["change_24h"] >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
@@ -90,18 +117,7 @@ def render_sentiment_bar(fng, mover, tag):
 
     return f"""<div class="sentiment-bar">
     <div class="stat-box" style="border-color:{fng_color};">
-      <svg width="46" height="30" viewBox="0 0 100 60">
-        <defs>
-          <linearGradient id="fngGrad" x1="12" y1="52" x2="88" y2="52" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#E24C4C"/>
-            <stop offset="50%" stop-color="#F2C94C"/>
-            <stop offset="100%" stop-color="#256B32"/>
-          </linearGradient>
-        </defs>
-        <path d="M12,52 A38,38 0 0 1 88,52" fill="none" stroke="url(#fngGrad)" stroke-width="9" stroke-linecap="round"/>
-        <circle cx="50" cy="52" r="3.5" fill="#FBF9F5"/>
-        <line x1="50" y1="52" x2="{nx}" y2="{ny}" stroke="#FBF9F5" stroke-width="3" stroke-linecap="round"/>
-      </svg>
+      <img src="{root_prefix}{gauge_path}" width="46" height="28" alt="Fear and Greed gauge">
       <div class="stat-text">
         <span class="stat-label">FEAR &amp; GREED</span><br>
         <span class="stat-value" style="color:{fng_color};">{fng['value']}</span>

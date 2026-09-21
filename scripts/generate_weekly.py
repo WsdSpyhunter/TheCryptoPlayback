@@ -22,6 +22,7 @@ from claude_client import ask_claude_json
 from build_site import (
     add_post_and_rebuild, render_ticker, render_sentiment_bar,
     render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
+    save_gauge_image,
 )
 from buttondown_client import create_draft
 
@@ -131,20 +132,23 @@ def ticker_bar_email_html(prices, date_display):
       TOP NEWS: <span style="color:#DDD5C7;">{date_display}</span>
     </div>
   </td>
-  <td style="padding:14px 16px 14px 10px; vertical-align:middle; text-align:right; white-space:nowrap;">
-    <div style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:10px; line-height:1.3;">SUBSCRIBE<br>HERE</div>
-    <div style="margin-top:4px;">
-      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#B5702E;color:#FBF9F5;text-align:center;font-size:11px;">&#9993;</span><br>
-      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#4A90D9;color:#FBF9F5;text-align:center;font-size:11px;margin-top:4px;">X</span>
-    </div>
+  <td style="padding:14px 16px 14px 10px; vertical-align:middle; white-space:nowrap;">
+    <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+      <td style="vertical-align:middle; padding-right:8px; text-align:right; color:#FBF9F5; font-family:Arial,sans-serif; font-size:10px; line-height:1.3;">SUBSCRIBE<br>HERE</td>
+      <td style="vertical-align:middle;">
+        <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#B5702E;color:#FBF9F5;text-align:center;font-size:11px;">&#9993;</span><br>
+        <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#4A90D9;color:#FBF9F5;text-align:center;font-size:11px;margin-top:4px;">X</span>
+      </td>
+    </tr></table>
   </td>
 </tr>
 </table>"""
 
 
-def sentiment_to_email_html(fng, mover):
-    """Simple, email-safe (no writing-mode, minimal flex reliance) version of the
-    Fear & Greed + Biggest Mover callout for the Buttondown draft."""
+def sentiment_to_email_html(fng, mover, gauge_url):
+    """Email version of the Fear & Greed + Biggest Mover callout. Uses the
+    SAME gauge PNG (gauge_url, a real hosted URL) that the website uses —
+    one shared image, so the two surfaces can't drift apart again."""
     fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
     mover_up = mover["change_24h"] >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
@@ -152,9 +156,14 @@ def sentiment_to_email_html(fng, mover):
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#948D7E;margin:0;"><tr><td style="padding:14px 16px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed;"><tr>
 <td width="50%" style="background:#F1EEE7;border:1.5px solid {fng_color};border-radius:6px;padding:10px 14px;width:50%;">
+<table role="presentation" cellpadding="0" cellspacing="0"><tr>
+<td style="padding-right:8px;"><img src="{gauge_url}" width="46" height="28" alt="Fear and Greed gauge"></td>
+<td>
 <strong style="color:#975F25;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.05em;">FEAR &amp; GREED</strong><br>
 <span style="color:{fng_color};font-family:Arial,sans-serif;font-weight:bold;font-size:19px;">{fng['value']}</span>
 <span style="color:{fng_color};font-family:Arial,sans-serif;">{fng['classification']}</span>
+</td>
+</tr></table>
 </td>
 <td width="14" style="width:14px;">&nbsp;</td>
 <td width="50%" style="background:#F1EEE7;border:1.5px solid {mover_color};border-radius:6px;padding:10px 14px;width:50%;">
@@ -197,13 +206,13 @@ def footer_email_html():
 </tr></table>"""
 
 
-def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, issue_number):
+def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, issue_number, gauge_url):
     """Full HTML rendering for the email body — masthead through footer,
     matching the approved design exactly."""
     parts = [
         masthead_email_html(),
         ticker_bar_email_html(ticker_prices, date_display),
-        sentiment_to_email_html(fng, mover),
+        sentiment_to_email_html(fng, mover, gauge_url),
         release_row_email_html(date_display, issue_number),
         issue_title_block_email_html(tag, issue_title),
         top_story_to_email_html(intro),
@@ -233,6 +242,8 @@ def main():
     now = datetime.now(timezone.utc)
     date_display = now.strftime("%B %d, %Y")
     slug = now.strftime("%Y-%m-%d") + "-weekly"
+    gauge_path = save_gauge_image(fng["value"], slug)
+    gauge_url = f"{ASSET_BASE}/gauges/{slug}.png"
     post = {
         "slug": slug,
         "title": result["issue_title"],
@@ -240,7 +251,7 @@ def main():
         "tag": "Weekly",
         "issue_number": issue_number,
         "ticker_html": render_ticker(prices),
-        "sentiment_html": render_sentiment_bar(fng, mover, "Weekly"),
+        "sentiment_html": render_sentiment_bar(fng, mover, "Weekly", gauge_path, "../"),
         "issue_pill_html": render_issue_pill("Weekly"),
         "top_story_html": render_top_story_box(result["intro"]),
         "stories": result["stories"],
@@ -251,7 +262,7 @@ def main():
 
     email_body = stories_to_plain_email_html(
         result["issue_title"], result["intro"], result["stories"], prices,
-        fng, mover, "Weekly", date_display, issue_number,
+        fng, mover, "Weekly", date_display, issue_number, gauge_url,
     )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
