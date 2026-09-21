@@ -1,63 +1,63 @@
 {
   "slug": "2026-09-21-weekly",
-  "title": "Short Squeeze Season and the Clarity Act's Ghost",
+  "title": "Shorts Get Squeezed, Congress Gets Skipped",
   "date_display": "September 21, 2026",
   "tag": "Weekly",
-  "issue_number": 5,
-  "ticker_html": "<div class=\"ticker\"><div class=\"wrap\"><div class=\"coin\"><span class=\"sym\">BTC</span><span>$85,101.00</span><span>(+5.7%)</span></div><div class=\"coin\"><span class=\"sym\">ETH</span><span>$2,731.61</span><span>(+5.9%)</span></div><div class=\"coin\"><span class=\"sym\">BNB</span><span>$790.06</span><span>(+5.1%)</span></div><div class=\"coin\"><span class=\"sym\">XRP</span><span>$1.49</span><span>(+8.0%)</span></div><div class=\"coin\"><span class=\"sym\">SOL</span><span>$117.25</span><span>(+8.4%)</span></div>\n    <span class=\"updated\">Updated Sep 21, 2026 13:22 UTC</span></div></div>",
-  "sentiment_html": "<div class=\"sentiment-bar\">\n    <div class=\"stat-box\" style=\"border-color:#256B32;\">\n      <svg width=\"46\" height=\"30\" viewBox=\"0 0 100 60\">\n        <defs>\n          <linearGradient id=\"fngGrad\" x1=\"12\" y1=\"52\" x2=\"88\" y2=\"52\" gradientUnits=\"userSpaceOnUse\">\n            <stop offset=\"0%\" stop-color=\"#E24C4C\"/>\n            <stop offset=\"50%\" stop-color=\"#F2C94C\"/>\n            <stop offset=\"100%\" stop-color=\"#256B32\"/>\n          </linearGradient>\n        </defs>\n        <path d=\"M12,52 A38,38 0 0 1 88,52\" fill=\"none\" stroke=\"url(#fngGrad)\" stroke-width=\"9\" stroke-linecap=\"round\"/>\n        <circle cx=\"50\" cy=\"52\" r=\"3.5\" fill=\"#FBF9F5\"/>\n        <line x1=\"50\" y1=\"52\" x2=\"67.6\" y2=\"27.7\" stroke=\"#FBF9F5\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n      </svg>\n      <div class=\"stat-text\">\n        <span class=\"stat-label\">FEAR &amp; GREED</span><br>\n        <span class=\"stat-value\" style=\"color:#256B32;\">70</span>\n        <span class=\"stat-word\" style=\"color:#256B32;\">&nbsp;Greed</span>\n      </div>\n    </div>\n    <div class=\"stat-box\" style=\"border-color:#3A362F;\">\n      <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <div class=\"stat-text\">\n        <span class=\"stat-label\">BIGGEST MOVER OF THE WEEK</span><br>\n        <span class=\"stat-value\" style=\"color:#256B32;\">SOL</span>\n        <span class=\"stat-word-bold\" style=\"color:#256B32;\">&nbsp;+8.4%</span>\n      </div>\n    </div>\n  </div>",
+  "issue_number": 6,
+  "ticker_html": "<div class=\"ticker\"><div class=\"wrap\"><div class=\"coin\"><span class=\"sym\">BTC</span><span>$85,742.00</span><span>(+6.4%)</span></div><div class=\"coin\"><span class=\"sym\">ETH</span><span>$2,732.69</span><span>(+5.9%)</span></div><div class=\"coin\"><span class=\"sym\">BNB</span><span>$795.57</span><span>(+5.6%)</span></div><div class=\"coin\"><span class=\"sym\">XRP</span><span>$1.49</span><span>(+8.2%)</span></div><div class=\"coin\"><span class=\"sym\">SOL</span><span>$117.84</span><span>(+9.0%)</span></div>\n    <span class=\"updated\">Updated Sep 21, 2026 14:48 UTC</span></div></div>",
+  "sentiment_html": "<div class=\"sentiment-bar\">\n    <div class=\"stat-box\" style=\"border-color:#256B32;\">\n      <img src=\"../assets/gauges/2026-09-21-weekly.png\" width=\"46\" height=\"28\" alt=\"Fear and Greed gauge\">\n      <div class=\"stat-text\">\n        <span class=\"stat-label\">FEAR &amp; GREED</span><br>\n        <span class=\"stat-value\" style=\"color:#256B32;\">70</span>\n        <span class=\"stat-word\" style=\"color:#256B32;\">&nbsp;Greed</span>\n      </div>\n    </div>\n    <div class=\"stat-box\" style=\"border-color:#3A362F;\">\n      <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <div class=\"stat-text\">\n        <span class=\"stat-label\">BIGGEST MOVER OF THE WEEK</span><br>\n        <span class=\"stat-value\" style=\"color:#256B32;\">SOL</span>\n        <span class=\"stat-word-bold\" style=\"color:#256B32;\">&nbsp;+9.0%</span>\n      </div>\n    </div>\n  </div>",
   "issue_pill_html": "<span class=\"issue-pill\">WEEKLY ISSUE</span>",
-  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin ripped back above $85K on the backs of squeezed shorts and stacking treasuries, even as Washington's crypto rulebook remains a work in progress.</p>\n  </div>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin ripped to an eight-month high, Michael Saylor's buying hand twitched back to life, and Washington's crypto bill flopped just in time for the regulators to grab the wheel anyway.</p>\n  </div>",
   "stories": [
     {
-      "headline": "Bitcoin Rips to $85K, Shorts Get Wrecked",
-      "body": "<p>Bitcoin touched $85,000 for the first time since January, with roughly $648 million in bearish bets liquidated as a short squeeze snowballed into sustained spot buying. Decrypt notes selling pressure is near a record low, suggesting the move has more behind it than just panicked shorts covering.</p><p>Short squeezes are great theater and genuinely good for sentiment, but they're also a reminder that a huge chunk of 'rallies' start as forced buying rather than conviction buying. Worth watching whether spot demand actually sticks once the leverage flush is done.</p>",
+      "headline": "Bitcoin Blasts Past $85K on the Back of a Short Squeeze",
+      "body": "<p>Bitcoin hit its first $85,000 print since January, and the move wasn't exactly organic \u2014 a wave of short liquidations (roughly $648 million worth) kicked things off before spot buyers took the baton and kept running. One measure of selling pressure is reportedly near a record low, which the optimists will read as a sign that the coast is clear.</p><p>Short squeezes make for great headlines and terrible foundations. The rally looks real enough that spot demand is doing some of the lifting too, but it's worth remembering that a market cleared out of shorts is a market that just lost its built-in skepticism \u2014 for better or worse.</p>",
       "source_title": "Decrypt",
       "source_url": "https://decrypt.co/378729/bitcoin-tops-85k-as-648m-in-crypto-shorts-liquidated",
       "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/08/bitcoin-bull-decrypt-style-gID_7.jpg"
     },
     {
-      "headline": "Strategy and Bitmine Keep Stacking Like It's Nothing",
-      "body": "<p>Strategy bought 950 more bitcoin for $76 million, pushing its total holdings to around 846,000 BTC \u2014 roughly 4% of the entire supply cap \u2014 while also repurchasing $174 million in STRC. Meanwhile Tom Lee's Bitmine added 27,562 ETH, bringing its total investments to $17.1 billion and its ether stake close to 5% of circulating supply.</p><p>Two different treasury strategies, same underlying bet: that being the biggest whale in the room is itself a moat. It's an aggressive concentration of supply in a handful of corporate balance sheets, which is either the ultimate vote of confidence or a structural risk nobody's pricing in yet, depending on your mood that day.</p>",
+      "headline": "Saylor's Strategy Gets 'A Little More Orange' Again",
+      "body": "<p>After a two-week pause, Strategy bought 950 more bitcoin for $76 million, pushing its total holdings to around 846,000 BTC \u2014 roughly 4% of the entire 21 million supply cap, worth about $72 billion. The company also repurchased $174 million of its STRC preferred stock in the same stretch.</p><p>Whatever else you think about the treasury-company model, Strategy's buying pattern has become a genuine market tell at this point \u2014 resuming purchases after a pause is the kind of signal traders parse for meaning, whether or not it deserves that much weight.</p>",
       "source_title": "The Block",
       "source_url": "https://www.theblock.co/news/business/2026-09-21-a-little-more-orange-strategy-bitcoin-michael-saylor-415893",
       "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2025/03/20250304_Strategy_News_2.jpg"
     },
     {
-      "headline": "Clarity Act Dies in the Senate, Regulators Grab the Wheel",
-      "body": "<p>With the Clarity Act failing to advance, the industry's focus has shifted from Congress to the SEC and CFTC, which are now driving crypto policy through rulemaking rather than legislation. It's a meaningful shift in who actually writes the rules of the road.</p><p>Congress punting on crypto clarity isn't new, but watching two agencies fill the vacuum on their own timeline means the rules that eventually land will be shaped more by regulators' priorities than by any negotiated legislative compromise. That's a different game, with different winners.</p>",
+      "headline": "The Clarity Act Died in the Senate, So the SEC and CFTC Are Writing the Rules Instead",
+      "body": "<p>With the Clarity Act failing to advance, the industry's focus has shifted away from Congress entirely and toward a fresh wave of rulemaking from the SEC and CFTC, who aren't waiting around for lawmakers to sort themselves out.</p><p>This is the classic Washington move: when the legislative branch can't get its act together, the regulators quietly become the ones writing the rulebook. Crypto wanted statutory clarity from elected officials; instead it's getting agency-drafted clarity, which comes with its own flavor of uncertainty \u2014 namely, that the next administration can rewrite it just as easily.</p>",
       "source_title": "Decrypt",
       "source_url": "https://decrypt.co/378688/how-clarity-act-defeat-sec-cftc-wheel-crypto",
       "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/US-Capitol-decrypt-style-04-gID_7.png"
     },
     {
-      "headline": "CFTC Doesn't Wait Around for Congress",
-      "body": "<p>The CFTC submitted a prerule on crypto asset transactions and markets to the White House for review, signaling it plans to build a derivatives framework using its own authority now that the Clarity Act has stalled. This is regulation by agency initiative rather than statute.</p><p>Whatever you think of the outcome, there's something almost admirable about an agency just... deciding to do the job Congress won't. It also means the resulting framework may be narrower, faster, and considerably less durable than something passed into law \u2014 future administrations could reshape it just as unilaterally.</p>",
-      "source_title": "The Block",
-      "source_url": "https://www.theblock.co/news/regulation/2026-09-18-cftc-files-crypto-asset-rulemaking-with-white-house-pressing-ahead-without-congress-415510",
-      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2021/10/211001_White_House_General.jpg"
+      "headline": "The ECB Builds Its Own Tokenization Rails \u2014 No Stablecoins Required",
+      "body": "<p>The European Central Bank launched Pontes, a platform for settling tokenized assets directly in central-bank money, with plans to expand its services and operating hours gradually.</p><p>Notice the framing: settlement 'without stablecoins.' Central banks watching the private sector build stablecoin rails and deciding to build their own central-bank-money alternative is about as clear a signal as you'll get that Europe intends to keep tokenized finance firmly inside its own perimeter.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/eurosystem-central-bank-money-tokenized-finance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M31SZBB8Q9BGS5MAPPJDRVD8/hi-the-digital-token-how-it-will-impact-the-current-financial-system-ecb-2.jpg"
     },
     {
-      "headline": "Grayscale's Zcash ETF Is So Hot It's Splitting Shares",
-      "body": "<p>Grayscale's Zcash ETF is doing a 3-for-1 forward share split after pulling in more than $233 million in under a month, making shares more affordable as Wall Street piles into what's being called crypto's hottest privacy trade.</p><p>Privacy coins spent years as the industry's awkward, semi-taboo corner. Watching institutional money flood into a Zcash wrapper via a regulated ETF wrapper is a genuinely funny plot twist \u2014 regulatory comfort catching up to a use case regulators used to eye warily.</p>",
+      "headline": "Grayscale's Zcash ETF Is Splitting Shares After a Blistering Month",
+      "body": "<p>Grayscale's red-hot Zcash ETF is doing a 3-for-1 forward share split to make itself more affordable after pulling in more than $233 million in under a month, as Wall Street piles into what's being called crypto's hottest privacy trade.</p><p>A privacy coin ETF gathering nearly a quarter-billion dollars in weeks is a strange and slightly funny plot twist for an industry that spent years being told privacy tech was regulatory poison. Apparently demand doesn't care much about the old narratives.</p>",
       "source_title": "Decrypt",
       "source_url": "https://decrypt.co/378675/grayscale-zcash-etf-more-affordable-split",
       "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/etf-decrypt-style-01-gID_7.png"
     },
     {
-      "headline": "ZetaChain Votes to Kill Its Own Blockchain",
-      "body": "<p>ZetaChain holders approved a plan to wind down the project's Cosmos-based layer 1 and migrate the ZETA token to Solana, with the team pivoting focus to Anuma, its private AI app. A final migration vote is still to come.</p><p>Shutting down your own chain to chase liquidity and attention on someone else's is an unusually honest admission from a project \u2014 building a standalone L1 just isn't the growth story it once was. Expect more 'independent chain' teams to quietly reach the same conclusion.</p>",
-      "source_title": "The Block",
-      "source_url": "https://www.theblock.co/news/defi/2026-09-20-zetachain-votes-to-shut-down-layer-1-network-and-move-zeta-to-solana-415878",
-      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/09/ChatGPT-Image-Sep-20-2026-04_06_27-PM.jpg"
-    },
-    {
-      "headline": "France's Wrench Attack Problem Isn't Slowing Down",
-      "body": "<p>A crypto worker's children were held hostage in the latest French 'wrench attack,' with $46,000 taken. France remains the world's worst-hit country for these physical extortion attacks, logging more than 70 incidents in just the first eight months of 2026.</p><p>Self-custody has an obvious upside, but stories like this are a blunt reminder that visible wealth \u2014 onchain or off \u2014 creates real-world targets. No amount of cold storage protects against someone showing up at your door, and that's a threat model too many people still don't take seriously.</p>",
+      "headline": "France's 'Wrench Attack' Problem Isn't Slowing Down",
+      "body": "<p>A crypto worker's children were reportedly held hostage in the latest French 'wrench attack,' with $46,000 taken. France remains the world's worst-hit country for these physical extortion schemes, with more than 70 logged in just the first eight months of 2026.</p><p>Self-custody has real upsides, but stories like this are the ugly flip side \u2014 when your wealth is a set of keys instead of a bank balance, the threat model shifts from hackers to actual people showing up at your door. Operational security isn't a nerdy afterthought here; it's the whole ballgame.</p>",
       "source_title": "Decrypt",
       "source_url": "https://decrypt.co/378720/crypto-workers-children-held-hostage-in-latest-french-wrench-attack-46000-taken",
       "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/crypto-crime-decrypt-style-02-gID_7.jpg"
+    },
+    {
+      "headline": "Google and Apple Are Now Hunting for Crypto Talent",
+      "body": "<p>Big Tech is reportedly staffing up for stablecoins and tokenization, with Google and Apple both eyeing crypto talent as they eye the rails underlying digital payments and asset tokenization.</p><p>When the companies that build the phones and search engines everyone already uses start hiring for stablecoin rails, that's a bigger distribution story than any single token launch. The infrastructure fight is quietly moving from crypto-native firms to the platforms that already have billions of users.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/09/21/google-and-apple-seek-crypto-talent-as-big-tech-eyes-stablecoin-and-tokenization-rails",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/1b60f0ad8fb01131abb6c4eae334bffffef79cc4-5760x3840.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
     }
   ],
-  "excerpt": "Bitcoin ripped back above $85K on the backs of squeezed shorts and stacking treasuries, even as Washington's crypto rulebook remains a work in progress."
+  "excerpt": "Bitcoin ripped to an eight-month high, Michael Saylor's buying hand twitched back to life, and Washington's crypto bill flopped just in time for the regulators to grab the wheel anyway."
 }
