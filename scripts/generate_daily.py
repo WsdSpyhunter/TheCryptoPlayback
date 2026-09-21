@@ -1,6 +1,7 @@
 """
-generate_daily.py — the daily "lite" post: top 5 prices + one story on the
-single biggest thing that happened in crypto today, with a short take.
+generate_daily.py — the daily "lite" post: top 5 prices + Fear & Greed +
+biggest mover + one story on the single biggest thing that happened in
+crypto today, with a short take.
 
 Model: Haiku (cheap, fast, plenty for one story a day).
 Output: writes the post via build_site.py, then leaves it staged for the
@@ -11,8 +12,12 @@ from datetime import datetime, timezone
 
 from fetch_prices import get_top_prices
 from fetch_news import get_recent_headlines
+from fetch_sentiment import get_fear_greed
 from claude_client import ask_claude_json
-from build_site import add_post_and_rebuild, render_ticker
+from build_site import (
+    add_post_and_rebuild, render_ticker, render_sentiment_bar,
+    render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
+)
 
 MODEL = "claude-haiku-4-5-20251001"
 
@@ -28,6 +33,8 @@ Rules:
 Base the ENTIRE story on the ONE headline/summary you cite — do not pull in \
 facts from other headlines in the list, even true ones, once you've picked \
 your story.
+- Write a one-sentence "intro" that teases the story (this appears in a highlighted \
+  callout box above the full story).
 - Write 2-4 short paragraphs of commentary/analysis on the story, in the \
   newsletter's voice.
 - Never phrase anything as investment advice or a prediction of what to do \
@@ -45,6 +52,7 @@ your story.
 Respond with ONLY a JSON object, no markdown fences, no other text:
 {
   "headline": "a punchy headline for this story, in your own words",
+  "intro": "one sentence teasing the story",
   "body": "2-4 paragraphs of commentary, as HTML with <p> tags",
   "source_title": "the exact source name from the list (e.g. CoinDesk)",
   "source_url": "the exact link from the list for the story you chose",
@@ -69,6 +77,10 @@ def main():
 
     result = ask_claude_json(MODEL, SYSTEM_PROMPT, build_user_prompt(headlines))
 
+    fng = get_fear_greed()
+    mover = compute_biggest_mover(prices)
+    issue_number = sum(1 for e in load_index() if e["tag"] == "Daily") + 1
+
     now = datetime.now(timezone.utc)
     slug = now.strftime("%Y-%m-%d") + "-daily"
     post = {
@@ -76,7 +88,11 @@ def main():
         "title": result["headline"],
         "date_display": now.strftime("%B %d, %Y"),
         "tag": "Daily",
+        "issue_number": issue_number,
         "ticker_html": render_ticker(prices),
+        "sentiment_html": render_sentiment_bar(fng, mover, "Daily"),
+        "issue_pill_html": render_issue_pill("Daily"),
+        "top_story_html": render_top_story_box(result["intro"]),
         "stories": [{
             "headline": result["headline"],
             "body": result["body"],
