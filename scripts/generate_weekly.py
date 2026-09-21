@@ -134,8 +134,8 @@ def ticker_bar_email_html(prices, date_display):
   <td style="padding:14px 16px 14px 10px; vertical-align:middle; text-align:right; white-space:nowrap;">
     <div style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:10px; line-height:1.3;">SUBSCRIBE<br>HERE</div>
     <div style="margin-top:4px;">
-      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#B5702E;color:#FBF9F5;text-align:center;font-size:11px;">&#9993;</span>
-      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#4A90D9;color:#FBF9F5;text-align:center;font-size:11px;">X</span>
+      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#B5702E;color:#FBF9F5;text-align:center;font-size:11px;">&#9993;</span><br>
+      <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#4A90D9;color:#FBF9F5;text-align:center;font-size:11px;margin-top:4px;">X</span>
     </div>
   </td>
 </tr>
@@ -150,14 +150,14 @@ def sentiment_to_email_html(fng, mover):
     mover_color = "#256B32" if mover_up else "#E24C4C"
     mover_sign = "+" if mover_up else ""
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#948D7E;margin:0;"><tr><td style="padding:14px 16px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-<td style="background:#F1EEE7;border:1.5px solid {fng_color};border-radius:6px;padding:10px 14px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed;"><tr>
+<td width="50%" style="background:#F1EEE7;border:1.5px solid {fng_color};border-radius:6px;padding:10px 14px;width:50%;">
 <strong style="color:#975F25;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.05em;">FEAR &amp; GREED</strong><br>
 <span style="color:{fng_color};font-family:Arial,sans-serif;font-weight:bold;font-size:19px;">{fng['value']}</span>
 <span style="color:{fng_color};font-family:Arial,sans-serif;">{fng['classification']}</span>
 </td>
-<td style="width:14px;">&nbsp;</td>
-<td style="background:#F1EEE7;border:1.5px solid {mover_color};border-radius:6px;padding:10px 14px;">
+<td width="14" style="width:14px;">&nbsp;</td>
+<td width="50%" style="background:#F1EEE7;border:1.5px solid {mover_color};border-radius:6px;padding:10px 14px;width:50%;">
 <strong style="color:#975F25;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.05em;">BIGGEST MOVER OF THE WEEK</strong><br>
 <span style="color:{mover_color};font-family:Arial,sans-serif;font-weight:bold;font-size:19px;">{mover['symbol']}</span>
 <span style="color:{mover_color};font-family:Arial,sans-serif;font-weight:bold;">{mover_sign}{mover['change_24h']:.1f}%</span>
@@ -183,7 +183,7 @@ def issue_title_block_email_html(tag, title):
 
 def top_story_to_email_html(intro):
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0;background:#F1EEE7;border-radius:4px;"><tr>
-<td style="width:26px;background:#F2C94C;text-align:center;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;">TOP<br>STORY</td>
+<td style="width:38px;background:#F2C94C;text-align:center;font-family:Arial,sans-serif;font-weight:bold;font-size:10px;padding:4px 2px;"><span style="white-space:nowrap;">TOP</span><br><span style="white-space:nowrap;">STORY</span></td>
 <td style="padding:14px 16px;font-family:Georgia,serif;font-style:italic;">{intro}</td>
 </tr></table>"""
 
