@@ -114,30 +114,35 @@ def masthead_email_html():
 
 def ticker_bar_email_html(prices, date_abbrev):
     """Matches the approved design: Top 5 Market tab + stacked prices +
-    caption, a separate news-date pill, and a subscribe callout. Uses text
-    symbols instead of inline SVG icons — SVG rendering is unreliable across
-    email clients (especially Outlook), plain text/emoji is not."""
+    caption, a separate news-date pill, and a subscribe callout.
+
+    IMPORTANT: table-layout:fixed with explicit pixel widths on every column.
+    Without this, email renderers auto-calculate column widths from content,
+    and a change to ANY one cell (like the arrow's size) can make an
+    unrelated column collapse to near-zero, forcing its text to wrap one
+    character per line. Fixed widths make every column immune to that,
+    regardless of what content changes in the others later."""
     price_lines = "<br>".join(
         f"{c['symbol']} &nbsp;${c['price']:,.2f} ({c['change_24h']:+.1f}%)" for c in prices
     )
-    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#171512;">
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#171512;table-layout:fixed;">
 <tr>
-  <td style="padding:14px 10px 14px 16px; vertical-align:top; white-space:nowrap;">
-    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:15px;padding:12px 14px;border-radius:3px 0 0 3px;vertical-align:middle;">Top 5 Market</span><span style="display:inline-block;width:0;height:0;border-top:22px solid transparent;border-bottom:22px solid transparent;border-left:16px solid #DE9547;vertical-align:middle;"></span>
+  <td width="195" style="width:195px; padding:14px 6px 14px 16px; vertical-align:top;">
+    <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;border-radius:3px 0 0 3px;vertical-align:middle;white-space:nowrap;">Top 5 Market</span><span style="display:inline-block;width:0;height:0;border-top:19px solid transparent;border-bottom:19px solid transparent;border-left:14px solid #DE9547;vertical-align:middle;"></span>
     <div style="color:#FBF9F5;opacity:0.7;font-size:9px;margin-top:4px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</div>
   </td>
-  <td style="padding:14px 10px; vertical-align:top; color:#FBF9F5; font-family:Arial,sans-serif; font-size:12px; line-height:1.5; white-space:nowrap;">
+  <td width="150" style="width:150px; padding:14px 6px; vertical-align:top; color:#FBF9F5; font-family:Arial,sans-serif; font-size:11px; line-height:1.5; white-space:nowrap;">
     {price_lines}
   </td>
-  <td style="padding:14px 10px; vertical-align:middle;">
-    <div style="background:#3a3835; border-radius:3px; padding:8px 12px; text-align:center; color:#FBF9F5; font-family:Arial,sans-serif; font-size:11px; white-space:nowrap;">
+  <td width="175" style="width:175px; padding:14px 6px; vertical-align:middle;">
+    <div style="background:#3a3835; border-radius:3px; padding:8px 10px; text-align:center; color:#FBF9F5; font-family:Arial,sans-serif; font-size:11px; white-space:nowrap;">
       TOP NEWS: <span style="color:#DDD5C7;">{date_abbrev}</span>
     </div>
   </td>
-  <td style="padding:14px 16px 14px 10px; vertical-align:middle; white-space:nowrap;">
-    <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-      <td style="vertical-align:middle; padding-right:8px; text-align:right; color:#FBF9F5; font-family:Arial,sans-serif; font-size:10px; line-height:1.3;">SUBSCRIBE<br>HERE</td>
-      <td style="vertical-align:middle;">
+  <td width="120" style="width:120px; padding:14px 16px 14px 6px; vertical-align:middle;">
+    <table role="presentation" cellpadding="0" cellspacing="0" style="table-layout:fixed;"><tr>
+      <td width="60" style="width:60px; vertical-align:middle; text-align:right; color:#FBF9F5; font-family:Arial,sans-serif; font-size:10px; line-height:1.3; white-space:nowrap;">SUBSCRIBE<br>HERE</td>
+      <td width="30" style="width:30px; vertical-align:middle; padding-left:6px;">
         <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#B5702E;color:#FBF9F5;text-align:center;font-size:11px;">&#9993;</span><br>
         <span style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#4A90D9;color:#FBF9F5;text-align:center;font-size:11px;margin-top:4px;">X</span>
       </td>
