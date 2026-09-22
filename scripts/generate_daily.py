@@ -4,9 +4,9 @@ distinct stories from the last day (as many as the day's real news
 warrants), each with a short summary + editorial take, plus the price
 ticker, Fear & Greed Index, and biggest mover of the day.
 
-Model: Haiku (cheap, fast). Reconsider Sonnet if voice/quality across more
-stories per day becomes a concern, the same way weekly already uses Sonnet
-over Haiku for its longer multi-story piece.
+Model: Sonnet — same as weekly, and for the same reason: this is now a
+multi-story piece that needs to hold voice/quality across several stories,
+not the single-pick job Haiku was originally chosen for.
 
 Output: writes the post via build_site.py, then leaves it staged for the
 GitHub Actions workflow to open as a Pull Request (see daily.yml). Also
@@ -15,7 +15,7 @@ the moment you approve the site post.
 """
 from generate_issue import generate_issue
 
-MODEL = "claude-haiku-4-5-20251001"
+MODEL = "claude-sonnet-5"
 STORY_COUNT_MIN, STORY_COUNT_MAX = 4, 10
 
 

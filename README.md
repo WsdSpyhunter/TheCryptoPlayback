@@ -70,7 +70,7 @@ repository secret**, one at a time:
 - `scripts/fetch_prices.py` — pulls top 5 coin prices from CoinGecko
 - `scripts/fetch_news.py` — pulls headlines from crypto RSS feeds (no key needed)
 - `scripts/generate_issue.py` — shared logic both of the below call into: ask Claude for 4-10 stories, publish the post, create the Buttondown draft
-- `scripts/generate_daily.py` — Haiku picks 4-10 of the day's most significant stories
+- `scripts/generate_daily.py` — Sonnet picks 4-10 of the day's most significant stories
 - `scripts/generate_weekly.py` — Sonnet picks 4-10 of the week's most significant stories
 - `scripts/build_site.py` — turns a post into HTML and updates the homepage/archive
 - `scripts/build_static_pages.py` — rebuilds About/Resources (run by hand if you edit copy there)
