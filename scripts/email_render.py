@@ -180,10 +180,23 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
         top_story_to_email_html(intro),
     ]
     for s in stories:
-        img_html = f"<p><img src='{s['image_url']}' style='max-width:100%;'></p>" if s.get("image_url") else ""
-        parts.append(f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:#171512;margin:0 0 10px;'>{s['headline']}</h3>{img_html}{s['body']}"
-                      f"<p><a href='{s['source_url']}' style='color:#B5702E;font-weight:bold;text-decoration:none;'>Read more at {s['source_title']} &rarr;</a></p>"
-                      f"<hr style='margin:16px 0; border:none; border-top:1px solid #DDD9CE;'>")
+        # Every other section (release date, top story, issue headline) has a
+        # 20px side inset — story content had none, so it bled to the true
+        # edges while everything above it was inset, throwing off the whole
+        # column's left/right alignment. Wrapping it in the same 20px margin
+        # keeps one consistent content column edge-to-edge down the email,
+        # and using a div instead of <hr> for the divider avoids Buttondown
+        # rendering it as a short fixed-width "divider" UI element instead of
+        # a full-width rule (same class of issue as the hero-image caption
+        # slot — a semantic tag getting special block treatment).
+        img_html = f"<p><img src='{s['image_url']}' style='max-width:100%; display:block;'></p>" if s.get("image_url") else ""
+        parts.append(
+            f"<div style='margin:0 20px;'>"
+            f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:#171512;margin:0 0 10px;'>{s['headline']}</h3>{img_html}{s['body']}"
+            f"<p><a href='{s['source_url']}' style='color:#B5702E;font-weight:bold;text-decoration:none;'>Read more at {s['source_title']} &rarr;</a></p>"
+            f"<div style='height:1px; background:#DDD9CE; margin:16px 0;'></div>"
+            f"</div>"
+        )
     parts.append(footer_email_html())
     body_html = "\n".join(parts[1:])  # everything except the masthead image
     wrapped = f"<div style='font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
