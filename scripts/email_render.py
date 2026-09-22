@@ -148,7 +148,7 @@ def footer_email_html():
     )
     return f"""{disclaimer_html}
 <div style="background:#975F25; padding:14px 20px; display:flex; justify-content:space-between; align-items:flex-end;">
-  <span style="color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;">&copy; {year} The Crypto Playback &middot; cryptoplayback@gmail.com</span>
+  <span style="color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;">&copy; {year} The Crypto Playback &middot; info@cryptoplayback.com</span>
   <div style="display:flex; align-items:flex-end; gap:8px;">
     <img src='{ASSET_BASE}/mascot-icon.png' width='54' height='50' style='width:54px;height:50px;display:block;' alt=''>
     <img src='{ASSET_BASE}/logo-white.png' width='90' height='43' style='width:90px;height:auto;display:block;'>
