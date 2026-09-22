@@ -1,127 +1,36 @@
 """
-generate_daily.py — the daily "lite" post: top 5 prices + Fear & Greed +
-biggest mover + one story on the single biggest thing that happened in
-crypto today, with a short take.
+generate_daily.py — the daily Playback: 4-10 of the most significant,
+distinct stories from the last day (as many as the day's real news
+warrants), each with a short summary + editorial take, plus the price
+ticker, Fear & Greed Index, and biggest mover of the day.
 
-Model: Haiku (cheap, fast, plenty for one story a day).
+Model: Haiku (cheap, fast). Reconsider Sonnet if voice/quality across more
+stories per day becomes a concern, the same way weekly already uses Sonnet
+over Haiku for its longer multi-story piece.
+
 Output: writes the post via build_site.py, then leaves it staged for the
-GitHub Actions workflow to open as a Pull Request (see daily.yml).
-
-Also creates a DRAFT (never sends) in Buttondown, same as the weekly one,
-so the email version is ready the moment you approve the site post.
+GitHub Actions workflow to open as a Pull Request (see daily.yml). Also
+creates a DRAFT (never sends) in Buttondown, so the email version is ready
+the moment you approve the site post.
 """
-import sys
-from datetime import datetime, timezone
-
-from fetch_prices import get_top_prices
-from fetch_news import get_recent_headlines
-from fetch_sentiment import get_fear_greed
-from claude_client import ask_claude_json
-from build_site import (
-    add_post_and_rebuild, render_ticker_bar, render_sentiment_combined,
-    render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
-    save_gauge_image, format_date_abbrev,
-)
-from email_render import stories_to_plain_email_html, upload_gauge_image
-from buttondown_client import create_draft
+from generate_issue import generate_issue
 
 MODEL = "claude-haiku-4-5-20251001"
-
-SYSTEM_PROMPT = """You are the writer for "The Crypto Playback," a Bitcoin/crypto \
-newsletter with a distinct voice: informed, a little wry, opinionated but \
-never giving financial advice. You are given a list of real headlines from \
-the last day, each with a source, a summary, a link, and sometimes an image \
-URL. Pick the SINGLE most significant story — the one crypto investors most \
-need to know about today — and write a short commentary on it.
-
-Rules:
-- Base every fact ONLY on the headlines/summaries given to you. Never invent numbers, quotes, or events not present in the source material. \
-Base the ENTIRE story on the ONE headline/summary you cite — do not pull in \
-facts from other headlines in the list, even true ones, once you've picked \
-your story.
-- Write a one-sentence "intro" that teases the story (this appears in a highlighted \
-  callout box above the full story).
-- Write 2-4 short paragraphs of commentary/analysis on the story, in the \
-  newsletter's voice.
-- Never phrase anything as investment advice or a prediction of what to do \
-  with money — commentary and analysis only.
-- Pick the source headline that is clearly the most consequential, not just \
-  the most recent.
-- If the headline you chose has an image URL listed, copy it EXACTLY into \
-  "image_url". Never invent or guess an image URL. If that headline has no \
-  image URL listed, set "image_url" to null.
-- CRITICAL for valid output: never use a literal double-quote character (") \
-  inside any string value. If you need quotation marks for HTML attributes, \
-  use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
-  your writing, use single quotes ('like this') instead of double quotes.
-
-Respond with ONLY a JSON object, no markdown fences, no other text:
-{
-  "headline": "a punchy headline for this story, in your own words",
-  "intro": "one sentence teasing the story",
-  "body": "2-4 paragraphs of commentary, as HTML with <p> tags",
-  "source_title": "the exact source name from the list (e.g. CoinDesk)",
-  "source_url": "the exact link from the list for the story you chose",
-  "image_url": "the exact image URL from the list for that headline, or null"
-}"""
-
-
-def build_user_prompt(headlines):
-    lines = []
-    for h in headlines[:25]:
-        img_note = f" [image: {h['image_url']}]" if h.get("image_url") else " [image: none]"
-        lines.append(f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']}){img_note}")
-    return "Headlines from the last day:\n" + "\n".join(lines)
+STORY_COUNT_MIN, STORY_COUNT_MAX = 4, 10
 
 
 def main():
-    prices = get_top_prices()
-    headlines = get_recent_headlines(hours=36)
-    if not headlines:
-        print("No recent headlines found — aborting so we don't publish a stale/empty post.")
-        sys.exit(1)
-
-    result = ask_claude_json(MODEL, SYSTEM_PROMPT, build_user_prompt(headlines))
-
-    fng = get_fear_greed()
-    mover = compute_biggest_mover(prices)
-    issue_number = sum(1 for e in load_index() if e["tag"] == "Daily") + 1
-
-    now = datetime.now(timezone.utc)
-    date_display = now.strftime("%B %d, %Y")
-    slug = now.strftime("%Y-%m-%d") + "-daily"
-    gauge_path = save_gauge_image(fng["value"], slug)
-    date_abbrev = format_date_abbrev(now)
-    stories = [{
-        "headline": result["headline"],
-        "body": result["body"],
-        "source_title": result["source_title"],
-        "source_url": result["source_url"],
-        "image_url": result.get("image_url"),
-    }]
-    post = {
-        "slug": slug,
-        "title": result["headline"],
-        "date_display": date_display,
-        "tag": "Daily",
-        "issue_number": issue_number,
-        "gauge_path": gauge_path,
-        "ticker_html": render_ticker_bar(prices, date_abbrev),
-        "sentiment_html": render_sentiment_combined(fng, mover, "Daily"),
-        "issue_pill_html": render_issue_pill("Daily"),
-        "top_story_html": render_top_story_box(result["intro"]),
-        "stories": stories,
-        "excerpt": result["body"].split("</p>")[0].replace("<p>", "")[:220] + "...",
-    }
-    add_post_and_rebuild(post)
-    print(f"Generated daily post: {slug}")
-
-    email_body = stories_to_plain_email_html(
-        result["headline"], result["intro"], stories, prices,
-        fng, mover, "Daily", date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
+    generate_issue(
+        model=MODEL,
+        tag="Daily",
+        slug_suffix="-daily",
+        cadence_label="the last day",
+        headlines_hours=40,
+        max_per_feed=12,
+        max_headlines=50,
+        story_min=STORY_COUNT_MIN,
+        story_max=STORY_COUNT_MAX,
     )
-    draft = create_draft(f"The Crypto Playback — {result['headline']}", email_body)
-    print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
 
 
 if __name__ == "__main__":
