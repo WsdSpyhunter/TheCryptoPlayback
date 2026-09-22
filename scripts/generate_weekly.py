@@ -24,7 +24,7 @@ from build_site import (
     render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
     save_gauge_image, format_date_abbrev,
 )
-from email_render import stories_to_plain_email_html, embed_gauge_data_uri
+from email_render import stories_to_plain_email_html, upload_gauge_image
 from buttondown_client import create_draft
 
 MODEL = "claude-sonnet-5"
@@ -119,7 +119,6 @@ def main():
     date_abbrev = format_date_abbrev(now)
     slug = now.strftime("%Y-%m-%d") + "-weekly"
     gauge_path = save_gauge_image(fng["value"], slug)
-    gauge_data_uri = embed_gauge_data_uri(gauge_path)
     post = {
         "slug": slug,
         "title": result["issue_title"],
@@ -139,7 +138,7 @@ def main():
 
     email_body = stories_to_plain_email_html(
         result["issue_title"], result["intro"], result["stories"], prices,
-        fng, mover, "Weekly", date_display, date_abbrev, issue_number, gauge_data_uri,
+        fng, mover, "Weekly", date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
     )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")

@@ -22,7 +22,7 @@ from build_site import (
     render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
     save_gauge_image, format_date_abbrev,
 )
-from email_render import stories_to_plain_email_html, embed_gauge_data_uri
+from email_render import stories_to_plain_email_html, upload_gauge_image
 from buttondown_client import create_draft
 
 MODEL = "claude-haiku-4-5-20251001"
@@ -116,10 +116,9 @@ def main():
     add_post_and_rebuild(post)
     print(f"Generated daily post: {slug}")
 
-    gauge_data_uri = embed_gauge_data_uri(gauge_path)
     email_body = stories_to_plain_email_html(
         result["headline"], result["intro"], stories, prices,
-        fng, mover, "Daily", date_display, date_abbrev, issue_number, gauge_data_uri,
+        fng, mover, "Daily", date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
     )
     draft = create_draft(f"The Crypto Playback — {result['headline']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
