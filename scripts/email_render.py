@@ -62,8 +62,8 @@ def ticker_bar_email_html(prices, date_abbrev):
 
     prices_html = f'<div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">{"".join(chip(c) for c in prices)}</div>'
 
-    return f"""<div style="background:#171512; padding:20px 20px;">
-  <div style="display:flex; align-items:center;">
+    return f"""<div style="background:#171512; padding:20px 20px 14px;">
+  <div style="display:flex; align-items:flex-start;">
     <div style="flex-shrink:0; display:flex; flex-direction:column;">
       <div style="display:flex; align-items:center;">
         <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 5 Market</span>
@@ -71,7 +71,7 @@ def ticker_bar_email_html(prices, date_abbrev):
       </div>
       <span style="color:#FBF9F5;opacity:0.6;font-size:10px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</span>
     </div>
-    <div style="flex:1; padding-top:6px; margin-left:24px;">
+    <div style="flex:1; margin-left:24px;">
       {prices_html}
     </div>
   </div>
