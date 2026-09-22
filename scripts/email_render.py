@@ -99,17 +99,21 @@ def sentiment_to_email_html(fng, mover, gauge_src):
         '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>' if mover_up
         else '<path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/>'
     )
-    return f"""<div style="background:#F1EEE7; padding:14px 16px;">
-  <div style="background:rgba(255,255,255,0.06); border:1.5px solid #3A362F; border-radius:6px; padding:12px 16px; text-align:center;">
-    <img src="{gauge_src}" width="40" height="26" style="vertical-align:middle; display:inline;" alt="Fear and Greed gauge">
-    <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:11px; color:#975F25; vertical-align:middle; margin-left:6px;">FEAR &amp; GREED</span>
-    <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:18px; color:{fng_color}; vertical-align:middle; margin-left:4px;">{fng['value']}</span>
-    <span style="font-size:12px; color:{fng_color}; vertical-align:middle;">{fng['classification']}</span>
-    <span style="display:inline-block; width:1.5px; height:26px; background:#3A362F; vertical-align:middle; margin:0 16px;"></span>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{mover_color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;">{icon_path}</svg>
-    <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:11px; color:#975F25; vertical-align:middle; margin-left:6px;">BIGGEST MOVER</span>
-    <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:18px; color:{mover_color}; vertical-align:middle; margin-left:4px;">{mover['symbol']}</span>
-    <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:13px; color:{mover_color}; vertical-align:middle;">{mover_sign}{mover['change_24h']:.1f}%</span>
+    return f"""<div style="background:#F1EEE7; padding:12px 12px;">
+  <div style="background:rgba(255,255,255,0.06); border:1.5px solid #3A362F; border-radius:6px; padding:10px 10px; display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; white-space:nowrap;">
+    <span style="white-space:nowrap; flex-shrink:0;">
+      <img src="{gauge_src}" width="36" height="23" style="vertical-align:middle; display:inline;" alt="Fear and Greed gauge">
+      <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:10px; color:#975F25; vertical-align:middle; margin-left:4px;">FEAR &amp; GREED</span>
+      <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:17px; color:{fng_color}; vertical-align:middle; margin-left:3px;">{fng['value']}</span>
+      <span style="font-size:11px; color:{fng_color}; vertical-align:middle;">{fng['classification']}</span>
+    </span>
+    <span style="display:inline-block; flex-shrink:0; width:1.5px; height:24px; background:#3A362F; vertical-align:middle; margin:0 10px;"></span>
+    <span style="white-space:nowrap; flex-shrink:0;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{mover_color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;">{icon_path}</svg>
+      <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:10px; color:#975F25; vertical-align:middle; margin-left:4px;">BIGGEST MOVER</span>
+      <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:17px; color:{mover_color}; vertical-align:middle; margin-left:3px;">{mover['symbol']}</span>
+      <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:13px; color:{mover_color}; vertical-align:middle;">{mover_sign}{mover['change_24h']:.1f}%</span>
+    </span>
   </div>
 </div>"""
 
@@ -123,14 +127,18 @@ def release_row_email_html(date_display, issue_number):
 
 def issue_title_block_email_html(tag, title):
     label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
-    return f"""<div style="padding:16px 20px 8px;">
+    # !important on the h1 margin: Buttondown's renderer applies its own default
+    # vertical rhythm to heading tags specifically, overriding a plain inline
+    # margin — this fights that back to keep the title tight to the callout
+    # below it instead of leaving a large gap.
+    return f"""<div style="padding:16px 20px 4px;">
 <span style="display:inline-block;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;letter-spacing:0.04em;color:#FBF9F5;background:#268CCA;padding:4px 10px;border-radius:3px;">{label}</span>
-<h1 style="font-family:Arial,sans-serif;font-weight:bold;font-size:26px;color:#171512;margin:8px 0 0;line-height:1.15;">{title}</h1>
+<h1 style="font-family:Arial,sans-serif;font-weight:bold;font-size:26px;color:#171512;margin:8px 0 0 !important;line-height:1.15;">{title}</h1>
 </div>"""
 
 
 def top_story_to_email_html(intro):
-    return f"""<div style="margin:14px 20px 0; display:flex; background:#F1EEE7; border-radius:4px; overflow:hidden;">
+    return f"""<div style="margin:8px 20px 0; display:flex; background:#F1EEE7; border-radius:4px; overflow:hidden;">
   <span style="flex-shrink:0; width:38px; background:#F2C94C; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:Arial,sans-serif; font-weight:bold; font-size:10px; padding:4px 2px;"><span style="white-space:nowrap;">TOP</span><span style="white-space:nowrap;">STORY</span></span>
   <p style="flex:1; min-width:0; padding:14px 20px 14px 16px; font-family:Georgia,serif; font-style:italic; font-size:18px; margin:0;">{intro}</p>
 </div>"""
