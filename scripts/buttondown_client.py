@@ -5,6 +5,19 @@ import os
 import requests
 
 API_URL = "https://api.buttondown.com/v1/emails"
+IMAGES_URL = "https://api.buttondown.com/v1/images"
+
+
+def upload_image(file_path):
+    """Uploads an image to Buttondown's own hosting and returns its public
+    URL. Used for the Fear & Greed gauge, which is generated fresh per-post
+    and needs to be viewable in the email/draft immediately — before (or
+    without) the site's own PR ever getting merged to GitHub Pages."""
+    headers = {"Authorization": f"Token {os.environ['BUTTONDOWN_API_KEY']}"}
+    with open(file_path, "rb") as f:
+        resp = requests.post(IMAGES_URL, headers=headers, files={"image": f}, timeout=30)
+    resp.raise_for_status()
+    return resp.json()["image"]
 
 
 def create_draft(subject, body_html):

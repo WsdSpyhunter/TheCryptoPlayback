@@ -15,7 +15,7 @@ ABOUT_BODY = """<div class="page-content">
   <p>Nothing here is financial advice. See the note at the bottom of every
   page for the full disclosure.</p>
   <h1 style="margin-top:2em;">Contact</h1>
-  <p>Questions, tips, or feedback: <a href="mailto:cryptoplayback@gmail.com">cryptoplayback@gmail.com</a></p>
+  <p>Questions, tips, or feedback: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></p>
 </div>"""
 
 RESOURCES_BODY = """<div class="page-content">
