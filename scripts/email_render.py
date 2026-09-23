@@ -18,6 +18,13 @@ from buttondown_client import upload_image
 # (unlike design-tool preview URLs, which only work inside that tool).
 ASSET_BASE = "https://cryptoplayback.com/assets"
 
+# The one width every section is capped at, so nothing (masthead, ticker,
+# stories, footer) can end up wider than any other section. Previously only
+# the masthead/disclaimer images had an explicit max-width — everything else
+# just filled whatever container Buttondown's own template happened to give
+# it, which only looked consistent by coincidence.
+CONTENT_WIDTH = 740
+
 
 def upload_gauge_image(gauge_path):
     """A hosted URL, NOT a base64 data URI — Buttondown's dashboard silently
@@ -44,9 +51,9 @@ def masthead_email_html():
     # isn't recognized as that kind of media object, so it doesn't get one.
     return (
         f"<div role='img' aria-label='The Crypto Playback' "
-        f"style='width:100%;max-width:640px;aspect-ratio:2170/506;"
+        f"style='width:100%;max-width:{CONTENT_WIDTH}px;aspect-ratio:2170/506;"
         f"background-image:url(\"{ASSET_BASE}/header-a.png\");"
-        f"background-size:cover;background-position:center;display:block;'></div>"
+        f"background-size:cover;background-position:center;display:block;margin:10px auto 0;'></div>"
     )
 
 
@@ -57,21 +64,21 @@ def ticker_bar_email_html(prices, date_abbrev):
 
     def chip(c):
         arrow_color = "#8FBF5C" if c["change_24h"] >= 0 else "#E8837A"
-        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:12px; white-space:nowrap;">'
+        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:14px; white-space:nowrap;">'
                 f'{c["symbol"]} ${c["price"]:,.2f} <span style="color:{arrow_color};">({c["change_24h"]:+.1f}%)</span></span>')
 
     prices_html = f'<div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px;">{"".join(chip(c) for c in prices)}</div>'
 
-    return f"""<div style="background:#171512; padding:20px 20px 14px;">
+    return f"""<div style="background:#171512; padding:28px 20px 18px;">
   <div style="display:flex; align-items:flex-start;">
     <div style="flex-shrink:0; display:flex; flex-direction:column;">
       <div style="display:flex; align-items:center;">
         <span style="display:inline-block;background:#DE9547;color:#171512;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 5 Market</span>
         <span style="display:inline-block;width:0;height:0;border-top:19px solid transparent;border-bottom:19px solid transparent;border-left:14px solid #DE9547;"></span>
       </div>
-      <span style="color:#FBF9F5;opacity:0.6;font-size:10px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</span>
+      <span style="color:#FBF9F5;font-weight:bold;font-size:12px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</span>
     </div>
-    <div style="flex:1; margin-left:24px;">
+    <div style="flex:1; margin-left:44px;">
       {prices_html}
     </div>
   </div>
@@ -150,7 +157,7 @@ def footer_email_html():
     # here gets Buttondown's "hero image" caption-slot treatment too.
     disclaimer_html = (
         f"<div role='img' aria-label='Legal disclaimer: The Crypto Playback is not financial advice.' "
-        f"style='width:100%;max-width:640px;aspect-ratio:2040/242;"
+        f"style='width:100%;max-width:{CONTENT_WIDTH}px;aspect-ratio:2040/242;"
         f"background-image:url(\"{ASSET_BASE}/disclaimer.png\");"
         f"background-size:cover;background-position:center;display:block;margin-top:24px;'></div>"
     )
@@ -199,5 +206,12 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
         )
     parts.append(footer_email_html())
     body_html = "\n".join(parts[1:])  # everything except the masthead image
-    wrapped = f"<div style='font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
+    # Explicit max-width + centering here, matching the masthead/disclaimer's
+    # own cap, so ticker/sentiment/stories/footer can't end up a different
+    # width than those two images regardless of what width Buttondown's own
+    # template happens to give unconstrained content.
+    wrapped = (
+        f"<div style='max-width:{CONTENT_WIDTH}px;margin:0 auto;"
+        f"font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
+    )
     return parts[0] + "\n" + wrapped
