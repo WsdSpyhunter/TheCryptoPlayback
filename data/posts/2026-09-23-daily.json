@@ -1,0 +1,71 @@
+{
+  "slug": "2026-09-23-daily",
+  "title": "Regulators Wake Up While Bitcoin Sleepwalks Higher",
+  "date_display": "September 23, 2026",
+  "tag": "Daily",
+  "issue_number": 4,
+  "gauge_path": "assets/gauges/2026-09-23-daily.png",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 5 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $85,856.00 <span style=\"color:#E8837A;\">(-0.1%)</span></span><span class=\"price-chip\">ETH $2,733.65 <span style=\"color:#E8837A;\">(-0.3%)</span></span><span class=\"price-chip\">BNB $784.67 <span style=\"color:#E8837A;\">(-0.3%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.59 <span style=\"color:#8FBF5C;\">(+3.9%)</span></span><span class=\"price-chip\">SOL $117.48 <span style=\"color:#8FBF5C;\">(+0.6%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">SEPT. 23, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <span class=\"ticker-subscribe-text\">SUBSCRIBE HERE</span>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">71</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">XRP</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+3.9%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin's grinding out a quiet ETF-fueled streak while regulators, ancient whales, and a pioneering exchange's obituary all compete for attention.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "CFTC Puts Prediction Markets on Notice Over 'Mention' Contracts",
+      "body": "<p>The CFTC issued a staff advisory warning that prediction market contracts betting on whether someone will say a specific word \u2014 so-called 'mention' contracts \u2014 are ripe for manipulation, coming just weeks after the agency fined a teleprompter operator who traded on speeches he'd already read.</p><p>It's a fittingly weird problem for a fittingly weird product category: markets designed around human speech are only as trustworthy as the humans with early access to that speech. Regulators finally noticing the obvious insider-trading vector here feels less like a crackdown and more like due diligence that was overdue.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379030/cftc-staff-advisory-says-prediction-market-mention-contracts-invite-manipulation",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/cftc-decrypt-style-01-gID_7.jpg"
+    },
+    {
+      "headline": "BitMEX Closes Its Doors After 11 Years",
+      "body": "<p>BitMEX, the exchange credited with popularizing crypto perpetual futures, has officially shut down trading after more than a decade in operation, though it's leaving withdrawals open for now.</p><p>BitMEX basically invented the leverage-trading playbook that half the industry now runs on, so watching it wind down feels like a small generational marker. The perpetual contract outlived its creator \u2014 which is either poetic or just how financial engineering works.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/09/23/bitmex-shuts-down-trading-after-11-years-leaves-withdrawals-open",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/56c5f0b64b48daefa08d3f2efb835d3585bfc84e-639x360.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Bitcoin ETFs Post Biggest Single-Day Inflow in 11 Months",
+      "body": "<p>US spot bitcoin ETFs pulled in roughly $999 million in net inflows in a single day, the largest one-day haul since October 2025, according to The Block.</p><p>Nearly a billion dollars flowing in overnight is a reminder that the ETF wrapper turned bitcoin buying into a spreadsheet decision for a lot of institutional allocators \u2014 no wallets, no seed phrases, just a ticker. Whether that money sticks around through the next drawdown is a separate question entirely.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-09-22-spot-bitcoin-etfs-1-billion-daily-inflow-416005",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2024/05/20240509_Bitcoin_News_5.jpg"
+    },
+    {
+      "headline": "Lummis Blames Democrats' 'Visceral Hatred' for Clarity Act's Stall",
+      "body": "<p>Senator Cynthia Lummis said Democrats chose their dislike of Donald Trump over passing the crypto market structure bill known as the Clarity Act, according to CoinDesk.</p><p>Blaming personal animosity for legislative gridlock is a bipartisan American pastime at this point, and crypto market structure has now become collateral damage in it. Industry lobbyists keep insisting they can't wait for a 'post-election surge' \u2014 meanwhile the actual rules everyone claims to want remain stuck in the same partisan mud as everything else in Washington.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/09/22/democrats-chose-visceral-hatred-for-donald-trump-over-crypto-clarity-act-lummis-says",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/a5ed32d56b355b8865fcec3c95e02b137bfb35c2-4000x1868.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "CFTC Chair Says Get Ready for 'Mass Tokenization' as SEC Opens the Door",
+      "body": "<p>CFTC Chairman Michael Selig said tokenization could reshape financial markets entirely, with the SEC now signaling openness to onchain stock trading, per Cointelegraph.</p><p>Two agencies that have spent years squabbling over jurisdiction now seem to be racing toward the same conclusion \u2014 that putting traditional securities on public blockchains is coming whether they finish arguing about the rulebook or not. It's the kind of regulatory alignment crypto has begged for; the details of who actually enforces what will be the real test.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/cftc-selig-mass-tokenization-sec-onchain-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M36T3PBMVAR1PDJC7TZ5HKG0/hi-big-executives-that-joined-crypto-cftc-sec-1.jpg"
+    },
+    {
+      "headline": "Binance Buys $100 Million Stake in Circle, Locks In Five-Year USDC Deal",
+      "body": "<p>Binance took a $100 million equity stake in Circle and signed a five-year agreement to promote USDC on its platform, according to The Block.</p><p>The largest exchange in crypto tying itself financially to a specific stablecoin issuer for half a decade is a notable bet on where liquidity concentrates. It also quietly cements USDC's competitive position against rivals, which is presumably the point for both companies.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-09-22-binance-takes-100-million-circle-stake-alongside-five-year-usdc-deal-416042",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2020/12/20201218_Circle-2.jpg"
+    },
+    {
+      "headline": "$161 Million in Decade-Old Bitcoin Suddenly Wakes Up",
+      "body": "<p>Four ancient wallets moved 1,971 BTC between September 6 and 22, including a 600 BTC transfer worth roughly $51.9 million, with three of the four wallets carrying 'Noah Doe' lawsuit tags, per Decrypt.</p><p>Dormant coins moving is always catnip for onchain sleuths, and litigation tags attached to the wallets add an extra layer of intrigue about who's actually behind the keys. Whether it's a legal settlement, an estate finally getting sorted, or something else entirely, someone clearly decided a decade was long enough to sit still.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379006/161-million-decade-old-bitcoin-moves-two-weeks",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/09/bitcoin-whale-decrypt-style-02-gID_7.jpg"
+    },
+    {
+      "headline": "Solana Tests Upgrade That Could Slash Finality to 150 Milliseconds",
+      "body": "<p>Solana has begun testing an upgrade that could cut transaction finality from 12.8 seconds down to 150 milliseconds, according to CoinDesk.</p><p>Going from single-digit seconds to near-instant finality isn't a marginal tweak, it's the difference between a blockchain that feels like waiting for a bank transfer and one that feels like tapping a card. If it ships as advertised, it closes one of the last credible gaps between crypto rails and traditional payment speed.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/09/23/solana-starts-testing-upgrade-that-could-cut-finality-from-12-8-seconds-to-150-milliseconds",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/ebb5a0f62882b8a5af36fcacd210933b3a4950a7-3770x2122.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    }
+  ],
+  "excerpt": "Bitcoin's grinding out a quiet ETF-fueled streak while regulators, ancient whales, and a pioneering exchange's obituary all compete for attention."
+}
