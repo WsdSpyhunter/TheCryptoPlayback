@@ -1,0 +1,85 @@
+{
+  "slug": "2026-09-24-daily",
+  "title": "Yields Bite, Bitcoin Shrugs (Eventually)",
+  "date_display": "September 24, 2026",
+  "tag": "Daily",
+  "issue_number": 4,
+  "gauge_path": "assets/gauges/2026-09-24-daily.png",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 5 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $83,476.00 <span style=\"color:#E8837A;\">(-2.8%)</span></span><span class=\"price-chip\">ETH $2,646.98 <span style=\"color:#E8837A;\">(-3.3%)</span></span><span class=\"price-chip\">BNB $768.21 <span style=\"color:#E8837A;\">(-2.2%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.47 <span style=\"color:#E8837A;\">(-8.0%)</span></span><span class=\"price-chip\">SOL $113.39 <span style=\"color:#E8837A;\">(-3.6%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">SEPT. 24, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <span class=\"ticker-subscribe-text\">SUBSCRIBE HERE</span>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">71</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">XRP</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-8.0%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bond yields are doing their best impression of 2007 villains, bitcoin dipped below $84K in response, and everyone from the EU to StarkWare is suddenly very interested in what happens to blockchains when quantum computers grow up.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Slides as Treasury Yields Hit a 19-Year High",
+      "body": "<p>Bitcoin fell to around $83,300 as the 10-year Treasury yield climbed to its highest level since 2007, spooking risk assets broadly. Traders are reportedly pricing in a string of Fed rate hikes stretching out to June 2027, which is the kind of macro backdrop that tends to make speculative assets nervous.</p><p>It's a reminder that bitcoin still trades like a risk asset on any given Wednesday, macro headlines and all, even if the long-term thesis is supposed to be about something bigger than the bond market's mood swings.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/09/24/bitcoin-steadies-near-usd84-000-after-bond-yields-hit-a-2007-high",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/5ade86ac4fe10ad0fc72325b3f7ed097c7a1aaa2-1920x1080.png?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Actually, Bitcoin Doesn't Care About Bond Yields (Long-Term, Anyway)",
+      "body": "<p>Right on cue as bitcoin dips on yield news, CoinDesk's data crunch argues that over longer time horizons, bitcoin's price hasn't actually shown a meaningful correlation with rising bond yields. Short-term jitters, in other words, may be more noise than signal.</p><p>This is the classic tension in crypto coverage: the same day's headlines can tell you bitcoin is reacting to yields and that it historically doesn't. Both can be true depending on your timeframe, which is exactly why zooming out is a skill worth practicing.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/09/24/the-data-proves-it-bitcoin-doesn-t-care-about-rising-bond-yields-over-long-term",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/bc83d34a39f52418f490506c8004a7b3d0331d16-2850x1500.png?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Institutions Held the Line Through a 50% Drawdown, Bitwise Says",
+      "body": "<p>A Bitwise study found that every institution interviewed which owned crypto held bitcoin, usually as its largest position, and rode out a 50% drawdown rather than bailing. Some had predefined exit conditions, but they held anyway.</p><p>Diamond hands aren't just a meme apparently, they're an institutional risk management strategy now. Whether that's conviction or just the difficulty of unwinding a large position quietly is a fair question to sit with.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/institutions-held-crypto-50-percent-drawdown-bitwise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M3995AEZDZAHF7KGY7TNVJAH/bitwise-report.png"
+    },
+    {
+      "headline": "EU Watchdogs Say Quantum Computing Is an 'Imminent' Threat to Blockchain",
+      "body": "<p>European financial regulators issued a warning that quantum computing poses a near-term threat to the cryptographic foundations underpinning blockchain systems, urging the industry to take the risk seriously now rather than later.</p><p>Regulators calling something 'imminent' usually means it's still years off in practice, but the underlying math problem is real and not going away. Better to have this conversation before it's an emergency than during one.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/09/24/eu-financial-watchdogs-warn-quantum-computing-poses-imminent-threat-to-blockchain-encryption",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/0a7b286155b50450ecbce550b4b98e7f0e786e98-2766x1556.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Bitcoin's Quantum-Safe Backup Plan Just Got Way Cheaper",
+      "body": "<p>StarkWare says a weeklong optimization challenge slashed the estimated GPU cost of an experimental quantum-resistant bitcoin transaction by 79%, dropping it from $320 to $66, with AI-assisted coding doing much of the heavy lifting.</p><p>It's a small but telling data point: the tools for defending against a quantum threat are getting cheaper faster than the threat itself is materializing. That's the kind of race you actually want to be ahead in.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/bitcoins-last-resort-quantum-safe-solution-just-got-79-cheaper-starkware?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M38W53G3D9PCVSK370XGZSNS/quantum-chip.jpg"
+    },
+    {
+      "headline": "Washington Reportedly Weighing a Global Push for Dollar Stablecoins",
+      "body": "<p>The Trump administration is reportedly considering a global stablecoin initiative aimed at cementing the dollar's dominance internationally, potentially involving both private companies and multiple US agencies.</p><p>Stablecoins as soft-power infrastructure is a genuinely interesting turn, dollar hegemony via USDT-style tokens rather than treaties. Whether it works the way policymakers imagine is another matter entirely.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/09/24/trump-administration-weighs-a-global-stablecoin-plan-to-cement-dollar-s-dominance",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/2f1c6e613b33b9c2e567db9c1a5b333bb2457de1-4032x5040.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "White House Defends Trump's Crypto Ties After Clarity Act Falls Apart",
+      "body": "<p>A White House adviser publicly defended President Trump's personal crypto ties in the aftermath of the Clarity Act's defeat, pushing back on criticism that those connections are shaping regulatory outcomes.</p><p>Whenever the president's own crypto interests intersect with the legislation meant to regulate the industry, the optics do a lot of the talking, and no amount of defending really quiets that particular noise.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/09/23/white-house-adviser-defends-president-trump-s-crypto-ties-in-wake-of-clarity-act-defeat",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/426b894a17f81899340d08d82116a4746ad1ce0f-4920x2768.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "NYSE Taps Blockchain.com to Bring Tokenized Stocks to Crypto Users",
+      "body": "<p>Blockchain.com and NYSE Group signed a preliminary agreement to give the exchange's crypto users access to tokenized versions of US stocks and ETFs, pending regulatory approval.</p><p>Tokenized equities keep inching from theory to pilot program, and having the NYSE's name attached lends it a legitimacy that pure-crypto ventures often struggle to earn. The 'pending regulatory approval' clause is doing a lot of quiet work in that sentence, though.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379080/nyse-taps-blockchain-com-to-reach-crypto-investors-with-tokenized-stocks-etfs",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/01/crypto-trading-gen-z-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "BitMEX, the Exchange That Invented 100x Leverage, Shuts Down Trading",
+      "body": "<p>BitMEX ended trading Wednesday and is urging users to withdraw remaining funds, with fees now applying to balances left on the platform. This is the exchange credited with popularizing wild leverage in crypto derivatives trading.</p><p>There's something fitting about the platform that normalized 100x leverage quietly winding down amid a market that's now dominated by regulated ETFs and institutional custody. The era it defined has largely moved on without it.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379089/crypto-exchange-that-invented-100x-leverage-is-no-more-heres-what-bitmex-users-need-to-know",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/arthur-hayes-decrypt-style-02-gID_7.png"
+    },
+    {
+      "headline": "Brooklyn Man Sentenced Up to 12 Years for $16M Coinbase Phishing Scheme",
+      "body": "<p>A Brooklyn man who bragged about a $16 million Coinbase scam was sentenced to up to 12 years after posing as support staff to empty roughly 100 accounts, then losing $6 million of the proceeds gambling, according to his own messages.</p><p>Social engineering remains the boring, unglamorous way most crypto gets stolen, no exploits or smart contract bugs required, just a convincing enough impersonation and a target having a bad day. The gambling detail somehow makes it sadder, not less serious.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379153/brooklyn-man-who-bragged-about-16m-coinbase-scam-gets-up-to-12-years",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Jail-cell-2-gID_7.png"
+    }
+  ],
+  "excerpt": "Bond yields are doing their best impression of 2007 villains, bitcoin dipped below $84K in response, and everyone from the EU to StarkWare is suddenly very interested in what happens to blockchains when quantum computers"
+}
