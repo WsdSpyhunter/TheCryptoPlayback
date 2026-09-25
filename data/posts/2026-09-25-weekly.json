@@ -1,0 +1,71 @@
+{
+  "slug": "2026-09-25-weekly",
+  "title": "Hacks, Lawsuits, and a Fed That Finally Wrote Something Down",
+  "date_display": "September 25, 2026",
+  "tag": "Weekly",
+  "issue_number": 7,
+  "gauge_path": "assets/gauges/2026-09-25-weekly.png",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 5 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $84,715.00 <span style=\"color:#8FBF5C;\">(+1.4%)</span></span><span class=\"price-chip\">ETH $2,714.16 <span style=\"color:#8FBF5C;\">(+2.5%)</span></span><span class=\"price-chip\">BNB $776.65 <span style=\"color:#8FBF5C;\">(+1.0%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.56 <span style=\"color:#8FBF5C;\">(+6.1%)</span></span><span class=\"price-chip\">SOL $119.32 <span style=\"color:#8FBF5C;\">(+5.3%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">SEPT. 25, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <span class=\"ticker-subscribe-text\">SUBSCRIBE HERE</span>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">71</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">XRP</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+6.1%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKLY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Between a nine-figure exchange hack, a bridge lawsuit, and the Fed finally putting stablecoin rules on paper, this week felt less like crypto's quiet season and more like everyone remembering their homework was due.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitget loses $352M, blames a backend breach (not stolen keys)",
+      "body": "<p>Bitget confirmed roughly $352 million vanished from its exchange wallets after an attacker compromised its backend systems rather than any private keys, according to CEO Gracy Chen. The exchange suspended withdrawals, says cold wallets and most user funds are unaffected, and has floated North Korea as a suspect based on IP address clues.</p><p>Every time an exchange says 'your funds are safe' in the same breath as 'we suspended withdrawals,' it's worth remembering those two sentences don't always age well together. Attribution to DPRK based on VPN habits is plausible given the pattern of recent mega-hacks, but plausible isn't proven, and this one will be worth watching for the postmortem.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-09-24-more-than-170-million-in-crypto-moves-from-bitget-wallets-unidentified-address-416345",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2023/09/20230911_Bitget_News.jpg"
+    },
+    {
+      "headline": "KelpDAO sues LayerZero over the $292M rsETH exploit",
+      "body": "<p>KelpDAO is suing LayerZero and its CEO Bryan Pellegrino over April's $292 million rsETH bridge exploit, claiming LayerZero endorsed the exact bridge setup that was later used against it \u2014 in writing, no less. Pellegrino has called the lawsuit meritless.</p><p>Infrastructure providers love being the invisible plumbing until something floods, and then suddenly everyone wants to know who signed off on the pipes. If there really is written endorsement in the mix, this case could set an interesting precedent for how much liability protocol infrastructure vendors carry when their advice gets exploited.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-09-25-kelpdao-sues-layerzero-claims-it-endorsed-setup-used-in-292-million-rseth-exploit-416361",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2023/04/20230412_Legal_Generic_4.jpg"
+    },
+    {
+      "headline": "The Fed finally shows its stablecoin homework",
+      "body": "<p>The Federal Reserve opened two proposals for public comment implementing the GENIUS Act, setting capital requirements, reserve-asset limits, a two-day redemption window, and an application process for banks that want to issue stablecoins.</p><p>After a year of stablecoins operating in a regulatory vibe rather than an actual rulebook, having the Fed put concrete numbers and timelines on paper is a meaningful shift \u2014 even if 'proposal open for comment' means the real fight over the details is only just starting.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379274/federal-reserve-unveils-stablecoin-rules-on-reserves-and-capital",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/09/federal-reserve-decrypt-style-02-gID_7.jpg"
+    },
+    {
+      "headline": "New York wants to shut Polymarket down entirely",
+      "body": "<p>New York Attorney General Letitia James and Governor Kathy Hochul sued Polymarket, alleging it's running an illegal gambling operation without a license and exposing residents to gambling harms. The suit asks a court to block the platform from operating in the state.</p><p>Prediction markets have spent the last year positioning themselves as forecasting tools with a friendly regulatory tailwind at the federal level, but state AGs clearly aren't reading from the same script. Whatever happens here will say a lot about whether 'it's information, not a bet' actually holds up in court.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/09/24/new-york-sues-polymarket-alleging-it-is-running-an-illegal-gambling-operation",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/2ec97b5f53822d5eb5b0edd48b47b8c5638b7d2b-3059x2115.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Bitcoin steadies near $84K as altcoins do the running",
+      "body": "<p>Bitcoin has been consolidating near $84,000 while altcoins rallied across the board, and spot Bitcoin ETFs have now erased a $5.8 billion hole in flows even as the daily inflow pace slows to a still-solid $191 million after a six-day, $2.8 billion streak.</p><p>Consolidation near a round number after a run to eight-month highs is a pretty normal market doing pretty normal market things, but the ETF flow recovery is the more interesting data point \u2014 it suggests institutional appetite hasn't gone anywhere even while price action looks like it's catching its breath.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/09/25/altcoins-rally-across-the-board-as-bitcoin-consolidates-near-usd84-000",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/e4b4d678e8586eec1d7e84c78d901caaa4188cf7-1920x1080.png?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "A Zcash-style blueprint for private Bitcoin lands, minus one important detail",
+      "body": "<p>Researchers published a spec called Shielded Bitcoin that uses zero-knowledge proofs and encrypted notes to hide senders, receivers, and transaction amounts \u2014 Zcash-style privacy bolted onto Bitcoin. The catch: the paper doesn't yet address how BTC actually enters or exits the shielded system, leaving that for a future publication.</p><p>Bitcoin privacy proposals tend to generate a lot of excitement and then quietly stall out on the boring-but-critical implementation questions, and 'how does money get in and out' is about as boring-but-critical as it gets. Worth watching, but the interesting part of this story hasn't been written yet.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379280/researchers-publish-zcash-style-design-for-private-bitcoin-transfers",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/09/Bitcoin-decrypt-style-23-gID_7.jpg"
+    },
+    {
+      "headline": "CFTC quietly clears the way for tokenized assets after Clarity Act flopped",
+      "body": "<p>The CFTC updated its guidance to let U.S. commodities firms invest in tokenized assets and use blockchain records, even though the chair didn't explicitly tie the move to the CLARITY Act's failed vote in Congress.</p><p>When legislation stalls, regulators sometimes just start moving the pieces they already control \u2014 this looks like exactly that. It's a smaller, quieter step than a full statutory framework, but it's still real ground gained for tokenization while lawmakers argue among themselves.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/cftc-digital-assets-regulation-failed-clarity-vote?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M2RCXR1ZF4MGZQYC31CCHQC8/paper-document-man-office-cftc-2.jpg"
+    },
+    {
+      "headline": "Someone tried to sell Ondo Finance after its founder's death",
+      "body": "<p>In the wake of Ondo Finance founder Nathan Allman's death, it emerged that someone had been attempting to sell the company, according to reporting on the situation.</p><p>Founder deaths always expose the messy human side of even the most institutionally polished crypto projects \u2014 governance, succession, and who actually controls what tend to get tested in the worst possible circumstances. This is a story about people and companies more than markets, and it's a reminder that behind every ticker there's an org chart that can suddenly go sideways.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/09/23/someone-was-trying-to-sell-ondo-finance-after-founder-nathan-allman-s-death",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/80c70565576dca57e467a9c505945531db3c6631-1452x817.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    }
+  ],
+  "excerpt": "Between a nine-figure exchange hack, a bridge lawsuit, and the Fed finally putting stablecoin rules on paper, this week felt less like crypto's quiet season and more like everyone remembering their homework was due."
+}
