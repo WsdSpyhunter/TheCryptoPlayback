@@ -56,6 +56,22 @@ def upload_gauge_image(gauge_path):
     return upload_image(os.path.join(ROOT, gauge_path))
 
 
+def preheader_email_html():
+    """A small text banner above the masthead image. Not decorative filler —
+    on Apple Mail with device Dark Mode on, the `color-scheme: light` meta
+    tag (needed to stop the ticker's white text from being dimmed) triggers
+    a native white gap before the first large image, regardless of what
+    precedes it or how that image is sized (confirmed by testing both).
+    Since the gap can't be removed from our side, this turns the space in
+    front of it into an intentional, branded line instead of dead space."""
+    return (
+        f'<div style="background:{BLACK}; padding:14px 20px; text-align:center;">'
+        f'<span style="font-family:Georgia,serif; font-weight:bold; font-size:16px; '
+        f'letter-spacing:0.15em; color:#FBF9F5;">THE CRYPTO '
+        f'<span style="color:{GOLD};">PLAYBACK</span></span></div>'
+    )
+
+
 def masthead_email_html():
     # A real <img>, not a CSS background-image div. The background-image
     # approach was a Buttondown-specific workaround (their dashboard treated a
@@ -351,6 +367,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <meta name="supported-color-schemes" content="light">
 </head>
 <body style="margin:0; padding:0; background:#FBF9F5;">
+{preheader_email_html()}
 {parts[0]}
 {wrapped}
 </body>
