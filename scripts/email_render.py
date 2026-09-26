@@ -30,7 +30,7 @@ ASSET_BASE = "https://cryptoplayback.com/assets"
 # the masthead/disclaimer images had an explicit max-width — everything else
 # just filled whatever container Buttondown's own template happened to give
 # it, which only looked consistent by coincidence.
-CONTENT_WIDTH = 820
+CONTENT_WIDTH = 740
 
 # Sampled directly from the masthead artwork (black background, gold wordmark)
 # so the surrounding chrome matches it exactly rather than an eyeballed guess.
