@@ -258,7 +258,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # kept moving the "already correct" pill when only the left side needed
     # to change. Splitting into two 50%-wide, edge-anchored halves lets the
     # left side move on its own without touching the right side's position.
-    desktop_box = f"""<div class="fng-desktop" style="background:#F1EEE7; padding:18px 18px; border:3px solid {PLAYBACK_P_GOLD}; display:block;">
+    desktop_box = f"""<div class="fng-desktop" style="background:#F1EEE7; padding:18px 18px; border:6px solid {PLAYBACK_P_GOLD}; display:block;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
       <td width="50%" style="padding:16px 8px 16px 16px;" align="left" valign="middle">
