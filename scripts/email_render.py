@@ -458,7 +458,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
     # regardless, so this has no effect there — the desktop/Gmail version
     # is unchanged.
     html_doc = f"""<!doctype html>
-<html>
+<html style="overflow-x:hidden;">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -475,7 +475,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 }}
 </style>
 </head>
-<body style="margin:0; padding:0; width:100%; background:#FBF9F5;">
+<body style="margin:0; padding:0; width:100%; background:#FBF9F5; overflow-x:hidden;">
 {preheader_email_html()}
 {parts[0]}
 {wrapped}
