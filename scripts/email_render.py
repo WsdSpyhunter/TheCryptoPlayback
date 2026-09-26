@@ -461,7 +461,6 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <html style="overflow-x:hidden;">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
 <style>
