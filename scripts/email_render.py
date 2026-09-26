@@ -213,17 +213,23 @@ def ticker_bar_email_html(prices, date_abbrev):
   </td>
 </tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:none;"><tr>
-  <td style="padding:14px 20px; text-align:center;">
-    <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
-    <div style="margin-top:10px;">
-      <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; vertical-align:middle;">SUBSCRIBE HERE</span>
-      &nbsp;&nbsp;
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table; vertical-align:middle;"><tr>
-        <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
-      </tr></table>
-      &nbsp;
-      <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
-    </div>
+  <td width="100%" style="padding:14px 20px; text-align:center;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
+      <td style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75; white-space:nowrap;">Enjoying this? Share it with a friend &rarr;</td>
+    </tr></table>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:10px auto 0;"><tr>
+      <td style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; white-space:nowrap;" valign="middle">SUBSCRIBE HERE</td>
+      <td style="width:12px; font-size:0; line-height:0;">&nbsp;</td>
+      <td valign="middle">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+          <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
+        </tr></table>
+      </td>
+      <td style="width:8px; font-size:0; line-height:0;">&nbsp;</td>
+      <td valign="middle">
+        <a href="https://x.com/cryptoplayback" style="display:inline-block; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
+      </td>
+    </tr></table>
   </td>
 </tr></table>"""
 
@@ -292,7 +298,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # on one line, value+detail on the next - so there's enough width per
     # half to use meaningfully larger text/icon than a single nowrap row
     # could ever fit on a phone screen.
-    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:3px solid {PLAYBACK_P_GOLD}; display:none;">
+    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:6px solid {PLAYBACK_P_GOLD}; display:none;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
       <td width="50%" style="padding:18px 10px 18px 14px;" align="left" valign="top">
@@ -461,11 +467,11 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <style>
 @media only screen and (max-width: 600px) {{
   .tbar-desktop {{ display:none !important; }}
-  .tbar-mobile {{ display:block !important; }}
+  .tbar-mobile {{ display:table !important; }}
   .fng-desktop {{ display:none !important; }}
   .fng-mobile {{ display:block !important; }}
   .subscribe-desktop {{ display:none !important; }}
-  .subscribe-mobile {{ display:block !important; }}
+  .subscribe-mobile {{ display:table !important; }}
 }}
 </style>
 </head>
