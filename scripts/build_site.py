@@ -56,32 +56,87 @@ def compute_biggest_mover(prices):
 
 
 def save_gauge_image(value, slug):
-    """Draws the Fear & Greed gauge (colored arc + needle) as a real PNG and
-    saves it to assets/gauges/<slug>.png. This ONE file is used by both the
-    website and the email — no separate hand-coded copies to drift apart.
-    Returns the path fragment relative to the site root."""
-    w, h = 200, 120
+    """Draws the Fear & Greed gauge as a real PNG and saves it to
+    assets/gauges/<slug>.png. This ONE file is used by both the website and
+    the email — no separate hand-coded copies to drift apart.
+
+    Modern flat-design dial: a thin muted track, a smooth color gradient arc
+    (rendered as many small slices rather than hard-edged bands) with rounded
+    end caps, and a slim charcoal needle with a two-tone hub — rendered at 4x
+    and downsampled for anti-aliased, crisp edges instead of the old chunky,
+    jagged 5-band look. Returns the path fragment relative to the site root."""
+    scale = 4
+    w, h = 200 * scale, 120 * scale
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     cx, cy = w // 2, int(h * 0.87)
-    r_outer = int(w * 0.42)
-    thickness = int(w * 0.09)
+    r_outer = int(w * 0.40)
+    thickness = int(w * 0.05)
     bbox = [cx - r_outer, cy - r_outer, cx + r_outer, cy + r_outer]
-    bands = [
-        (180, 216, "#E24C4C"), (216, 252, "#EB7A3C"), (252, 288, "#F2C94C"),
-        (288, 324, "#8FBF5C"), (324, 360, "#256B32"),
+
+    # Muted background track for the full sweep.
+    draw.arc(bbox, start=180, end=360, fill=(224, 219, 208, 255), width=thickness)
+
+    # Smooth red -> orange -> yellow -> green -> dark-green gradient, drawn
+    # as many thin overlapping slices instead of 5 hard-edged bands.
+    anchors = [
+        (0.00, (226, 76, 76)), (0.25, (235, 122, 60)), (0.50, (242, 201, 76)),
+        (0.75, (143, 191, 92)), (1.00, (37, 107, 50)),
     ]
-    for start, end, color in bands:
-        draw.arc(bbox, start=start, end=end, fill=color, width=thickness)
+
+    def lerp_color(t):
+        for (t0, c0), (t1, c1) in zip(anchors, anchors[1:]):
+            if t0 <= t <= t1:
+                f = (t - t0) / (t1 - t0)
+                return tuple(int(c0[i] + (c1[i] - c0[i]) * f) for i in range(3))
+        return anchors[-1][1]
+
+    steps = 180
+    for i in range(steps):
+        t_mid = (i + 0.5) / steps
+        a0 = 180 + (i / steps) * 180
+        a1 = 180 + ((i + 1) / steps) * 180 + 0.6  # tiny overlap avoids seams
+        draw.arc(bbox, start=a0, end=a1, fill=lerp_color(t_mid) + (255,), width=thickness)
+
+    # Rounded end caps so the arc reads as a smooth pill, not a hard cutoff.
+    cap_r = thickness / 2
+    for ang, color in ((180, anchors[0][1]), (360, anchors[-1][1])):
+        rad = math.radians(ang)
+        px = cx + (r_outer - thickness / 2) * math.cos(rad)
+        py = cy + (r_outer - thickness / 2) * math.sin(rad)
+        draw.ellipse([px - cap_r, py - cap_r, px + cap_r, py + cap_r], fill=color + (255,))
+
+    # Slim charcoal needle with a two-tone brass/charcoal hub.
     angle_deg = 180 + (value / 100) * 180
     angle_rad = math.radians(angle_deg)
-    needle_len = r_outer - thickness // 2
+    needle_len = r_outer - thickness * 1.4
     nx = cx + needle_len * math.cos(angle_rad)
     ny = cy + needle_len * math.sin(angle_rad)
-    draw.line([(cx, cy), (nx, ny)], fill="#171512", width=max(3, w // 40))
-    pivot_r = max(4, w // 25)
-    draw.ellipse([cx - pivot_r, cy - pivot_r, cx + pivot_r, cy + pivot_r], fill="#171512")
+    draw.line([(cx, cy), (nx, ny)], fill="#171512", width=max(2, w // 90))
+    tip_r = max(2, w // 130)
+    draw.ellipse([nx - tip_r, ny - tip_r, nx + tip_r, ny + tip_r], fill="#171512")
+    hub_r = max(4, w // 32)
+    draw.ellipse([cx - hub_r, cy - hub_r, cx + hub_r, cy + hub_r], fill="#171512")
+    hub_inner_r = hub_r * 0.45
+    draw.ellipse([cx - hub_inner_r, cy - hub_inner_r, cx + hub_inner_r, cy + hub_inner_r], fill="#C9974F")
 
+    # The dial (cy near the bottom of the canvas) leaves a much bigger empty
+    # margin above it than below — fine for the drawing itself, but it means
+    # the visible arc isn't vertically centered in its own frame, so an
+    # email/site table cell centering the *image box* still shows the arc
+    # sitting low. Recenter the drawn content within the same canvas size
+    # (a shift, not a resize) so the visible gauge lines up with vertically
+    # centered neighbors like the mover arrow icon.
+    content_bbox = img.getbbox()
+    if content_bbox:
+        top_margin, bottom_margin = content_bbox[1], h - content_bbox[3]
+        shift = (top_margin - bottom_margin) // 2
+        if shift:
+            centered = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+            centered.paste(img, (0, -shift), img)
+            img = centered
+
+    img = img.resize((200, 120), Image.LANCZOS)
     out_path = os.path.join(GAUGES_DIR, f"{slug}.png")
     img.save(out_path)
     return f"assets/gauges/{slug}.png"
