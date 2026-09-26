@@ -98,9 +98,9 @@ def ticker_bar_email_html(prices, date_abbrev):
     done with table cells and padding instead, which every major email
     client renders identically."""
 
-    def chip(c):
+    def chip(c, size=14):
         arrow_color = "#8FBF5C" if c["change_24h"] >= 0 else "#E8837A"
-        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:14px; white-space:nowrap;">'
+        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:{size}px; white-space:nowrap;">'
                 f'{c["symbol"]} ${c["price"]:,.2f} <span style="color:{arrow_color};">({c["change_24h"]:+.1f}%)</span></span>')
 
     # Both price rows as <tr>s of ONE table, not two separate <table>s. Two
@@ -125,17 +125,40 @@ def ticker_bar_email_html(prices, date_abbrev):
         f'{price_row(prices[:3], padding_bottom=9)}{price_row(prices[3:])}</table>'
     )
 
-    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};">
+    tab_html = (
+        f'<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>'
+        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 5 Market</td>'
+        f'<td style="width:0; padding:0; line-height:0; font-size:0;">'
+        f'<div style="width:0;height:0;border-top:19px solid transparent;border-bottom:19px solid transparent;border-left:14px solid {PLAYBACK_P_GOLD};">&nbsp;</div>'
+        f'</td></tr></table>'
+    )
+
+    # Mobile can't fit 3 nowrap price chips across a phone-width row (this was
+    # already borderline on desktop's much wider column) - a 2-per-row grid
+    # (BTC/ETH, BNB/XRP, SOL alone) gives each chip roughly half the row
+    # instead of a third, which fits comfortably at a normal, readable size.
+    def mobile_price_cell(c, pad):
+        return f'<td width="50%" style="padding:{pad};">{chip(c, size=15)}</td>'
+
+    mobile_rows = [prices[0:2], prices[2:4], prices[4:5]]
+    mobile_prices_html = "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"table-layout:fixed;\">"
+    for i, pair in enumerate(mobile_rows):
+        pad_bottom = "0" if i == len(mobile_rows) - 1 else "14px"
+        cells = "".join(
+            mobile_price_cell(c, f"0 8px {pad_bottom} 0" if j == 0 else f"0 0 {pad_bottom} 8px")
+            for j, c in enumerate(pair)
+        )
+        if len(pair) < 2:
+            cells += '<td width="50%"></td>'
+        mobile_prices_html += f"<tr>{cells}</tr>"
+    mobile_prices_html += "</table>"
+
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-desktop" style="background:{BLACK}; display:table;">
   <tr>
     <td style="padding:28px 20px 18px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
         <td valign="top">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-            <td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 5 Market</td>
-            <td style="width:0; padding:0; line-height:0; font-size:0;">
-              <div style="width:0;height:0;border-top:19px solid transparent;border-bottom:19px solid transparent;border-left:14px solid {PLAYBACK_P_GOLD};">&nbsp;</div>
-            </td>
-          </tr></table>
+          {tab_html}
           <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</div>
         </td>
         <td style="width:44px; font-size:0; line-height:0;">&nbsp;</td>
@@ -143,6 +166,13 @@ def ticker_bar_email_html(prices, date_abbrev):
       </tr></table>
     </td>
   </tr>
+</table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:none;">
+  <tr><td style="padding:24px 20px 4px;">
+    {tab_html}
+    <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
+  </td></tr>
+  <tr><td style="padding:14px 20px 18px;">{mobile_prices_html}</td></tr>
 </table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:2px 20px 8px;">
@@ -157,7 +187,7 @@ def ticker_bar_email_html(prices, date_abbrev):
   <td style="padding:10px 20px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
 </tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td style="padding:12px 20px; text-align:center; white-space:nowrap;">
+  <td class="subscribe-row" style="padding:12px 20px; text-align:center; white-space:nowrap;">
     <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
     &nbsp;&nbsp;
     <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5;">SUBSCRIBE HERE</span>
@@ -195,31 +225,31 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # kept moving the "already correct" pill when only the left side needed
     # to change. Splitting into two 50%-wide, edge-anchored halves lets the
     # left side move on its own without touching the right side's position.
-    return f"""<div class="fng-box" style="background:#F1EEE7; padding:18px 18px; border:3px solid {PLAYBACK_P_GOLD};">
+    desktop_box = f"""<div class="fng-desktop" style="background:#F1EEE7; padding:18px 18px; border:3px solid {PLAYBACK_P_GOLD}; display:block;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
-      <td class="fng-cell-left" width="50%" style="padding:16px 8px 16px 16px;" align="left" valign="middle">
+      <td width="50%" style="padding:16px 8px 16px 16px;" align="left" valign="middle">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td style="padding-right:9px;" valign="middle"><img class="fng-gauge-img" src="{gauge_src}" width="46" height="29" style="display:block;" alt="Fear and Greed gauge"></td>
+          <td style="padding-right:9px;" valign="middle"><img src="{gauge_src}" width="46" height="29" style="display:block;" alt="Fear and Greed gauge"></td>
           <td style="padding-right:22px;" valign="middle">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr><td align="center" class="fng-label-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D; line-height:1.15; white-space:nowrap;">FEAR &amp; GREED</td></tr>
-              <tr><td align="center" class="fng-label-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; letter-spacing:0.04em; color:#7D502D; line-height:1.15;">INDEX</td></tr>
+              <tr><td align="center" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D; line-height:1.15; white-space:nowrap;">FEAR &amp; GREED</td></tr>
+              <tr><td align="center" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; letter-spacing:0.04em; color:#7D502D; line-height:1.15;">INDEX</td></tr>
             </table>
           </td>
-          <td style="padding-right:4px; white-space:nowrap;" valign="middle"><span class="fng-value-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:25px; color:{fng_color};">{fng['value']}</span></td>
-          <td style="white-space:nowrap;" valign="middle"><span class="fng-classification-text" style="font-size:14px; color:{fng_color};">{fng['classification']}</span></td>
+          <td style="padding-right:4px; white-space:nowrap;" valign="middle"><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:25px; color:{fng_color};">{fng['value']}</span></td>
+          <td style="white-space:nowrap;" valign="middle"><span style="font-size:14px; color:{fng_color};">{fng['classification']}</span></td>
         </tr></table>
       </td>
       <td width="1" style="padding:0 15px;" valign="middle"><div style="width:1.5px; height:36px; background:{GOLD}; font-size:0; line-height:0;">&nbsp;</div></td>
-      <td class="fng-cell-right" width="50%" style="padding:16px 16px 16px 8px;" align="left" valign="middle">
+      <td width="50%" style="padding:16px 16px 16px 8px;" align="left" valign="middle">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td style="padding-right:20px; white-space:nowrap;" valign="middle"><span class="mover-label-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; line-height:14px; color:#7D502D;">BIGGEST MOVER</span></td>
+          <td style="padding-right:20px; white-space:nowrap;" valign="middle"><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; line-height:14px; color:#7D502D;">BIGGEST MOVER</span></td>
           <td valign="middle">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="background:rgba(201,151,79,0.14); border:1px solid rgba(201,151,79,0.45); border-radius:20px;"><tr>
-              <td class="mover-pill-pad" style="padding:4px 14px; white-space:nowrap;">
-                <span class="mover-value-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color};">{mover['symbol']}</span>
-                <span class="mover-value-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color}; margin-left:6px;">{mover_sign}{mover['change_24h']:.1f}%</span>
+              <td style="padding:4px 14px; white-space:nowrap;">
+                <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color};">{mover['symbol']}</span>
+                <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color}; margin-left:6px;">{mover_sign}{mover['change_24h']:.1f}%</span>
               </td>
             </tr></table>
           </td>
@@ -228,6 +258,41 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     </tr>
   </table>
 </div>"""
+
+    # Mobile: keeps the same side-by-side, two-halves-with-a-divider shape
+    # (per explicit instruction not to stack Fear & Greed under Biggest
+    # Mover) but each half becomes two stacked lines internally - icon+label
+    # on one line, value+detail on the next - so there's enough width per
+    # half to use meaningfully larger text/icon than a single nowrap row
+    # could ever fit on a phone screen.
+    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:3px solid {PLAYBACK_P_GOLD}; display:none;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
+    <tr>
+      <td width="50%" style="padding:18px 10px 18px 14px;" align="left" valign="top">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+          <td style="padding-right:8px;" valign="middle"><img src="{gauge_src}" width="58" height="37" style="display:block;" alt="Fear and Greed gauge"></td>
+          <td valign="middle" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D; line-height:1.2;">FEAR &amp; GREED INDEX</td>
+        </tr></table>
+        <div style="margin-top:10px; white-space:nowrap;">
+          <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:28px; color:{fng_color};">{fng['value']}</span>
+          <span style="font-size:14px; color:{fng_color};"> {fng['classification']}</span>
+        </div>
+      </td>
+      <td width="1" style="padding:0 10px;" valign="middle"><div style="width:1.5px; height:64px; background:{GOLD}; font-size:0; line-height:0;">&nbsp;</div></td>
+      <td width="50%" style="padding:18px 14px 18px 10px;" align="left" valign="top">
+        <div style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D;">BIGGEST MOVER</div>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px; background:rgba(201,151,79,0.14); border:1px solid rgba(201,151,79,0.45); border-radius:20px;"><tr>
+          <td style="padding:5px 14px; white-space:nowrap;">
+            <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:22px; color:{mover_color};">{mover['symbol']}</span>
+            <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:22px; color:{mover_color}; margin-left:6px;">{mover_sign}{mover['change_24h']:.1f}%</span>
+          </td>
+        </tr></table>
+      </td>
+    </tr>
+  </table>
+</div>"""
+
+    return desktop_box + mobile_box
 
 
 def release_row_email_html(date_display, issue_number, tag):
@@ -363,20 +428,16 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
 <style>
 @media only screen and (max-width: 600px) {{
-  .fng-box {{ padding:26px 22px !important; }}
-  .fng-cell-left {{ padding:20px 10px 20px 18px !important; }}
-  .fng-cell-right {{ padding:20px 18px 20px 10px !important; }}
-  .fng-gauge-img {{ width:66px !important; height:42px !important; }}
-  .fng-label-text {{ font-size:19px !important; }}
-  .fng-value-text {{ font-size:34px !important; }}
-  .fng-classification-text {{ font-size:19px !important; }}
-  .mover-label-text {{ font-size:19px !important; }}
-  .mover-pill-pad {{ padding:8px 20px !important; }}
-  .mover-value-text {{ font-size:29px !important; }}
+  .tbar-desktop {{ display:none !important; }}
+  .tbar-mobile {{ display:block !important; }}
+  .fng-desktop {{ display:none !important; }}
+  .fng-mobile {{ display:block !important; }}
+  .subscribe-row {{ white-space:normal !important; }}
 }}
 </style>
 </head>
