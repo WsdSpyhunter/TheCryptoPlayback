@@ -133,6 +133,19 @@ def ticker_bar_email_html(prices, date_abbrev):
         f'</td></tr></table>'
     )
 
+    # Mobile: a centered pill instead of the left-aligned tab+arrow - the
+    # arrow was pointing at a price row that no longer sits beside it once
+    # the grid stacks underneath instead, so a plain centered badge (same
+    # gold/brass fill, same shape family as the XRP move pill) reads better
+    # above a stacked layout. Pure styling around a static label - doesn't
+    # touch or depend on the price data, so changing prices/dates daily or
+    # weekly can't affect it.
+    tab_html_mobile = (
+        f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table;"><tr>'
+        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 26px;border-radius:20px;white-space:nowrap;">Top 5 Market</td>'
+        f'</tr></table>'
+    )
+
     # Mobile can't fit 3 nowrap price chips across a phone-width row (this was
     # already borderline on desktop's much wider column) - a 2-per-row grid
     # (BTC/ETH, BNB/XRP, SOL alone) gives each chip roughly half the row
@@ -168,9 +181,9 @@ def ticker_bar_email_html(prices, date_abbrev):
   </tr>
 </table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:none;">
-  <tr><td style="padding:24px 20px 4px;">
-    {tab_html}
-    <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
+  <tr><td style="padding:24px 20px 4px; text-align:center;">
+    {tab_html_mobile}
+    <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
   </td></tr>
   <tr><td style="padding:14px 20px 18px;">{mobile_prices_html}</td></tr>
 </table>
@@ -186,8 +199,8 @@ def ticker_bar_email_html(prices, date_abbrev):
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:10px 20px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td class="subscribe-row" style="padding:12px 20px; text-align:center; white-space:nowrap;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:table;"><tr>
+  <td style="padding:12px 20px; text-align:center; white-space:nowrap;">
     <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
     &nbsp;&nbsp;
     <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5;">SUBSCRIBE HERE</span>
@@ -197,6 +210,20 @@ def ticker_bar_email_html(prices, date_abbrev):
     </tr></table>
     &nbsp;
     <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
+  </td>
+</tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:none;"><tr>
+  <td style="padding:14px 20px; text-align:center;">
+    <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
+    <div style="margin-top:10px;">
+      <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; vertical-align:middle;">SUBSCRIBE HERE</span>
+      &nbsp;&nbsp;
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table; vertical-align:middle;"><tr>
+        <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
+      </tr></table>
+      &nbsp;
+      <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
+    </div>
   </td>
 </tr></table>"""
 
@@ -279,9 +306,9 @@ def sentiment_to_email_html(fng, mover, gauge_src):
         </div>
       </td>
       <td width="1" style="padding:0 10px;" valign="middle"><div style="width:1.5px; height:64px; background:{GOLD}; font-size:0; line-height:0;">&nbsp;</div></td>
-      <td width="50%" style="padding:18px 14px 18px 10px;" align="left" valign="top">
-        <div style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D;">BIGGEST MOVER</div>
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px; background:rgba(201,151,79,0.14); border:1px solid rgba(201,151,79,0.45); border-radius:20px;"><tr>
+      <td width="50%" style="padding:18px 14px 18px 10px;" align="center" valign="top">
+        <div style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D; text-align:center;">BIGGEST MOVER</div>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:10px auto 0; background:rgba(201,151,79,0.14); border:1px solid rgba(201,151,79,0.45); border-radius:20px;"><tr>
           <td style="padding:5px 14px; white-space:nowrap;">
             <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:22px; color:{mover_color};">{mover['symbol']}</span>
             <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:22px; color:{mover_color}; margin-left:6px;">{mover_sign}{mover['change_24h']:.1f}%</span>
@@ -437,7 +464,8 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
   .tbar-mobile {{ display:block !important; }}
   .fng-desktop {{ display:none !important; }}
   .fng-mobile {{ display:block !important; }}
-  .subscribe-row {{ white-space:normal !important; }}
+  .subscribe-desktop {{ display:none !important; }}
+  .subscribe-mobile {{ display:block !important; }}
 }}
 </style>
 </head>
