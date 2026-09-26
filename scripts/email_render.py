@@ -294,8 +294,8 @@ def footer_email_html():
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:14px 20px; color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;" valign="bottom">&copy; {year} The Crypto Playback &middot; info@cryptoplayback.com</td>
   <td style="padding:14px 20px; text-align:right; white-space:nowrap;" valign="bottom">
-    <img src='{ASSET_BASE}/mascot-icon.png' width='44' height='55' style='width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;' alt=''>
-    <img src='{ASSET_BASE}/logo-white.png' width='90' height='43' style='width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;'>
+    <img src="{ASSET_BASE}/mascot-icon.png" width="44" height="55" style="width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;" alt="">
+    <img src="{ASSET_BASE}/logo-white.png" width="90" height="43" style="width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;">
   </td>
 </tr></table>
 <p style="text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#666666;padding:10px 0;margin:0;background:#FBF9F5;">
