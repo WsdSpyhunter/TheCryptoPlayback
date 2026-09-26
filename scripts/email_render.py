@@ -65,7 +65,7 @@ def preheader_email_html():
     Since the gap can't be removed from our side, this turns the space in
     front of it into an intentional, branded line instead of dead space."""
     return (
-        f'<div style="background:{BLACK}; padding:14px 20px; text-align:center;">'
+        f'<div style="background:{BLACK}; padding:14px 20px; text-align:center; width:100%; box-sizing:border-box;">'
         f'<span style="font-family:Georgia,serif; font-weight:bold; font-size:16px; '
         f'letter-spacing:0.15em; color:#FBF9F5;">THE CRYPTO '
         f'<span style="color:{GOLD};">PLAYBACK</span></span></div>'
@@ -438,7 +438,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
     # width than those two images regardless of what width Buttondown's own
     # template happens to give unconstrained content.
     wrapped = (
-        f"<div style='max-width:{CONTENT_WIDTH}px;margin:0 auto;"
+        f"<div style='width:100%;box-sizing:border-box;max-width:{CONTENT_WIDTH}px;margin:0 auto;"
         f"font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
     )
     # A full, minimal HTML document, not stray <meta> tags dropped in front
@@ -475,7 +475,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 }}
 </style>
 </head>
-<body style="margin:0; padding:0; background:#FBF9F5;">
+<body style="margin:0; padding:0; width:100%; background:#FBF9F5;">
 {preheader_email_html()}
 {parts[0]}
 {wrapped}
