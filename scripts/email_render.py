@@ -195,31 +195,31 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # kept moving the "already correct" pill when only the left side needed
     # to change. Splitting into two 50%-wide, edge-anchored halves lets the
     # left side move on its own without touching the right side's position.
-    return f"""<div style="background:#F1EEE7; padding:18px 18px; border:3px solid {PLAYBACK_P_GOLD};">
+    return f"""<div class="fng-box" style="background:#F1EEE7; padding:18px 18px; border:3px solid {PLAYBACK_P_GOLD};">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
-      <td width="50%" style="padding:16px 8px 16px 16px;" align="left" valign="middle">
+      <td class="fng-cell-left" width="50%" style="padding:16px 8px 16px 16px;" align="left" valign="middle">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td style="padding-right:9px;" valign="middle"><img src="{gauge_src}" width="46" height="29" style="display:block;" alt="Fear and Greed gauge"></td>
+          <td style="padding-right:9px;" valign="middle"><img class="fng-gauge-img" src="{gauge_src}" width="46" height="29" style="display:block;" alt="Fear and Greed gauge"></td>
           <td style="padding-right:22px;" valign="middle">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr><td align="center" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D; line-height:1.15; white-space:nowrap;">FEAR &amp; GREED</td></tr>
-              <tr><td align="center" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; letter-spacing:0.04em; color:#7D502D; line-height:1.15;">INDEX</td></tr>
+              <tr><td align="center" class="fng-label-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#7D502D; line-height:1.15; white-space:nowrap;">FEAR &amp; GREED</td></tr>
+              <tr><td align="center" class="fng-label-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; letter-spacing:0.04em; color:#7D502D; line-height:1.15;">INDEX</td></tr>
             </table>
           </td>
-          <td style="padding-right:4px; white-space:nowrap;" valign="middle"><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:25px; color:{fng_color};">{fng['value']}</span></td>
-          <td style="white-space:nowrap;" valign="middle"><span style="font-size:14px; color:{fng_color};">{fng['classification']}</span></td>
+          <td style="padding-right:4px; white-space:nowrap;" valign="middle"><span class="fng-value-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:25px; color:{fng_color};">{fng['value']}</span></td>
+          <td style="white-space:nowrap;" valign="middle"><span class="fng-classification-text" style="font-size:14px; color:{fng_color};">{fng['classification']}</span></td>
         </tr></table>
       </td>
       <td width="1" style="padding:0 15px;" valign="middle"><div style="width:1.5px; height:36px; background:{GOLD}; font-size:0; line-height:0;">&nbsp;</div></td>
-      <td width="50%" style="padding:16px 16px 16px 8px;" align="left" valign="middle">
+      <td class="fng-cell-right" width="50%" style="padding:16px 16px 16px 8px;" align="left" valign="middle">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td style="padding-right:20px; white-space:nowrap;" valign="middle"><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; line-height:14px; color:#7D502D;">BIGGEST MOVER</span></td>
+          <td style="padding-right:20px; white-space:nowrap;" valign="middle"><span class="mover-label-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; line-height:14px; color:#7D502D;">BIGGEST MOVER</span></td>
           <td valign="middle">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="background:rgba(201,151,79,0.14); border:1px solid rgba(201,151,79,0.45); border-radius:20px;"><tr>
-              <td style="padding:4px 14px; white-space:nowrap;">
-                <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color};">{mover['symbol']}</span>
-                <span style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color}; margin-left:6px;">{mover_sign}{mover['change_24h']:.1f}%</span>
+              <td class="mover-pill-pad" style="padding:4px 14px; white-space:nowrap;">
+                <span class="mover-value-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color};">{mover['symbol']}</span>
+                <span class="mover-value-text" style="font-family:Arial,sans-serif; font-weight:bold; font-size:21px; color:{mover_color}; margin-left:6px;">{mover_sign}{mover['change_24h']:.1f}%</span>
               </td>
             </tr></table>
           </td>
@@ -365,6 +365,20 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
+<style>
+@media only screen and (max-width: 600px) {{
+  .fng-box {{ padding:26px 22px !important; }}
+  .fng-cell-left {{ padding:20px 10px 20px 18px !important; }}
+  .fng-cell-right {{ padding:20px 18px 20px 10px !important; }}
+  .fng-gauge-img {{ width:66px !important; height:42px !important; }}
+  .fng-label-text {{ font-size:19px !important; }}
+  .fng-value-text {{ font-size:34px !important; }}
+  .fng-classification-text {{ font-size:19px !important; }}
+  .mover-label-text {{ font-size:19px !important; }}
+  .mover-pill-pad {{ padding:8px 20px !important; }}
+  .mover-value-text {{ font-size:29px !important; }}
+}}
+</style>
 </head>
 <body style="margin:0; padding:0; background:#FBF9F5;">
 {preheader_email_html()}
