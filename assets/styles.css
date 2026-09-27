@@ -56,8 +56,14 @@ h1, h2, h3 {
   justify-content: space-between;
   max-width: 900px;
 }
-.site-header .logo-link { display: flex; align-items: center; gap: 10px; }
-.site-header img.logo { height: 80px; width: auto; }
+.site-header .logo-link {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  color: var(--paper);
+}
+.site-header .logo-link:hover { color: var(--accent); text-decoration: none; }
 .site-nav { display: flex; gap: 22px; }
 .site-nav a {
   color: var(--paper);
@@ -73,7 +79,7 @@ h1, h2, h3 {
   padding: 24px 0;
   text-align: center;
 }
-.hero .wrap { max-width: 860px; padding: 0; }
+.hero .wrap { max-width: 1400px; padding: 0 20px; }
 .hero-masthead { width: 100%; height: auto; margin: 0 auto; }
 
 /* Ticker */
