@@ -305,7 +305,8 @@ def _market_data_from_post(post):
     return prices, fng, mover
 
 
-def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low"):
+def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low",
+                         inst_flow_score=72, inst_flow_signal="Accumulation"):
     """Homepage-only market section - deliberately NOT the compact,
     newsletter-styled ticker/sentiment box used on post pages. Full-width
     grid of price cards, plus Fear & Greed and Biggest Mover as their own
@@ -316,6 +317,9 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
     mover_color = "#256B32" if mover_up else "#E24C4C"
     mover_sign = "+" if mover_up else ""
     mover_label = "BIGGEST MOVER OF THE WEEK" if tag == "Weekly" else "BIGGEST MOVER TODAY"
+    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
+        inst_flow_signal.lower(), "#8A7F5C"
+    )
 
     coin_cards = "".join(
         f"""<div class="pulse-coin">
@@ -360,6 +364,12 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
           <span class="pulse-card-label">&#9888;&#65039; Risk Radar</span>
           <div class="pulse-card-main">
             <span class="pulse-risk-badge pulse-risk-{risk_level}">{risk_level.upper()}</span>
+          </div>
+        </div>
+        <div class="pulse-card">
+          <span class="pulse-card-label">&#127974; Institutional Flow</span>
+          <div class="pulse-card-main">
+            <div class="pulse-card-value" style="color:{flow_color};">{inst_flow_score}<span class="pulse-card-word">{inst_flow_signal}</span></div>
           </div>
         </div>
       </div>
