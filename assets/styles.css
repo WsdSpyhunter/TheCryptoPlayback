@@ -88,13 +88,29 @@ h1, h2, h3 {
 .ticker .sym { color: var(--accent); font-weight: 700; }
 .ticker .updated { margin-left: auto; opacity: 0.6; font-size: 12px; }
 
-/* Latest post card (homepage) */
+/* Market strip (homepage) - same ticker/Fear&Greed markup as a post page,
+   snapshotted from the latest issue. */
+.market-strip { margin: 32px auto 0; }
+
+/* Recent-issues teaser list (homepage) */
 .latest {
   max-width: 900px;
   margin: 40px auto;
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
 }
-.latest .eyebrow-tag {
+.teaser-card {
+  display: block;
+  color: inherit;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.teaser-card:hover { text-decoration: none; }
+.teaser-card:hover h2 { color: var(--accent-dark); }
+.teaser-card:first-child { padding-top: 0; }
+.teaser-card:last-child { border-bottom: none; }
+.teaser-card .eyebrow-tag {
   display: inline-block;
   background: var(--accent);
   color: var(--ink);
@@ -104,10 +120,17 @@ h1, h2, h3 {
   border-radius: 3px;
   margin-bottom: 10px;
 }
-.latest h2 { font-size: 30px; }
-.latest .date { color: var(--accent-dark); font-size: 14px; margin-bottom: 16px; }
-.latest .excerpt { font-size: 17px; }
-.latest .read-more { font-family: 'Oswald', sans-serif; font-size: 14px; letter-spacing: 0.03em; }
+.teaser-card h2 { font-size: 26px; margin-bottom: 0.2em; }
+.teaser-card .date { color: var(--accent-dark); font-size: 14px; margin-bottom: 14px; }
+.teaser-card .excerpt { font-size: 16px; color: var(--ink); }
+.teaser-card .read-more {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  color: var(--accent-dark);
+}
 
 /* Post body */
 .post {
@@ -180,7 +203,21 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 32px; }
-  .latest h2 { font-size: 24px; }
+  .teaser-card h2 { font-size: 22px; }
+
+  /* Real flexbox, unlike the email version - a plain wrap/stack fixes the
+     mobile overflow (prices getting cut off on the right edge) without
+     needing the table-based restructuring the email needed. */
+  .ticker-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  .ticker-top5-col { align-items: center; margin-bottom: 14px; }
+  .ticker-prices { width: 100%; padding-top: 0; }
+  .price-row { flex-wrap: wrap; justify-content: center; row-gap: 10px; }
+  .ticker-subscribe-row { flex-wrap: wrap; padding: 14px 16px; text-align: center; }
 }
 
 /* Issue pill (Daily/Weekly indicator) */

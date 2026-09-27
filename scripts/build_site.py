@@ -276,16 +276,6 @@ def render_post_html(post, root_prefix):
 
 
 def render_index(entries):
-    if not entries:
-        latest_block = "<p>First post coming soon.</p>"
-    else:
-        latest = entries[0]
-        latest_block = f"""<span class="eyebrow-tag">{latest['tag']}</span>
-    <h2>{latest['title']}</h2>
-    <div class="date">{latest['date_display']}</div>
-    <p class="excerpt">{latest['excerpt']}</p>
-    <a class="read-more" href="posts/{latest['slug']}.html">Read the full playback &rarr;</a>"""
-
     # header-web.png: same masthead art as the email (header-a.png), but with
     # the candlestick chart decoration in the corners painted out for the
     # website specifically (user request) - the email's own header-a.png is
@@ -298,8 +288,50 @@ def render_index(entries):
     </div>
   </section>"""
 
-    latest_section = f'<section class="latest">{latest_block}</section>'
-    body = hero + latest_section
+    if not entries:
+        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year)
+
+    # Market strip: the same ticker + Fear & Greed/Biggest Mover markup used
+    # on the post page itself (ticker_html/sentiment_html are saved
+    # pre-rendered, straight off the latest issue), not a re-derived copy -
+    # this is a static snapshot from the last publish for now (design pass
+    # only, per explicit instruction to nail the layout before wiring up any
+    # live CoinGecko/Fear&Greed pulls).
+    latest_slug = entries[0]["slug"]
+    with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
+        latest_full = json.load(f)
+    sentiment_html = latest_full.get("sentiment_html", "").replace(
+        "{gauge_src}", latest_full.get("gauge_path", "")
+    )
+    market_strip = f"""<section class="market-strip">
+    <div class="wrap">
+      {latest_full.get('ticker_html', '')}
+      {sentiment_html}
+    </div>
+  </section>"""
+
+    # De-duplicated (posts_index.json can carry repeat entries from earlier
+    # test runs) top few teasers, newest first, instead of a single excerpt.
+    seen = set()
+    teasers_html = ""
+    count = 0
+    for e in entries:
+        if e["slug"] in seen:
+            continue
+        seen.add(e["slug"])
+        teasers_html += f"""<a class="teaser-card" href="posts/{e['slug']}.html">
+      <span class="eyebrow-tag">{e['tag']}</span>
+      <h2>{e['title']}</h2>
+      <div class="date">{e['date_display']}</div>
+      <p class="excerpt">{e['excerpt']}</p>
+      <span class="read-more">Read the full playback &rarr;</span>
+    </a>"""
+        count += 1
+        if count == 4:
+            break
+
+    teaser_section = f'<section class="latest">{teasers_html}</section>'
+    body = hero + market_strip + teaser_section
     return page("", "The Crypto Playback", body, datetime.now().year)
 
 
