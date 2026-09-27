@@ -40,7 +40,8 @@ DISCLAIMER = """<div class="disclaimer">
 
 FOOTER = """<footer class="site-footer">
   <div class="wrap">
-    &copy; {year} The Crypto Playback &middot; <a href="{root}about.html">Contact</a>
+    <div class="footer-copy">&copy; {year} The Crypto Playback &middot; <a href="{root}about.html">Contact</a></div>
+    <img class="footer-logo" src="{root}assets/logo-wordmark.png" alt="The Crypto Playback">
   </div>
 </footer>
 """
