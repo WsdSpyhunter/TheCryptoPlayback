@@ -11,7 +11,9 @@ HEAD = """<meta charset="UTF-8">
 
 HEADER = """<header class="site-header">
   <div class="wrap">
-    <a class="logo-link" href="{root}index.html">The Crypto Playback</a>
+    <a class="logo-link" href="{root}index.html">
+      <img class="logo" src="{root}assets/logo-wordmark.png" alt="The Crypto Playback">
+    </a>
     <nav class="site-nav">
       <a href="{root}archive.html">Archive</a>
       <a href="{root}resources.html">Resources</a>
