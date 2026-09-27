@@ -116,6 +116,7 @@ h1, h2, h3 {
   gap: 8px;
   margin-bottom: 28px;
 }
+.pulse-eyebrow-row { display: flex; align-items: center; gap: 14px; }
 .pulse-eyebrow {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
@@ -123,6 +124,7 @@ h1, h2, h3 {
   letter-spacing: 0.03em;
   color: var(--paper);
 }
+.pulse-trend-icon { width: 24px; height: 24px; flex-shrink: 0; }
 .pulse-asof { font-size: 13px; color: var(--paper); opacity: 0.5; }
 .pulse-ticker-grid {
   display: grid;
@@ -182,7 +184,7 @@ h1, h2, h3 {
   border-radius: 6px;
   margin-bottom: 18px;
 }
-.pulse-card-main { display: flex; align-items: center; gap: 16px; }
+.pulse-card-main { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .pulse-gauge { width: 64px; height: auto; }
 .pulse-card-value {
   font-family: 'Oswald', sans-serif;
