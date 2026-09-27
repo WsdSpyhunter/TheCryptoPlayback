@@ -180,7 +180,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     </td>
   </tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:table;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:block;">
   <tr><td style="padding:24px 20px 4px; text-align:center;">
     {tab_html_mobile}
     <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
@@ -212,7 +212,8 @@ def ticker_bar_email_html(prices, date_abbrev):
     <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
   </td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:table;"><tr>
+<div class="subscribe-mobile" style="display:block;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td width="100%" style="padding:14px 20px; text-align:center; box-sizing:border-box;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
       <td style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75; white-space:nowrap;">Enjoying this? Share it with a friend &rarr;</td>
@@ -231,7 +232,8 @@ def ticker_bar_email_html(prices, date_abbrev):
       </td>
     </tr></table>
   </td>
-</tr></table>"""
+</tr></table>
+</div>"""
 
 
 def sentiment_to_email_html(fng, mover, gauge_src):
