@@ -151,7 +151,11 @@ def _fng_color(value):
 
 
 def render_masthead():
-    return '<img class="post-masthead" src="{root}assets/header-a.png" alt="The Crypto Playback">'
+    # header-web.png is a website-only edit of the email's header-a.png with
+    # the candlestick chart decoration painted out of the corners (user
+    # request) - header-a.png itself is left untouched since it's also the
+    # shared, already-locked email masthead image.
+    return '<img class="post-masthead" src="{root}assets/header-web.png" alt="The Crypto Playback">'
 
 
 def render_ticker_bar(prices, date_abbrev):
@@ -282,13 +286,15 @@ def render_index(entries):
     <p class="excerpt">{latest['excerpt']}</p>
     <a class="read-more" href="posts/{latest['slug']}.html">Read the full playback &rarr;</a>"""
 
-    # Same masthead art used at the top of the email (header-a.png) - the
-    # tagline ("YOUR #1 SOURCE FOR BITCOIN & CRYPTO NEWS HIGHLIGHTS") is
-    # baked into the image itself, so there's no separate script/tagline
-    # markup needed here the way the old hero had.
+    # header-web.png: same masthead art as the email (header-a.png), but with
+    # the candlestick chart decoration in the corners painted out for the
+    # website specifically (user request) - the email's own header-a.png is
+    # untouched. The tagline ("YOUR #1 SOURCE FOR BITCOIN & CRYPTO NEWS
+    # HIGHLIGHTS") is baked into the image itself, so there's no separate
+    # script/tagline markup needed here the way the old hero had.
     hero = """<section class="hero">
     <div class="wrap">
-      <img class="hero-masthead" src="assets/header-a.png" alt="The Crypto Playback — your #1 source for Bitcoin and crypto news highlights">
+      <img class="hero-masthead" src="assets/header-web.png" alt="The Crypto Playback — your #1 source for Bitcoin and crypto news highlights">
     </div>
   </section>"""
 
