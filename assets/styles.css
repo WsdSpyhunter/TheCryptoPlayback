@@ -3,8 +3,8 @@
 :root {
   --ink: #171512;
   --paper: #FBF9F5;
-  --accent: #DE9547;
-  --accent-dark: #B5702E;
+  --accent: #C9974F;
+  --accent-dark: #936038;
   --sage: #DDE3D0;
   --rule: rgba(23, 21, 18, 0.12);
   --max-width: 760px;
@@ -44,7 +44,7 @@ h1, h2, h3 {
 
 /* Nameplate / header */
 .site-header {
-  background: var(--ink);
+  background: #000000;
   padding: 18px 0;
   position: sticky;
   top: 0;
@@ -57,7 +57,7 @@ h1, h2, h3 {
   max-width: 900px;
 }
 .site-header .logo-link { display: flex; align-items: center; gap: 10px; }
-.site-header img.logo { height: 40px; width: auto; filter: brightness(0) invert(1); }
+.site-header img.logo { height: 40px; width: auto; }
 .site-nav { display: flex; gap: 22px; }
 .site-nav a {
   color: var(--paper);
@@ -67,18 +67,14 @@ h1, h2, h3 {
 }
 .site-nav a:hover { color: var(--accent); text-decoration: none; }
 
-/* Hero */
+/* Hero — same masthead art as the email, on the same black background */
 .hero {
-  background: var(--accent-dark);
-  color: var(--paper);
-  padding: 48px 0 40px;
+  background: #000000;
+  padding: 24px 0;
   text-align: center;
 }
-.hero .wrap { max-width: 900px; }
-.hero .script { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; display: block; }
-.hero h1 { font-size: 44px; color: var(--paper); margin-bottom: 0.3em; }
-.hero p.tagline { font-size: 17px; opacity: 0.92; max-width: 480px; margin: 0 auto; }
-.hero img.mascot { max-width: 220px; margin: 20px auto 0; }
+.hero .wrap { max-width: 860px; padding: 0; }
+.hero-masthead { width: 100%; height: auto; margin: 0 auto; }
 
 /* Ticker */
 .ticker {
@@ -162,7 +158,7 @@ h1, h2, h3 {
 
 /* Footer */
 .site-footer {
-  background: var(--ink);
+  background: #000000;
   color: var(--paper);
   padding: 24px 0;
   font-size: 13px;

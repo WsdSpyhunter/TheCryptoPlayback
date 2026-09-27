@@ -12,7 +12,7 @@ HEAD = """<meta charset="UTF-8">
 HEADER = """<header class="site-header">
   <div class="wrap">
     <a class="logo-link" href="{root}index.html">
-      <img class="logo" src="{root}assets/logo.png" alt="The Crypto Playback">
+      <img class="logo" src="{root}assets/logo-white.png" alt="The Crypto Playback">
     </a>
     <nav class="site-nav">
       <a href="{root}archive.html">Archive</a>

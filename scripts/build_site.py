@@ -282,11 +282,13 @@ def render_index(entries):
     <p class="excerpt">{latest['excerpt']}</p>
     <a class="read-more" href="posts/{latest['slug']}.html">Read the full playback &rarr;</a>"""
 
+    # Same masthead art used at the top of the email (header-a.png) - the
+    # tagline ("YOUR #1 SOURCE FOR BITCOIN & CRYPTO NEWS HIGHLIGHTS") is
+    # baked into the image itself, so there's no separate script/tagline
+    # markup needed here the way the old hero had.
     hero = """<section class="hero">
     <div class="wrap">
-      <span class="script">The</span>
-      <img class="mascot" src="assets/mascot.png" alt="The Crypto Playback mascot">
-      <p class="tagline">A trusted source for efficient Bitcoin and crypto news updates.</p>
+      <img class="hero-masthead" src="assets/header-a.png" alt="The Crypto Playback — your #1 source for Bitcoin and crypto news highlights">
     </div>
   </section>"""
 
