@@ -52,11 +52,14 @@ h1, h2, h3 {
 }
 .site-header .wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  gap: 12px;
   max-width: 900px;
 }
-.site-nav { display: flex; gap: 22px; }
+.site-header .logo-link { display: flex; }
+.site-header img.logo { height: 50px; width: auto; }
+.site-nav { display: flex; justify-content: center; gap: 22px; }
 .site-nav a {
   color: var(--paper);
   font-family: 'Oswald', sans-serif;
