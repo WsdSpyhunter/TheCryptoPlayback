@@ -141,34 +141,46 @@ h1, h2, h3 {
 }
 .pulse-coin:hover { border-color: var(--accent); transform: translateY(-2px); }
 .pulse-coin-sym {
+  display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: #F2C879;
+  background: rgba(242,200,121,0.14);
+  box-shadow: 0 0 10px rgba(242,200,121,0.25);
+  padding: 4px 9px;
+  border-radius: 5px;
+  margin-bottom: 2px;
 }
 .pulse-coin-price { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 22px; color: var(--paper); }
 .pulse-coin-change { font-size: 14px; font-weight: 600; }
 
-.pulse-columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+/* Flex row, not a strict equal-width grid - each card sizes to its own
+   content instead of stretching to fill a 1/3 column (that stretch was
+   the "wasted space" inside each box), and all three fit on one row
+   without wrapping the way they did as three equal, over-wide columns. */
+.pulse-columns { display: flex; flex-wrap: wrap; gap: 20px; }
 .pulse-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  padding: 20px 22px;
+  padding: 18px 24px;
+  flex: 0 1 auto;
 }
 .pulse-card-label {
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 15px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #F2C879;
-  background: rgba(242,200,121,0.12);
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin-bottom: 16px;
+  background: rgba(242,200,121,0.14);
+  box-shadow: 0 0 14px rgba(242,200,121,0.3);
+  padding: 7px 14px;
+  border-radius: 6px;
+  margin-bottom: 18px;
 }
 .pulse-card-main { display: flex; align-items: center; gap: 16px; }
 .pulse-gauge { width: 64px; height: auto; }
@@ -200,11 +212,10 @@ h1, h2, h3 {
 
 @media (max-width: 900px) {
   .pulse-ticker-grid { grid-template-columns: repeat(3, 1fr); }
-  .pulse-columns { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
   .pulse-ticker-grid { grid-template-columns: repeat(2, 1fr); }
-  .pulse-columns { grid-template-columns: 1fr; }
+  .pulse-card { flex: 1 1 100%; }
   .pulse-card-value, .pulse-mover-symbol { font-size: 38px; }
   .market-pulse { padding: 40px 0 48px; }
 }
