@@ -15,9 +15,10 @@ HEADER = """<header class="site-header">
       <img class="logo" src="{root}assets/logo-wordmark.png" alt="The Crypto Playback">
     </a>
     <nav class="site-nav">
-      <a href="{root}archive.html">Archive</a>
-      <a href="{root}resources.html">Resources</a>
       <a href="{root}about.html">About</a>
+      <a href="#">Subscribe</a>
+      <a href="{root}archive.html">Archives</a>
+      <a href="{root}resources.html">Resources</a>
     </nav>
   </div>
 </header>
