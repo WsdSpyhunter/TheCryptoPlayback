@@ -11,6 +11,7 @@ produced a new post's content.
 import json
 import math
 import os
+import re
 from datetime import datetime, timezone
 from PIL import Image, ImageDraw
 from partials import page
@@ -275,6 +276,85 @@ def render_post_html(post, root_prefix):
     return page(root_prefix, f"{post['title']} — The Crypto Playback", body, datetime.now().year)
 
 
+def _market_data_from_post(post):
+    """Raw {prices, fng, mover} for the homepage market-pulse section.
+
+    Posts generated from here on save these fields directly (see
+    generate_issue.py). Older posts only ever saved the pre-rendered
+    ticker_html/sentiment_html strings, not the numbers behind them, so this
+    falls back to pulling the real values back out of that saved HTML with a
+    few regexes - nothing here is invented, it's just recovering numbers
+    that were always there, formatted differently."""
+    if "prices" in post and "fng" in post and "mover" in post:
+        return post["prices"], post["fng"], post["mover"]
+
+    prices = [
+        {"symbol": sym, "price": float(price.replace(",", "")), "change_24h": float(pct)}
+        for sym, price, pct in re.findall(
+            r'class="price-chip">(\w+) \$([\d,]+\.\d+) <span[^>]*>\(([+-]?[\d.]+)%\)',
+            post.get("ticker_html", ""),
+        )
+    ]
+    values = re.findall(r'class="sentiment-value"[^>]*>([^<]+)<', post.get("sentiment_html", ""))
+    words = re.findall(r'class="sentiment-word[^"]*"[^>]*>([^<]+)<', post.get("sentiment_html", ""))
+    fng = {"value": int(values[0]), "classification": words[0]} if values and words else {"value": 0, "classification": "Unknown"}
+    if len(values) > 1 and len(words) > 1:
+        mover = {"symbol": values[1], "change_24h": float(words[1].replace("%", "").replace("+", ""))}
+    else:
+        mover = {"symbol": "-", "change_24h": 0}
+    return prices, fng, mover
+
+
+def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev):
+    """Homepage-only market section - deliberately NOT the compact,
+    newsletter-styled ticker/sentiment box used on post pages. Full-width
+    grid of price cards, plus Fear & Greed and Biggest Mover as their own
+    large, separate cards (F&G left, Mover right) rather than one small
+    bordered box - a real web dashboard layout, not an email shrunk down."""
+    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
+    mover_up = mover["change_24h"] >= 0
+    mover_color = "#256B32" if mover_up else "#E24C4C"
+    mover_sign = "+" if mover_up else ""
+    mover_label = "BIGGEST MOVER OF THE WEEK" if tag == "Weekly" else "BIGGEST MOVER TODAY"
+
+    coin_cards = "".join(
+        f"""<div class="pulse-coin">
+        <span class="pulse-coin-sym">{c['symbol']}</span>
+        <span class="pulse-coin-price">${c['price']:,.2f}</span>
+        <span class="pulse-coin-change" style="color:{'#8FBF5C' if c['change_24h'] >= 0 else '#E8837A'};">{c['change_24h']:+.1f}%</span>
+      </div>"""
+        for c in prices
+    )
+
+    return f"""<section class="market-pulse">
+    <div class="pulse-wrap">
+      <div class="pulse-ticker">
+        <div class="pulse-ticker-head">
+          <span class="pulse-eyebrow">Top {len(prices)} Market</span>
+          <span class="pulse-asof">Prices as of 6AM CST &middot; {date_abbrev}</span>
+        </div>
+        <div class="pulse-ticker-grid">{coin_cards}</div>
+      </div>
+      <div class="pulse-columns">
+        <div class="pulse-card">
+          <span class="pulse-card-label">Fear &amp; Greed Index</span>
+          <div class="pulse-card-main">
+            <img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">
+            <div class="pulse-card-value" style="color:{fng_color};">{fng['value']}<span class="pulse-card-word">{fng['classification']}</span></div>
+          </div>
+        </div>
+        <div class="pulse-card">
+          <span class="pulse-card-label">{mover_label}</span>
+          <div class="pulse-card-main pulse-card-main-mover">
+            <span class="pulse-mover-symbol">{mover['symbol']}</span>
+            <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover['change_24h']:.1f}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>"""
+
+
 def render_index(entries):
     # header-web.png: same masthead art as the email (header-a.png), but with
     # the candlestick chart decoration in the corners painted out for the
@@ -291,24 +371,17 @@ def render_index(entries):
     if not entries:
         return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year)
 
-    # Market strip: the same ticker + Fear & Greed/Biggest Mover markup used
-    # on the post page itself (ticker_html/sentiment_html are saved
-    # pre-rendered, straight off the latest issue), not a re-derived copy -
-    # this is a static snapshot from the last publish for now (design pass
-    # only, per explicit instruction to nail the layout before wiring up any
-    # live CoinGecko/Fear&Greed pulls).
+    # Homepage-only market design (see render_market_pulse) built from the
+    # latest issue's real numbers - a static snapshot from the last publish
+    # for now (design pass only, per explicit instruction to nail the layout
+    # before wiring up any live CoinGecko/Fear&Greed pulls).
     latest_slug = entries[0]["slug"]
     with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
         latest_full = json.load(f)
-    sentiment_html = latest_full.get("sentiment_html", "").replace(
-        "{gauge_src}", latest_full.get("gauge_path", "")
-    )
-    market_strip = f"""<section class="market-strip">
-    <div class="wrap">
-      {latest_full.get('ticker_html', '')}
-      {sentiment_html}
-    </div>
-  </section>"""
+    prices, fng, mover = _market_data_from_post(latest_full)
+    gauge_src = latest_full.get("gauge_path", "")
+    date_abbrev = latest_full.get("date_abbrev", latest_full.get("date_display", ""))
+    market_strip = render_market_pulse(prices, fng, mover, latest_full.get("tag", "Daily"), gauge_src, date_abbrev)
 
     # De-duplicated (posts_index.json can carry repeat entries from earlier
     # test runs) top few teasers, newest first, instead of a single excerpt.

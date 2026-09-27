@@ -88,9 +88,94 @@ h1, h2, h3 {
 .ticker .sym { color: var(--accent); font-weight: 700; }
 .ticker .updated { margin-left: auto; opacity: 0.6; font-size: 12px; }
 
-/* Market strip (homepage) - same ticker/Fear&Greed markup as a post page,
-   snapshotted from the latest issue. */
-.market-strip { margin: 32px auto 0; }
+/* ============ Homepage market pulse - distinct, full-width web design,
+   not the compact newsletter ticker/sentiment box used on post pages ============ */
+.market-pulse { background: #000000; padding: 56px 0 64px; }
+.pulse-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.pulse-ticker-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.pulse-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.03em;
+  color: var(--paper);
+}
+.pulse-asof { font-size: 13px; color: var(--paper); opacity: 0.5; }
+.pulse-ticker-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.pulse-coin {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.pulse-coin:hover { border-color: var(--accent); transform: translateY(-2px); }
+.pulse-coin-sym {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+.pulse-coin-price { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 22px; color: var(--paper); }
+.pulse-coin-change { font-size: 14px; font-weight: 600; }
+
+.pulse-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pulse-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 32px;
+}
+.pulse-card-label {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.pulse-card-main { display: flex; align-items: center; gap: 20px; }
+.pulse-gauge { width: 88px; height: auto; }
+.pulse-card-value {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.pulse-card-word { font-family: 'Source Sans 3', sans-serif; font-size: 18px; font-weight: 600; color: var(--paper); opacity: 0.85; }
+.pulse-mover-symbol { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 56px; color: var(--paper); }
+.pulse-mover-change { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 32px; margin-left: 16px; }
+
+@media (max-width: 900px) {
+  .pulse-ticker-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .pulse-ticker-grid { grid-template-columns: repeat(2, 1fr); }
+  .pulse-columns { grid-template-columns: 1fr; }
+  .pulse-card-value, .pulse-mover-symbol { font-size: 44px; }
+  .market-pulse { padding: 40px 0 48px; }
+}
 
 /* Recent-issues teaser list (homepage) */
 .latest {

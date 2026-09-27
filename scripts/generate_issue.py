@@ -136,6 +136,13 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         "tag": tag,
         "issue_number": issue_number,
         "gauge_path": gauge_path,
+        # Raw data, not just the rendered HTML below - lets any future
+        # design (homepage widgets, a live version, etc.) work from real
+        # structured numbers instead of having to re-parse HTML strings.
+        "prices": prices,
+        "fng": fng,
+        "mover": mover,
+        "date_abbrev": date_abbrev,
         "ticker_html": render_ticker_bar(prices, date_abbrev),
         "sentiment_html": render_sentiment_combined(fng, mover, tag),
         "issue_pill_html": render_issue_pill(tag),
