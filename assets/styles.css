@@ -177,7 +177,7 @@ h1, h2, h3 {
   font-size: 15px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #F2C879;
+  color: var(--paper);
   background: rgba(242,200,121,0.14);
   box-shadow: 0 0 14px rgba(242,200,121,0.3);
   padding: 7px 14px;
