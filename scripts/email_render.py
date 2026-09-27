@@ -212,8 +212,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
   </td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:none;"><tr>
-  <td style="padding:14px 20px; text-align:center;">
+<div class="subscribe-mobile" style="background:{BLACK}; padding:14px 20px; text-align:center; display:none;">
     <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
     <div style="margin-top:10px;">
       <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; vertical-align:middle;">SUBSCRIBE HERE</span>
@@ -224,8 +223,7 @@ def ticker_bar_email_html(prices, date_abbrev):
       &nbsp;
       <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
     </div>
-  </td>
-</tr></table>"""
+</div>"""
 
 
 def sentiment_to_email_html(fng, mover, gauge_src):
