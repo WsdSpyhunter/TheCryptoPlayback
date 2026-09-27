@@ -166,7 +166,7 @@ def ticker_bar_email_html(prices, date_abbrev):
         mobile_prices_html += f"<tr>{cells}</tr>"
     mobile_prices_html += "</table>"
 
-    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-desktop" style="background:{BLACK}; display:table;">
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-desktop" style="background:{BLACK}; display:none;">
   <tr>
     <td style="padding:28px 20px 18px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
@@ -180,7 +180,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     </td>
   </tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:none;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:table;">
   <tr><td style="padding:24px 20px 4px; text-align:center;">
     {tab_html_mobile}
     <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
@@ -199,7 +199,7 @@ def ticker_bar_email_html(prices, date_abbrev):
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:10px 20px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:table;"><tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:none;"><tr>
   <td style="padding:12px 20px; text-align:center; white-space:nowrap;">
     <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
     &nbsp;&nbsp;
@@ -212,8 +212,8 @@ def ticker_bar_email_html(prices, date_abbrev):
     <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
   </td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:none;"><tr>
-  <td width="100%" style="padding:14px 20px; text-align:center;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:table;"><tr>
+  <td width="100%" style="padding:14px 20px; text-align:center; box-sizing:border-box;">
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
       <td style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75; white-space:nowrap;">Enjoying this? Share it with a friend &rarr;</td>
     </tr></table>
@@ -461,16 +461,19 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <html style="overflow-x:hidden;">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
 <style>
 @media only screen and (max-width: 600px) {{
-  .tbar-desktop {{ display:none !important; }}
-  .tbar-mobile {{ display:table !important; }}
   .fng-desktop {{ display:none !important; }}
   .fng-mobile {{ display:block !important; }}
-  .subscribe-desktop {{ display:none !important; }}
-  .subscribe-mobile {{ display:table !important; }}
+}}
+@media only screen and (min-width: 601px) {{
+  .tbar-mobile {{ display:none !important; }}
+  .tbar-desktop {{ display:table !important; }}
+  .subscribe-mobile {{ display:none !important; }}
+  .subscribe-desktop {{ display:table !important; }}
 }}
 </style>
 </head>
