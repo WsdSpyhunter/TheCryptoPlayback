@@ -65,7 +65,7 @@ def preheader_email_html():
     Since the gap can't be removed from our side, this turns the space in
     front of it into an intentional, branded line instead of dead space."""
     return (
-        f'<div style="background:{BLACK}; padding:14px 20px; text-align:center; width:100%; box-sizing:border-box;">'
+        f'<div style="background:{BLACK}; padding:14px 20px; text-align:center;">'
         f'<span style="font-family:Georgia,serif; font-weight:bold; font-size:16px; '
         f'letter-spacing:0.15em; color:#FBF9F5;">THE CRYPTO '
         f'<span style="color:{GOLD};">PLAYBACK</span></span></div>'
@@ -166,7 +166,7 @@ def ticker_bar_email_html(prices, date_abbrev):
         mobile_prices_html += f"<tr>{cells}</tr>"
     mobile_prices_html += "</table>"
 
-    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-desktop" style="background:{BLACK}; display:none;">
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-desktop" style="background:{BLACK}; display:table;">
   <tr>
     <td style="padding:28px 20px 18px;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
@@ -180,7 +180,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     </td>
   </tr>
 </table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:block;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:none;">
   <tr><td style="padding:24px 20px 4px; text-align:center;">
     {tab_html_mobile}
     <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
@@ -199,7 +199,7 @@ def ticker_bar_email_html(prices, date_abbrev):
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:10px 20px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
 </tr></table>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:none;"><tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:table;"><tr>
   <td style="padding:12px 20px; text-align:center; white-space:nowrap;">
     <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
     &nbsp;&nbsp;
@@ -212,28 +212,20 @@ def ticker_bar_email_html(prices, date_abbrev):
     <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
   </td>
 </tr></table>
-<div class="subscribe-mobile" style="display:block;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td width="100%" style="padding:14px 20px; text-align:center; box-sizing:border-box;">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
-      <td style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75; white-space:nowrap;">Enjoying this? Share it with a friend &rarr;</td>
-    </tr></table>
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:10px auto 0;"><tr>
-      <td style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; white-space:nowrap;" valign="middle">SUBSCRIBE HERE</td>
-      <td style="width:12px; font-size:0; line-height:0;">&nbsp;</td>
-      <td valign="middle">
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
-        </tr></table>
-      </td>
-      <td style="width:8px; font-size:0; line-height:0;">&nbsp;</td>
-      <td valign="middle">
-        <a href="https://x.com/cryptoplayback" style="display:inline-block; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
-      </td>
-    </tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-mobile" style="background:{BLACK}; display:none;"><tr>
+  <td style="padding:14px 20px; text-align:center;">
+    <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
+    <div style="margin-top:10px;">
+      <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; vertical-align:middle;">SUBSCRIBE HERE</span>
+      &nbsp;&nbsp;
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table; vertical-align:middle;"><tr>
+        <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
+      </tr></table>
+      &nbsp;
+      <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
+    </div>
   </td>
-</tr></table>
-</div>"""
+</tr></table>"""
 
 
 def sentiment_to_email_html(fng, mover, gauge_src):
@@ -300,7 +292,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # on one line, value+detail on the next - so there's enough width per
     # half to use meaningfully larger text/icon than a single nowrap row
     # could ever fit on a phone screen.
-    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:6px solid {PLAYBACK_P_GOLD}; display:none;">
+    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:3px solid {PLAYBACK_P_GOLD}; display:none;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
       <td width="50%" style="padding:18px 10px 18px 14px;" align="left" valign="top">
@@ -440,7 +432,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
     # width than those two images regardless of what width Buttondown's own
     # template happens to give unconstrained content.
     wrapped = (
-        f"<div style='width:100%;box-sizing:border-box;max-width:{CONTENT_WIDTH}px;margin:0 auto;"
+        f"<div style='max-width:{CONTENT_WIDTH}px;margin:0 auto;"
         f"font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
     )
     # A full, minimal HTML document, not stray <meta> tags dropped in front
@@ -460,7 +452,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
     # regardless, so this has no effect there — the desktop/Gmail version
     # is unchanged.
     html_doc = f"""<!doctype html>
-<html style="overflow-x:hidden;">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -468,18 +460,16 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 <meta name="supported-color-schemes" content="light">
 <style>
 @media only screen and (max-width: 600px) {{
+  .tbar-desktop {{ display:none !important; }}
+  .tbar-mobile {{ display:block !important; }}
   .fng-desktop {{ display:none !important; }}
   .fng-mobile {{ display:block !important; }}
-}}
-@media only screen and (min-width: 601px) {{
-  .tbar-mobile {{ display:none !important; }}
-  .tbar-desktop {{ display:table !important; }}
-  .subscribe-mobile {{ display:none !important; }}
-  .subscribe-desktop {{ display:table !important; }}
+  .subscribe-desktop {{ display:none !important; }}
+  .subscribe-mobile {{ display:block !important; }}
 }}
 </style>
 </head>
-<body style="margin:0; padding:0; width:100%; background:#FBF9F5; overflow-x:hidden;">
+<body style="margin:0; padding:0; background:#FBF9F5;">
 {preheader_email_html()}
 {parts[0]}
 {wrapped}
