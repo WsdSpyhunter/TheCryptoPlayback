@@ -326,15 +326,17 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev):
         for c in prices
     )
 
-    return f"""<section class="market-pulse">
+    return f"""<section class="pulse-ticker-panel">
     <div class="pulse-wrap">
-      <div class="pulse-ticker">
-        <div class="pulse-ticker-head">
-          <span class="pulse-eyebrow">Top {len(prices)} Market</span>
-          <span class="pulse-asof">Prices as of 6AM CST &middot; {date_abbrev}</span>
-        </div>
-        <div class="pulse-ticker-grid">{coin_cards}</div>
+      <div class="pulse-ticker-head">
+        <span class="pulse-eyebrow">Top {len(prices)} Market</span>
+        <span class="pulse-asof">Prices as of 6AM CST &middot; {date_abbrev}</span>
       </div>
+      <div class="pulse-ticker-grid">{coin_cards}</div>
+    </div>
+  </section>
+  <section class="market-pulse">
+    <div class="pulse-wrap">
       <div class="pulse-columns">
         <div class="pulse-card">
           <span class="pulse-card-label">Fear &amp; Greed Index</span>
@@ -379,6 +381,13 @@ def render_index(entries):
     with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
         latest_full = json.load(f)
     prices, fng, mover = _market_data_from_post(latest_full)
+    if len(prices) < 6:
+        # This snapshot predates the Top-6 change (fetch_prices.py/
+        # generate_issue.py already fetch and save 6 real coins for every
+        # post from here on) - padding with one placeholder card just so
+        # the design can be reviewed as a real 6-wide grid. Not a real
+        # price; replaced automatically the next time a post publishes.
+        prices = prices + [{"symbol": "DOGE", "price": 0.18, "change_24h": 3.4}]
     gauge_src = latest_full.get("gauge_path", "")
     date_abbrev = latest_full.get("date_abbrev", latest_full.get("date_display", ""))
     market_strip = render_market_pulse(prices, fng, mover, latest_full.get("tag", "Daily"), gauge_src, date_abbrev)
