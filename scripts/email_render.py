@@ -290,7 +290,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # on one line, value+detail on the next - so there's enough width per
     # half to use meaningfully larger text/icon than a single nowrap row
     # could ever fit on a phone screen.
-    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:3px solid {PLAYBACK_P_GOLD}; display:none;">
+    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:6px solid {PLAYBACK_P_GOLD}; display:none;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
       <td width="50%" style="padding:18px 10px 18px 14px;" align="left" valign="top">
