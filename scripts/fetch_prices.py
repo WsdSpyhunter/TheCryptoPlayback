@@ -1,5 +1,5 @@
 """
-fetch_prices.py — pulls the top 5 coins by market cap (excluding stablecoins)
+fetch_prices.py — pulls the top 6 coins by market cap (excluding stablecoins)
 from CoinGecko's free Demo API.
 
 Requires env var: COINGECKO_API_KEY
@@ -10,13 +10,13 @@ import requests
 STABLECOINS = {"usdt", "usdc", "dai", "fdusd", "usde", "busd", "tusd"}
 
 
-def get_top_prices(count=5):
+def get_top_prices(count=6):
     api_key = os.environ["COINGECKO_API_KEY"]
     url = "https://api.coingecko.com/api/v3/coins/markets"
     params = {
         "vs_currency": "usd",
         "order": "market_cap_desc",
-        "per_page": 20,  # grab extra so we can filter stablecoins and still have 5
+        "per_page": 20,  # grab extra so we can filter stablecoins and still have 6
         "page": 1,
         "price_change_percentage": "24h",
     }

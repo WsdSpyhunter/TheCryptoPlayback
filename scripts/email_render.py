@@ -88,8 +88,8 @@ def masthead_email_html():
 
 
 def ticker_bar_email_html(prices, date_abbrev):
-    """Matches the approved design exactly: Top 5 Market tab with the arrow
-    pointing into a single evenly-spaced row of all 5 prices, caption under
+    """Matches the approved design exactly: Top 6 Market tab with the arrow
+    pointing into a single evenly-spaced row of all 6 prices, caption under
     the tab, a separate news-date pill, and a share/subscribe row.
 
     Built with tables, not flexbox. Real inboxes silently ignore flex-wrap
@@ -109,7 +109,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     # shorter row (XRP/SOL) came out narrower than the row above it
     # (BTC/ETH/BNB) and the columns didn't line up. One shared table forces
     # both rows onto the same column grid.
-    col_widths = [190, 180, 0]
+    col_widths = [190, 180, 180]
 
     def price_row(chips, padding_bottom=0):
         cells = "".join(
@@ -127,7 +127,7 @@ def ticker_bar_email_html(prices, date_abbrev):
 
     tab_html = (
         f'<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>'
-        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 5 Market</td>'
+        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 6 Market</td>'
         f'<td style="width:0; padding:0; line-height:0; font-size:0;">'
         f'<div style="width:0;height:0;border-top:19px solid transparent;border-bottom:19px solid transparent;border-left:14px solid {PLAYBACK_P_GOLD};">&nbsp;</div>'
         f'</td></tr></table>'
@@ -142,18 +142,18 @@ def ticker_bar_email_html(prices, date_abbrev):
     # weekly can't affect it.
     tab_html_mobile = (
         f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table;"><tr>'
-        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 26px;border-radius:20px;white-space:nowrap;">Top 5 Market</td>'
+        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 26px;border-radius:20px;white-space:nowrap;">Top 6 Market</td>'
         f'</tr></table>'
     )
 
     # Mobile can't fit 3 nowrap price chips across a phone-width row (this was
     # already borderline on desktop's much wider column) - a 2-per-row grid
-    # (BTC/ETH, BNB/XRP, SOL alone) gives each chip roughly half the row
-    # instead of a third, which fits comfortably at a normal, readable size.
+    # (three full pairs) gives each chip roughly half the row instead of a
+    # third, which fits comfortably at a normal, readable size.
     def mobile_price_cell(c, pad):
         return f'<td width="50%" style="padding:{pad};">{chip(c, size=15)}</td>'
 
-    mobile_rows = [prices[0:2], prices[2:4], prices[4:5]]
+    mobile_rows = [prices[0:2], prices[2:4], prices[4:6]]
     mobile_prices_html = "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"table-layout:fixed;\">"
     for i, pair in enumerate(mobile_rows):
         pad_bottom = "0" if i == len(mobile_rows) - 1 else "14px"

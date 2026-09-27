@@ -155,7 +155,7 @@ def render_masthead():
 
 
 def render_ticker_bar(prices, date_abbrev):
-    """The full 'Header B' bar: Top 5 Market tab (arrow pointing into a
+    """The full 'Header B' bar: Top 6 Market tab (arrow pointing into a
     centered, evenly-spaced price grid, caption underneath the tab), the
     TOP NEWS date pill, and a subscribe/share row. Matches the approved
     email design exactly — same visual language, website's own CSS classes."""
@@ -175,7 +175,7 @@ def render_ticker_bar(prices, date_abbrev):
     return f"""<div class="ticker-bar">
     <div class="ticker-top5-col">
       <div class="ticker-tab-wrap">
-        <span class="ticker-tab">Top 5 Market</span>
+        <span class="ticker-tab">Top 6 Market</span>
         <span class="ticker-arrow"></span>
       </div>
       <span class="ticker-caption">prices as of 6AM (cst)<br>on printed date</span>
