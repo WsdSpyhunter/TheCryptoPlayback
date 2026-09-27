@@ -305,7 +305,7 @@ def _market_data_from_post(post):
     return prices, fng, mover
 
 
-def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev):
+def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low"):
     """Homepage-only market section - deliberately NOT the compact,
     newsletter-styled ticker/sentiment box used on post pages. Full-width
     grid of price cards, plus Fear & Greed and Biggest Mover as their own
@@ -350,6 +350,12 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev):
           <div class="pulse-card-main pulse-card-main-mover">
             <span class="pulse-mover-symbol">{mover['symbol']}</span>
             <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover['change_24h']:.1f}%</span>
+          </div>
+        </div>
+        <div class="pulse-card">
+          <span class="pulse-card-label">&#9888;&#65039; Risk Radar</span>
+          <div class="pulse-card-main">
+            <span class="pulse-risk-badge pulse-risk-{risk_level}">{risk_level.upper()}</span>
           </div>
         </div>
       </div>

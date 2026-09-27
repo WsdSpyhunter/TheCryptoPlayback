@@ -150,45 +150,62 @@ h1, h2, h3 {
 .pulse-coin-price { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 22px; color: var(--paper); }
 .pulse-coin-change { font-size: 14px; font-weight: 600; }
 
-.pulse-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pulse-columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
 .pulse-card {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  padding: 32px;
+  padding: 20px 22px;
 }
 .pulse-card-label {
-  display: block;
+  display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
+  color: #F2C879;
+  background: rgba(242,200,121,0.12);
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 16px;
 }
-.pulse-card-main { display: flex; align-items: center; gap: 20px; }
-.pulse-gauge { width: 88px; height: auto; }
+.pulse-card-main { display: flex; align-items: center; gap: 16px; }
+.pulse-gauge { width: 64px; height: auto; }
 .pulse-card-value {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 56px;
+  font-size: 42px;
   line-height: 1;
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  gap: 10px;
 }
-.pulse-card-word { font-family: 'Source Sans 3', sans-serif; font-size: 18px; font-weight: 600; color: var(--paper); opacity: 0.85; }
-.pulse-mover-symbol { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 56px; color: var(--paper); }
-.pulse-mover-change { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 32px; margin-left: 16px; }
+.pulse-card-word { font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600; color: var(--paper); opacity: 0.85; }
+.pulse-mover-symbol { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 42px; color: var(--paper); }
+.pulse-mover-change { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 26px; margin-left: 12px; }
+
+.pulse-risk-badge {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+.pulse-risk-low { color: #8FBF5C; background: rgba(143,191,92,0.14); border: 1px solid rgba(143,191,92,0.4); }
+.pulse-risk-moderate { color: #F2C94C; background: rgba(242,201,76,0.14); border: 1px solid rgba(242,201,76,0.4); }
+.pulse-risk-elevated { color: #E8837A; background: rgba(232,131,122,0.14); border: 1px solid rgba(232,131,122,0.4); }
 
 @media (max-width: 900px) {
   .pulse-ticker-grid { grid-template-columns: repeat(3, 1fr); }
+  .pulse-columns { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
   .pulse-ticker-grid { grid-template-columns: repeat(2, 1fr); }
   .pulse-columns { grid-template-columns: 1fr; }
-  .pulse-card-value, .pulse-mover-symbol { font-size: 44px; }
+  .pulse-card-value, .pulse-mover-symbol { font-size: 38px; }
   .market-pulse { padding: 40px 0 48px; }
 }
 
