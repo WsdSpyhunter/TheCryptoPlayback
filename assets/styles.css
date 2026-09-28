@@ -268,7 +268,7 @@ h1, h2, h3 {
   display: block;
   color: inherit;
   padding: 28px 0;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 3px solid var(--rule);
 }
 .teaser-card:hover { text-decoration: none; }
 .teaser-card:hover h2 { color: var(--accent-dark); }
@@ -304,7 +304,7 @@ h1, h2, h3 {
 }
 .post .date { color: var(--accent-dark); font-size: 14px; }
 .post h1 { font-size: 34px; margin-top: 6px; }
-.post .story { border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 24px; }
+.post .story { border-top: 3px solid var(--rule); padding-top: 24px; margin-top: 24px; }
 .post .story h3 { font-size: 20px; }
 .post .story .source-link { font-size: 14px; font-family: 'Oswald', sans-serif; }
 
@@ -359,7 +359,7 @@ h1, h2, h3 {
   gap: 16px;
 }
 .footer-brand { display: flex; align-items: center; gap: 10px; }
-.footer-mascot { height: 40px; width: auto; border-radius: 4px; }
+.footer-mascot { height: 56px; width: auto; border-radius: 4px; }
 .footer-logo { height: 32px; width: auto; }
 
 /* Focus visibility */
