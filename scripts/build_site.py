@@ -18,6 +18,7 @@ from partials import page, asset_version
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
 SECTION_MASCOT_VERSION = asset_version("mascot-color-section.png")
+CAMO_VERSION = asset_version("camo-brand.png")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
@@ -530,17 +531,23 @@ def render_index(entries):
     # Visual mockup only for now - no form action/backend wired up yet
     # (needs a real Brevo hosted-form endpoint from the user's account).
     # button type="button" (not submit) keeps it inert without needing JS.
-    subscribe_section = """<section class="subscribe-banner">
-    <div class="subscribe-inner">
-      <span class="subscribe-eyebrow">Join The Playback</span>
-      <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
-      <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
-      <form class="subscribe-form">
-        <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
-        <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-        <button type="button" class="subscribe-btn">Subscribe</button>
-      </form>
-      <span class="subscribe-fineprint">Free forever. No spam. Unsubscribe anytime.</span>
+    subscribe_section = f"""<section class="subscribe-banner">
+    <div class="subscribe-grid">
+      <div class="subscribe-decor">
+        <span class="vip-area-badge">V.I.P.<br>Area</span>
+        <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
+      </div>
+      <div class="subscribe-inner">
+        <span class="subscribe-eyebrow">Join The Playback</span>
+        <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
+        <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
+        <form class="subscribe-form">
+          <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
+          <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
+          <button type="button" class="subscribe-btn">Subscribe</button>
+        </form>
+        <span class="subscribe-fineprint">Free forever. No spam. Unsubscribe anytime.</span>
+      </div>
     </div>
   </section>"""
 
