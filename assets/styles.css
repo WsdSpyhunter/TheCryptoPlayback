@@ -320,6 +320,15 @@ h1, h2, h3 {
   background: var(--accent);
   border-radius: 2px;
 }
+.section-title-sub {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--accent-dark);
+  opacity: 0.85;
+}
 .teaser-card {
   display: flex;
   align-items: flex-start;

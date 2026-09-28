@@ -523,6 +523,7 @@ def render_index(entries):
       <div class="section-title-wrap">
         <h2 class="section-title">Top News Stories</h2>
         <span class="section-title-rule"></span>
+        <span class="section-title-sub">Refreshed and updated daily</span>
       </div>
     </div>
   </section>"""
