@@ -19,8 +19,8 @@ from fetch_sectors import get_top_sectors
 from claude_client import ask_claude_json
 from build_site import (
     add_post_and_rebuild, render_ticker_bar, render_sentiment_combined,
-    render_issue_pill, render_top_story_box, compute_biggest_mover, load_index,
-    save_gauge_image, format_date_abbrev,
+    render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
+    load_index, save_gauge_image, format_date_abbrev,
 )
 from email_render import stories_to_plain_email_html, upload_gauge_image
 from buttondown_client import create_draft
@@ -123,6 +123,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
 
     fng = get_fear_greed()
     mover = compute_biggest_mover(prices)
+    week_mover = compute_weekly_mover(prices)
     sectors = get_top_sectors()
     issue_number = sum(1 for e in load_index() if e["tag"] == tag) + 1
 
@@ -144,6 +145,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         "prices": prices,
         "fng": fng,
         "mover": mover,
+        "week_mover": week_mover,
         "sectors": sectors,
         "date_abbrev": date_abbrev,
         "ticker_html": render_ticker_bar(prices, date_abbrev),

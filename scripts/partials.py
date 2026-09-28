@@ -20,6 +20,7 @@ def asset_version(filename):
 
 CSS_VERSION = asset_version("styles.css")
 LOGO_VERSION = asset_version("logo-wordmark.png")
+FOOTER_MASCOT_VERSION = asset_version("footer-mascot-web.png")
 
 HEAD = """<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,7 +64,10 @@ DISCLAIMER = """<div class="disclaimer">
 FOOTER = """<footer class="site-footer">
   <div class="wrap">
     <div class="footer-copy">&copy; {year} The Crypto Playback &middot; <a href="{root}about.html">Contact</a></div>
-    <img class="footer-logo" src="{root}assets/logo-wordmark.png?v=""" + LOGO_VERSION + """" alt="The Crypto Playback">
+    <div class="footer-brand">
+      <img class="footer-mascot" src="{root}assets/footer-mascot-web.png?v=""" + FOOTER_MASCOT_VERSION + """" alt="">
+      <img class="footer-logo" src="{root}assets/logo-wordmark.png?v=""" + LOGO_VERSION + """" alt="The Crypto Playback">
+    </div>
   </div>
 </footer>
 """

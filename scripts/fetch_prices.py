@@ -18,7 +18,7 @@ def get_top_prices(count=6):
         "order": "market_cap_desc",
         "per_page": 20,  # grab extra so we can filter stablecoins and still have 6
         "page": 1,
-        "price_change_percentage": "24h",
+        "price_change_percentage": "24h,7d",
     }
     headers = {"x-cg-demo-api-key": api_key}
     resp = requests.get(url, params=params, headers=headers, timeout=15)
@@ -34,6 +34,7 @@ def get_top_prices(count=6):
             "name": coin["name"],
             "price": coin["current_price"],
             "change_24h": coin.get("price_change_percentage_24h") or 0,
+            "change_7d": coin.get("price_change_percentage_7d_in_currency") or 0,
         })
         if len(results) == count:
             break

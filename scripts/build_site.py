@@ -58,6 +58,15 @@ def compute_biggest_mover(prices):
     return max(prices, key=lambda c: abs(c["change_24h"]))
 
 
+def compute_weekly_mover(prices):
+    """Same idea as compute_biggest_mover but ranked by 7-day change -
+    used only for the website's homepage 'Biggest Mover of the Week' card,
+    so that label matches a real rolling-7-day figure instead of reusing
+    the 24h number. Kept separate from compute_biggest_mover/the shared
+    'mover' field so the locked email template's data is untouched."""
+    return max(prices, key=lambda c: abs(c.get("change_7d", 0)))
+
+
 def save_gauge_image(value, slug):
     """Draws the Fear & Greed gauge as a real PNG and saves it to
     assets/gauges/<slug>.png. This ONE file is used by both the website and
@@ -308,17 +317,30 @@ def _market_data_from_post(post):
 
 
 def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low",
-                         inst_flow_score=72, inst_flow_signal="Accumulation", sectors=None):
+                         inst_flow_score=72, inst_flow_signal="Accumulation", sectors=None,
+                         week_mover=None):
     """Homepage-only market section - deliberately NOT the compact,
     newsletter-styled ticker/sentiment box used on post pages. Full-width
     grid of price cards, plus Fear & Greed and Biggest Mover as their own
     large, separate cards (F&G left, Mover right) rather than one small
     bordered box - a real web dashboard layout, not an email shrunk down."""
     fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
-    mover_up = mover["change_24h"] >= 0
+    mover_label = "BIGGEST MOVER OF THE WEEK" if tag == "Weekly" else "BIGGEST MOVER TODAY"
+    # The "of the week" card is ranked by real 7-day change (week_mover),
+    # not the 24h 'mover' the locked email template uses - kept as a
+    # separate field entirely so email data/output is untouched. Falls
+    # back to the 24h mover for posts saved before this field existed.
+    if tag == "Weekly" and week_mover:
+        display_mover = week_mover
+        mover_change = display_mover["change_7d"]
+        mover_caption = "Rolling data from the previous 7 days"
+    else:
+        display_mover = mover
+        mover_change = display_mover["change_24h"]
+        mover_caption = ""
+    mover_up = mover_change >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
     mover_sign = "+" if mover_up else ""
-    mover_label = "BIGGEST MOVER OF THE WEEK" if tag == "Weekly" else "BIGGEST MOVER TODAY"
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
         inst_flow_signal.lower(), "#8A7F5C"
     )
@@ -362,15 +384,15 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
             <img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">
             <div class="pulse-card-value" style="color:{fng_color};">{fng['value']}<span class="pulse-card-word">{fng['classification']}</span></div>
           </div>
-          <span class="pulse-card-caption"></span>
+          <span class="pulse-card-caption">Daily fear and greed sentiment indicator</span>
         </div>
         <div class="pulse-card">
           <span class="pulse-card-label">{mover_label}</span>
           <div class="pulse-card-main pulse-card-main-mover">
-            <span class="pulse-mover-symbol">{mover['symbol']}</span>
-            <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover['change_24h']:.1f}%</span>
+            <span class="pulse-mover-symbol">{display_mover['symbol']}</span>
+            <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover_change:.1f}%</span>
           </div>
-          <span class="pulse-card-caption"></span>
+          <span class="pulse-card-caption">{mover_caption}</span>
         </div>
         <div class="pulse-card">
           <span class="pulse-card-label">&#9888;&#65039; Risk Radar</span>
@@ -439,8 +461,12 @@ def render_index(entries):
         {"label": "AI", "change_24h": 8.7},
         {"label": "DeFi", "change_24h": 5.2},
     ]
+    # Posts from before the rolling-7-day mover existed don't have this
+    # field saved either - a placeholder here just so a Weekly snapshot
+    # still previews the card's real 7-day framing.
+    week_mover = latest_full.get("week_mover") or {"symbol": "SOL", "change_7d": 18.6}
     market_strip = render_market_pulse(prices, fng, mover, latest_full.get("tag", "Daily"), gauge_src, date_abbrev,
-                                        sectors=sectors)
+                                        sectors=sectors, week_mover=week_mover)
 
     # De-duplicated (posts_index.json can carry repeat entries from earlier
     # test runs) top few teasers, newest first, instead of a single excerpt.

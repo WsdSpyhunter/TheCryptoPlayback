@@ -358,6 +358,8 @@ h1, h2, h3 {
   justify-content: space-between;
   gap: 16px;
 }
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-mascot { height: 40px; width: auto; border-radius: 4px; }
 .footer-logo { height: 32px; width: auto; }
 
 /* Focus visibility */
