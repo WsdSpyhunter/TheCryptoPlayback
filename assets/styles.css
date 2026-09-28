@@ -286,10 +286,10 @@ h1, h2, h3 {
   justify-content: center;
   gap: 24px;
 }
-.section-mascot { height: 84px; width: auto; border-radius: 10px; flex-shrink: 0; }
+.section-mascot { height: 112px; width: auto; flex-shrink: 0; }
 @media (max-width: 500px) {
   .section-banner-inner { flex-direction: column; gap: 14px; }
-  .section-mascot { height: 64px; }
+  .section-mascot { height: 84px; }
 }
 .section-title-wrap { text-align: center; margin: 0; }
 .section-title {

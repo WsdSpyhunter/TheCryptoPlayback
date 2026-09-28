@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw
 from partials import page, asset_version
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
-SECTION_MASCOT_VERSION = asset_version("mascot-bw-section.png")
+SECTION_MASCOT_VERSION = asset_version("mascot-color-section.png")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
@@ -518,7 +518,7 @@ def render_index(entries):
 
     section_banner = f"""<section class="section-banner">
     <div class="section-banner-inner">
-      <img class="section-mascot" src="assets/mascot-bw-section.png?v={SECTION_MASCOT_VERSION}" alt="">
+      <img class="section-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
       <div class="section-title-wrap">
         <h2 class="section-title">Top News Stories</h2>
         <span class="section-title-rule"></span>
