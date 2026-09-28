@@ -282,11 +282,10 @@ h1, h2, h3 {
 }
 .section-title-wrap { text-align: center; margin: 0; }
 .section-title {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: 30px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 36px;
+  letter-spacing: 0.01em;
   color: var(--ink);
   margin: 0 0 12px;
 }
