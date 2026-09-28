@@ -410,7 +410,7 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .vip-area-badge {
   font-family: 'Black Ops One', 'Oswald', sans-serif;

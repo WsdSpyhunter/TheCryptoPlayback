@@ -535,7 +535,6 @@ def render_index(entries):
     subscribe_section = f"""<section class="subscribe-banner">
     <div class="subscribe-grid">
       <div class="subscribe-decor">
-        <span class="vip-area-badge">V.I.P.<br>Area</span>
         <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
       </div>
       <div class="subscribe-inner">
