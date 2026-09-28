@@ -488,14 +488,14 @@ def render_index(entries):
         if count == 4:
             break
 
-    teaser_section = f"""<section class="latest">
+    section_banner = """<section class="section-banner">
     <div class="section-title-wrap">
       <h2 class="section-title">Top News Stories</h2>
       <span class="section-title-rule"></span>
     </div>
-    {teasers_html}
   </section>"""
-    body = hero + market_strip + teaser_section
+    teaser_section = f'<section class="latest">{teasers_html}</section>'
+    body = hero + market_strip + section_banner + teaser_section
     return page("", "The Crypto Playback", body, datetime.now().year)
 
 
