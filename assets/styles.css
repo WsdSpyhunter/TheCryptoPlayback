@@ -264,6 +264,23 @@ h1, h2, h3 {
   display: flex;
   flex-direction: column;
 }
+.section-title-wrap { text-align: center; margin: 0 0 32px; }
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.section-title-rule {
+  display: inline-block;
+  width: 70px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
 .teaser-card {
   display: block;
   color: inherit;
