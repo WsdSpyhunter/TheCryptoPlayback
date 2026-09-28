@@ -526,7 +526,25 @@ def render_index(entries):
     </div>
   </section>"""
     teaser_section = f'<section class="latest">{teasers_html}</section>'
-    body = hero + market_strip + section_banner + teaser_section
+
+    # Visual mockup only for now - no form action/backend wired up yet
+    # (needs a real Brevo hosted-form endpoint from the user's account).
+    # button type="button" (not submit) keeps it inert without needing JS.
+    subscribe_section = """<section class="subscribe-banner">
+    <div class="subscribe-inner">
+      <span class="subscribe-eyebrow">Join The Playback</span>
+      <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
+      <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
+      <form class="subscribe-form">
+        <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
+        <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
+        <button type="button" class="subscribe-btn">Subscribe</button>
+      </form>
+      <span class="subscribe-fineprint">Free forever. No spam. Unsubscribe anytime.</span>
+    </div>
+  </section>"""
+
+    body = hero + market_strip + section_banner + teaser_section + subscribe_section
     return page("", "The Crypto Playback", body, datetime.now().year)
 
 

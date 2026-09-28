@@ -8,6 +8,11 @@
   --sage: #DDE3D0;
   --rule: rgba(23, 21, 18, 0.28);
   --max-width: 760px;
+  /* New, deliberately not gold - a deep emerald for the subscribe CTA and
+     "VIP OG" callout so that one action reads as its own distinct thing
+     on the page instead of blending into the gold used everywhere else. */
+  --vip: #1F6F5B;
+  --vip-dark: #164F41;
 }
 
 * { box-sizing: border-box; }
@@ -358,6 +363,95 @@ h1, h2, h3 {
   font-size: 14px;
   letter-spacing: 0.03em;
   color: var(--accent-dark);
+}
+
+/* Subscribe CTA - full-bleed band like .section-banner, sits between the
+   story list and the disclaimer. Visual mockup only for now; the form has
+   no real action/backend until a Brevo hosted-form endpoint is wired up. */
+.subscribe-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #EDE9E2;
+  padding: 56px 20px;
+  margin-top: 40px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+.subscribe-inner { max-width: 640px; margin: 0 auto; }
+.subscribe-eyebrow {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  background: rgba(201, 151, 79, 0.14);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.subscribe-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 0 0 14px;
+}
+.subscribe-sub { font-size: 17px; color: var(--ink); opacity: 0.85; margin: 0 0 32px; }
+.subscribe-sub strong { color: var(--vip); font-weight: 700; }
+.subscribe-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.subscribe-form input {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  min-width: 200px;
+  flex: 1 1 200px;
+}
+.subscribe-form input::placeholder { color: var(--ink); opacity: 0.45; }
+.subscribe-form input:focus { outline: 2px solid var(--vip); outline-offset: 1px; }
+.subscribe-btn {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--vip);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background 0.15s, transform 0.15s;
+}
+.subscribe-btn:hover { background: var(--vip-dark); transform: translateY(-1px); }
+.subscribe-fineprint { display: block; font-size: 12.5px; color: var(--ink); opacity: 0.55; }
+@media (max-width: 600px) {
+  .subscribe-title { font-size: 25px; }
+  .subscribe-form { flex-direction: column; }
+  /* flex:1 1 200px sets a 200px *main-axis* basis - once the form switches
+     to flex-direction:column above, that axis is vertical, so without this
+     reset the inputs grow to 200px+ tall instead of wide. */
+  .subscribe-form input, .subscribe-btn { flex: 0 0 auto; width: 100%; }
 }
 
 /* Post body */
