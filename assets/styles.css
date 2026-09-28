@@ -280,6 +280,17 @@ h1, h2, h3 {
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
+.section-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.section-mascot { height: 84px; width: auto; border-radius: 10px; flex-shrink: 0; }
+@media (max-width: 500px) {
+  .section-banner-inner { flex-direction: column; gap: 14px; }
+  .section-mascot { height: 64px; }
+}
 .section-title-wrap { text-align: center; margin: 0; }
 .section-title {
   font-family: 'Playfair Display', serif;

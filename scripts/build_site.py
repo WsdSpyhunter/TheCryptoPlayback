@@ -17,6 +17,7 @@ from PIL import Image, ImageDraw
 from partials import page, asset_version
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
+SECTION_MASCOT_VERSION = asset_version("mascot-bw-section.png")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
@@ -515,10 +516,13 @@ def render_index(entries):
         if count == 6:
             break
 
-    section_banner = """<section class="section-banner">
-    <div class="section-title-wrap">
-      <h2 class="section-title">Top News Stories</h2>
-      <span class="section-title-rule"></span>
+    section_banner = f"""<section class="section-banner">
+    <div class="section-banner-inner">
+      <img class="section-mascot" src="assets/mascot-bw-section.png?v={SECTION_MASCOT_VERSION}" alt="">
+      <div class="section-title-wrap">
+        <h2 class="section-title">Top News Stories</h2>
+        <span class="section-title-rule"></span>
+      </div>
     </div>
   </section>"""
     teaser_section = f'<section class="latest">{teasers_html}</section>'
