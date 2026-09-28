@@ -418,7 +418,7 @@ h1, h2, h3 {
 /* Pulls the mascot past the flex row's own bottom edge by the banner's
    padding amount, so it actually reaches the section's bottom border
    instead of stopping at the content row's height. */
-.subscribe-decor-mascot { height: 199px; width: auto; margin-bottom: -56px; }
+.subscribe-decor-mascot { height: 169px; width: auto; margin-bottom: -56px; }
 @media (max-width: 1400px) {
   .subscribe-decor { display: none; }
 }
