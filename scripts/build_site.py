@@ -365,12 +365,14 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
           <div class="pulse-card-main">
             <span class="pulse-risk-badge pulse-risk-{risk_level}">{risk_level.upper()}</span>
           </div>
+          <span class="pulse-card-caption">Overall crypto market risk indicator</span>
         </div>
         <div class="pulse-card">
           <span class="pulse-card-label">&#127974; Institutional Flow</span>
           <div class="pulse-card-main">
             <div class="pulse-card-value" style="color:{flow_color};">{inst_flow_score}<span class="pulse-card-word">{inst_flow_signal}</span></div>
           </div>
+          <span class="pulse-card-caption">Tracks institutional buying vs. selling pressure</span>
         </div>
       </div>
     </div>
