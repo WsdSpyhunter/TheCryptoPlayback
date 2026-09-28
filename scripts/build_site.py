@@ -338,7 +338,7 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
           <span class="pulse-eyebrow">Top {len(prices)} Market</span>
           <svg class="pulse-trend-icon" viewBox="0 0 24 24" fill="none" stroke="#E8837A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 8,13 12,10 22,20"/><polyline points="15,20 22,20 22,13"/></svg>
         </div>
-        <span class="pulse-asof">Prices as of 6AM CST &middot; {date_abbrev}</span>
+        <span class="pulse-asof">Price data via CoinGecko &middot; {date_abbrev}</span>
       </div>
       <div class="pulse-ticker-grid">{coin_cards}</div>
     </div>
