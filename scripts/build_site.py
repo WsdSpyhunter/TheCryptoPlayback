@@ -421,17 +421,20 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
 
 
 def _teaser_image(slug):
-    """Best-effort: the real image from this issue's lead story, used as the
-    homepage teaser card's side image. Returns None (never a fabricated/
-    stock photo) if the post predates saved story data or its lead story
-    simply has no image."""
+    """Best-effort: a real image from this issue's stories, used as the
+    homepage teaser card's side image. Checks every story in the issue
+    (not just the lead one) so a minimum image count on the homepage is
+    reliably met - returns None (never a fabricated/stock photo) only if
+    the post predates saved story data or none of its stories has one."""
     try:
         with open(os.path.join(POSTS_DATA_DIR, f"{slug}.json")) as f:
             data = json.load(f)
     except (OSError, json.JSONDecodeError):
         return None
-    stories = data.get("stories") or []
-    return stories[0].get("image_url") if stories else None
+    for s in data.get("stories") or []:
+        if s.get("image_url"):
+            return s["image_url"]
+    return None
 
 
 def render_index(entries):
@@ -484,6 +487,8 @@ def render_index(entries):
 
     # De-duplicated (posts_index.json can carry repeat entries from earlier
     # test runs) top few teasers, newest first, instead of a single excerpt.
+    # Minimum 6 on the homepage, with at least 3 of those 6 showing a real
+    # side image (alternating cards - confirmed/approved treatment).
     seen = set()
     teasers_html = ""
     count = 0
@@ -491,9 +496,6 @@ def render_index(entries):
         if e["slug"] in seen:
             continue
         seen.add(e["slug"])
-        # Design experiment (user request): show a side image on alternating
-        # cards rather than every one, using that issue's own lead-story
-        # image when it actually has one - never a fabricated/stock photo.
         image_url = _teaser_image(e["slug"]) if count % 2 == 0 else None
         card_class = "teaser-card has-image" if image_url else "teaser-card"
         image_html = (
@@ -510,7 +512,7 @@ def render_index(entries):
       </div>
     </a>"""
         count += 1
-        if count == 4:
+        if count == 6:
             break
 
     section_banner = """<section class="section-banner">
