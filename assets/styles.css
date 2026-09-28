@@ -280,16 +280,21 @@ h1, h2, h3 {
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
+/* Same grid trick as the site header (1fr auto 1fr): the title column
+   stays truly centered on the page no matter how wide the mascot is,
+   because the mascot's column and the empty third column are equal 1fr
+   tracks. The mascot sits at the left edge of its own column rather than
+   hugging the title - offset to the left, which is what keeps the title
+   centered instead of the whole group being centered as a unit. */
 .section-banner-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
 }
-.section-mascot { height: 112px; width: auto; flex-shrink: 0; }
-@media (max-width: 500px) {
-  .section-banner-inner { flex-direction: column; gap: 14px; }
-  .section-mascot { height: 84px; }
+.section-mascot { height: 112px; width: auto; justify-self: start; }
+@media (max-width: 900px) {
+  .section-banner-inner { grid-template-columns: 1fr; justify-items: center; gap: 14px; }
+  .section-mascot { justify-self: center; height: 84px; }
 }
 .section-title-wrap { text-align: center; margin: 0; }
 .section-title {
