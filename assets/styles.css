@@ -538,6 +538,16 @@ h1, h2, h3 {
   margin-top: 60px;
 }
 .disclaimer .wrap { max-width: 1400px; font-size: 12.5px; line-height: 1.5; opacity: 0.85; }
+.disclaimer-label {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin-bottom: 8px;
+}
 .disclaimer strong { font-family: 'Oswald', sans-serif; }
 
 /* Footer */

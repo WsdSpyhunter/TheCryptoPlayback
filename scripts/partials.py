@@ -48,6 +48,7 @@ HEADER = """<header class="site-header">
 
 DISCLAIMER = """<div class="disclaimer">
   <div class="wrap">
+    <span class="disclaimer-label">Disclaimer</span>
     <strong>THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong>
     The material in this newsletter has no regard to any specific investment objectives, financial situation,
     or particular needs of any reader. It is published solely for informational purposes and is not to be
