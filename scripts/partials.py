@@ -1,11 +1,30 @@
 """Shared HTML fragments used across every generated/static page."""
 
+import hashlib
+from pathlib import Path
+
+
+def _css_version():
+    # Cloudflare caches assets/styles.css for hours (max-age=14400), so a
+    # plain href never picks up a fresh deploy on the live site until that
+    # edge cache expires on its own. Hashing the file's contents into a
+    # ?v= query string gives every real CSS change its own URL, which
+    # busts that cache immediately instead of waiting out the TTL.
+    css_path = Path(__file__).resolve().parent.parent / "assets" / "styles.css"
+    try:
+        return hashlib.md5(css_path.read_bytes()).hexdigest()[:10]
+    except OSError:
+        return "0"
+
+
+CSS_VERSION = _css_version()
+
 HEAD = """<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Playfair+Display:ital@1&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{root}assets/styles.css">
+<link rel="stylesheet" href="{root}assets/styles.css?v=""" + CSS_VERSION + """">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%82%BF</text></svg>">
 """
 
