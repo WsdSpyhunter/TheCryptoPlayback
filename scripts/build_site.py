@@ -308,7 +308,7 @@ def _market_data_from_post(post):
 
 
 def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low",
-                         inst_flow_score=72, inst_flow_signal="Accumulation"):
+                         inst_flow_score=72, inst_flow_signal="Accumulation", sectors=None):
     """Homepage-only market section - deliberately NOT the compact,
     newsletter-styled ticker/sentiment box used on post pages. Full-width
     grid of price cards, plus Fear & Greed and Biggest Mover as their own
@@ -321,6 +321,14 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
     mover_label = "BIGGEST MOVER OF THE WEEK" if tag == "Weekly" else "BIGGEST MOVER TODAY"
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
         inst_flow_signal.lower(), "#8A7F5C"
+    )
+    sectors = sectors or []
+    sector_rows = "".join(
+        f"""<div class="pulse-sector-row">
+        <span class="pulse-sector-name">{s['label']}</span>
+        <span class="pulse-sector-change" style="color:{'#8FBF5C' if s['change_24h'] >= 0 else '#E8837A'};">{s['change_24h']:+.1f}%</span>
+      </div>"""
+        for s in sectors
     )
 
     coin_cards = "".join(
@@ -378,6 +386,13 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
           </div>
           <span class="pulse-card-caption">Tracks institutional buying vs. selling pressure</span>
         </div>
+        <div class="pulse-card">
+          <span class="pulse-card-label">&#128202; Top Sectors</span>
+          <div class="pulse-card-main pulse-card-main-sectors">
+            <div class="pulse-sector-list">{sector_rows}</div>
+          </div>
+          <span class="pulse-card-caption">Best-performing sectors, 24H</span>
+        </div>
       </div>
     </div>
   </section>"""
@@ -416,7 +431,16 @@ def render_index(entries):
         prices = prices + [{"symbol": "DOGE", "price": 0.18, "change_24h": 3.4}]
     gauge_src = latest_full.get("gauge_path", "")
     date_abbrev = latest_full.get("date_abbrev", latest_full.get("date_display", ""))
-    market_strip = render_market_pulse(prices, fng, mover, latest_full.get("tag", "Daily"), gauge_src, date_abbrev)
+    # Posts from before the sectors feature don't have this field saved -
+    # fall back to a placeholder top-3 so older snapshots still render the
+    # card instead of breaking.
+    sectors = latest_full.get("sectors") or [
+        {"label": "RWA", "change_24h": 12.4},
+        {"label": "AI", "change_24h": 8.7},
+        {"label": "DeFi", "change_24h": 5.2},
+    ]
+    market_strip = render_market_pulse(prices, fng, mover, latest_full.get("tag", "Daily"), gauge_src, date_abbrev,
+                                        sectors=sectors)
 
     # De-duplicated (posts_index.json can carry repeat entries from earlier
     # test runs) top few teasers, newest first, instead of a single excerpt.

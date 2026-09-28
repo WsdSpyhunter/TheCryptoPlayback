@@ -96,6 +96,11 @@ h1, h2, h3 {
    not the compact newsletter ticker/sentiment box used on post pages ============ */
 .market-pulse { background: #000000; padding: 48px 0 64px; }
 .pulse-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+/* The second row (Fear & Greed / Mover / Risk / Institutional / Sectors)
+   needs more room than the 6-wide ticker above it now that it's 5 cards
+   at their natural sizes - widening only this row's wrap (not the
+   ticker's) so those cards never shrink or wrap to a second line. */
+.market-pulse .pulse-wrap { max-width: 1400px; }
 
 /* Full-bleed panel (breaks out of .pulse-wrap's max-width to span the
    entire viewport) so the ticker reads as its own distinct module,
@@ -222,6 +227,11 @@ h1, h2, h3 {
 .pulse-card-word { font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600; color: var(--paper); opacity: 0.85; }
 .pulse-mover-symbol { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 42px; color: var(--paper); }
 .pulse-mover-change { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 26px; margin-left: 12px; }
+
+.pulse-sector-list { display: flex; flex-direction: column; gap: 10px; min-width: 150px; }
+.pulse-sector-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.pulse-sector-name { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 16px; letter-spacing: 0.03em; color: var(--paper); }
+.pulse-sector-change { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 16px; }
 
 .pulse-risk-badge {
   display: inline-block;
