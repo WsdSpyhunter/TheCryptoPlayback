@@ -6,7 +6,7 @@
   --accent: #C9974F;
   --accent-dark: #936038;
   --sage: #DDE3D0;
-  --rule: rgba(23, 21, 18, 0.12);
+  --rule: rgba(23, 21, 18, 0.28);
   --max-width: 760px;
 }
 
@@ -359,8 +359,8 @@ h1, h2, h3 {
   gap: 16px;
 }
 .footer-brand { display: flex; align-items: center; gap: 10px; }
-.footer-mascot { height: 56px; width: auto; border-radius: 4px; }
-.footer-logo { height: 32px; width: auto; }
+.footer-mascot { height: 66px; width: auto; border-radius: 4px; }
+.footer-logo { height: 40px; width: auto; }
 
 /* Focus visibility */
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -384,6 +384,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .ticker-prices { width: 100%; padding-top: 0; }
   .price-row { flex-wrap: wrap; justify-content: center; row-gap: 10px; }
   .ticker-subscribe-row { flex-wrap: wrap; padding: 14px 16px; text-align: center; }
+
+  /* Bigger mascot+wordmark no longer fit next to the copyright line on
+     narrow screens without wrapping - stack them instead of letting the
+     wordmark run past the right edge. */
+  .site-footer .wrap { flex-direction: column; text-align: center; gap: 14px; }
 }
 
 /* Issue pill (Daily/Weekly indicator) */
