@@ -173,6 +173,8 @@ h1, h2, h3 {
   border-radius: 18px;
   padding: 18px 24px;
   flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
 }
 .pulse-card-label {
   display: inline-block;
@@ -188,9 +190,15 @@ h1, h2, h3 {
   border-radius: 6px;
   margin-bottom: 18px;
 }
-.pulse-card-main { display: flex; align-items: center; justify-content: center; gap: 16px; }
+/* flex: 1 so this fills the space between the label and the caption (or
+   the card bottom, when there's no caption) and centers its content
+   inside that space - this is what keeps the gauge/value/badge in all
+   four cards sitting on the same horizontal line regardless of whether
+   the card below it has caption text or not. */
+.pulse-card-main { flex: 1; display: flex; align-items: center; justify-content: center; gap: 16px; }
 .pulse-card-caption {
   display: block;
+  min-height: 36px;
   max-width: 190px;
   margin: 12px auto 0;
   font-size: 13px;

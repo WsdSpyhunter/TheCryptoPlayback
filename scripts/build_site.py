@@ -352,6 +352,7 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
             <img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">
             <div class="pulse-card-value" style="color:{fng_color};">{fng['value']}<span class="pulse-card-word">{fng['classification']}</span></div>
           </div>
+          <span class="pulse-card-caption"></span>
         </div>
         <div class="pulse-card">
           <span class="pulse-card-label">{mover_label}</span>
@@ -359,6 +360,7 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
             <span class="pulse-mover-symbol">{mover['symbol']}</span>
             <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover['change_24h']:.1f}%</span>
           </div>
+          <span class="pulse-card-caption"></span>
         </div>
         <div class="pulse-card">
           <span class="pulse-card-label">&#9888;&#65039; Risk Radar</span>
