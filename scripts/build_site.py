@@ -420,6 +420,20 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
   </section>"""
 
 
+def _teaser_image(slug):
+    """Best-effort: the real image from this issue's lead story, used as the
+    homepage teaser card's side image. Returns None (never a fabricated/
+    stock photo) if the post predates saved story data or its lead story
+    simply has no image."""
+    try:
+        with open(os.path.join(POSTS_DATA_DIR, f"{slug}.json")) as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return None
+    stories = data.get("stories") or []
+    return stories[0].get("image_url") if stories else None
+
+
 def render_index(entries):
     # header-web.png: same masthead art as the email (header-a.png), but with
     # the candlestick chart decoration in the corners painted out for the
@@ -477,12 +491,23 @@ def render_index(entries):
         if e["slug"] in seen:
             continue
         seen.add(e["slug"])
-        teasers_html += f"""<a class="teaser-card" href="posts/{e['slug']}.html">
-      <span class="eyebrow-tag">{e['tag']}</span>
-      <h2>{e['title']}</h2>
-      <div class="date">{e['date_display']}</div>
-      <p class="excerpt">{e['excerpt']}</p>
-      <span class="read-more">Read the full playback &rarr;</span>
+        # Design experiment (user request): show a side image on alternating
+        # cards rather than every one, using that issue's own lead-story
+        # image when it actually has one - never a fabricated/stock photo.
+        image_url = _teaser_image(e["slug"]) if count % 2 == 0 else None
+        card_class = "teaser-card has-image" if image_url else "teaser-card"
+        image_html = (
+            f'<img class="teaser-image" src="{image_url}" alt="" loading="lazy">' if image_url else ""
+        )
+        teasers_html += f"""<a class="{card_class}" href="posts/{e['slug']}.html">
+      {image_html}
+      <div class="teaser-body">
+        <span class="eyebrow-tag">{e['tag']}</span>
+        <h2>{e['title']}</h2>
+        <div class="date">{e['date_display']}</div>
+        <p class="excerpt">{e['excerpt']}</p>
+        <span class="read-more">Read the full playback &rarr;</span>
+      </div>
     </a>"""
         count += 1
         if count == 4:
