@@ -4,20 +4,22 @@ import hashlib
 from pathlib import Path
 
 
-def _css_version():
-    # Cloudflare caches assets/styles.css for hours (max-age=14400), so a
-    # plain href never picks up a fresh deploy on the live site until that
-    # edge cache expires on its own. Hashing the file's contents into a
-    # ?v= query string gives every real CSS change its own URL, which
-    # busts that cache immediately instead of waiting out the TTL.
-    css_path = Path(__file__).resolve().parent.parent / "assets" / "styles.css"
+def asset_version(filename):
+    # Cloudflare caches everything under assets/ for hours (max-age=14400),
+    # so a plain href/src never picks up a fresh deploy on the live site
+    # until that edge cache expires on its own - true for images just as
+    # much as CSS. Hashing the file's contents into a ?v= query string
+    # gives every real edit its own URL, which busts that cache immediately
+    # instead of waiting out the TTL.
+    path = Path(__file__).resolve().parent.parent / "assets" / filename
     try:
-        return hashlib.md5(css_path.read_bytes()).hexdigest()[:10]
+        return hashlib.md5(path.read_bytes()).hexdigest()[:10]
     except OSError:
         return "0"
 
 
-CSS_VERSION = _css_version()
+CSS_VERSION = asset_version("styles.css")
+LOGO_VERSION = asset_version("logo-wordmark.png")
 
 HEAD = """<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +33,7 @@ HEAD = """<meta charset="UTF-8">
 HEADER = """<header class="site-header">
   <div class="wrap">
     <a class="logo-link" href="{root}index.html">
-      <img class="logo" src="{root}assets/logo-wordmark.png" alt="The Crypto Playback">
+      <img class="logo" src="{root}assets/logo-wordmark.png?v=""" + LOGO_VERSION + """" alt="The Crypto Playback">
     </a>
     <nav class="site-nav">
       <a href="{root}about.html">About</a>
@@ -61,7 +63,7 @@ DISCLAIMER = """<div class="disclaimer">
 FOOTER = """<footer class="site-footer">
   <div class="wrap">
     <div class="footer-copy">&copy; {year} The Crypto Playback &middot; <a href="{root}about.html">Contact</a></div>
-    <img class="footer-logo" src="{root}assets/logo-wordmark.png" alt="The Crypto Playback">
+    <img class="footer-logo" src="{root}assets/logo-wordmark.png?v=""" + LOGO_VERSION + """" alt="The Crypto Playback">
   </div>
 </footer>
 """
