@@ -324,7 +324,7 @@ h1, h2, h3 {
 .archive-item {
   display: block;
   padding: 18px 0;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 3px solid var(--rule);
 }
 .archive-item .tag { font-family: 'Oswald', sans-serif; font-size: 11px; color: var(--accent-dark); text-transform: uppercase; }
 .archive-item h3 { font-size: 20px; margin: 4px 0; color: var(--ink); }
