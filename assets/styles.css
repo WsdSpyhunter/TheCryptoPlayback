@@ -465,9 +465,17 @@ h1, h2, h3 {
   border-radius: 20px;
   padding: 40px 48px;
 }
-.changed-list { margin-top: 22px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+/* width:fit-content + margin:auto (not align-items:center) - centering
+   each row individually let every row's own text width determine where
+   its dot landed, so dots and headlines drifted left/right row to row.
+   Sizing the whole list to its widest row and centering THAT as one block
+   keeps every row's dot and headline starting at the same shared x. */
+.changed-list { margin: 22px auto 0; width: fit-content; display: flex; flex-direction: column; gap: 18px; }
 .changed-row { display: flex; align-items: flex-start; gap: 14px; text-align: left; }
-.changed-dot { font-size: 19px; line-height: 1.4; flex-shrink: 0; }
+/* Fixed width + centered glyph - the three dot emoji don't all have the
+   same natural character width, which was enough on its own to nudge
+   headlines out of alignment even after fixing the row-centering bug. */
+.changed-dot { font-size: 19px; line-height: 1.4; flex-shrink: 0; width: 22px; text-align: center; }
 .changed-body { display: flex; flex-direction: column; gap: 3px; }
 .changed-headline { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 17px; color: var(--paper); }
 .changed-detail { font-size: 15px; color: rgba(251,249,245,0.6); }
