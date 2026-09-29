@@ -94,14 +94,14 @@ h1, h2, h3 {
 .hero-masthead { width: 100%; height: auto; margin: 0 auto; }
 @media (max-width: 600px) {
   /* Mascot + wordmark read too small once the whole wide banner shrinks
-     to fit a phone screen - zoom the masthead ~60% and crop to the
+     to fit a phone screen - zoom the masthead ~44% and crop to the
      viewport instead of shrinking it to fit. Safe to crop: real content
      (mascot, title, tagline) sits within the image's middle ~63%, so a
-     1.6x center zoom only cuts into the empty world-map background at
+     1.44x center zoom only cuts into the empty world-map background at
      the far left/right edges, never the mascot or text. */
   .hero { overflow: hidden; }
   .hero .wrap { padding: 0; }
-  .hero-masthead { width: 160%; max-width: none; margin-left: -30%; }
+  .hero-masthead { width: 144%; max-width: none; margin-left: -22%; }
 }
 
 /* Ticker */
