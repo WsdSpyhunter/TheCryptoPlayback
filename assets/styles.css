@@ -61,13 +61,16 @@ h1, h2, h3 {
   align-items: center;
   max-width: 900px;
 }
-.site-header .logo-link { display: flex; justify-self: start; }
+/* grid-column pinned explicitly (not left to auto-placement) so hiding
+   .logo-link on mobile can't shift .site-nav into column 1 - same
+   display:none/auto-placement gotcha fixed elsewhere on this page. */
+.site-header .logo-link { display: flex; justify-self: start; grid-column: 1; }
 /* max-height (not a fixed height) so the aspect ratio scales down cleanly
    when the grid column gets tight on narrow screens, instead of the
    global `img { max-width: 100% }` reset capping the width while the
    fixed height held steady and squashed the wordmark. */
 .site-header img.logo { max-height: 50px; width: auto; height: auto; }
-.site-nav { display: flex; justify-self: center; gap: 22px; }
+.site-nav { display: flex; justify-self: center; gap: 22px; grid-column: 2; }
 .site-nav a {
   color: var(--paper);
   font-family: 'Oswald', sans-serif;
@@ -75,6 +78,11 @@ h1, h2, h3 {
   letter-spacing: 0.04em;
 }
 .site-nav a:hover { color: var(--accent); text-decoration: none; }
+@media (max-width: 600px) {
+  /* Small wordmark icon next to the nav links reads as clutter at this
+     width - drop it and let the nav stay centered in its own column. */
+  .site-header .logo-link { display: none; }
+}
 
 /* Hero — same masthead art as the email, on the same black background */
 .hero {
@@ -84,6 +92,17 @@ h1, h2, h3 {
 }
 .hero .wrap { max-width: 1400px; padding: 0 20px; }
 .hero-masthead { width: 100%; height: auto; margin: 0 auto; }
+@media (max-width: 600px) {
+  /* Mascot + wordmark read too small once the whole wide banner shrinks
+     to fit a phone screen - zoom the masthead ~60% and crop to the
+     viewport instead of shrinking it to fit. Safe to crop: real content
+     (mascot, title, tagline) sits within the image's middle ~63%, so a
+     1.6x center zoom only cuts into the empty world-map background at
+     the far left/right edges, never the mascot or text. */
+  .hero { overflow: hidden; }
+  .hero .wrap { padding: 0; }
+  .hero-masthead { width: 160%; max-width: none; margin-left: -30%; }
+}
 
 /* Ticker */
 .ticker {
