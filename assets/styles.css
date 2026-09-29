@@ -379,12 +379,12 @@ h1, h2, h3 {
   text-align: center;
 }
 .confluence-solo {
-  max-width: 540px;
+  max-width: 1000px;
   margin: 0 auto;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  padding: 32px 36px;
+  padding: 36px 60px;
 }
 /* Solid brass/gold "shaded" pill (gradient + soft shadow for depth) with
    white text - shared by this card's title and What Changed's eyebrow,
@@ -420,7 +420,16 @@ h1, h2, h3 {
 /* Labeled rows (dot + indicator name + its current reading) instead of a
    bare row of colored dots - a dot alone doesn't say which indicator it
    is or what it's currently reading. */
-.confluence-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 18px; }
+.confluence-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 48px;
+  margin: 4px 0 18px;
+  text-align: left;
+}
+@media (max-width: 700px) {
+  .confluence-list { grid-template-columns: 1fr; }
+}
 .confluence-row { display: flex; align-items: center; gap: 10px; }
 .confluence-row-dot { font-size: 15px; line-height: 1; flex-shrink: 0; }
 .confluence-row-name {
