@@ -279,7 +279,11 @@ h1, h2, h3 {
 
 /* ============ Market Snapshot (sits right under the Top 6 Market ticker,
    where the old Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to
-   be - those now live once, in Alerts & Indicators further down) ============ */
+   be - those now live once, in Alerts & Indicators further down). Light
+   band (same #EDE9E2/var(--rule) treatment as Top News Stories/Subscribe)
+   so it reads as an obviously distinct section against the black sections
+   on either side of it, with a clean white card floating on top of it for
+   depth instead of a merely-bordered box. ============ */
 .snapshot-banner {
   width: 100vw;
   position: relative;
@@ -287,20 +291,19 @@ h1, h2, h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  background: #000000;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding: 48px 24px;
+  background: #EDE9E2;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 56px 24px;
   text-align: center;
 }
-/* Bordered card, like .confluence-solo, so this reads as its own distinct
-   area rather than text floating on the black background. */
 .snapshot-solo {
   max-width: 760px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 36px 40px;
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 40px 48px;
+  box-shadow: 0 10px 34px rgba(23,21,18,0.1);
 }
 .snapshot-eyebrow {
   display: inline-block;
@@ -331,16 +334,18 @@ h1, h2, h3 {
    still reads as a label, just bigger and without the redundant "The
    Crypto Playback" tag above it. Scoped to this section only, so it
    doesn't affect the smaller .snapshot-title reuse in What Changed /
-   Alerts & Indicators. */
+   Alerts & Indicators. Dark text/pill now that the card underneath it is
+   white, not black. */
 .snapshot-banner .snapshot-title {
   display: inline-block;
   font-size: 30px;
-  background: rgba(255,255,255,0.08);
+  color: var(--ink);
+  background: rgba(23,21,18,0.06);
   padding: 10px 30px;
   border-radius: 30px;
   margin-bottom: 20px;
 }
-.snapshot-banner .snapshot-text { font-size: 17.5px; }
+.snapshot-banner .snapshot-text { font-size: 18px; color: var(--ink); opacity: 0.85; }
 .snapshot-meta {
   margin-top: 18px;
   font-size: 12.5px;
@@ -350,6 +355,7 @@ h1, h2, h3 {
   justify-content: center;
   gap: 8px;
 }
+.snapshot-banner .snapshot-meta { color: rgba(23,21,18,0.5); }
 .snapshot-meta-dot { opacity: 0.6; }
 /* ============ Signal Confluence (standalone section, between Market
    Snapshot and What Changed?) ============ */
@@ -366,36 +372,44 @@ h1, h2, h3 {
   text-align: center;
 }
 .confluence-solo {
-  max-width: 480px;
+  max-width: 540px;
   margin: 0 auto;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  padding: 28px 32px;
+  padding: 32px 36px;
 }
-/* Bigger title for this card specifically, scoped so the smaller eyebrow
-   pill style used elsewhere (What Changed, Alerts & Indicators) is
-   untouched. */
-.confluence-solo .snapshot-eyebrow { font-size: 15px; padding: 8px 18px; }
+/* Solid brass/gold "shaded" pill (gradient + soft shadow for depth) with
+   white text - shared by this card's title and What Changed's eyebrow,
+   both scoped so the plain translucent-tint pill used elsewhere (Alerts &
+   Indicators) is untouched. */
+.confluence-solo .snapshot-eyebrow,
+.changed-inner .snapshot-eyebrow {
+  color: #fff;
+  background: linear-gradient(135deg, #D9A857, var(--accent-dark));
+  box-shadow: 0 4px 14px rgba(147, 96, 56, 0.4);
+}
+.confluence-solo .snapshot-eyebrow { font-size: 18px; padding: 12px 26px; }
+.confluence-solo .snapshot-text { font-size: 17px; }
 .confluence-score {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 44px;
+  font-size: 52px;
   color: var(--paper);
   line-height: 1;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
-.confluence-score-total { font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 600; opacity: 0.7; margin-left: 6px; }
+.confluence-score-total { font-family: 'Source Sans 3', sans-serif; font-size: 15px; font-weight: 600; opacity: 0.7; margin-left: 6px; }
 /* Labeled rows (dot + indicator name + its current reading) instead of a
    bare row of colored dots - a dot alone doesn't say which indicator it
    is or what it's currently reading. */
-.confluence-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; }
+.confluence-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 18px; }
 .confluence-row { display: flex; align-items: center; gap: 10px; }
-.confluence-row-dot { font-size: 13px; line-height: 1; flex-shrink: 0; }
+.confluence-row-dot { font-size: 15px; line-height: 1; flex-shrink: 0; }
 .confluence-row-name {
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--paper);
   flex: 1;
   /* Without this, .confluence-banner's text-align:center centers this
@@ -403,9 +417,13 @@ h1, h2, h3 {
      align keeps it right next to the dot instead. */
   text-align: left;
 }
-.confluence-row-value { font-size: 13px; color: rgba(251,249,245,0.55); white-space: nowrap; }
+.confluence-row-value { font-size: 15px; color: rgba(251,249,245,0.6); white-space: nowrap; }
 
-/* ============ What Changed? ============ */
+/* ============ What Changed? - similar full-width "obvious section"
+   treatment as Market Snapshot (top+bottom rules spanning the page), but
+   stays dark rather than copying Market Snapshot's light band, so the two
+   don't read as the same section twice. Content sits in a bordered card
+   like Signal Confluence, just wider since this one's a list. ============ */
 .changed-banner {
   width: 100vw;
   position: relative;
@@ -414,22 +432,38 @@ h1, h2, h3 {
   margin-left: -50vw;
   margin-right: -50vw;
   background: #000000;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding: 40px 24px 52px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding: 48px 24px 56px;
 }
+.changed-inner .snapshot-eyebrow { font-size: 15px; padding: 9px 20px; }
 /* text-align:center (not just a centered box with left-aligned text inside
    it) - this section is much narrower than its neighbors (900px vs. the
    1200-1400px sections above/below), so left-aligned text inside a merely
    centered box still reads as shoved into the left half of the page on a
    wide screen. */
-.changed-inner { max-width: 900px; margin: 0 auto; text-align: center; }
-.changed-list { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.changed-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 40px 48px;
+}
+.changed-list { margin-top: 22px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
 .changed-row { display: flex; align-items: flex-start; gap: 14px; text-align: left; }
-.changed-dot { font-size: 18px; line-height: 1.4; flex-shrink: 0; }
-.changed-body { display: flex; flex-direction: column; gap: 2px; }
-.changed-headline { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 16px; color: var(--paper); }
-.changed-detail { font-size: 14px; color: rgba(251,249,245,0.6); }
-.changed-empty { font-size: 14.5px; color: rgba(251,249,245,0.55); margin-top: 16px; }
+.changed-dot { font-size: 19px; line-height: 1.4; flex-shrink: 0; }
+.changed-body { display: flex; flex-direction: column; gap: 3px; }
+.changed-headline { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 17px; color: var(--paper); }
+.changed-detail { font-size: 15px; color: rgba(251,249,245,0.6); }
+.changed-empty { font-size: 15px; color: rgba(251,249,245,0.55); margin-top: 16px; }
+@media (max-width: 600px) {
+  .snapshot-solo, .confluence-solo, .changed-inner { padding: 28px 24px; }
+  .snapshot-banner, .confluence-banner, .changed-banner { padding-left: 16px; padding-right: 16px; }
+  .snapshot-banner .snapshot-title { font-size: 24px; padding: 9px 22px; }
+  .confluence-score { font-size: 42px; }
+}
 
 /* ============ Alerts & Indicators - same #121212 as the ticker panel
    above, and the same .pulse-card visual language, now as clickable

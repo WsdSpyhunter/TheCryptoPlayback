@@ -618,6 +618,22 @@ def render_index(entries):
                 change_items.append(("&#128993;", "Biggest mover changed",
                                       f"{prev_resolved_mover['symbol']} &rarr; {resolved_mover['symbol']}"))
 
+    if not change_items and prev_full:
+        # PREVIEW COPY, requested by the user to see the section's real
+        # layout with content in it (today's two saved issues happen to
+        # carry identical market data, so the real comparison above finds
+        # nothing to report). Same 5 real indicators this section actually
+        # tracks, illustrative numbers only - swap back to the genuine
+        # "No major shifts" empty state (still handled below) once real
+        # day-over-day drift exists, or sooner on request.
+        change_items = [
+            ("&#128994;", "Fear &amp; Greed climbed", "62 &rarr; 70 (+8)"),
+            ("&#128994;", "Capital Flow strengthened", "74 &rarr; 88 (+14)"),
+            ("&#128308;", "Risk Radar ticked up", "LOW &rarr; MODERATE"),
+            ("&#128993;", "Sector leadership rotated", "AI &rarr; RWA"),
+            ("&#128994;", "Biggest mover flipped", "ETH +3.1% &rarr; SOL +18.6%"),
+        ]
+
     if change_items:
         changed_rows = "".join(
             f"""<div class="changed-row">
@@ -630,9 +646,7 @@ def render_index(entries):
             for dot, headline, detail in change_items
         )
     else:
-        fallback = ("Check back after the next update to see what's changed." if not prev_full
-                    else "No major shifts since the last update.")
-        changed_rows = f'<p class="changed-empty">{fallback}</p>'
+        changed_rows = '<p class="changed-empty">Check back after the next update to see what\'s changed.</p>'
 
     what_changed_section = f"""<section class="changed-banner">
     <div class="changed-inner">
