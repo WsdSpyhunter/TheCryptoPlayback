@@ -190,6 +190,7 @@ h1, h2, h3 {
 }
 .pulse-card-label {
   display: inline-block;
+  align-self: center;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 15px;
