@@ -552,7 +552,54 @@ def render_index(entries):
     </div>
   </section>"""
 
-    body = hero + market_strip + section_banner + teaser_section + subscribe_section
+    # Plain-language explainer for each dashboard card above, so a first-time
+    # visitor knows what they're looking at. Icons/images are reused from the
+    # dashboard cards themselves (same gauge image, same emoji) rather than
+    # inventing new art, so the two sections visibly reference each other.
+    mover_period = "the previous 7 days" if latest_full.get("tag", "Daily") == "Weekly" else "the last 24 hours"
+    mover_title = "Biggest Mover Of The Week" if latest_full.get("tag", "Daily") == "Weekly" else "Biggest Mover Today"
+    explainer_cards = [
+        (f'<img class="explainer-icon-img" src="{gauge_src}" alt="">', "Fear &amp; Greed Index",
+         "A 0&ndash;100 read on overall market mood, from Extreme Fear to Extreme Greed. "
+         "Calculated daily from real volatility, momentum, and social data, not opinion. "
+         "Extremes often line up with emotional turning points, not rational ones."),
+        ("&#128200;", mover_title,
+         f"Whichever of our top 6 tracked coins moved the most, up or down, over {mover_period}. "
+         "Ranked purely by the size of the move, not its direction. "
+         "A quick read on where the action is happening right now."),
+        ("&#9888;&#65039;", "Risk Radar",
+         "A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, "
+         "built from volatility and sentiment extremes. "
+         "It's a temperature check on current conditions, not a forecast of what happens next."),
+        ("&#127974;", "Institutional Flow",
+         "Tracks whether institutions and corporations look like net buyers or sellers, using public "
+         "ETF flow and corporate treasury data. A higher score leans toward accumulation, a lower "
+         "score toward distribution &mdash; it reflects flow, not intent."),
+        ("&#128202;", "Top Sectors",
+         "Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a "
+         "curated list of major sectors so tiny micro-categories can't skew the results. "
+         "Shows where money is rotating inside the market, not just up or down overall."),
+    ]
+    explainer_html = "".join(
+        f"""<div class="explainer-card">
+        <div class="explainer-icon">{icon}</div>
+        <h3 class="explainer-card-title">{title}</h3>
+        <p class="explainer-card-text">{text}</p>
+      </div>"""
+        for icon, title, text in explainer_cards
+    )
+    explainer_section = f"""<section class="explainer-banner">
+    <div class="explainer-inner">
+      <div class="explainer-head">
+        <span class="explainer-eyebrow">Know Your Signals</span>
+        <h2 class="explainer-title">Decode The Dashboard</h2>
+        <p class="explainer-sub">What each alert above actually measures, and how it's calculated</p>
+      </div>
+      <div class="explainer-grid">{explainer_html}</div>
+    </div>
+  </section>"""
+
+    body = hero + market_strip + section_banner + teaser_section + subscribe_section + explainer_section
     return page("", "The Crypto Playback", body, datetime.now().year)
 
 

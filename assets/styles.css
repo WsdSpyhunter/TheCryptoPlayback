@@ -518,6 +518,93 @@ h1, h2, h3 {
   .subscribe-form input, .subscribe-btn { flex: 0 0 auto; width: 100%; }
 }
 
+/* Dashboard explainer ("Decode The Dashboard") - deliberately pure black,
+   unlike the light-gray Top News Stories / Subscribe bands on either side
+   of it, so it reads immediately as a distinct, new section rather than a
+   continuation of the cream teaser list above it. Ties back visually to
+   the black market-pulse dashboard it explains. */
+.explainer-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #000000;
+  padding: 64px 20px 72px;
+}
+.explainer-inner { max-width: 1200px; margin: 0 auto; }
+.explainer-head { text-align: center; margin-bottom: 48px; }
+.explainer-eyebrow {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(201, 151, 79, 0.14);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+/* Soft gold glow (no other section title uses text-shadow) so this title
+   reads as its own, more modern treatment rather than reusing the plain
+   bold caps of .subscribe-title or the serif italic of .section-title. */
+.explainer-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin: 0 0 14px;
+  text-shadow: 0 0 18px rgba(242, 200, 121, 0.55), 0 0 46px rgba(242, 200, 121, 0.25);
+}
+.explainer-sub { font-family: 'Source Sans 3', sans-serif; font-size: 16px; color: rgba(251, 249, 245, 0.65); margin: 0; }
+/* 5 cards in a 3-wide grid: the last row (2 cards) is centered rather than
+   left-aligned by giving the grid a max content width and centering it,
+   with the 4th/5th cards spanning into the middle two of 6 half-columns. */
+.explainer-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+.explainer-card:nth-child(1) { grid-column: 1 / 3; }
+.explainer-card:nth-child(2) { grid-column: 3 / 5; }
+.explainer-card:nth-child(3) { grid-column: 5 / 7; }
+.explainer-card:nth-child(4) { grid-column: 2 / 4; }
+.explainer-card:nth-child(5) { grid-column: 4 / 6; }
+.explainer-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.explainer-icon { font-size: 34px; line-height: 1; margin-bottom: 16px; }
+.explainer-icon-img { height: 48px; width: auto; margin-bottom: 16px; }
+.explainer-card-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  margin: 0 0 10px;
+}
+.explainer-card-text { font-size: 14.5px; line-height: 1.55; color: rgba(251, 249, 245, 0.75); margin: 0; }
+@media (max-width: 900px) {
+  .explainer-grid { grid-template-columns: repeat(2, 1fr); }
+  .explainer-card:nth-child(1), .explainer-card:nth-child(2), .explainer-card:nth-child(3),
+  .explainer-card:nth-child(4), .explainer-card:nth-child(5) { grid-column: auto; }
+}
+@media (max-width: 600px) {
+  .explainer-title { font-size: 28px; }
+  .explainer-grid { grid-template-columns: 1fr; }
+  .explainer-banner { padding: 48px 20px 56px; }
+}
+
 /* Post body */
 .post {
   max-width: var(--max-width);
