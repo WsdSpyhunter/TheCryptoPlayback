@@ -300,7 +300,8 @@ h1, h2, h3 {
 .snapshot-solo {
   max-width: 760px;
   margin: 0 auto;
-  background: var(--paper);
+  /* Same gold as the BNB/coin-symbol badges in the ticker above. */
+  background: #F2C879;
   border-radius: 20px;
   padding: 40px 48px;
   box-shadow: 0 10px 34px rgba(23,21,18,0.1);
@@ -339,8 +340,10 @@ h1, h2, h3 {
 .snapshot-banner .snapshot-title {
   display: inline-block;
   font-size: 30px;
-  color: var(--ink);
-  background: rgba(23,21,18,0.06);
+  /* Same brass gradient oval as the Signal Confluence title below it. */
+  color: #fff;
+  background: linear-gradient(135deg, #D9A857, var(--accent-dark));
+  box-shadow: 0 4px 14px rgba(147, 96, 56, 0.4);
   padding: 10px 30px;
   border-radius: 30px;
   margin-bottom: 20px;
@@ -399,7 +402,17 @@ h1, h2, h3 {
   line-height: 1;
   margin-bottom: 16px;
 }
-.confluence-score-total { font-family: 'Source Sans 3', sans-serif; font-size: 15px; font-weight: 600; opacity: 0.7; margin-left: 6px; }
+/* "/5" inherits .confluence-score's own Oswald/52px/paper styling directly
+   (no overrides here) so it reads as one big "4/5", matching size. */
+.confluence-score-slash { }
+.confluence-score-label {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--paper);
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
 /* Labeled rows (dot + indicator name + its current reading) instead of a
    bare row of colored dots - a dot alone doesn't say which indicator it
    is or what it's currently reading. */

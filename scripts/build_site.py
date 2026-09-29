@@ -560,7 +560,8 @@ def render_index(entries):
     confluence_section = f"""<section class="confluence-banner">
     <div class="confluence-solo">
       <span class="snapshot-eyebrow">Signal Confluence</span>
-      <div class="confluence-score">{positive_count}<span class="confluence-score-total">/{total_count} signals positive</span></div>
+      <div class="confluence-score">{positive_count}<span class="confluence-score-slash">/{total_count}</span></div>
+      <div class="confluence-score-label">signals positive</div>
       <div class="confluence-list">{confluence_rows}</div>
       <p class="snapshot-text">{interpretation}</p>
     </div>
