@@ -547,7 +547,7 @@ def render_index(entries):
           <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
           <button type="button" class="subscribe-btn">Subscribe</button>
         </form>
-        <span class="subscribe-fineprint">Free (for now). Unsubscribe anytime. No Spam. We Don't Share Your Info.</span>
+        <span class="subscribe-fineprint">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</span>
       </div>
     </div>
   </section>"""
