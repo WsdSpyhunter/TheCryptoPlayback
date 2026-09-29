@@ -547,7 +547,6 @@ def render_index(entries):
     # those are shown once now, in Alerts & Indicators further down.
     market_snapshot_section = f"""<section class="snapshot-banner">
     <div class="snapshot-solo">
-      <span class="snapshot-eyebrow">The Crypto Playback</span>
       <h2 class="snapshot-title">Market Snapshot</h2>
       <p class="snapshot-text">{snapshot_text}</p>
       <div class="snapshot-meta">

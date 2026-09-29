@@ -292,7 +292,16 @@ h1, h2, h3 {
   padding: 48px 24px;
   text-align: center;
 }
-.snapshot-solo { max-width: 760px; margin: 0 auto; }
+/* Bordered card, like .confluence-solo, so this reads as its own distinct
+   area rather than text floating on the black background. */
+.snapshot-solo {
+  max-width: 760px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 36px 40px;
+}
 .snapshot-eyebrow {
   display: inline-block;
   align-self: flex-start;
@@ -317,6 +326,21 @@ h1, h2, h3 {
   margin: 0 0 14px;
 }
 .snapshot-text { font-size: 15.5px; line-height: 1.6; color: rgba(251,249,245,0.8); margin: 0; }
+/* Market Snapshot's title stands in for the eyebrow tag that used to sit
+   above it (now removed) - styled as its own larger, grayed-out pill so it
+   still reads as a label, just bigger and without the redundant "The
+   Crypto Playback" tag above it. Scoped to this section only, so it
+   doesn't affect the smaller .snapshot-title reuse in What Changed /
+   Alerts & Indicators. */
+.snapshot-banner .snapshot-title {
+  display: inline-block;
+  font-size: 30px;
+  background: rgba(255,255,255,0.08);
+  padding: 10px 30px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+.snapshot-banner .snapshot-text { font-size: 17.5px; }
 .snapshot-meta {
   margin-top: 18px;
   font-size: 12.5px;
@@ -349,6 +373,10 @@ h1, h2, h3 {
   border-radius: 18px;
   padding: 28px 32px;
 }
+/* Bigger title for this card specifically, scoped so the smaller eyebrow
+   pill style used elsewhere (What Changed, Alerts & Indicators) is
+   untouched. */
+.confluence-solo .snapshot-eyebrow { font-size: 15px; padding: 8px 18px; }
 .confluence-score {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
@@ -370,6 +398,10 @@ h1, h2, h3 {
   font-size: 14px;
   color: var(--paper);
   flex: 1;
+  /* Without this, .confluence-banner's text-align:center centers this
+     text within its flex:1 box, stranding it far from its dot - left
+     align keeps it right next to the dot instead. */
+  text-align: left;
 }
 .confluence-row-value { font-size: 13px; color: rgba(251,249,245,0.55); white-space: nowrap; }
 
