@@ -16,6 +16,7 @@ from fetch_prices import get_top_prices
 from fetch_news import get_recent_headlines
 from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
+from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
 from build_site import (
     add_post_and_rebuild, render_ticker_bar, render_sentiment_combined,
@@ -125,6 +126,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
     sectors = get_top_sectors()
+    stablecoins = get_stablecoin_liquidity()
     issue_number = sum(1 for e in load_index() if e["tag"] == tag) + 1
 
     now = datetime.now(timezone.utc)
@@ -147,6 +149,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         "mover": mover,
         "week_mover": week_mover,
         "sectors": sectors,
+        "stablecoins": stablecoins,
         "date_abbrev": date_abbrev,
         "ticker_html": render_ticker_bar(prices, date_abbrev),
         "sentiment_html": render_sentiment_combined(fng, mover, tag),

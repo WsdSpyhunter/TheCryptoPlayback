@@ -387,6 +387,20 @@ def _compute_derived_signals(prices, fng, sectors):
     }
 
 
+def _stablecoin_signal(stablecoins):
+    """'Expanding'/'Contracting' from real DefiLlama data (fetch_stablecoins.py)
+    - dry powder entering or leaving the crypto ecosystem, not a price
+    call. Positive 7-day change reads Expanding, negative reads
+    Contracting; there's no 'flat' band since even a hair of real
+    movement is a real, if small, directional data point."""
+    expanding = stablecoins["change_7d_pct"] >= 0
+    return {
+        "expanding": expanding,
+        "signal": "Expanding" if expanding else "Contracting",
+        "color": "#8FBF5C" if expanding else "#E8837A",
+    }
+
+
 def render_market_pulse(prices, date_abbrev):
     """Homepage-only Top 6 Market ticker. Used to also render Fear & Greed /
     Biggest Mover / Risk Radar / Capital Flow / Top Sectors as their own
@@ -479,6 +493,11 @@ def render_index(entries):
     # field saved either - a placeholder here just so a Weekly snapshot
     # still previews the card's real 7-day framing.
     week_mover = latest_full.get("week_mover") or {"symbol": "SOL", "change_7d": 18.6}
+    # Posts from before the stablecoin liquidity feature don't have this
+    # field saved either - placeholder here only, replaced automatically
+    # the next time a post publishes.
+    stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
+    stable_signal = _stablecoin_signal(stablecoins)
     tag = latest_full.get("tag", "Daily")
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _resolve_mover(mover, week_mover, tag)
@@ -500,6 +519,8 @@ def render_index(entries):
          f"{signals['capital_flow_score']} {signals['capital_flow_signal']}"),
         ("Top Sectors", sector_majority_positive,
          f"{sector_positive_count}/{len(sectors)} positive" if sectors else "&ndash;"),
+        ("Stablecoin Liquidity", stable_signal["expanding"],
+         f"${stablecoins['total_usd']/1e9:.1f}B ({stablecoins['change_7d_pct']:+.1f}%)"),
     ]
     positive_count = sum(1 for _, pos, _ in confluence_items if pos)
     total_count = len(confluence_items)
@@ -630,6 +651,15 @@ def render_index(entries):
                 change_items.append(("&#128993;", "Biggest mover changed",
                                       f"{prev_resolved_mover['symbol']} &rarr; {resolved_mover['symbol']}"))
 
+            prev_stablecoins = prev_full.get("stablecoins")
+            if prev_stablecoins:
+                stable_delta_b = (stablecoins["total_usd"] - prev_stablecoins["total_usd"]) / 1e9
+                if abs(stable_delta_b) >= 0.5:
+                    dot = "&#128994;" if stable_delta_b > 0 else "&#128308;"
+                    change_items.append((dot, "Stablecoin supply moved",
+                                          f"${prev_stablecoins['total_usd']/1e9:.1f}B &rarr; "
+                                          f"${stablecoins['total_usd']/1e9:.1f}B ({stable_delta_b:+.1f}B)"))
+
     if not change_items and prev_full:
         # PREVIEW COPY, requested by the user to see the section's real
         # layout with content in it (today's two saved issues happen to
@@ -700,6 +730,10 @@ def render_index(entries):
              for s in sectors
          ) + '</div>',
          "Best-performing sectors, 24H"),
+        ("stablecoin-liquidity.html", "&#128181; Stablecoin Liquidity",
+         f'<div class="pulse-card-value" style="color:{stable_signal["color"]};">'
+         f'${stablecoins["total_usd"]/1e9:.1f}B<span class="pulse-card-word">{stable_signal["signal"]}</span></div>',
+         f'{stablecoins["change_7d_pct"]:+.1f}% over 7 days'),
     ]
     alerts_cards_html = "".join(
         f"""<a class="pulse-card indicator-card" href="{href}">
@@ -868,6 +902,7 @@ def _historical_readings(entries):
             "risk_level": sig["risk_level"],
             "capital_flow_score": sig["capital_flow_score"],
             "capital_flow_signal": sig["capital_flow_signal"],
+            "stablecoins": full.get("stablecoins"),
         })
     rows.reverse()
     return rows
@@ -932,6 +967,8 @@ def render_indicator_pages(entries):
     gauge_src = latest_full.get("gauge_path", "")
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _resolve_mover(mover, week_mover, tag)
+    stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
+    stable_signal = _stablecoin_signal(stablecoins)
     history = _historical_readings(entries)
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
         signals["capital_flow_signal"].lower(), "#8A7F5C"
@@ -1043,6 +1080,28 @@ def render_indicator_pages(entries):
         ],
         history, lambda row: (f"{row['sectors'][0]['label']} {row['sectors'][0]['change_24h']:+.1f}%"
                                if row.get("sectors") else "&ndash;"),
+    )
+
+    pages["stablecoin-liquidity.html"] = _indicator_page_shell(
+        "The Crypto Playback", "Stablecoin Liquidity",
+        f'<div class="indicator-value" style="color:{stable_signal["color"]};">'
+        f'${stablecoins["total_usd"]/1e9:.1f}B<span class="indicator-value-word">{stable_signal["signal"]}</span></div>',
+        [
+            ("What It Measures", "<p>The total circulating supply of major USD-pegged stablecoins (USDT, USDC, "
+             "DAI, and others) across all chains &mdash; a proxy for how much \"dry powder\" is sitting inside "
+             "the crypto ecosystem, ready to move.</p>"),
+            ("How It's Calculated", "<p>Total stablecoin market cap today vs. 7 days ago. A positive 7-day "
+             "change reads Expanding, negative reads Contracting.</p>"),
+            ("Why It Matters", "<p>Price charts don't show whether new capital is entering or leaving the "
+             "ecosystem. Expanding stablecoin supply means more capital is parked and available to buy; "
+             "contracting supply means capital is leaving the space entirely, not just rotating between "
+             "coins.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>DefiLlama's free stablecoins API "
+             "(stablecoins.llama.fi). Refreshed every time we publish a new issue.</p>"),
+        ],
+        history, lambda row: (f"${row['stablecoins']['total_usd']/1e9:.1f}B "
+                               f"({row['stablecoins']['change_7d_pct']:+.1f}%)"
+                               if row.get("stablecoins") else "&ndash;"),
     )
 
     return pages
