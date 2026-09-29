@@ -437,8 +437,14 @@ h1, h2, h3 {
    padding amount, so it actually reaches the section's bottom border
    instead of stopping at the content row's height. */
 .subscribe-decor-mascot { height: 169px; width: auto; margin-bottom: -56px; }
+/* Mirror image of .subscribe-decor: hidden whenever the side mascot has
+   room to show (above 1400px), visible in its place - stacked above the
+   form - whenever the side one is hidden, so the mascot never just
+   disappears at narrower widths. */
+.subscribe-mobile-mascot { display: none; height: 140px; width: auto; margin: 0 auto 24px; }
 @media (max-width: 1400px) {
   .subscribe-decor { display: none; }
+  .subscribe-mobile-mascot { display: block; }
 }
 .subscribe-eyebrow {
   display: inline-block;

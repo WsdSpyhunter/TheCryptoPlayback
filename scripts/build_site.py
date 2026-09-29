@@ -541,6 +541,7 @@ def render_index(entries):
         <span class="subscribe-eyebrow">Join The Playback</span>
         <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
         <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
+        <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
         <form class="subscribe-form">
           <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
           <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
