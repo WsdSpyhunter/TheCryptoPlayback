@@ -117,14 +117,11 @@ h1, h2, h3 {
 .ticker .updated { margin-left: auto; opacity: 0.6; font-size: 12px; }
 
 /* ============ Homepage market pulse - distinct, full-width web design,
-   not the compact newsletter ticker/sentiment box used on post pages ============ */
-.market-pulse { background: #000000; padding: 48px 0 64px; }
+   not the compact newsletter ticker/sentiment box used on post pages.
+   Used to also hold the Fear & Greed/Mover/Risk/Capital Flow/Sectors cards
+   as their own row below the ticker - those now live once, in Alerts &
+   Indicators further down, so .pulse-card etc. are still used there. ============ */
 .pulse-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-/* The second row (Fear & Greed / Mover / Risk / Institutional / Sectors)
-   needs more room than the 6-wide ticker above it now that it's 5 cards
-   at their natural sizes - widening only this row's wrap (not the
-   ticker's) so those cards never shrink or wrap to a second line. */
-.market-pulse .pulse-wrap { max-width: 1400px; }
 
 /* Full-bleed panel (breaks out of .pulse-wrap's max-width to span the
    entire viewport) so the ticker reads as its own distinct module,
@@ -278,10 +275,11 @@ h1, h2, h3 {
   .pulse-ticker-grid { grid-template-columns: repeat(2, 1fr); }
   .pulse-card { flex: 1 1 100%; }
   .pulse-card-value, .pulse-mover-symbol { font-size: 38px; }
-  .market-pulse { padding: 40px 0 48px; }
 }
 
-/* ============ Playback Snapshot: Signal Confluence ============ */
+/* ============ Market Snapshot (sits right under the Top 6 Market ticker,
+   where the old Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to
+   be - those now live once, in Alerts & Indicators further down) ============ */
 .snapshot-banner {
   width: 100vw;
   position: relative;
@@ -292,15 +290,9 @@ h1, h2, h3 {
   background: #000000;
   border-top: 1px solid rgba(255,255,255,0.08);
   padding: 48px 24px;
+  text-align: center;
 }
-.snapshot-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 40px;
-}
-.snapshot-col { display: flex; flex-direction: column; }
+.snapshot-solo { max-width: 760px; margin: 0 auto; }
 .snapshot-eyebrow {
   display: inline-block;
   align-self: flex-start;
@@ -331,14 +323,31 @@ h1, h2, h3 {
   color: rgba(251,249,245,0.45);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 .snapshot-meta-dot { opacity: 0.6; }
-.snapshot-confluence {
+/* ============ Signal Confluence (standalone section, between Market
+   Snapshot and What Changed?) ============ */
+.confluence-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #000000;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 24px 48px;
+  text-align: center;
+}
+.confluence-solo {
+  max-width: 480px;
+  margin: 0 auto;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  padding: 24px 28px;
+  padding: 28px 32px;
 }
 .confluence-score {
   font-family: 'Oswald', sans-serif;
@@ -349,11 +358,20 @@ h1, h2, h3 {
   margin-bottom: 14px;
 }
 .confluence-score-total { font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 600; opacity: 0.7; margin-left: 6px; }
-.confluence-dots { display: flex; gap: 8px; font-size: 22px; margin-bottom: 14px; }
-.confluence-dot { line-height: 1; cursor: default; }
-@media (max-width: 900px) {
-  .snapshot-inner { grid-template-columns: 1fr; }
+/* Labeled rows (dot + indicator name + its current reading) instead of a
+   bare row of colored dots - a dot alone doesn't say which indicator it
+   is or what it's currently reading. */
+.confluence-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; }
+.confluence-row { display: flex; align-items: center; gap: 10px; }
+.confluence-row-dot { font-size: 13px; line-height: 1; flex-shrink: 0; }
+.confluence-row-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--paper);
+  flex: 1;
 }
+.confluence-row-value { font-size: 13px; color: rgba(251,249,245,0.55); white-space: nowrap; }
 
 /* ============ What Changed? ============ */
 .changed-banner {
@@ -367,9 +385,14 @@ h1, h2, h3 {
   border-top: 1px solid rgba(255,255,255,0.08);
   padding: 40px 24px 52px;
 }
-.changed-inner { max-width: 900px; margin: 0 auto; }
-.changed-list { margin-top: 20px; display: flex; flex-direction: column; gap: 16px; }
-.changed-row { display: flex; align-items: flex-start; gap: 14px; }
+/* text-align:center (not just a centered box with left-aligned text inside
+   it) - this section is much narrower than its neighbors (900px vs. the
+   1200-1400px sections above/below), so left-aligned text inside a merely
+   centered box still reads as shoved into the left half of the page on a
+   wide screen. */
+.changed-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.changed-list { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.changed-row { display: flex; align-items: flex-start; gap: 14px; text-align: left; }
 .changed-dot { font-size: 18px; line-height: 1.4; flex-shrink: 0; }
 .changed-body { display: flex; flex-direction: column; gap: 2px; }
 .changed-headline { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 16px; color: var(--paper); }

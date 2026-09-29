@@ -387,38 +387,12 @@ def _compute_derived_signals(prices, fng, sectors):
     }
 
 
-def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low",
-                         capital_flow_score=50, capital_flow_signal="Mixed", sectors=None,
-                         week_mover=None):
-    """Homepage-only market section - deliberately NOT the compact,
-    newsletter-styled ticker/sentiment box used on post pages. Full-width
-    grid of price cards, plus Fear & Greed and Biggest Mover as their own
-    large, separate cards (F&G left, Mover right) rather than one small
-    bordered box - a real web dashboard layout, not an email shrunk down."""
-    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
-    # The "of the week" card is ranked by real 7-day change (week_mover),
-    # not the 24h 'mover' the locked email template uses - kept as a
-    # separate field entirely so email data/output is untouched. Falls
-    # back to the 24h mover for posts saved before this field existed.
-    resolved = _resolve_mover(mover, week_mover, tag)
-    mover_label, display_symbol, mover_change, mover_caption = (
-        resolved["label"], resolved["symbol"], resolved["change"], resolved["caption"],
-    )
-    mover_up = mover_change >= 0
-    mover_color = "#256B32" if mover_up else "#E24C4C"
-    mover_sign = "+" if mover_up else ""
-    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
-        capital_flow_signal.lower(), "#8A7F5C"
-    )
-    sectors = sectors or []
-    sector_rows = "".join(
-        f"""<div class="pulse-sector-row">
-        <span class="pulse-sector-name">{s['label']}</span>
-        <span class="pulse-sector-change" style="color:{'#8FBF5C' if s['change_24h'] >= 0 else '#E8837A'};">{s['change_24h']:+.1f}%</span>
-      </div>"""
-        for s in sectors
-    )
-
+def render_market_pulse(prices, date_abbrev):
+    """Homepage-only Top 6 Market ticker. Used to also render Fear & Greed /
+    Biggest Mover / Risk Radar / Capital Flow / Top Sectors as their own
+    cards right below the ticker, but those are now shown once, in the
+    Alerts & Indicators section further down the page - kept here rather
+    than duplicated so there's a single source of truth for each card."""
     coin_cards = "".join(
         f"""<div class="pulse-coin">
         <span class="pulse-coin-sym">{c['symbol']}</span>
@@ -439,49 +413,6 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
         <span class="pulse-asof">Price data via CoinGecko &middot; {date_abbrev}</span>
       </div>
       <div class="pulse-ticker-grid">{coin_cards}</div>
-    </div>
-  </section>
-  <section class="market-pulse">
-    <div class="pulse-wrap">
-      <div class="pulse-columns">
-        <div class="pulse-card">
-          <span class="pulse-card-label">Fear &amp; Greed Index</span>
-          <div class="pulse-card-main">
-            <img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">
-            <div class="pulse-card-value" style="color:{fng_color};">{fng['value']}<span class="pulse-card-word">{fng['classification']}</span></div>
-          </div>
-          <span class="pulse-card-caption">Daily fear and greed sentiment indicator</span>
-        </div>
-        <div class="pulse-card">
-          <span class="pulse-card-label">{mover_label}</span>
-          <div class="pulse-card-main pulse-card-main-mover">
-            <span class="pulse-mover-symbol">{display_symbol}</span>
-            <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover_change:.1f}%</span>
-          </div>
-          <span class="pulse-card-caption">{mover_caption}</span>
-        </div>
-        <div class="pulse-card">
-          <span class="pulse-card-label">&#9888;&#65039; Risk Radar</span>
-          <div class="pulse-card-main">
-            <span class="pulse-risk-badge pulse-risk-{risk_level}">{risk_level.upper()}</span>
-          </div>
-          <span class="pulse-card-caption">Overall crypto market risk indicator</span>
-        </div>
-        <div class="pulse-card">
-          <span class="pulse-card-label">&#128176; Capital Flow</span>
-          <div class="pulse-card-main">
-            <div class="pulse-card-value" style="color:{flow_color};">{capital_flow_score}<span class="pulse-card-word">{capital_flow_signal}</span></div>
-          </div>
-          <span class="pulse-card-caption">Price &amp; sector breadth vs. sentiment</span>
-        </div>
-        <div class="pulse-card">
-          <span class="pulse-card-label">&#128202; Top Sectors</span>
-          <div class="pulse-card-main pulse-card-main-sectors">
-            <div class="pulse-sector-list">{sector_rows}</div>
-          </div>
-          <span class="pulse-card-caption">Best-performing sectors, 24H</span>
-        </div>
-      </div>
     </div>
   </section>"""
 
@@ -551,11 +482,7 @@ def render_index(entries):
     tag = latest_full.get("tag", "Daily")
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _resolve_mover(mover, week_mover, tag)
-    market_strip = render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev,
-                                        risk_level=signals["risk_level"],
-                                        capital_flow_score=signals["capital_flow_score"],
-                                        capital_flow_signal=signals["capital_flow_signal"],
-                                        sectors=sectors, week_mover=week_mover)
+    market_strip = render_market_pulse(prices, date_abbrev)
 
     # ============ Playback Snapshot: Signal Confluence + What Changed? ============
     # Both built only from real per-issue data already computed above - no
@@ -588,8 +515,14 @@ def render_index(entries):
         interpretation = f"Signals lean cautious, with {positives[0] if positives else 'nothing'} the lone bright spot."
     else:
         interpretation = "Signals are mixed, split between bullish and cautious readings."
-    confluence_dots = "".join(
-        f'<span class="confluence-dot" title="{name}: {val}">{"&#128994;" if pos else "&#128308;"}</span>'
+    # Labeled rows, not a bare row of dots - a colored dot alone doesn't tell
+    # a visitor which indicator it belongs to or what it's currently reading.
+    confluence_rows = "".join(
+        f'<div class="confluence-row">'
+        f'<span class="confluence-row-dot">{"&#128994;" if pos else "&#128308;"}</span>'
+        f'<span class="confluence-row-name">{name}</span>'
+        f'<span class="confluence-row-value">{val}</span>'
+        f'</div>'
         for name, pos, val in confluence_items
     )
 
@@ -609,24 +542,28 @@ def render_index(entries):
     else:
         snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
 
-    snapshot_section = f"""<section class="snapshot-banner">
-    <div class="snapshot-inner">
-      <div class="snapshot-col">
-        <span class="snapshot-eyebrow">The Crypto Playback</span>
-        <h2 class="snapshot-title">Market Snapshot</h2>
-        <p class="snapshot-text">{snapshot_text}</p>
-        <div class="snapshot-meta">
-          <span>Updated {latest_full.get('date_display', '')}</span>
-          <span class="snapshot-meta-dot">&middot;</span>
-          <span>Based on {total_count} market indicators</span>
-        </div>
+    # Sits directly under the Top 6 Market ticker now, in the spot the old
+    # Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to occupy -
+    # those are shown once now, in Alerts & Indicators further down.
+    market_snapshot_section = f"""<section class="snapshot-banner">
+    <div class="snapshot-solo">
+      <span class="snapshot-eyebrow">The Crypto Playback</span>
+      <h2 class="snapshot-title">Market Snapshot</h2>
+      <p class="snapshot-text">{snapshot_text}</p>
+      <div class="snapshot-meta">
+        <span>Updated {latest_full.get('date_display', '')}</span>
+        <span class="snapshot-meta-dot">&middot;</span>
+        <span>Based on {total_count} market indicators</span>
       </div>
-      <div class="snapshot-col snapshot-confluence">
-        <span class="snapshot-eyebrow">Signal Confluence</span>
-        <div class="confluence-score">{positive_count}<span class="confluence-score-total">/{total_count} signals positive</span></div>
-        <div class="confluence-dots">{confluence_dots}</div>
-        <p class="snapshot-text">{interpretation}</p>
-      </div>
+    </div>
+  </section>"""
+
+    confluence_section = f"""<section class="confluence-banner">
+    <div class="confluence-solo">
+      <span class="snapshot-eyebrow">Signal Confluence</span>
+      <div class="confluence-score">{positive_count}<span class="confluence-score-total">/{total_count} signals positive</span></div>
+      <div class="confluence-list">{confluence_rows}</div>
+      <p class="snapshot-text">{interpretation}</p>
     </div>
   </section>"""
 
@@ -871,8 +808,8 @@ def render_index(entries):
     </div>
   </section>"""
 
-    body = (hero + market_strip + snapshot_section + what_changed_section + alerts_indicators_section
-            + section_banner + teaser_section + subscribe_section + explainer_section)
+    body = (hero + market_strip + market_snapshot_section + confluence_section + what_changed_section
+            + alerts_indicators_section + section_banner + teaser_section + subscribe_section + explainer_section)
     return page("", "The Crypto Playback", body, datetime.now().year)
 
 
