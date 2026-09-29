@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Resources — The Crypto Playback</title>
+<title>Risk Radar — The Crypto Playback</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,22 +26,36 @@
   </div>
 </header>
 
-<div class="page-content">
-  <h1>Resources</h1>
-  <p>A short list of places to go deeper. (Edit this page any time in
-  <code>scripts/build_static_pages.py</code> — it's the one page the
-  automation never touches.)</p>
-  <h3>Learn the basics</h3>
-  <ul>
-    <li>The Basics of Bitcoin — by W.S. Davis</li>
-  </ul>
-  <h3>Glossary</h3>
-  <ul>
-    <li><strong>Cold storage</strong> — keeping crypto offline, away from internet-connected wallets.</li>
-    <li><strong>DCA (dollar-cost averaging)</strong> — buying a fixed dollar amount on a regular schedule, regardless of price.</li>
-    <li><strong>Market cap</strong> — price per coin &times; total coins in circulation.</li>
-  </ul>
-</div>
+<section class="indicator-hero">
+    <div class="indicator-hero-inner">
+      <span class="snapshot-eyebrow">The Crypto Playback</span>
+      <h1 class="indicator-title">Risk Radar</h1>
+      <div class="indicator-hero-value"><span class="pulse-risk-badge pulse-risk-moderate indicator-risk-badge">MODERATE</span></div>
+    </div>
+  </section>
+  <div class="indicator-body">
+    <div class="indicator-section">
+        <h2>What It Measures</h2>
+        <p>A simple read on how turbulent current market conditions are &mdash; Low, Moderate, or Elevated.</p>
+      </div><div class="indicator-section">
+        <h2>How It's Calculated</h2>
+        <p>A Crypto Playback score built from two real inputs: how extreme the Fear &amp; Greed reading is, and the average size of the 24-hour price move across our 6 tracked coins. Extreme sentiment (Fear &amp; Greed &ge;80 or &le;20) adds 2 points, borderline extreme (&ge;70 or &le;30) adds 1. Average 24h volatility &ge;8% adds 2 points, &ge;4% adds 1. 0&ndash;1 points reads Low, 2&ndash;3 reads Moderate, 4+ reads Elevated.</p>
+      </div><div class="indicator-section">
+        <h2>Why It Matters</h2>
+        <p>A temperature check on current conditions, not a forecast of what happens next.</p>
+      </div><div class="indicator-section">
+        <h2>Data Source &amp; Update Frequency</h2>
+        <p>Computed by The Crypto Playback from Alternative.me and CoinGecko data &mdash; not pulled from any third-party "risk" API. Refreshed every time we publish a new issue.</p>
+      </div>
+    <div class="indicator-section">
+      <h2>Recent Readings</h2>
+      <div class="indicator-history"><div class="indicator-history-row">
+            <span class="indicator-history-date">September 21, 2026 &middot; Weekly</span>
+            <span class="indicator-history-value">MODERATE</span>
+          </div></div>
+      <p class="indicator-history-note">History builds up with every new issue we publish &mdash; it isn't backfilled or estimated.</p>
+    </div>
+  </div>
 <div class="disclaimer">
   <div class="wrap">
     <span class="disclaimer-label">Disclaimer</span>

@@ -281,6 +281,194 @@ h1, h2, h3 {
   .market-pulse { padding: 40px 0 48px; }
 }
 
+/* ============ Playback Snapshot: Signal Confluence ============ */
+.snapshot-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #000000;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 48px 24px;
+}
+.snapshot-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+}
+.snapshot-col { display: flex; flex-direction: column; }
+.snapshot-eyebrow {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(201, 151, 79, 0.14);
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.snapshot-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  margin: 0 0 14px;
+}
+.snapshot-text { font-size: 15.5px; line-height: 1.6; color: rgba(251,249,245,0.8); margin: 0; }
+.snapshot-meta {
+  margin-top: 18px;
+  font-size: 12.5px;
+  color: rgba(251,249,245,0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.snapshot-meta-dot { opacity: 0.6; }
+.snapshot-confluence {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 24px 28px;
+}
+.confluence-score {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 44px;
+  color: var(--paper);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.confluence-score-total { font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 600; opacity: 0.7; margin-left: 6px; }
+.confluence-dots { display: flex; gap: 8px; font-size: 22px; margin-bottom: 14px; }
+.confluence-dot { line-height: 1; cursor: default; }
+@media (max-width: 900px) {
+  .snapshot-inner { grid-template-columns: 1fr; }
+}
+
+/* ============ What Changed? ============ */
+.changed-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #000000;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 40px 24px 52px;
+}
+.changed-inner { max-width: 900px; margin: 0 auto; }
+.changed-list { margin-top: 20px; display: flex; flex-direction: column; gap: 16px; }
+.changed-row { display: flex; align-items: flex-start; gap: 14px; }
+.changed-dot { font-size: 18px; line-height: 1.4; flex-shrink: 0; }
+.changed-body { display: flex; flex-direction: column; gap: 2px; }
+.changed-headline { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 16px; color: var(--paper); }
+.changed-detail { font-size: 14px; color: rgba(251,249,245,0.6); }
+.changed-empty { font-size: 14.5px; color: rgba(251,249,245,0.55); margin-top: 16px; }
+
+/* ============ Alerts & Indicators - same #121212 as the ticker panel
+   above, and the same .pulse-card visual language, now as clickable
+   links through to each indicator's own page. ============ */
+.alerts-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: #121212;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 48px 0 56px;
+}
+.alerts-head { text-align: center; margin-bottom: 32px; }
+.alerts-head .snapshot-title { margin-bottom: 8px; }
+.indicator-card { text-decoration: none; cursor: pointer; }
+.indicator-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+.indicator-card-cta {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+}
+
+/* ============ Individual indicator pages ============ */
+.indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; }
+.indicator-hero-inner { max-width: 700px; margin: 0 auto; }
+.indicator-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  margin: 10px 0 28px;
+}
+.indicator-hero-value { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.indicator-gauge { width: 84px; height: auto; }
+.indicator-value {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--paper);
+}
+.indicator-value-word { font-family: 'Source Sans 3', sans-serif; font-size: 19px; font-weight: 600; opacity: 0.85; }
+.indicator-mover-symbol { font-size: 44px; margin-right: 4px; }
+.indicator-risk-badge { font-size: 34px; padding: 12px 28px; }
+.indicator-sector-list { min-width: 260px; }
+.indicator-sector-list .pulse-sector-name,
+.indicator-sector-list .pulse-sector-change { font-size: 20px; }
+.indicator-body { max-width: 700px; margin: 0 auto; padding: 44px 20px 20px; }
+.indicator-section { margin-bottom: 34px; }
+.indicator-section h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin: 0 0 10px;
+}
+.indicator-section p { font-size: 15.5px; line-height: 1.65; color: var(--ink); margin: 0; }
+.indicator-history { display: flex; flex-direction: column; gap: 10px; }
+.indicator-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 14px;
+  background: rgba(23, 21, 18, 0.04);
+  border-radius: 8px;
+  font-family: 'Oswald', sans-serif;
+}
+.indicator-history-date { font-size: 13px; color: var(--ink); opacity: 0.6; }
+.indicator-history-value { font-size: 15px; font-weight: 600; color: var(--ink); }
+.indicator-history-note { font-size: 12.5px; color: var(--ink); opacity: 0.5; margin-top: 10px; }
+@media (max-width: 600px) {
+  .indicator-title { font-size: 26px; }
+  .indicator-value { font-size: 40px; }
+  .indicator-hero-value { flex-direction: column; gap: 10px; }
+}
+
 /* Recent-issues teaser list (homepage) */
 .latest {
   max-width: 1000px;

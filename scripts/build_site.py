@@ -318,8 +318,77 @@ def _market_data_from_post(post):
     return prices, fng, mover
 
 
+def _resolve_mover(mover, week_mover, tag):
+    """Which mover to show + its real change, shared by the dashboard cards,
+    the Signal Confluence dots and the indicator pages so they can never
+    show different numbers for the same thing."""
+    if tag == "Weekly" and week_mover:
+        return {
+            "symbol": week_mover["symbol"],
+            "change": week_mover["change_7d"],
+            "label": "BIGGEST MOVER OF THE WEEK",
+            "caption": "Rolling data from the previous 7 days",
+            "period": "the previous 7 days",
+        }
+    return {
+        "symbol": mover["symbol"],
+        "change": mover["change_24h"],
+        "label": "BIGGEST MOVER TODAY",
+        "caption": "",
+        "period": "the last 24 hours",
+    }
+
+
+def _compute_derived_signals(prices, fng, sectors):
+    """Risk Radar and Capital Flow, computed here instead of hardcoded.
+
+    Both used to be fixed placeholder values (risk_level="low" and
+    inst_flow_score=72 every single time, regardless of the real market).
+    These are deterministic, documented calculations built only from data
+    we already fetch for real (CoinGecko prices/sectors, Alternative.me
+    Fear & Greed) - no external "risk" or "institutional flow" API, and the
+    exact formula is spelled out on each indicator's own page so the label
+    never claims more than the math behind it actually measures.
+    """
+    sectors = sectors or []
+    avg_abs_change = (sum(abs(c["change_24h"]) for c in prices) / len(prices)) if prices else 0.0
+
+    risk_score = 0
+    if fng["value"] >= 80 or fng["value"] <= 20:
+        risk_score += 2
+    elif fng["value"] >= 70 or fng["value"] <= 30:
+        risk_score += 1
+    if avg_abs_change >= 8:
+        risk_score += 2
+    elif avg_abs_change >= 4:
+        risk_score += 1
+    risk_level = "elevated" if risk_score >= 4 else ("moderate" if risk_score >= 2 else "low")
+
+    breadth_pool = prices + sectors
+    positive = sum(1 for x in breadth_pool if x["change_24h"] >= 0)
+    breadth_pct = (positive / len(breadth_pool)) if breadth_pool else 0.5
+    capital_flow_score = max(0, min(100, round(0.6 * breadth_pct * 100 + 0.4 * fng["value"])))
+    if capital_flow_score >= 60:
+        capital_flow_signal = "Accumulation"
+    elif capital_flow_score >= 40:
+        capital_flow_signal = "Mixed"
+    else:
+        capital_flow_signal = "Distribution"
+
+    return {
+        "risk_level": risk_level,
+        "risk_score": risk_score,
+        "avg_abs_change": avg_abs_change,
+        "breadth_pct": breadth_pct,
+        "breadth_positive": positive,
+        "breadth_total": len(breadth_pool),
+        "capital_flow_score": capital_flow_score,
+        "capital_flow_signal": capital_flow_signal,
+    }
+
+
 def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_level="low",
-                         inst_flow_score=72, inst_flow_signal="Accumulation", sectors=None,
+                         capital_flow_score=50, capital_flow_signal="Mixed", sectors=None,
                          week_mover=None):
     """Homepage-only market section - deliberately NOT the compact,
     newsletter-styled ticker/sentiment box used on post pages. Full-width
@@ -327,24 +396,19 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
     large, separate cards (F&G left, Mover right) rather than one small
     bordered box - a real web dashboard layout, not an email shrunk down."""
     fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
-    mover_label = "BIGGEST MOVER OF THE WEEK" if tag == "Weekly" else "BIGGEST MOVER TODAY"
     # The "of the week" card is ranked by real 7-day change (week_mover),
     # not the 24h 'mover' the locked email template uses - kept as a
     # separate field entirely so email data/output is untouched. Falls
     # back to the 24h mover for posts saved before this field existed.
-    if tag == "Weekly" and week_mover:
-        display_mover = week_mover
-        mover_change = display_mover["change_7d"]
-        mover_caption = "Rolling data from the previous 7 days"
-    else:
-        display_mover = mover
-        mover_change = display_mover["change_24h"]
-        mover_caption = ""
+    resolved = _resolve_mover(mover, week_mover, tag)
+    mover_label, display_symbol, mover_change, mover_caption = (
+        resolved["label"], resolved["symbol"], resolved["change"], resolved["caption"],
+    )
     mover_up = mover_change >= 0
     mover_color = "#256B32" if mover_up else "#E24C4C"
     mover_sign = "+" if mover_up else ""
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
-        inst_flow_signal.lower(), "#8A7F5C"
+        capital_flow_signal.lower(), "#8A7F5C"
     )
     sectors = sectors or []
     sector_rows = "".join(
@@ -391,7 +455,7 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
         <div class="pulse-card">
           <span class="pulse-card-label">{mover_label}</span>
           <div class="pulse-card-main pulse-card-main-mover">
-            <span class="pulse-mover-symbol">{display_mover['symbol']}</span>
+            <span class="pulse-mover-symbol">{display_symbol}</span>
             <span class="pulse-mover-change" style="color:{mover_color};">{mover_sign}{mover_change:.1f}%</span>
           </div>
           <span class="pulse-card-caption">{mover_caption}</span>
@@ -404,11 +468,11 @@ def render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev, risk_le
           <span class="pulse-card-caption">Overall crypto market risk indicator</span>
         </div>
         <div class="pulse-card">
-          <span class="pulse-card-label">&#127974; Institutional Flow</span>
+          <span class="pulse-card-label">&#128176; Capital Flow</span>
           <div class="pulse-card-main">
-            <div class="pulse-card-value" style="color:{flow_color};">{inst_flow_score}<span class="pulse-card-word">{inst_flow_signal}</span></div>
+            <div class="pulse-card-value" style="color:{flow_color};">{capital_flow_score}<span class="pulse-card-word">{capital_flow_signal}</span></div>
           </div>
-          <span class="pulse-card-caption">Tracks institutional buying vs. selling pressure</span>
+          <span class="pulse-card-caption">Price &amp; sector breadth vs. sentiment</span>
         </div>
         <div class="pulse-card">
           <span class="pulse-card-label">&#128202; Top Sectors</span>
@@ -484,8 +548,216 @@ def render_index(entries):
     # field saved either - a placeholder here just so a Weekly snapshot
     # still previews the card's real 7-day framing.
     week_mover = latest_full.get("week_mover") or {"symbol": "SOL", "change_7d": 18.6}
-    market_strip = render_market_pulse(prices, fng, mover, latest_full.get("tag", "Daily"), gauge_src, date_abbrev,
+    tag = latest_full.get("tag", "Daily")
+    signals = _compute_derived_signals(prices, fng, sectors)
+    resolved_mover = _resolve_mover(mover, week_mover, tag)
+    market_strip = render_market_pulse(prices, fng, mover, tag, gauge_src, date_abbrev,
+                                        risk_level=signals["risk_level"],
+                                        capital_flow_score=signals["capital_flow_score"],
+                                        capital_flow_signal=signals["capital_flow_signal"],
                                         sectors=sectors, week_mover=week_mover)
+
+    # ============ Playback Snapshot: Signal Confluence + What Changed? ============
+    # Both built only from real per-issue data already computed above - no
+    # external "AI live" call at page-load, no invented deltas. The market
+    # snapshot paragraph and interpretation lines are templated prose driven
+    # by the actual numbers, same pattern as mover_label/mover_caption above.
+    sector_positive_count = sum(1 for s in sectors if s["change_24h"] >= 0)
+    sector_majority_positive = sectors and sector_positive_count > len(sectors) / 2
+    confluence_items = [
+        ("Fear &amp; Greed", fng["value"] >= 55, f"{fng['value']} {fng['classification']}"),
+        (resolved_mover["label"].title(), resolved_mover["change"] >= 0,
+         f"{resolved_mover['symbol']} {resolved_mover['change']:+.1f}%"),
+        ("Risk Radar", signals["risk_level"] == "low", signals["risk_level"].upper()),
+        ("Capital Flow", signals["capital_flow_signal"] == "Accumulation",
+         f"{signals['capital_flow_score']} {signals['capital_flow_signal']}"),
+        ("Top Sectors", sector_majority_positive,
+         f"{sector_positive_count}/{len(sectors)} positive" if sectors else "&ndash;"),
+    ]
+    positive_count = sum(1 for _, pos, _ in confluence_items if pos)
+    total_count = len(confluence_items)
+    negatives = [name for name, pos, _ in confluence_items if not pos]
+    positives = [name for name, pos, _ in confluence_items if pos]
+    if positive_count == total_count:
+        interpretation = "Every signal we track is currently pointing the same direction: up."
+    elif positive_count == 0:
+        interpretation = "Every signal we track is currently pointing the same direction: down."
+    elif positive_count >= total_count - 1:
+        interpretation = f"Signals are broadly positive, with {negatives[0]} the lone holdout."
+    elif positive_count <= 1:
+        interpretation = f"Signals lean cautious, with {positives[0] if positives else 'nothing'} the lone bright spot."
+    else:
+        interpretation = "Signals are mixed, split between bullish and cautious readings."
+    confluence_dots = "".join(
+        f'<span class="confluence-dot" title="{name}: {val}">{"&#128994;" if pos else "&#128308;"}</span>'
+        for name, pos, val in confluence_items
+    )
+
+    fng_word = fng["classification"].lower()
+    breadth_phrase = ("broad" if signals["breadth_pct"] >= 0.6
+                       else ("narrow" if signals["breadth_pct"] <= 0.4 else "mixed"))
+    top_sector_name = sectors[0]["label"] if sectors else None
+    snapshot_text = (
+        f"The market is currently showing a {fng_word}-leaning profile, with "
+        f"{signals['risk_level']} volatility risk and {signals['capital_flow_signal'].lower()} capital flow. "
+    )
+    if top_sector_name:
+        snapshot_text += (
+            f"{top_sector_name} is leading sector rotation, and participation across tracked assets "
+            f"looks {breadth_phrase}."
+        )
+    else:
+        snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
+
+    snapshot_section = f"""<section class="snapshot-banner">
+    <div class="snapshot-inner">
+      <div class="snapshot-col">
+        <span class="snapshot-eyebrow">The Crypto Playback</span>
+        <h2 class="snapshot-title">Market Snapshot</h2>
+        <p class="snapshot-text">{snapshot_text}</p>
+        <div class="snapshot-meta">
+          <span>Updated {latest_full.get('date_display', '')}</span>
+          <span class="snapshot-meta-dot">&middot;</span>
+          <span>Based on {total_count} market indicators</span>
+        </div>
+      </div>
+      <div class="snapshot-col snapshot-confluence">
+        <span class="snapshot-eyebrow">Signal Confluence</span>
+        <div class="confluence-score">{positive_count}<span class="confluence-score-total">/{total_count} signals positive</span></div>
+        <div class="confluence-dots">{confluence_dots}</div>
+        <p class="snapshot-text">{interpretation}</p>
+      </div>
+    </div>
+  </section>"""
+
+    # "What Changed?" compares the latest issue to the most recent *different*
+    # prior issue - real deltas only; an indicator that didn't move is left
+    # out rather than padded with a non-change to hit some item count.
+    prev_full = None
+    seen_slugs = {latest_slug}
+    for e in entries[1:]:
+        if e["slug"] in seen_slugs:
+            continue
+        seen_slugs.add(e["slug"])
+        try:
+            with open(os.path.join(POSTS_DATA_DIR, f"{e['slug']}.json")) as f:
+                prev_full = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            prev_full = None
+        break
+
+    change_items = []
+    if prev_full:
+        prev_prices, prev_fng, prev_mover_raw = _market_data_from_post(prev_full)
+        prev_sectors = prev_full.get("sectors") or []
+        if prev_prices:
+            prev_signals = _compute_derived_signals(prev_prices, prev_fng, prev_sectors)
+            prev_resolved_mover = _resolve_mover(
+                prev_mover_raw, prev_full.get("week_mover"), prev_full.get("tag", "Daily")
+            )
+
+            fng_delta = fng["value"] - prev_fng["value"]
+            if fng_delta != 0:
+                dot = "&#128994;" if fng_delta > 0 else "&#128308;"
+                change_items.append((dot, "Fear &amp; Greed shifted",
+                                      f"{prev_fng['value']} &rarr; {fng['value']} ({fng_delta:+d})"))
+
+            if signals["risk_level"] != prev_signals["risk_level"]:
+                risk_rank = {"low": 0, "moderate": 1, "elevated": 2}
+                dot = "&#128994;" if risk_rank[signals["risk_level"]] < risk_rank[prev_signals["risk_level"]] else "&#128308;"
+                change_items.append((dot, "Risk Radar shifted",
+                                      f"{prev_signals['risk_level'].upper()} &rarr; {signals['risk_level'].upper()}"))
+
+            flow_delta = signals["capital_flow_score"] - prev_signals["capital_flow_score"]
+            if abs(flow_delta) >= 5:
+                dot = "&#128994;" if flow_delta > 0 else "&#128308;"
+                change_items.append((dot, "Capital Flow moved",
+                                      f"{prev_signals['capital_flow_score']} &rarr; {signals['capital_flow_score']} ({flow_delta:+d})"))
+
+            if sectors and prev_sectors and sectors[0]["label"] != prev_sectors[0]["label"]:
+                change_items.append(("&#128993;", "Sector leadership rotated",
+                                      f"{prev_sectors[0]['label']} &rarr; {sectors[0]['label']}"))
+
+            if resolved_mover["symbol"] != prev_resolved_mover["symbol"]:
+                change_items.append(("&#128993;", "Biggest mover changed",
+                                      f"{prev_resolved_mover['symbol']} &rarr; {resolved_mover['symbol']}"))
+
+    if change_items:
+        changed_rows = "".join(
+            f"""<div class="changed-row">
+          <span class="changed-dot">{dot}</span>
+          <div class="changed-body">
+            <span class="changed-headline">{headline}</span>
+            <span class="changed-detail">{detail}</span>
+          </div>
+        </div>"""
+            for dot, headline, detail in change_items
+        )
+    else:
+        fallback = ("Check back after the next update to see what's changed." if not prev_full
+                    else "No major shifts since the last update.")
+        changed_rows = f'<p class="changed-empty">{fallback}</p>'
+
+    what_changed_section = f"""<section class="changed-banner">
+    <div class="changed-inner">
+      <span class="snapshot-eyebrow">Since The Last Update</span>
+      <h2 class="snapshot-title">What Changed?</h2>
+      <div class="changed-list">{changed_rows}</div>
+    </div>
+  </section>"""
+
+    # ============ Alerts & Indicators - same visual language as the pulse
+    # cards above, now each one clickable through to its own dedicated page
+    # with the full methodology, real historical readings, and why it
+    # matters. ============
+    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
+        signals["capital_flow_signal"].lower(), "#8A7F5C"
+    )
+    alerts_cards = [
+        ("fear-greed-index.html", "Fear &amp; Greed Index",
+         f'<img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'
+         f'<div class="pulse-card-value" style="color:{"#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")};">'
+         f'{fng["value"]}<span class="pulse-card-word">{fng["classification"]}</span></div>',
+         "Daily fear and greed sentiment indicator"),
+        ("biggest-mover.html", resolved_mover["label"].title(),
+         f'<span class="pulse-mover-symbol">{resolved_mover["symbol"]}</span>'
+         f'<span class="pulse-mover-change" style="color:{"#256B32" if resolved_mover["change"] >= 0 else "#E24C4C"};">'
+         f'{"+" if resolved_mover["change"] >= 0 else ""}{resolved_mover["change"]:.1f}%</span>',
+         resolved_mover["caption"] or "Ranked by size of move, not direction"),
+        ("risk-radar.html", "&#9888;&#65039; Risk Radar",
+         f'<span class="pulse-risk-badge pulse-risk-{signals["risk_level"]}">{signals["risk_level"].upper()}</span>',
+         "Overall crypto market risk indicator"),
+        ("capital-flow.html", "&#128176; Capital Flow",
+         f'<div class="pulse-card-value" style="color:{flow_color};">'
+         f'{signals["capital_flow_score"]}<span class="pulse-card-word">{signals["capital_flow_signal"]}</span></div>',
+         "Price &amp; sector breadth vs. sentiment"),
+        ("top-sectors.html", "&#128202; Top Sectors",
+         '<div class="pulse-sector-list">' + "".join(
+             f'<div class="pulse-sector-row"><span class="pulse-sector-name">{s["label"]}</span>'
+             f'<span class="pulse-sector-change" style="color:{"#8FBF5C" if s["change_24h"] >= 0 else "#E8837A"};">{s["change_24h"]:+.1f}%</span></div>'
+             for s in sectors
+         ) + '</div>',
+         "Best-performing sectors, 24H"),
+    ]
+    alerts_cards_html = "".join(
+        f"""<a class="pulse-card indicator-card" href="{href}">
+        <span class="pulse-card-label">{label}</span>
+        <div class="pulse-card-main">{main_html}</div>
+        <span class="pulse-card-caption">{caption}</span>
+        <span class="indicator-card-cta">View full breakdown &rarr;</span>
+      </a>"""
+        for href, label, main_html, caption in alerts_cards
+    )
+    alerts_indicators_section = f"""<section class="alerts-banner">
+    <div class="pulse-wrap">
+      <div class="alerts-head">
+        <span class="snapshot-eyebrow">The Crypto Playback</span>
+        <h2 class="snapshot-title">Alerts &amp; Indicators</h2>
+        <p class="explainer-sub">Tap any card for the full methodology and history</p>
+      </div>
+      <div class="pulse-columns">{alerts_cards_html}</div>
+    </div>
+  </section>"""
 
     # De-duplicated (posts_index.json can carry repeat entries from earlier
     # test runs) top few teasers, newest first, instead of a single excerpt.
@@ -571,10 +843,10 @@ def render_index(entries):
          "A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, "
          "built from volatility and sentiment extremes. "
          "It's a temperature check on current conditions, not a forecast of what happens next."),
-        ("&#127974;", "Institutional Flow",
-         "Tracks whether institutions and corporations look like net buyers or sellers, using public "
-         "ETF flow and corporate treasury data. A higher score leans toward accumulation, a lower "
-         "score toward distribution &mdash; it reflects flow, not intent."),
+        ("&#128176;", "Capital Flow",
+         "A Crypto Playback composite score built from price and sector breadth weighted against "
+         "sentiment &mdash; not institutional transaction data. A higher score leans toward "
+         "accumulation, a lower score toward distribution."),
         ("&#128202;", "Top Sectors",
          "Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a "
          "curated list of major sectors so tiny micro-categories can't skew the results. "
@@ -599,8 +871,219 @@ def render_index(entries):
     </div>
   </section>"""
 
-    body = hero + market_strip + section_banner + teaser_section + subscribe_section + explainer_section
+    body = (hero + market_strip + snapshot_section + what_changed_section + alerts_indicators_section
+            + section_banner + teaser_section + subscribe_section + explainer_section)
     return page("", "The Crypto Playback", body, datetime.now().year)
+
+
+def _historical_readings(entries):
+    """Real per-issue snapshots (oldest first) across every saved issue -
+    used for the 'Recent Readings' list on each indicator page. Only ever
+    as deep as real published issues go; nothing here is backfilled or
+    estimated, so it starts thin and grows with every new issue."""
+    seen = set()
+    rows = []
+    for e in entries:
+        if e["slug"] in seen:
+            continue
+        seen.add(e["slug"])
+        try:
+            with open(os.path.join(POSTS_DATA_DIR, f"{e['slug']}.json")) as f:
+                full = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            continue
+        p, f_, m = _market_data_from_post(full)
+        if not p:
+            continue
+        s = full.get("sectors") or []
+        sig = _compute_derived_signals(p, f_, s)
+        rows.append({
+            "date_display": full.get("date_display", ""),
+            "tag": full.get("tag", "Daily"),
+            "fng": f_,
+            "mover": _resolve_mover(m, full.get("week_mover"), full.get("tag", "Daily")),
+            "sectors": s,
+            "risk_level": sig["risk_level"],
+            "capital_flow_score": sig["capital_flow_score"],
+            "capital_flow_signal": sig["capital_flow_signal"],
+        })
+    rows.reverse()
+    return rows
+
+
+def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, history_formatter):
+    sections_html = "".join(
+        f"""<div class="indicator-section">
+        <h2>{heading}</h2>
+        {body}
+      </div>"""
+        for heading, body in sections
+    )
+    if history_rows:
+        history_html = "".join(
+            f"""<div class="indicator-history-row">
+            <span class="indicator-history-date">{row['date_display']} &middot; {row['tag']}</span>
+            <span class="indicator-history-value">{history_formatter(row)}</span>
+          </div>"""
+            for row in history_rows
+        )
+    else:
+        history_html = '<p class="changed-empty">No history yet &mdash; check back after the next issue.</p>'
+    body_html = f"""<section class="indicator-hero">
+    <div class="indicator-hero-inner">
+      <span class="snapshot-eyebrow">{eyebrow}</span>
+      <h1 class="indicator-title">{title}</h1>
+      <div class="indicator-hero-value">{hero_html}</div>
+    </div>
+  </section>
+  <div class="indicator-body">
+    {sections_html}
+    <div class="indicator-section">
+      <h2>Recent Readings</h2>
+      <div class="indicator-history">{history_html}</div>
+      <p class="indicator-history-note">History builds up with every new issue we publish &mdash; it isn't backfilled or estimated.</p>
+    </div>
+  </div>"""
+    return page("", f"{title} — The Crypto Playback", body_html, datetime.now().year)
+
+
+def render_indicator_pages(entries):
+    """{filename: html} for every real indicator's dedicated page. Called
+    from both the daily/weekly automation and a manual full rebuild so
+    these always reflect the latest published issue. Deliberately built
+    for all 5 indicators we have real data for (not just one), so the
+    Alerts & Indicators cards on the homepage never link to a dead page."""
+    if not entries:
+        return {}
+    latest_slug = entries[0]["slug"]
+    try:
+        with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
+            latest_full = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    prices, fng, mover = _market_data_from_post(latest_full)
+    if not prices:
+        return {}
+    sectors = latest_full.get("sectors") or []
+    week_mover = latest_full.get("week_mover")
+    tag = latest_full.get("tag", "Daily")
+    gauge_src = latest_full.get("gauge_path", "")
+    signals = _compute_derived_signals(prices, fng, sectors)
+    resolved_mover = _resolve_mover(mover, week_mover, tag)
+    history = _historical_readings(entries)
+    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
+        signals["capital_flow_signal"].lower(), "#8A7F5C"
+    )
+
+    pages = {}
+
+    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
+    pages["fear-greed-index.html"] = _indicator_page_shell(
+        "The Crypto Playback", "Fear &amp; Greed Index",
+        f'<img class="indicator-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'
+        f'<div class="indicator-value" style="color:{fng_color};">{fng["value"]}'
+        f'<span class="indicator-value-word">{fng["classification"]}</span></div>',
+        [
+            ("What It Measures", "<p>Overall crypto market sentiment on a 0&ndash;100 scale, from Extreme Fear "
+             "to Extreme Greed.</p>"),
+            ("How It's Calculated", "<p>Pulled directly from Alternative.me's Crypto Fear &amp; Greed Index, "
+             "which blends volatility, market momentum and volume, social media activity, market dominance, "
+             "and search trends into a single score. We don't calculate this ourselves &mdash; we display "
+             "their published reading as of each issue.</p>"),
+            ("Why It Matters", "<p>Extreme readings often &mdash; not always &mdash; line up with emotional "
+             "turning points: extreme fear near local bottoms, extreme greed near local tops. It's a sentiment "
+             "gauge, not a price prediction.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>Alternative.me Crypto Fear &amp; Greed Index "
+             "(api.alternative.me/fng). Refreshed every time we publish a new issue, daily and weekly.</p>"),
+        ],
+        history, lambda row: f"{row['fng']['value']} {row['fng']['classification']}",
+    )
+
+    mover_color = "#256B32" if resolved_mover["change"] >= 0 else "#E24C4C"
+    pages["biggest-mover.html"] = _indicator_page_shell(
+        "The Crypto Playback", resolved_mover["label"].title(),
+        f'<div class="indicator-value"><span class="indicator-mover-symbol">{resolved_mover["symbol"]}</span>'
+        f'<span style="color:{mover_color};">{"+" if resolved_mover["change"] >= 0 else ""}{resolved_mover["change"]:.1f}%</span></div>',
+        [
+            ("What It Measures", "<p>Whichever of our top 6 tracked coins (by market cap, stablecoins excluded) "
+             "moved the most &mdash; up or down &mdash; over the relevant window: 24 hours for Daily issues, "
+             "7 days for Weekly issues.</p>"),
+            ("How It's Calculated", "<p>We rank the 6 tracked coins by the absolute size of their price change "
+             "over that window and surface the single biggest mover, in either direction.</p>"),
+            ("Why It Matters", "<p>Highlights where the action is actually concentrated, instead of just "
+             "reporting that \"the market was up.\"</p>"),
+            ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API. Refreshed every time we "
+             "publish a new issue.</p>"),
+        ],
+        history, lambda row: f"{row['mover']['symbol']} {row['mover']['change']:+.1f}%",
+    )
+
+    pages["risk-radar.html"] = _indicator_page_shell(
+        "The Crypto Playback", "Risk Radar",
+        f'<span class="pulse-risk-badge pulse-risk-{signals["risk_level"]} indicator-risk-badge">{signals["risk_level"].upper()}</span>',
+        [
+            ("What It Measures", "<p>A simple read on how turbulent current market conditions are &mdash; "
+             "Low, Moderate, or Elevated.</p>"),
+            ("How It's Calculated", "<p>A Crypto Playback score built from two real inputs: how extreme the "
+             "Fear &amp; Greed reading is, and the average size of the 24-hour price move across our 6 tracked "
+             "coins. Extreme sentiment (Fear &amp; Greed &ge;80 or &le;20) adds 2 points, borderline extreme "
+             "(&ge;70 or &le;30) adds 1. Average 24h volatility &ge;8% adds 2 points, &ge;4% adds 1. "
+             "0&ndash;1 points reads Low, 2&ndash;3 reads Moderate, 4+ reads Elevated.</p>"),
+            ("Why It Matters", "<p>A temperature check on current conditions, not a forecast of what happens "
+             "next.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from Alternative.me "
+             "and CoinGecko data &mdash; not pulled from any third-party \"risk\" API. Refreshed every time we "
+             "publish a new issue.</p>"),
+        ],
+        history, lambda row: row["risk_level"].upper(),
+    )
+
+    pages["capital-flow.html"] = _indicator_page_shell(
+        "The Crypto Playback", "Capital Flow",
+        f'<div class="indicator-value" style="color:{flow_color};">{signals["capital_flow_score"]}'
+        f'<span class="indicator-value-word">{signals["capital_flow_signal"]}</span></div>',
+        [
+            ("What It Measures", "<p>Whether price and sector breadth, weighted against sentiment, currently "
+             "lean toward accumulation or distribution.</p>"),
+            ("How It's Calculated", "<p>60% weight on breadth (the share of our 6 tracked coins and tracked "
+             "sectors that are positive over 24 hours) plus 40% weight on the Fear &amp; Greed value, scaled "
+             "0&ndash;100. A score of 60+ reads Accumulation, 40&ndash;59 reads Mixed, below 40 reads "
+             "Distribution.</p>"),
+            ("An Honest Note On The Name", "<p>This is <strong>not</strong> built from ETF flows, exchange "
+             "order flow, or on-chain institutional transaction data &mdash; it's a composite of price/sector "
+             "breadth and sentiment. We plan to fold in real spot Bitcoin ETF flow data in a future update, "
+             "which will make this score more literally about capital flow.</p>"),
+            ("Why It Matters", "<p>Distinguishes whether a move is broad-based across many assets, or being "
+             "carried by just a couple of large coins.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from CoinGecko and "
+             "Alternative.me data. Refreshed every time we publish a new issue.</p>"),
+        ],
+        history, lambda row: f"{row['capital_flow_score']} {row['capital_flow_signal']}",
+    )
+
+    sector_rows_html = "".join(
+        f'<div class="pulse-sector-row"><span class="pulse-sector-name">{s["label"]}</span>'
+        f'<span class="pulse-sector-change" style="color:{"#8FBF5C" if s["change_24h"] >= 0 else "#E8837A"};">{s["change_24h"]:+.1f}%</span></div>'
+        for s in sectors
+    )
+    pages["top-sectors.html"] = _indicator_page_shell(
+        "The Crypto Playback", "Top Sectors",
+        f'<div class="pulse-sector-list indicator-sector-list">{sector_rows_html}</div>',
+        [
+            ("What It Measures", "<p>Which major crypto narrative categories &mdash; AI, RWA, DeFi, L1, L2, "
+             "Gaming, Memecoins, DePIN, NFT &mdash; are performing best over the last 24 hours.</p>"),
+            ("How It's Calculated", "<p>Ranked by 24-hour market-cap change within a curated watchlist of "
+             "recognizable sectors, so a narrow, noisy micro-category can't crowd out the real narratives.</p>"),
+            ("Why It Matters", "<p>Shows where money is rotating within the market, not just whether the "
+             "market overall is up or down.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>CoinGecko categories API. Refreshed every time we "
+             "publish a new issue.</p>"),
+        ],
+        history, lambda row: (f"{row['sectors'][0]['label']} {row['sectors'][0]['change_24h']:+.1f}%"
+                               if row.get("sectors") else "&ndash;"),
+    )
+
+    return pages
 
 
 def render_archive(entries):
@@ -660,6 +1143,9 @@ def add_post_and_rebuild(post):
         f.write(render_index(entries))
     with open(os.path.join(ROOT, "archive.html"), "w") as f:
         f.write(render_archive(entries))
+    for filename, html in render_indicator_pages(entries).items():
+        with open(os.path.join(ROOT, filename), "w") as f:
+            f.write(html)
 
 
 if __name__ == "__main__":
@@ -668,4 +1154,9 @@ if __name__ == "__main__":
         f.write(render_index(entries))
     with open(os.path.join(ROOT, "archive.html"), "w") as f:
         f.write(render_archive(entries))
-    print(f"Rebuilt index.html and archive.html from {len(entries)} existing post(s).")
+    indicator_pages = render_indicator_pages(entries)
+    for filename, html in indicator_pages.items():
+        with open(os.path.join(ROOT, filename), "w") as f:
+            f.write(html)
+    print(f"Rebuilt index.html and archive.html from {len(entries)} existing post(s), "
+          f"plus {len(indicator_pages)} indicator page(s).")
