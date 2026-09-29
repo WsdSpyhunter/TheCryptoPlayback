@@ -393,6 +393,31 @@ h1, h2, h3 {
 }
 .alerts-head { text-align: center; margin-bottom: 32px; }
 .alerts-head .snapshot-title { margin-bottom: 8px; }
+/* Firm 5-across grid (not the dashboard's flex-wrap) - this section is
+   meant to grow to 3 full rows of 5 as more indicators come online, so
+   each row needs to hold exactly 5 equal-width cards instead of wrapping
+   wherever content happens to fit. */
+.alerts-banner .pulse-wrap { max-width: 1400px; }
+.alerts-banner .pulse-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.alerts-banner .pulse-card { width: auto; }
+/* Slightly condensed type scale so 5 cards read comfortably at this
+   width - this section sits a step below the big hero dashboard above. */
+.alerts-banner .pulse-card { padding: 16px 14px; }
+.alerts-banner .pulse-card-label { font-size: 12.5px; padding: 6px 10px; margin-bottom: 14px; white-space: nowrap; }
+.alerts-banner .pulse-card-value, .alerts-banner .pulse-mover-symbol { font-size: 30px; }
+.alerts-banner .pulse-mover-change { font-size: 18px; margin-left: 8px; }
+.alerts-banner .pulse-gauge { width: 46px; }
+.alerts-banner .pulse-risk-badge { font-size: 19px; padding: 6px 14px; }
+.alerts-banner .pulse-card-caption { font-size: 12px; min-height: 30px; }
+.alerts-banner .pulse-sector-list { min-width: 0; gap: 6px; }
+.alerts-banner .pulse-sector-name, .alerts-banner .pulse-sector-change { font-size: 13px; }
+@media (max-width: 1100px) {
+  .alerts-banner .pulse-columns { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .alerts-banner .pulse-columns { grid-template-columns: 1fr; }
+  .alerts-banner .pulse-card-value, .alerts-banner .pulse-mover-symbol { font-size: 38px; }
+}
 .indicator-card { text-decoration: none; cursor: pointer; }
 .indicator-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
 .indicator-card-cta {
