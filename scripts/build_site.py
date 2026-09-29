@@ -542,10 +542,21 @@ def render_index(entries):
     else:
         snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
 
+    # Band color reflects overall sentiment - same Fear & Greed thresholds
+    # used everywhere else on the site (<=45 fearful/red, >=55 greedy/green,
+    # otherwise neutral), so a glance at the color alone hints at the mood
+    # before reading a word of the text. Neutral keeps the original brass.
+    if fng["value"] <= 45:
+        snapshot_band_color = "#E8837A"
+    elif fng["value"] >= 55:
+        snapshot_band_color = "#8FBF5C"
+    else:
+        snapshot_band_color = "#D9A857"
+
     # Sits directly under the Top 6 Market ticker now, in the spot the old
     # Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to occupy -
     # those are shown once now, in Alerts & Indicators further down.
-    market_snapshot_section = f"""<section class="snapshot-banner">
+    market_snapshot_section = f"""<section class="snapshot-banner" style="background:{snapshot_band_color};">
     <div class="snapshot-solo">
       <h2 class="snapshot-title">Market Snapshot</h2>
       <p class="snapshot-text">{snapshot_text}</p>
@@ -667,12 +678,12 @@ def render_index(entries):
     alerts_cards = [
         ("fear-greed-index.html", "Fear &amp; Greed Index",
          f'<img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'
-         f'<div class="pulse-card-value" style="color:{"#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")};">'
+         f'<div class="pulse-card-value" style="color:{"#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")};">'
          f'{fng["value"]}<span class="pulse-card-word">{fng["classification"]}</span></div>',
          "Daily fear and greed sentiment indicator"),
         ("biggest-mover.html", resolved_mover["label"].title(),
          f'<span class="pulse-mover-symbol">{resolved_mover["symbol"]}</span>'
-         f'<span class="pulse-mover-change" style="color:{"#256B32" if resolved_mover["change"] >= 0 else "#E24C4C"};">'
+         f'<span class="pulse-mover-change" style="color:{"#8FBF5C" if resolved_mover["change"] >= 0 else "#E24C4C"};">'
          f'{"+" if resolved_mover["change"] >= 0 else ""}{resolved_mover["change"]:.1f}%</span>',
          resolved_mover["caption"] or "Ranked by size of move, not direction"),
         ("risk-radar.html", "&#9888;&#65039; Risk Radar",
@@ -928,7 +939,7 @@ def render_indicator_pages(entries):
 
     pages = {}
 
-    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
+    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")
     pages["fear-greed-index.html"] = _indicator_page_shell(
         "The Crypto Playback", "Fear &amp; Greed Index",
         f'<img class="indicator-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'
@@ -950,7 +961,7 @@ def render_indicator_pages(entries):
         history, lambda row: f"{row['fng']['value']} {row['fng']['classification']}",
     )
 
-    mover_color = "#256B32" if resolved_mover["change"] >= 0 else "#E24C4C"
+    mover_color = "#8FBF5C" if resolved_mover["change"] >= 0 else "#E24C4C"
     pages["biggest-mover.html"] = _indicator_page_shell(
         "The Crypto Playback", resolved_mover["label"].title(),
         f'<div class="indicator-value"><span class="indicator-mover-symbol">{resolved_mover["symbol"]}</span>'
