@@ -448,7 +448,7 @@ def render_index(entries):
     # script/tagline markup needed here the way the old hero had.
     hero = f"""<section class="hero">
     <div class="wrap">
-      <img class="hero-masthead" src="assets/header-web.png?v={HEADER_WEB_VERSION}" alt="The Crypto Playback — your #1 source for Bitcoin and crypto news highlights">
+      <img class="hero-masthead" src="assets/header-web.png?v={HEADER_WEB_VERSION}" alt="The Crypto Playback — your daily and weekly pulse on Bitcoin and the entire crypto market">
     </div>
   </section>"""
 
