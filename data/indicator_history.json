@@ -1202,5 +1202,93 @@
       "total_market_cap_usd": 2857986333684.9224
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-09-30T08:47:39.354631+00:00",
+    "prices": [
+      {
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 83055,
+        "change_24h": -0.92595,
+        "change_7d": -3.6274
+      },
+      {
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2667.61,
+        "change_24h": -1.54162,
+        "change_7d": -2.892
+      },
+      {
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 759.0,
+        "change_24h": -0.6167,
+        "change_7d": -4.0927
+      },
+      {
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.5,
+        "change_24h": -0.25088,
+        "change_7d": -7.6881
+      },
+      {
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 117.91,
+        "change_24h": -0.96836,
+        "change_7d": -0.3469
+      },
+      {
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.338015,
+        "change_24h": 0.76927,
+        "change_7d": -1.7244
+      }
+    ],
+    "fng": {
+      "value": 71,
+      "classification": "Greed"
+    },
+    "mover": {
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2667.61,
+      "change_24h": -1.54162,
+      "change_7d": -2.892
+    },
+    "week_mover": {
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.5,
+      "change_24h": -0.25088,
+      "change_7d": -7.6881
+    },
+    "sectors": [
+      {
+        "label": "AI",
+        "change_24h": 0.871466703873865
+      },
+      {
+        "label": "L2",
+        "change_24h": 0.5448852786770814
+      },
+      {
+        "label": "RWA",
+        "change_24h": 0.257629312369296
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 310955914423.15,
+      "change_7d_pct": 1.0025200520786572
+    },
+    "dominance": {
+      "btc_dominance_pct": 58.263852220940436,
+      "total_market_cap_usd": 2857839648213.261
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
