@@ -1,46 +1,46 @@
 {
-  "updated_at": "2026-09-30T01:22:02.869421+00:00",
+  "updated_at": "2026-09-30T01:44:59.296017+00:00",
   "prices": [
     {
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 83385,
-      "change_24h": 0.55345,
+      "price": 83357,
+      "change_24h": 0.56774,
       "change_7d": -3.2579
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2671.34,
-      "change_24h": 0.25997,
+      "price": 2669.55,
+      "change_24h": 0.3356,
       "change_7d": -2.971
     },
     {
       "symbol": "BNB",
       "name": "BNB",
-      "price": 760.42,
-      "change_24h": 0.29366,
+      "price": 759.26,
+      "change_24h": 0.45025,
       "change_7d": -3.6871
     },
     {
       "symbol": "XRP",
       "name": "XRP",
       "price": 1.5,
-      "change_24h": 0.99879,
+      "change_24h": 1.6915,
       "change_7d": -5.0834
     },
     {
       "symbol": "SOL",
       "name": "Solana",
-      "price": 119.2,
-      "change_24h": 1.72245,
+      "price": 119.3,
+      "change_24h": 2.21853,
       "change_7d": 0.2674
     },
     {
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.334318,
-      "change_24h": -0.10842,
+      "price": 0.334493,
+      "change_24h": 0.00114,
       "change_7d": -2.2683
     }
   ],
@@ -51,29 +51,29 @@
   "mover": {
     "symbol": "SOL",
     "name": "Solana",
-    "price": 119.2,
-    "change_24h": 1.72245,
+    "price": 119.3,
+    "change_24h": 2.21853,
     "change_7d": 0.2674
   },
   "week_mover": {
     "symbol": "XRP",
     "name": "XRP",
     "price": 1.5,
-    "change_24h": 0.99879,
+    "change_24h": 1.6915,
     "change_7d": -5.0834
   },
   "sectors": [
     {
       "label": "AI",
-      "change_24h": 3.685972532619037
+      "change_24h": 4.335830218957748
+    },
+    {
+      "label": "DePIN",
+      "change_24h": 3.2108657054292493
     },
     {
       "label": "L2",
-      "change_24h": 2.5314944472593073
-    },
-    {
-      "label": "Memecoins",
-      "change_24h": 2.2571266101510266
+      "change_24h": 3.202393177798212
     }
   ],
   "stablecoins": {
