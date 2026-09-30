@@ -1,0 +1,50 @@
+name: Refresh ETF Flow
+
+# Separate from refresh-indicators.yml's 15-minute cron - ETF flow is a
+# once-per-US-trading-day figure (SoSoValue settles it T+1), so polling it
+# every 15 minutes would be pointless and would burn through SoSoValue's
+# rate limit for nothing. Runs a few times a day instead, re-validating
+# the last 10 trading days each time in case a provider revises a recent
+# figure. Pushes straight to main (no PR review), same reasoning as
+# refresh-indicators.yml: it only ever touches regenerated data/HTML.
+
+on:
+  schedule:
+    - cron: "15 6,12,18,23 * * *"   # 4x/day, offset from the hour so it doesn't collide with other jobs
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-etf-flow
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Refresh ETF flow data
+        working-directory: scripts
+        env:
+          SOSOVALUE_API_KEY: ${{ secrets.SOSOVALUE_API_KEY }}
+        run: python refresh_etf_flow.py
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/etf_flows.json index.html etf-flow.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-refresh ETF flow data [skip ci]"
+          git pull --rebase origin main
+          git push

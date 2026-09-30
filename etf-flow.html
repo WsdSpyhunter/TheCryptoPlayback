@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bitcoin ETF Flow — The Crypto Playback</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@400;600&family=Black+Ops+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=c722a90572">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%82%BF</text></svg>">
+
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo-link" href="index.html">
+      <img class="logo" src="assets/logo-wordmark.png?v=0cd7520595" alt="The Crypto Playback">
+    </a>
+    <nav class="site-nav">
+      <a href="about.html">About</a>
+      <a href="#">Subscribe</a>
+      <a href="archive.html">Archives</a>
+      <a href="resources.html">Resources</a>
+    </nav>
+  </div>
+</header>
+
+<section class="indicator-hero">
+    <div class="indicator-hero-inner">
+      <span class="snapshot-eyebrow">The Crypto Playback</span>
+      <h1 class="indicator-title">Bitcoin ETF Flow</h1>
+      <div class="indicator-hero-value"><div class="indicator-value" style="color:#8FBF5C;">+31.1M<span class="indicator-value-word">Inflow</span></div></div>
+    </div>
+  </section>
+  <div class="indicator-body">
+    <div class="indicator-section">
+        <h2>What It Measures</h2>
+        <p>The net daily flow of money into or out of US spot Bitcoin ETFs (shares created/redeemed, valued in USD) &mdash; not a price prediction, a measurement of fund-level buying and selling pressure on a single US trading day.</p>
+      </div><div class="indicator-section">
+        <h2>How It's Calculated</h2>
+        <p>Primary data: SoSoValue's aggregate net flow across all US spot BTC ETFs. From the stored daily history we compute the latest confirmed flow, 3D/7D/30D/90D cumulative totals and averages (30D/90D only shown once that much real history has actually accumulated - never a shorter window mislabeled as a longer one), the current consecutive inflow/outflow streak, a Flow Momentum read (7-day average vs. 30-day average, scaled by the size of the 30-day average: &ge;50% relative difference reads Accelerating/Decelerating, &ge;15% reads Strengthening/Weakening, otherwise Neutral), and a 0&ndash;100 Flow Pressure score (40% the percentile rank of today's flow, 60% the percentile rank of the trailing 7-day cumulative, both against all stored history - weighted toward the 7-day figure so one unusually large single day can't dominate the score).</p>
+      </div><div class="indicator-section">
+        <h2>Independent Validation</h2>
+        <p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering IBIT, BITB, and ARKB) for the same three funds: current status <strong>MATCH</strong>, difference $0.0M.</p><p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check (SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against SoSoValue's full-universe total. Data via <a href="https://xoomar.com">xoomar.com</a>.</p>
+      </div><div class="indicator-section">
+        <h2>Why It Matters</h2>
+        <p>Distinguishes real, fund-level capital movement from ordinary secondary-market price action. We deliberately don't say things like "institutions are buying" or "this predicts price" &mdash; only what the flow itself was.</p>
+      </div><div class="indicator-section">
+        <h2>Data Source, Freshness &amp; Update Frequency</h2>
+        <p>Data freshness: <strong>CURRENT</strong> (2 day(s) since the latest confirmed trading day, 2026-09-28).</p><p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute cycle the other live indicators use, since polling a daily number that often would be pointless.</p>
+      </div>
+    <div class="indicator-section">
+      <h2>Recent Readings</h2>
+      <div class="indicator-history"><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-28</span>
+            <span class="indicator-history-value">$+31.1M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-25</span>
+            <span class="indicator-history-value">$+134.5M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-24</span>
+            <span class="indicator-history-value">$+190.6M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-23</span>
+            <span class="indicator-history-value">$+347.0M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-22</span>
+            <span class="indicator-history-value">$+714.7M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-21</span>
+            <span class="indicator-history-value">$+999.0M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-18</span>
+            <span class="indicator-history-value">$+433.0M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-17</span>
+            <span class="indicator-history-value">$+159.5M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-16</span>
+            <span class="indicator-history-value">$-296.0M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-15</span>
+            <span class="indicator-history-value">$-450.3M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-14</span>
+            <span class="indicator-history-value">$+160.0M</span>
+          </div><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-11</span>
+            <span class="indicator-history-value">$-13.3M</span>
+          </div></div>
+      <p class="indicator-history-note">Refreshed automatically every 15 minutes &mdash; nothing here is backfilled or estimated.</p>
+    </div>
+  </div>
+<div class="disclaimer">
+  <div class="wrap">
+    <span class="disclaimer-label">Disclaimer</span>
+    <strong>THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong>
+    The material in this newsletter has no regard to any specific investment objectives, financial situation,
+    or particular needs of any reader. It is published solely for informational purposes and is not to be
+    construed as a solicitation nor does it constitute advice, investment or otherwise. References made to
+    third parties are based on information obtained from sources believed to be reliable but not guaranteed
+    as being accurate. Readers should not regard it as a substitute for the exercise of their own judgment.
+    Our comments are an expression of opinion. While we believe our statements to be true, they always depend
+    on the reliability of our own credible sources. We recommend that you consult with a licensed, qualified
+    investment advisor before making any investment decisions.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-copy">&copy; 2026 The Crypto Playback &middot; <a href="about.html">Contact</a></div>
+    <div class="footer-brand">
+      <img class="footer-mascot" src="assets/footer-mascot-web.png?v=00608b1198" alt="">
+      <img class="footer-logo" src="assets/logo-wordmark.png?v=0cd7520595" alt="The Crypto Playback">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

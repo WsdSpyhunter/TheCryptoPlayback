@@ -432,6 +432,22 @@ def _format_live_updated(updated_at_iso, fallback_display):
     return f"{format_date_abbrev(dt)} &middot; {dt.strftime('%-I:%M %p')} UTC"
 
 
+def _load_etf_dashboard():
+    """The Bitcoin ETF Flow indicator, computed from data/etf_flows.json
+    (see etf_data.py) - refreshed on its own low-frequency schedule
+    (refresh_etf_flow.py / .github/workflows/refresh-etf-flow.yml), since
+    it's a once-per-trading-day figure, not something that needs the
+    15-minute cadence the other live indicators use. Returns None before
+    the first successful ingest, or if etf_data.py isn't importable for
+    any reason - callers render an honest "awaiting data" state in that
+    case rather than a fabricated number."""
+    try:
+        from etf_data import load_store, compute_indicator
+        return compute_indicator(load_store())
+    except Exception:
+        return None
+
+
 def _compute_derived_signals(prices, fng, sectors):
     """Risk Radar and Capital Flow, computed here instead of hardcoded.
 
@@ -492,6 +508,18 @@ def _stablecoin_signal(stablecoins):
         "signal": "Expanding" if expanding else "Contracting",
         "color": "#8FBF5C" if expanding else "#E8837A",
     }
+
+
+def _etf_pressure_label(pressure_score, flow_m):
+    """Documented, symmetric mapping from the 0-100 pressure score (see
+    etf_data.py) to a plain-language label - deliberately never says
+    "buy"/"sell"/"bullish"/"bearish", only describes the flow itself."""
+    direction = "Inflow" if flow_m >= 0 else "Outflow"
+    if pressure_score >= 75 or pressure_score <= 25:
+        return f"Strong {direction}"
+    if pressure_score >= 55 or pressure_score <= 45:
+        return direction
+    return "Neutral"
 
 
 def render_market_pulse(prices, date_abbrev):
@@ -576,6 +604,7 @@ def render_index(entries):
     stable_signal = _stablecoin_signal(stablecoins)
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
+    etf = _load_etf_dashboard()
     market_strip = render_market_pulse(prices, date_abbrev)
 
     # ============ Playback Snapshot: Signal Confluence + What Changed? ============
@@ -597,6 +626,11 @@ def render_index(entries):
         ("Stablecoin Liquidity", stable_signal["expanding"],
          f"${stablecoins['total_usd']/1e9:.1f}B ({stablecoins['change_7d_pct']:+.1f}%)"),
     ]
+    if etf:
+        confluence_items.append((
+            "ETF Flow", etf["latest_flow_usd"] >= 0,
+            f"${float(etf['latest_flow_usd'])/1e6:+.1f}M ({etf['streak_count']}d {etf['streak_direction']})",
+        ))
     positive_count = sum(1 for _, pos, _ in confluence_items if pos)
     total_count = len(confluence_items)
     negatives = [name for name, pos, _ in confluence_items if not pos]
@@ -725,6 +759,17 @@ def render_index(entries):
                                       f"${prev_stablecoins['total_usd']/1e9:.1f}B &rarr; "
                                       f"${stablecoins['total_usd']/1e9:.1f}B ({stable_delta_b:+.1f}B)"))
 
+    # ETF Flow diffs against its own most recent prior trading day (from
+    # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has
+    # its own daily-trading-day cadence, not the 15-minute one.
+    if etf and len(etf["history"]) >= 2:
+        _, latest_etf_flow = etf["history"][0]
+        prev_etf_date, prev_etf_flow = etf["history"][1]
+        if (latest_etf_flow >= 0) != (prev_etf_flow >= 0):
+            dot = "&#128994;" if latest_etf_flow >= 0 else "&#128308;"
+            change_items.append((dot, "ETF flow flipped direction",
+                                  f"${float(prev_etf_flow)/1e6:+.1f}M &rarr; ${float(latest_etf_flow)/1e6:+.1f}M"))
+
     if not change_items and prev_snapshot:
         # PREVIEW COPY, requested by the user to see the section's real
         # layout with content in it (there isn't 24h of real drift yet).
@@ -799,6 +844,22 @@ def render_index(entries):
          f'${stablecoins["total_usd"]/1e9:.1f}B<span class="pulse-card-word">{stable_signal["signal"]}</span></div>',
          f'{stablecoins["change_7d_pct"]:+.1f}% over 7 days'),
     ]
+    if etf:
+        flow_m = float(etf["latest_flow_usd"]) / 1e6
+        etf_color = "#8FBF5C" if flow_m >= 0 else "#E8837A"
+        alerts_cards.append((
+            "etf-flow.html", "&#127974; ETF Flow",
+            f'<div class="pulse-card-value" style="color:{etf_color};">'
+            f'{flow_m:+.1f}M<span class="pulse-card-word">{_etf_pressure_label(etf["pressure_score"], flow_m)}</span></div>',
+            f'{etf["streak_count"]}D {etf["streak_direction"].title()} Streak &middot; {etf["latest_date"]}',
+        ))
+    else:
+        alerts_cards.append((
+            "etf-flow.html", "&#127974; ETF Flow",
+            '<span class="pulse-risk-badge" style="color:#8A7F5C;background:rgba(138,127,92,0.14);'
+            'border:1px solid rgba(138,127,92,0.4);">AWAITING DAILY ETF DATA</span>',
+            "Spot Bitcoin ETF net flow, US trading days",
+        ))
     alerts_cards_html = "".join(
         f"""<a class="pulse-card indicator-card" href="{href}">
         <span class="pulse-card-label">{label}</span>
@@ -913,6 +974,10 @@ def render_index(entries):
          "Tracks total stablecoin supply and its 7-day change &mdash; a proxy for how much capital is "
          "parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is "
          "entering; contracting means it's leaving the space entirely."),
+        ("&#127974;", "ETF Flow",
+         "Net daily flow across US spot Bitcoin ETFs, plus a rolling streak and flow-pressure score. "
+         "Positive means the funds took in more money than left them that day, not a price call. "
+         "Cross-checked against a second, independent data source before it's shown."),
     ]
     explainer_html = "".join(
         f"""<div class="explainer-card">
@@ -1156,6 +1221,66 @@ def render_indicator_pages(entries):
         history, lambda row: (f"${row['stablecoins']['total_usd']/1e9:.1f}B "
                                f"({row['stablecoins']['change_7d_pct']:+.1f}%)"
                                if row.get("stablecoins") else "&ndash;"),
+    )
+
+    etf = _load_etf_dashboard()
+    if etf:
+        flow_m = float(etf["latest_flow_usd"]) / 1e6
+        etf_color = "#8FBF5C" if flow_m >= 0 else "#E8837A"
+        thirty_d_html = (f"${float(etf['flow_30d_usd'])/1e6:+.0f}M" if etf["have_30d"]
+                          else f"building ({etf['available_days']} trading days stored so far)")
+        etf_hero = (f'<div class="indicator-value" style="color:{etf_color};">{flow_m:+.1f}M'
+                    f'<span class="indicator-value-word">{_etf_pressure_label(etf["pressure_score"], flow_m)}</span></div>')
+        etf_history_rows = [
+            {"date_display": d, "flow": f} for d, f in etf["history"][:12]
+        ]
+        etf_history_formatter = lambda row: f"${float(row['flow'])/1e6:+.1f}M"
+        validation_line = (
+            f"<p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering "
+            f"IBIT, BITB, and ARKB) for the same three funds: current status "
+            f"<strong>{etf['validation_status'] or 'UNAVAILABLE'}</strong>"
+            + (f", difference ${float(etf['validation_difference_usd'])/1e6:.1f}M." if etf.get('validation_difference_usd') else ".")
+            + "</p>"
+        )
+        freshness_line = f"<p>Data freshness: <strong>{etf['freshness']}</strong> ({etf['days_old']} day(s) since the latest confirmed trading day, {etf['latest_date']}).</p>"
+    else:
+        etf_hero = '<span class="pulse-risk-badge" style="color:#8A7F5C;background:rgba(138,127,92,0.14);border:1px solid rgba(138,127,92,0.4);">AWAITING DAILY ETF DATA</span>'
+        etf_history_rows = []
+        etf_history_formatter = lambda row: "&ndash;"
+        validation_line = "<p>No reading yet.</p>"
+        freshness_line = ""
+
+    pages["etf-flow.html"] = _indicator_page_shell(
+        "The Crypto Playback", "Bitcoin ETF Flow",
+        etf_hero,
+        [
+            ("What It Measures", "<p>The net daily flow of money into or out of US spot Bitcoin ETFs "
+             "(shares created/redeemed, valued in USD) &mdash; not a price prediction, a measurement of "
+             "fund-level buying and selling pressure on a single US trading day.</p>"),
+            ("How It's Calculated", "<p>Primary data: SoSoValue's aggregate net flow across all US spot "
+             "BTC ETFs. From the stored daily history we compute the latest confirmed flow, 3D/7D/30D/90D "
+             "cumulative totals and averages (30D/90D only shown once that much real history has actually "
+             "accumulated - never a shorter window mislabeled as a longer one), the current consecutive "
+             "inflow/outflow streak, a Flow Momentum read (7-day average vs. 30-day average, scaled by the "
+             "size of the 30-day average: &ge;50% relative difference reads Accelerating/Decelerating, "
+             "&ge;15% reads Strengthening/Weakening, otherwise Neutral), and a 0&ndash;100 Flow Pressure "
+             "score (40% the percentile rank of today's flow, 60% the percentile rank of the trailing "
+             "7-day cumulative, both against all stored history - weighted toward the 7-day figure so one "
+             "unusually large single day can't dominate the score).</p>"),
+            ("Independent Validation", validation_line +
+             "<p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check "
+             "(SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against "
+             "SoSoValue's full-universe total. Data via <a href=\"https://xoomar.com\">xoomar.com</a>.</p>"),
+            ("Why It Matters", "<p>Distinguishes real, fund-level capital movement from ordinary secondary-"
+             "market price action. We deliberately don't say things like \"institutions are buying\" or "
+             "\"this predicts price\" &mdash; only what the flow itself was.</p>"),
+            ("Data Source, Freshness &amp; Update Frequency", freshness_line +
+             "<p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day "
+             "figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute "
+             "cycle the other live indicators use, since polling a daily number that often would be "
+             "pointless.</p>"),
+        ],
+        etf_history_rows, etf_history_formatter,
     )
 
     return pages
