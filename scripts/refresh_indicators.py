@@ -32,6 +32,7 @@ from fetch_leverage import get_funding_and_oi
 from fetch_defi_tvl import get_defi_tvl
 from fetch_network_health import get_network_health
 from fetch_liquidations import get_recent_liquidations
+from fetch_whale_activity import get_large_transaction_amounts
 from build_site import (
     ROOT, LIVE_DATA_FILE, LIVE_HISTORY_FILE, MAX_HISTORY_ENTRIES,
     compute_biggest_mover, compute_weekly_mover, save_gauge_image,
@@ -49,6 +50,7 @@ def refresh():
     defi_tvl = get_defi_tvl()
     network_health = get_network_health()
     liquidations = get_recent_liquidations()
+    whale_activity = get_large_transaction_amounts()
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
     # Fixed slug ("live", not a post slug) - this is the one gauge image
@@ -69,6 +71,7 @@ def refresh():
         "defi_tvl": defi_tvl,
         "network_health": network_health,
         "liquidations": liquidations,
+        "whale_activity": whale_activity,
         "gauge_path": gauge_path,
     }
     with open(LIVE_DATA_FILE, "w") as f:
@@ -110,6 +113,7 @@ def refresh():
           f"DeFi TVL ${defi_tvl['total_usd']/1e9:.1f}B, "
           f"hash rate {network_health['hashrate_eh']:.0f} EH/s, "
           f"liquidations ${(liquidations['long_liq_usd']+liquidations['short_liq_usd'])/1e6:.2f}M, "
+          f"largest tx sampled {whale_activity['amounts_btc'][0] if whale_activity['amounts_btc'] else 0:.1f} BTC, "
           f"{len(history)} history entries)")
 
 

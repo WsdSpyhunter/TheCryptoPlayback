@@ -396,6 +396,7 @@ def _load_dashboard_data(entries):
                                                 "fastest_fee_satvb": 5, "pending_tx_count": 10000})
             live.setdefault("liquidations", {"long_liq_usd": 0.0, "short_liq_usd": 0.0,
                                               "event_count": 0, "window_minutes": 0.0})
+            live.setdefault("whale_activity", {"amounts_btc": [], "sample_size": 0})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -428,6 +429,7 @@ def _load_dashboard_data(entries):
                                                              "fastest_fee_satvb": 5, "pending_tx_count": 10000}
     liquidations = latest_full.get("liquidations") or {"long_liq_usd": 0.0, "short_liq_usd": 0.0,
                                                          "event_count": 0, "window_minutes": 0.0}
+    whale_activity = latest_full.get("whale_activity") or {"amounts_btc": [], "sample_size": 0}
     return {
         "updated_at": None,
         "prices": prices,
@@ -440,6 +442,7 @@ def _load_dashboard_data(entries):
         "defi_tvl": defi_tvl,
         "network_health": network_health,
         "liquidations": liquidations,
+        "whale_activity": whale_activity,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -601,6 +604,40 @@ def _liquidation_signal(liquidations):
     if long_share <= (1 - LIQUIDATION_DOMINANCE_THRESHOLD):
         return {"label": "Short Liquidations Dominant", "positive": False, "color": "#E24C4C"}
     return {"label": "Balanced", "positive": True, "color": "#8FBF5C"}
+
+
+WHALE_THRESHOLD_USD = 1_000_000  # standard "whale transaction" floor
+
+
+def _whale_signal(whale_activity, prices):
+    """Counts how many of the sampled mempool transactions moved >=$1M in
+    BTC, using the current BTC price to convert the raw BTC amounts
+    fetch_whale_activity.py returns. Deliberately has no positive/negative
+    read (confluence_positive is always None, excluded from Signal
+    Confluence) - a large transfer's total output value doesn't tell us
+    whether it's accumulation, distribution, or just an exchange moving
+    coins between its own wallets, so scoring it either way would be a
+    fabricated directional call."""
+    btc_entry = next((p for p in prices if p["symbol"] == "BTC"), None)
+    btc_price = btc_entry["price"] if btc_entry else 0
+    whale_amounts = [a for a in whale_activity["amounts_btc"] if a * btc_price >= WHALE_THRESHOLD_USD]
+    whale_count = len(whale_amounts)
+    whale_total_usd = sum(a * btc_price for a in whale_amounts)
+
+    if whale_count == 0:
+        label = "Quiet"
+    elif whale_count < 5:
+        label = "Active"
+    else:
+        label = "Elevated"
+
+    return {
+        "label": label,
+        "positive": None,
+        "color": "#8A7F5C",
+        "whale_count": whale_count,
+        "whale_total_usd": whale_total_usd,
+    }
 
 
 DOMINANCE_ROTATION_THRESHOLD = 3.0  # percentage points of 24h-change gap between BTC and the alt average
@@ -767,6 +804,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     defi_tvl = dashboard["defi_tvl"]
     network_health = dashboard["network_health"]
     liquidations = dashboard["liquidations"]
+    whale_activity = dashboard["whale_activity"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
@@ -775,6 +813,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     defi_signal = _defi_tvl_signal(defi_tvl)
     net_signal = _network_health_signal(network_health)
     liq_signal = _liquidation_signal(liquidations)
+    whale_signal = _whale_signal(whale_activity, prices)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -1172,6 +1211,44 @@ def _build_indicator_registry(dashboard, gauge_src):
             "history_formatter": lambda row: (
                 f'${(row["liquidations"]["long_liq_usd"]+row["liquidations"]["short_liq_usd"])/1e6:.2f}M'
                 if row.get("liquidations") else "&ndash;"),
+        },
+        {
+            "id": "whale_activity",
+            "page": "whale-activity.html",
+            "card_label": "&#128040; Whale Activity",
+            "card_main_html": _value_visual(str(whale_signal["whale_count"]), whale_signal["label"], whale_signal["color"], "card"),
+            "card_caption": f'${whale_signal["whale_total_usd"]/1e6:.1f}M across whale-sized transfers',
+            "confluence_name": "Whale Activity",
+            "confluence_positive": whale_signal["positive"],
+            "confluence_display": f'{whale_signal["whale_count"]} transfers ({whale_signal["label"]})',
+            "explainer_icon": "&#128040;",
+            "explainer_text": (
+                "The count of $1M+ BTC transactions in a sample of recent network activity. Purely a size "
+                "read - we can't tell whether a large transfer is accumulation, distribution, or just an "
+                "exchange moving its own coins, so this deliberately isn't scored positive or negative."),
+            "page_title": "Whale Activity",
+            "page_hero_html": _value_visual(str(whale_signal["whale_count"]), whale_signal["label"], whale_signal["color"], "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>How many individual Bitcoin transactions moving $1,000,000 or more "
+                 "showed up in a recent sample of network activity.</p>"),
+                ("How It's Calculated", f"<p>Sampled from the most recent {whale_activity['sample_size']:,} "
+                 f"unconfirmed (mempool) transactions via blockchain.info's public API. Each transaction's "
+                 f"total output value (in BTC, converted to USD at the current price) is checked against the "
+                 f"${WHALE_THRESHOLD_USD/1e6:.0f}M threshold. 0 qualifying transfers reads Quiet, 1&ndash;4 "
+                 f"reads Active, 5+ reads Elevated.</p>"),
+                ("An Honest Note On Coverage", "<p>Total output value is a standard but approximate proxy for "
+                 "\"amount moved\" - it can overcount slightly since change outputs returning coins to the "
+                 "sender are included too, and it can't distinguish a whale accumulating from an exchange "
+                 "shuffling coins between its own wallets. Treat this as a size signal, not an intent "
+                 "signal.</p>"),
+                ("Why It Matters", "<p>Large transactions are worth knowing about even without knowing their "
+                 "intent - a cluster of them often precedes or accompanies periods of higher volatility.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>blockchain.info's free public API, no key required. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (
+                f'{_whale_signal(row["whale_activity"], row["prices"])["whale_count"]} transfers'
+                if row.get("whale_activity") and row.get("prices") else "&ndash;"),
         },
     ]
 
