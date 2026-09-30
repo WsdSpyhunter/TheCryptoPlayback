@@ -392,6 +392,8 @@ def _load_dashboard_data(entries):
             live.setdefault("dominance", {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12})
             live.setdefault("leverage", {"funding_rate_pct": 0.01, "next_funding_time_ms": 0, "open_interest_usd": 2.5e9})
             live.setdefault("defi_tvl", {"total_usd": 95e9, "change_7d_pct": 0.0})
+            live.setdefault("network_health", {"hashrate_eh": 950.0, "difficulty_change_pct": 0.0,
+                                                "fastest_fee_satvb": 5, "pending_tx_count": 10000})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -420,6 +422,8 @@ def _load_dashboard_data(entries):
     dominance = latest_full.get("dominance") or {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12}
     leverage = latest_full.get("leverage") or {"funding_rate_pct": 0.01, "next_funding_time_ms": 0, "open_interest_usd": 2.5e9}
     defi_tvl = latest_full.get("defi_tvl") or {"total_usd": 95e9, "change_7d_pct": 0.0}
+    network_health = latest_full.get("network_health") or {"hashrate_eh": 950.0, "difficulty_change_pct": 0.0,
+                                                             "fastest_fee_satvb": 5, "pending_tx_count": 10000}
     return {
         "updated_at": None,
         "prices": prices,
@@ -430,6 +434,7 @@ def _load_dashboard_data(entries):
         "dominance": dominance,
         "leverage": leverage,
         "defi_tvl": defi_tvl,
+        "network_health": network_health,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -546,6 +551,29 @@ def _defi_tvl_signal(defi_tvl):
         "growing": growing,
         "signal": "Growing" if growing else "Shrinking",
         "color": "#8FBF5C" if growing else "#E8837A",
+    }
+
+
+NETWORK_HEALTH_THRESHOLD = 5.0  # % estimated change at the next difficulty retarget
+
+
+def _network_health_signal(network_health):
+    """'Hash Rate Rising'/'Stable'/'Hash Rate Falling' from the Bitcoin
+    network's own next-difficulty-retarget estimate (mempool.space) - a
+    real, forward-looking figure computed directly from actual observed
+    block times since the last retarget, not a derived guess. Rising hash
+    rate means more mining power is actively securing the network."""
+    change = network_health["difficulty_change_pct"]
+    if change >= NETWORK_HEALTH_THRESHOLD:
+        label = "Hash Rate Rising"
+    elif change <= -NETWORK_HEALTH_THRESHOLD:
+        label = "Hash Rate Falling"
+    else:
+        label = "Stable"
+    return {
+        "label": label,
+        "positive": change >= 0,
+        "color": "#8FBF5C" if change >= 0 else "#E8837A",
     }
 
 
@@ -711,12 +739,14 @@ def _build_indicator_registry(dashboard, gauge_src):
     dominance = dashboard["dominance"]
     leverage = dashboard["leverage"]
     defi_tvl = dashboard["defi_tvl"]
+    network_health = dashboard["network_health"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
     rotation = _dominance_signal(prices, dominance)
     lev_signal = _leverage_signal(leverage)
     defi_signal = _defi_tvl_signal(defi_tvl)
+    net_signal = _network_health_signal(network_health)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -1035,6 +1065,40 @@ def _build_indicator_registry(dashboard, gauge_src):
                                                f"({row['defi_tvl']['change_7d_pct']:+.1f}%)"
                                                if row.get("defi_tvl") else "&ndash;"),
         },
+        {
+            "id": "network_health",
+            "page": "network-health.html",
+            "card_label": "&#9889;&#65039; Miner Health",
+            "card_main_html": _value_visual(f'{network_health["hashrate_eh"]:.0f} EH/s', net_signal["label"], net_signal["color"], "card"),
+            "card_caption": f'{network_health["fastest_fee_satvb"]} sat/vB &middot; {network_health["pending_tx_count"]:,} pending',
+            "confluence_name": "Miner Health",
+            "confluence_positive": net_signal["positive"],
+            "confluence_display": f'{network_health["hashrate_eh"]:.0f} EH/s ({net_signal["label"]})',
+            "explainer_icon": "&#9889;&#65039;",
+            "explainer_text": (
+                "Bitcoin network hash rate and its trend into the next difficulty adjustment, plus current "
+                "mempool congestion. Rising hash rate means more mining power is actively securing the "
+                "network - a security/health read, not a price signal."),
+            "page_title": "Miner Health / Network Activity",
+            "page_hero_html": _value_visual(f'{network_health["hashrate_eh"]:.0f} EH/s', net_signal["label"], net_signal["color"], "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>The Bitcoin network's total hash rate (mining power securing the "
+                 "network, in exahashes/second), its trend into the next difficulty adjustment, and current "
+                 "mempool congestion (pending transactions and required fees).</p>"),
+                ("How It's Calculated", f"<p>Hash rate and the difficulty-change estimate come directly from "
+                 f"mempool.space, computed from actual observed block times since the last retarget - not a "
+                 f"projection of our own. A next-retarget change of &plusmn;{NETWORK_HEALTH_THRESHOLD:.0f}% or "
+                 f"more reads Hash Rate Rising/Falling; anything smaller reads Stable.</p>"),
+                ("Why It Matters", "<p>Hash rate is Bitcoin's actual security budget - a rising hash rate means "
+                 "more real-world computing power is committed to securing the network. Mempool congestion and "
+                 "fees are a direct read on how much genuine transaction demand the network is seeing right "
+                 "now.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>mempool.space's free public API, no key required. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (f'{row["network_health"]["hashrate_eh"]:.0f} EH/s'
+                                               if row.get("network_health") else "&ndash;"),
+        },
     ]
 
     if etf:
@@ -1273,6 +1337,7 @@ def render_index(entries):
     dominance = dashboard["dominance"]
     leverage = dashboard["leverage"]
     defi_tvl = dashboard["defi_tvl"]
+    network_health = dashboard["network_health"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
 
@@ -1446,6 +1511,15 @@ def render_index(entries):
                 change_items.append((dot, "DeFi TVL moved",
                                       f"${prev_defi_tvl['total_usd']/1e9:.1f}B &rarr; "
                                       f"${defi_tvl['total_usd']/1e9:.1f}B ({tvl_delta_b:+.1f}B)"))
+
+        prev_network_health = prev_snapshot.get("network_health")
+        if prev_network_health:
+            hash_delta = network_health["hashrate_eh"] - prev_network_health["hashrate_eh"]
+            if abs(hash_delta) >= 20:
+                dot = "&#128994;" if hash_delta > 0 else "&#128308;"
+                change_items.append((dot, "Hash rate moved",
+                                      f"{prev_network_health['hashrate_eh']:.0f} &rarr; "
+                                      f"{network_health['hashrate_eh']:.0f} EH/s ({hash_delta:+.0f})"))
 
     # ETF Flow diffs against its own most recent prior trading day (from
     # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has
