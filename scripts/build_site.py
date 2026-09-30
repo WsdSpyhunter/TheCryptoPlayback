@@ -522,6 +522,385 @@ def _etf_pressure_label(pressure_score, flow_m):
     return "Neutral"
 
 
+# ============================================================================
+# Shared indicator-visual renderers
+#
+# Every indicator's "current value" is one of a small number of visual
+# shapes (a big colored number + word, a colored badge, a symbol + signed
+# percent, or a list of rows) - and each shape needs to render twice: once
+# small for its Alerts & Indicators card, once large for its own page's
+# hero. Before this, those two renderings were hand-typed separately for
+# every indicator (14 near-identical f-strings for 7 indicators), so a
+# future layout change would mean finding and editing every one of them
+# individually, and the card/hero versions could quietly drift apart.
+#
+# These four functions are the ONLY place that HTML shape is defined. A
+# future redesign that changes what a "big value" or a "badge" looks like
+# is a change in ONE function, not a hunt through render_index() and
+# render_indicator_pages(). `context` ("card" or "hero") only ever
+# switches which CSS class prefix is used - the class names themselves
+# (and therefore the actual visual design) still live entirely in
+# assets/styles.css, untouched by this file.
+# ============================================================================
+
+def _value_visual(value, word, color, context, prefix_html=""):
+    """Big colored number + smaller word next to it - Fear & Greed,
+    Capital Flow, Stablecoin Liquidity, and ETF Flow all use this shape.
+    `prefix_html` is for anything that goes before the number itself,
+    e.g. Fear & Greed's gauge image."""
+    value_class = "pulse-card-value" if context == "card" else "indicator-value"
+    word_class = "pulse-card-word" if context == "card" else "indicator-value-word"
+    return (f'{prefix_html}<div class="{value_class}" style="color:{color};">{value}'
+            f'<span class="{word_class}">{word}</span></div>')
+
+
+def _badge_visual(text, badge_class, context):
+    """A single colored pill - Risk Radar's LOW/MODERATE/ELEVATED, and the
+    "AWAITING DATA" placeholder state any indicator can show before its
+    first real reading exists."""
+    extra = " indicator-risk-badge" if context == "hero" else ""
+    return f'<span class="pulse-risk-badge {badge_class}{extra}">{text}</span>'
+
+
+def _mover_visual(symbol, change, context):
+    """Symbol + signed percent, side by side - Biggest Mover's shape."""
+    color = "#8FBF5C" if change >= 0 else "#E24C4C"
+    sign = "+" if change >= 0 else ""
+    if context == "card":
+        return (f'<span class="pulse-mover-symbol">{symbol}</span>'
+                f'<span class="pulse-mover-change" style="color:{color};">{sign}{change:.1f}%</span>')
+    return (f'<div class="indicator-value"><span class="indicator-mover-symbol">{symbol}</span>'
+            f'<span style="color:{color};">{sign}{change:.1f}%</span></div>')
+
+
+def _sector_list_visual(sectors, context):
+    """A short list of name/change rows - Top Sectors' shape."""
+    rows = "".join(
+        f'<div class="pulse-sector-row"><span class="pulse-sector-name">{s["label"]}</span>'
+        f'<span class="pulse-sector-change" style="color:{"#8FBF5C" if s["change_24h"] >= 0 else "#E8837A"};">'
+        f'{s["change_24h"]:+.1f}%</span></div>'
+        for s in sectors
+    )
+    extra_class = " indicator-sector-list" if context == "hero" else ""
+    return f'<div class="pulse-sector-list{extra_class}">{rows}</div>'
+
+
+def _build_indicator_registry(dashboard, gauge_src):
+    """The single source of truth for every real indicator - one list,
+    built once, consumed four ways (Alerts & Indicators cards, Signal
+    Confluence rows, Decode The Dashboard cards, and each indicator's own
+    page). Before this, the same 7 indicators were defined independently
+    in four separate places across render_index() and
+    render_indicator_pages(), which both had to independently reload and
+    recompute the live dashboard/signals/ETF data too - real drift risk
+    if any one of those four spots was ever updated without the others.
+    Now render_index() and render_indicator_pages() both just call this
+    and loop over the result.
+
+    Each entry is a plain dict - no indicator-specific classes or
+    inheritance, just data - so adding an 8th/9th/10th indicator later
+    means appending one more dict here, not touching four render
+    functions. A future layout redesign changes assets/styles.css and, at
+    most, the small shared _*_visual() renderers above; it never needs to
+    touch this function or the indicator-specific text below."""
+    prices = dashboard["prices"]
+    fng = dashboard["fng"]
+    mover = dashboard["mover"]
+    sectors = dashboard["sectors"]
+    stablecoins = dashboard["stablecoins"]
+    signals = _compute_derived_signals(prices, fng, sectors)
+    resolved_mover = _live_mover_display(mover)
+    stable_signal = _stablecoin_signal(stablecoins)
+    etf = _load_etf_dashboard()
+
+    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")
+    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
+        signals["capital_flow_signal"].lower(), "#8A7F5C"
+    )
+
+    registry = [
+        {
+            "id": "fear_greed",
+            "page": "fear-greed-index.html",
+            "card_label": "Fear &amp; Greed Index",
+            "card_main_html": _value_visual(
+                fng["value"], fng["classification"], fng_color, "card",
+                prefix_html=f'<img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'),
+            "card_caption": "Daily fear and greed sentiment indicator",
+            "confluence_name": "Fear &amp; Greed",
+            "confluence_positive": fng["value"] >= 55,
+            "confluence_display": f"{fng['value']} {fng['classification']}",
+            "explainer_icon": f'<img class="explainer-icon-img" src="{gauge_src}" alt="">',
+            "explainer_text": (
+                "A 0&ndash;100 read on overall market mood, from Extreme Fear to Extreme Greed. "
+                "Calculated daily from real volatility, momentum, and social data, not opinion. "
+                "Extremes often line up with emotional turning points, not rational ones."),
+            "page_title": "Fear &amp; Greed Index",
+            "page_hero_html": _value_visual(
+                fng["value"], fng["classification"], fng_color, "hero",
+                prefix_html=f'<img class="indicator-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'),
+            "page_sections": [
+                ("What It Measures", "<p>Overall crypto market sentiment on a 0&ndash;100 scale, from Extreme "
+                 "Fear to Extreme Greed.</p>"),
+                ("How It's Calculated", "<p>Pulled directly from Alternative.me's Crypto Fear &amp; Greed "
+                 "Index, which blends volatility, market momentum and volume, social media activity, market "
+                 "dominance, and search trends into a single score. We don't calculate this ourselves &mdash; "
+                 "we display their published reading as of each issue.</p>"),
+                ("Why It Matters", "<p>Extreme readings often &mdash; not always &mdash; line up with "
+                 "emotional turning points: extreme fear near local bottoms, extreme greed near local tops. "
+                 "It's a sentiment gauge, not a price prediction.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>Alternative.me Crypto Fear &amp; Greed Index "
+                 "(api.alternative.me/fng). Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: f"{row['fng']['value']} {row['fng']['classification']}",
+        },
+        {
+            "id": "biggest_mover",
+            "page": "biggest-mover.html",
+            "card_label": resolved_mover["label"].title(),
+            "card_main_html": _mover_visual(resolved_mover["symbol"], resolved_mover["change"], "card"),
+            "card_caption": resolved_mover["caption"] or "Ranked by size of move, not direction",
+            "confluence_name": resolved_mover["label"].title(),
+            "confluence_positive": resolved_mover["change"] >= 0,
+            "confluence_display": f"{resolved_mover['symbol']} {resolved_mover['change']:+.1f}%",
+            "explainer_icon": "&#128200;",
+            "explainer_text": (
+                "Whichever of our top 6 tracked coins moved the most, up or down, over the last 24 hours. "
+                "Ranked purely by the size of the move, not its direction. "
+                "A quick read on where the action is happening right now."),
+            "page_title": resolved_mover["label"].title(),
+            "page_hero_html": _mover_visual(resolved_mover["symbol"], resolved_mover["change"], "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>Whichever of our top 6 tracked coins (by market cap, stablecoins "
+                 "excluded) moved the most &mdash; up or down &mdash; over the last 24 hours.</p>"),
+                ("How It's Calculated", "<p>We rank the 6 tracked coins by the absolute size of their price "
+                 "change over that window and surface the single biggest mover, in either direction.</p>"),
+                ("Why It Matters", "<p>Highlights where the action is actually concentrated, instead of just "
+                 "reporting that \"the market was up.\"</p>"),
+                ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: f"{row['mover']['symbol']} {row['mover']['change']:+.1f}%",
+        },
+        {
+            "id": "risk_radar",
+            "page": "risk-radar.html",
+            "card_label": "&#9888;&#65039; Risk Radar",
+            "card_main_html": _badge_visual(signals["risk_level"].upper(), f'pulse-risk-{signals["risk_level"]}', "card"),
+            "card_caption": "Overall crypto market risk indicator",
+            "confluence_name": "Risk Radar",
+            "confluence_positive": signals["risk_level"] == "low",
+            "confluence_display": signals["risk_level"].upper(),
+            "explainer_icon": "&#9888;&#65039;",
+            "explainer_text": (
+                "A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, "
+                "built from volatility and sentiment extremes. "
+                "It's a temperature check on current conditions, not a forecast of what happens next."),
+            "page_title": "Risk Radar",
+            "page_hero_html": _badge_visual(signals["risk_level"].upper(), f'pulse-risk-{signals["risk_level"]}', "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>A simple read on how turbulent current market conditions are "
+                 "&mdash; Low, Moderate, or Elevated.</p>"),
+                ("How It's Calculated", "<p>A Crypto Playback score built from two real inputs: how extreme "
+                 "the Fear &amp; Greed reading is, and the average size of the 24-hour price move across our "
+                 "6 tracked coins. Extreme sentiment (Fear &amp; Greed &ge;80 or &le;20) adds 2 points, "
+                 "borderline extreme (&ge;70 or &le;30) adds 1. Average 24h volatility &ge;8% adds 2 points, "
+                 "&ge;4% adds 1. 0&ndash;1 points reads Low, 2&ndash;3 reads Moderate, 4+ reads Elevated.</p>"),
+                ("Why It Matters", "<p>A temperature check on current conditions, not a forecast of what "
+                 "happens next.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from Alternative.me "
+                 "and CoinGecko data &mdash; not pulled from any third-party \"risk\" API. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: row["risk_level"].upper(),
+        },
+        {
+            "id": "capital_flow",
+            "page": "capital-flow.html",
+            "card_label": "&#128176; Capital Flow",
+            "card_main_html": _value_visual(signals["capital_flow_score"], signals["capital_flow_signal"], flow_color, "card"),
+            "card_caption": "Price &amp; sector breadth vs. sentiment",
+            "confluence_name": "Capital Flow",
+            "confluence_positive": signals["capital_flow_signal"] == "Accumulation",
+            "confluence_display": f"{signals['capital_flow_score']} {signals['capital_flow_signal']}",
+            "explainer_icon": "&#128176;",
+            "explainer_text": (
+                "A Crypto Playback composite score built from price and sector breadth weighted against "
+                "sentiment &mdash; not institutional transaction data. A higher score leans toward "
+                "accumulation, a lower score toward distribution."),
+            "page_title": "Capital Flow",
+            "page_hero_html": _value_visual(signals["capital_flow_score"], signals["capital_flow_signal"], flow_color, "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>Whether price and sector breadth, weighted against sentiment, "
+                 "currently lean toward accumulation or distribution.</p>"),
+                ("How It's Calculated", "<p>60% weight on breadth (the share of our 6 tracked coins and "
+                 "tracked sectors that are positive over 24 hours) plus 40% weight on the Fear &amp; Greed "
+                 "value, scaled 0&ndash;100. A score of 60+ reads Accumulation, 40&ndash;59 reads Mixed, "
+                 "below 40 reads Distribution.</p>"),
+                ("An Honest Note On The Name", "<p>This is <strong>not</strong> built from ETF flows, "
+                 "exchange order flow, or on-chain institutional transaction data &mdash; it's a composite of "
+                 "price/sector breadth and sentiment.</p>"),
+                ("Why It Matters", "<p>Distinguishes whether a move is broad-based across many assets, or "
+                 "being carried by just a couple of large coins.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from CoinGecko and "
+                 "Alternative.me data. Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: f"{row['capital_flow_score']} {row['capital_flow_signal']}",
+        },
+        {
+            "id": "top_sectors",
+            "page": "top-sectors.html",
+            "card_label": "&#128202; Top Sectors",
+            "card_main_html": _sector_list_visual(sectors, "card"),
+            "card_caption": "Best-performing sectors, 24H",
+            "confluence_name": "Top Sectors",
+            "confluence_positive": bool(sectors) and sum(1 for s in sectors if s["change_24h"] >= 0) > len(sectors) / 2,
+            "confluence_display": (f"{sum(1 for s in sectors if s['change_24h'] >= 0)}/{len(sectors)} positive"
+                                    if sectors else "&ndash;"),
+            "explainer_icon": "&#128202;",
+            "explainer_text": (
+                "Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a "
+                "curated list of major sectors so tiny micro-categories can't skew the results. "
+                "Shows where money is rotating inside the market, not just up or down overall."),
+            "page_title": "Top Sectors",
+            "page_hero_html": _sector_list_visual(sectors, "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>Which major crypto narrative categories &mdash; AI, RWA, DeFi, L1, "
+                 "L2, Gaming, Memecoins, DePIN, NFT &mdash; are performing best over the last 24 hours.</p>"),
+                ("How It's Calculated", "<p>Ranked by 24-hour market-cap change within a curated watchlist of "
+                 "recognizable sectors, so a narrow, noisy micro-category can't crowd out the real "
+                 "narratives.</p>"),
+                ("Why It Matters", "<p>Shows where money is rotating within the market, not just whether the "
+                 "market overall is up or down.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>CoinGecko categories API. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (f"{row['sectors'][0]['label']} {row['sectors'][0]['change_24h']:+.1f}%"
+                                               if row.get("sectors") else "&ndash;"),
+        },
+        {
+            "id": "stablecoin_liquidity",
+            "page": "stablecoin-liquidity.html",
+            "card_label": "&#128181; Stablecoin Liquidity",
+            "card_main_html": _value_visual(f'${stablecoins["total_usd"]/1e9:.1f}B', stable_signal["signal"], stable_signal["color"], "card"),
+            "card_caption": f'{stablecoins["change_7d_pct"]:+.1f}% over 7 days',
+            "confluence_name": "Stablecoin Liquidity",
+            "confluence_positive": stable_signal["expanding"],
+            "confluence_display": f"${stablecoins['total_usd']/1e9:.1f}B ({stablecoins['change_7d_pct']:+.1f}%)",
+            "explainer_icon": "&#128181;",
+            "explainer_text": (
+                "Tracks total stablecoin supply and its 7-day change &mdash; a proxy for how much capital is "
+                "parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is "
+                "entering; contracting means it's leaving the space entirely."),
+            "page_title": "Stablecoin Liquidity",
+            "page_hero_html": _value_visual(f'${stablecoins["total_usd"]/1e9:.1f}B', stable_signal["signal"], stable_signal["color"], "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>The total circulating supply of major USD-pegged stablecoins (USDT, "
+                 "USDC, DAI, and others) across all chains &mdash; a proxy for how much \"dry powder\" is "
+                 "sitting inside the crypto ecosystem, ready to move.</p>"),
+                ("How It's Calculated", "<p>Total stablecoin market cap today vs. 7 days ago. A positive "
+                 "7-day change reads Expanding, negative reads Contracting.</p>"),
+                ("Why It Matters", "<p>Price charts don't show whether new capital is entering or leaving the "
+                 "ecosystem. Expanding stablecoin supply means more capital is parked and available to buy; "
+                 "contracting supply means capital is leaving the space entirely, not just rotating between "
+                 "coins.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>DefiLlama's free stablecoins API "
+                 "(stablecoins.llama.fi). Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (f"${row['stablecoins']['total_usd']/1e9:.1f}B "
+                                               f"({row['stablecoins']['change_7d_pct']:+.1f}%)"
+                                               if row.get("stablecoins") else "&ndash;"),
+        },
+    ]
+
+    if etf:
+        flow_m = float(etf["latest_flow_usd"]) / 1e6
+        etf_color = "#8FBF5C" if flow_m >= 0 else "#E8837A"
+        etf_word = _etf_pressure_label(etf["pressure_score"], flow_m)
+        etf_card_main = _value_visual(f"{flow_m:+.1f}M", etf_word, etf_color, "card")
+        etf_hero_main = _value_visual(f"{flow_m:+.1f}M", etf_word, etf_color, "hero")
+        etf_caption = f'{etf["streak_count"]}D {etf["streak_direction"].title()} Streak &middot; {etf["latest_date"]}'
+        etf_history_rows = [{"date_display": d, "flow": f} for d, f in etf["history"][:12]]
+        etf_history_formatter = lambda row: f"${float(row['flow'])/1e6:+.1f}M"
+        validation_line = (
+            f"<p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering IBIT, "
+            f"BITB, and ARKB) for the same three funds: current status "
+            f"<strong>{etf['validation_status'] or 'UNAVAILABLE'}</strong>"
+            + (f", difference ${float(etf['validation_difference_usd'])/1e6:.1f}M." if etf.get('validation_difference_usd') else ".")
+            + "</p>"
+        )
+        freshness_line = (f"<p>Data freshness: <strong>{etf['freshness']}</strong> ({etf['days_old']} day(s) "
+                           f"since the latest confirmed trading day, {etf['latest_date']}).</p>")
+        etf_confluence_positive = etf["latest_flow_usd"] >= 0
+        etf_confluence_display = f"${flow_m:+.1f}M ({etf['streak_count']}d {etf['streak_direction']})"
+    else:
+        etf_card_main = etf_hero_main = _badge_visual("AWAITING DAILY ETF DATA", "", "card")
+        etf_caption = "Spot Bitcoin ETF net flow, US trading days"
+        etf_history_rows, etf_history_formatter = [], lambda row: "&ndash;"
+        validation_line, freshness_line = "<p>No reading yet.</p>", ""
+        etf_confluence_positive, etf_confluence_display = None, None
+
+    etf_entry = {
+        "id": "etf_flow",
+        "page": "etf-flow.html",
+        "card_label": "&#127974; ETF Flow",
+        "card_main_html": etf_card_main,
+        "card_caption": etf_caption,
+        "confluence_name": "ETF Flow",
+        "confluence_positive": etf_confluence_positive,
+        "confluence_display": etf_confluence_display,
+        "explainer_icon": "&#127974;",
+        "explainer_text": (
+            "Net daily flow across US spot Bitcoin ETFs, plus a rolling streak and flow-pressure score. "
+            "Positive means the funds took in more money than left them that day, not a price call. "
+            "Cross-checked against a second, independent data source before it's shown."),
+        "page_title": "Bitcoin ETF Flow",
+        "page_hero_html": etf_hero_main,
+        "page_sections": [
+            ("What It Measures", "<p>The net daily flow of money into or out of US spot Bitcoin ETFs (shares "
+             "created/redeemed, valued in USD) &mdash; not a price prediction, a measurement of fund-level "
+             "buying and selling pressure on a single US trading day.</p>"),
+            ("How It's Calculated", "<p>Primary data: SoSoValue's aggregate net flow across all US spot BTC "
+             "ETFs. From the stored daily history we compute the latest confirmed flow, 3D/7D/30D/90D "
+             "cumulative totals and averages (30D/90D only shown once that much real history has actually "
+             "accumulated - never a shorter window mislabeled as a longer one), the current consecutive "
+             "inflow/outflow streak, a Flow Momentum read (7-day average vs. 30-day average, scaled by the "
+             "size of the 30-day average: &ge;50% relative difference reads Accelerating/Decelerating, "
+             "&ge;15% reads Strengthening/Weakening, otherwise Neutral), and a 0&ndash;100 Flow Pressure "
+             "score (40% the percentile rank of today's flow, 60% the percentile rank of the trailing 7-day "
+             "cumulative, both against all stored history - weighted toward the 7-day figure so one "
+             "unusually large single day can't dominate the score).</p>"),
+            ("Independent Validation", validation_line +
+             "<p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check "
+             "(SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against SoSoValue's "
+             "full-universe total. Data via <a href=\"https://xoomar.com\">xoomar.com</a>.</p>"),
+            ("Why It Matters", "<p>Distinguishes real, fund-level capital movement from ordinary "
+             "secondary-market price action. We deliberately don't say things like \"institutions are "
+             "buying\" or \"this predicts price\" &mdash; only what the flow itself was.</p>"),
+            ("Data Source, Freshness &amp; Update Frequency", freshness_line +
+             "<p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day "
+             "figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute "
+             "cycle the other live indicators use, since polling a daily number that often would be "
+             "pointless.</p>"),
+        ],
+        "history_formatter": etf_history_formatter,
+        "_etf_history_rows": etf_history_rows,  # only this entry has its own history source, not the shared one
+    }
+    registry.append(etf_entry)
+
+    # Returned alongside the registry (not just the registry alone) so
+    # callers that also need the raw signals/mover/etc. for other sections
+    # (Market Snapshot's text, What Changed's comparisons) get them from
+    # this one call instead of recomputing them a second time.
+    return {
+        "indicators": registry,
+        "signals": signals,
+        "resolved_mover": resolved_mover,
+        "stable_signal": stable_signal,
+        "etf": etf,
+    }
+
+
 def render_market_pulse(prices, date_abbrev):
     """Homepage-only Top 6 Market ticker. Used to also render Fear & Greed /
     Biggest Mover / Risk Radar / Capital Flow / Top Sectors as their own
@@ -601,10 +980,18 @@ def render_index(entries):
     stablecoins = dashboard["stablecoins"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
-    stable_signal = _stablecoin_signal(stablecoins)
-    signals = _compute_derived_signals(prices, fng, sectors)
-    resolved_mover = _live_mover_display(mover)
-    etf = _load_etf_dashboard()
+
+    # One call builds every indicator's data + markup (see
+    # _build_indicator_registry) - render_index() only needs to turn that
+    # single list into the three homepage sections below, plus pull out
+    # signals/resolved_mover/stable_signal/etf for the Market Snapshot text
+    # and What Changed comparisons further down.
+    ctx = _build_indicator_registry(dashboard, gauge_src)
+    indicators = ctx["indicators"]
+    signals = ctx["signals"]
+    resolved_mover = ctx["resolved_mover"]
+    stable_signal = ctx["stable_signal"]
+    etf = ctx["etf"]
     market_strip = render_market_pulse(prices, date_abbrev)
 
     # ============ Playback Snapshot: Signal Confluence + What Changed? ============
@@ -612,25 +999,10 @@ def render_index(entries):
     # external "AI live" call at page-load, no invented deltas. The market
     # snapshot paragraph and interpretation lines are templated prose driven
     # by the actual numbers, same pattern as mover_label/mover_caption above.
-    sector_positive_count = sum(1 for s in sectors if s["change_24h"] >= 0)
-    sector_majority_positive = sectors and sector_positive_count > len(sectors) / 2
     confluence_items = [
-        ("Fear &amp; Greed", fng["value"] >= 55, f"{fng['value']} {fng['classification']}"),
-        (resolved_mover["label"].title(), resolved_mover["change"] >= 0,
-         f"{resolved_mover['symbol']} {resolved_mover['change']:+.1f}%"),
-        ("Risk Radar", signals["risk_level"] == "low", signals["risk_level"].upper()),
-        ("Capital Flow", signals["capital_flow_signal"] == "Accumulation",
-         f"{signals['capital_flow_score']} {signals['capital_flow_signal']}"),
-        ("Top Sectors", sector_majority_positive,
-         f"{sector_positive_count}/{len(sectors)} positive" if sectors else "&ndash;"),
-        ("Stablecoin Liquidity", stable_signal["expanding"],
-         f"${stablecoins['total_usd']/1e9:.1f}B ({stablecoins['change_7d_pct']:+.1f}%)"),
+        (ind["confluence_name"], ind["confluence_positive"], ind["confluence_display"])
+        for ind in indicators if ind["confluence_positive"] is not None
     ]
-    if etf:
-        confluence_items.append((
-            "ETF Flow", etf["latest_flow_usd"] >= 0,
-            f"${float(etf['latest_flow_usd'])/1e6:+.1f}M ({etf['streak_count']}d {etf['streak_direction']})",
-        ))
     positive_count = sum(1 for _, pos, _ in confluence_items if pos)
     total_count = len(confluence_items)
     negatives = [name for name, pos, _ in confluence_items if not pos]
@@ -810,64 +1182,17 @@ def render_index(entries):
     # ============ Alerts & Indicators - same visual language as the pulse
     # cards above, now each one clickable through to its own dedicated page
     # with the full methodology, real historical readings, and why it
-    # matters. ============
-    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
-        signals["capital_flow_signal"].lower(), "#8A7F5C"
-    )
-    alerts_cards = [
-        ("fear-greed-index.html", "Fear &amp; Greed Index",
-         f'<img class="pulse-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'
-         f'<div class="pulse-card-value" style="color:{"#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")};">'
-         f'{fng["value"]}<span class="pulse-card-word">{fng["classification"]}</span></div>',
-         "Daily fear and greed sentiment indicator"),
-        ("biggest-mover.html", resolved_mover["label"].title(),
-         f'<span class="pulse-mover-symbol">{resolved_mover["symbol"]}</span>'
-         f'<span class="pulse-mover-change" style="color:{"#8FBF5C" if resolved_mover["change"] >= 0 else "#E24C4C"};">'
-         f'{"+" if resolved_mover["change"] >= 0 else ""}{resolved_mover["change"]:.1f}%</span>',
-         resolved_mover["caption"] or "Ranked by size of move, not direction"),
-        ("risk-radar.html", "&#9888;&#65039; Risk Radar",
-         f'<span class="pulse-risk-badge pulse-risk-{signals["risk_level"]}">{signals["risk_level"].upper()}</span>',
-         "Overall crypto market risk indicator"),
-        ("capital-flow.html", "&#128176; Capital Flow",
-         f'<div class="pulse-card-value" style="color:{flow_color};">'
-         f'{signals["capital_flow_score"]}<span class="pulse-card-word">{signals["capital_flow_signal"]}</span></div>',
-         "Price &amp; sector breadth vs. sentiment"),
-        ("top-sectors.html", "&#128202; Top Sectors",
-         '<div class="pulse-sector-list">' + "".join(
-             f'<div class="pulse-sector-row"><span class="pulse-sector-name">{s["label"]}</span>'
-             f'<span class="pulse-sector-change" style="color:{"#8FBF5C" if s["change_24h"] >= 0 else "#E8837A"};">{s["change_24h"]:+.1f}%</span></div>'
-             for s in sectors
-         ) + '</div>',
-         "Best-performing sectors, 24H"),
-        ("stablecoin-liquidity.html", "&#128181; Stablecoin Liquidity",
-         f'<div class="pulse-card-value" style="color:{stable_signal["color"]};">'
-         f'${stablecoins["total_usd"]/1e9:.1f}B<span class="pulse-card-word">{stable_signal["signal"]}</span></div>',
-         f'{stablecoins["change_7d_pct"]:+.1f}% over 7 days'),
-    ]
-    if etf:
-        flow_m = float(etf["latest_flow_usd"]) / 1e6
-        etf_color = "#8FBF5C" if flow_m >= 0 else "#E8837A"
-        alerts_cards.append((
-            "etf-flow.html", "&#127974; ETF Flow",
-            f'<div class="pulse-card-value" style="color:{etf_color};">'
-            f'{flow_m:+.1f}M<span class="pulse-card-word">{_etf_pressure_label(etf["pressure_score"], flow_m)}</span></div>',
-            f'{etf["streak_count"]}D {etf["streak_direction"].title()} Streak &middot; {etf["latest_date"]}',
-        ))
-    else:
-        alerts_cards.append((
-            "etf-flow.html", "&#127974; ETF Flow",
-            '<span class="pulse-risk-badge" style="color:#8A7F5C;background:rgba(138,127,92,0.14);'
-            'border:1px solid rgba(138,127,92,0.4);">AWAITING DAILY ETF DATA</span>',
-            "Spot Bitcoin ETF net flow, US trading days",
-        ))
+    # matters. Every card below is one indicator from the shared registry
+    # (see _build_indicator_registry) - adding an 8th indicator later means
+    # appending one more dict there, not adding another card here. ============
     alerts_cards_html = "".join(
-        f"""<a class="pulse-card indicator-card" href="{href}">
-        <span class="pulse-card-label">{label}</span>
-        <div class="pulse-card-main">{main_html}</div>
-        <span class="pulse-card-caption">{caption}</span>
+        f"""<a class="pulse-card indicator-card" href="{ind['page']}">
+        <span class="pulse-card-label">{ind['card_label']}</span>
+        <div class="pulse-card-main">{ind['card_main_html']}</div>
+        <span class="pulse-card-caption">{ind['card_caption']}</span>
         <span class="indicator-card-cta">View full breakdown &rarr;</span>
       </a>"""
-        for href, label, main_html, caption in alerts_cards
+        for ind in indicators
     )
     alerts_indicators_section = f"""<section class="alerts-banner">
     <div class="pulse-wrap">
@@ -949,43 +1274,15 @@ def render_index(entries):
     # visitor knows what they're looking at. Icons/images are reused from the
     # dashboard cards themselves (same gauge image, same emoji) rather than
     # inventing new art, so the two sections visibly reference each other.
-    explainer_cards = [
-        (f'<img class="explainer-icon-img" src="{gauge_src}" alt="">', "Fear &amp; Greed Index",
-         "A 0&ndash;100 read on overall market mood, from Extreme Fear to Extreme Greed. "
-         "Calculated daily from real volatility, momentum, and social data, not opinion. "
-         "Extremes often line up with emotional turning points, not rational ones."),
-        ("&#128200;", "Biggest Mover (24H)",
-         "Whichever of our top 6 tracked coins moved the most, up or down, over the last 24 hours. "
-         "Ranked purely by the size of the move, not its direction. "
-         "A quick read on where the action is happening right now."),
-        ("&#9888;&#65039;", "Risk Radar",
-         "A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, "
-         "built from volatility and sentiment extremes. "
-         "It's a temperature check on current conditions, not a forecast of what happens next."),
-        ("&#128176;", "Capital Flow",
-         "A Crypto Playback composite score built from price and sector breadth weighted against "
-         "sentiment &mdash; not institutional transaction data. A higher score leans toward "
-         "accumulation, a lower score toward distribution."),
-        ("&#128202;", "Top Sectors",
-         "Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a "
-         "curated list of major sectors so tiny micro-categories can't skew the results. "
-         "Shows where money is rotating inside the market, not just up or down overall."),
-        ("&#128181;", "Stablecoin Liquidity",
-         "Tracks total stablecoin supply and its 7-day change &mdash; a proxy for how much capital is "
-         "parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is "
-         "entering; contracting means it's leaving the space entirely."),
-        ("&#127974;", "ETF Flow",
-         "Net daily flow across US spot Bitcoin ETFs, plus a rolling streak and flow-pressure score. "
-         "Positive means the funds took in more money than left them that day, not a price call. "
-         "Cross-checked against a second, independent data source before it's shown."),
-    ]
+    # Same registry as the cards above - every indicator gets one explainer
+    # card automatically, in the same order.
     explainer_html = "".join(
         f"""<div class="explainer-card">
-        <div class="explainer-icon">{icon}</div>
-        <h3 class="explainer-card-title">{title}</h3>
-        <p class="explainer-card-text">{text}</p>
+        <div class="explainer-icon">{ind['explainer_icon']}</div>
+        <h3 class="explainer-card-title">{ind['page_title']}</h3>
+        <p class="explainer-card-text">{ind['explainer_text']}</p>
       </div>"""
-        for icon, title, text in explainer_cards
+        for ind in indicators
     )
     explainer_section = f"""<section class="explainer-banner">
     <div class="explainer-inner">
@@ -1068,222 +1365,31 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
 
 
 def render_indicator_pages(entries):
-    """{filename: html} for every real indicator's dedicated page. Sourced
-    from the same live indicator data as the homepage (see
-    _load_dashboard_data) - refreshed on its own 15-minute schedule by
-    refresh_indicators.py, independent of the newsletter. `entries` is
-    only needed for _load_dashboard_data's fallback path (before the
-    refresh workflow has ever run). Deliberately built for every indicator
-    we have real data for (not just one), so the Alerts & Indicators cards
-    on the homepage never link to a dead page."""
+    """{filename: html} for every real indicator's dedicated page - one
+    _indicator_page_shell() call per entry in the shared registry (see
+    _build_indicator_registry), using that indicator's own recent-history
+    source (the general 15-minute live history for most; ETF Flow carries
+    its own daily-trading-day history instead, see the registry entry's
+    "_etf_history_rows"). `entries` is only needed for _load_dashboard_data's
+    fallback path (before the refresh workflow has ever run). Adding an 8th
+    indicator later needs no change here at all - it already has a page the
+    moment it's added to the registry."""
     dashboard = _load_dashboard_data(entries)
     if dashboard is None:
         return {}
-    prices = dashboard["prices"]
-    fng = dashboard["fng"]
-    mover = dashboard["mover"]
-    sectors = dashboard["sectors"]
     gauge_src = dashboard["gauge_path"]
-    signals = _compute_derived_signals(prices, fng, sectors)
-    resolved_mover = _live_mover_display(mover)
-    stablecoins = dashboard["stablecoins"]
-    stable_signal = _stablecoin_signal(stablecoins)
-    history = _recent_readings(load_indicator_history())
-    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
-        signals["capital_flow_signal"].lower(), "#8A7F5C"
-    )
+    ctx = _build_indicator_registry(dashboard, gauge_src)
+    shared_history = _recent_readings(load_indicator_history())
 
     pages = {}
-
-    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")
-    pages["fear-greed-index.html"] = _indicator_page_shell(
-        "The Crypto Playback", "Fear &amp; Greed Index",
-        f'<img class="indicator-gauge" src="{gauge_src}" alt="Fear and Greed gauge">'
-        f'<div class="indicator-value" style="color:{fng_color};">{fng["value"]}'
-        f'<span class="indicator-value-word">{fng["classification"]}</span></div>',
-        [
-            ("What It Measures", "<p>Overall crypto market sentiment on a 0&ndash;100 scale, from Extreme Fear "
-             "to Extreme Greed.</p>"),
-            ("How It's Calculated", "<p>Pulled directly from Alternative.me's Crypto Fear &amp; Greed Index, "
-             "which blends volatility, market momentum and volume, social media activity, market dominance, "
-             "and search trends into a single score. We don't calculate this ourselves &mdash; we display "
-             "their published reading as of each issue.</p>"),
-            ("Why It Matters", "<p>Extreme readings often &mdash; not always &mdash; line up with emotional "
-             "turning points: extreme fear near local bottoms, extreme greed near local tops. It's a sentiment "
-             "gauge, not a price prediction.</p>"),
-            ("Data Source &amp; Update Frequency", "<p>Alternative.me Crypto Fear &amp; Greed Index "
-             "(api.alternative.me/fng). Refreshed automatically every 15 minutes.</p>"),
-        ],
-        history, lambda row: f"{row['fng']['value']} {row['fng']['classification']}",
-    )
-
-    mover_color = "#8FBF5C" if resolved_mover["change"] >= 0 else "#E24C4C"
-    pages["biggest-mover.html"] = _indicator_page_shell(
-        "The Crypto Playback", resolved_mover["label"].title(),
-        f'<div class="indicator-value"><span class="indicator-mover-symbol">{resolved_mover["symbol"]}</span>'
-        f'<span style="color:{mover_color};">{"+" if resolved_mover["change"] >= 0 else ""}{resolved_mover["change"]:.1f}%</span></div>',
-        [
-            ("What It Measures", "<p>Whichever of our top 6 tracked coins (by market cap, stablecoins excluded) "
-             "moved the most &mdash; up or down &mdash; over the relevant window: 24 hours for Daily issues, "
-             "7 days for Weekly issues.</p>"),
-            ("How It's Calculated", "<p>We rank the 6 tracked coins by the absolute size of their price change "
-             "over that window and surface the single biggest mover, in either direction.</p>"),
-            ("Why It Matters", "<p>Highlights where the action is actually concentrated, instead of just "
-             "reporting that \"the market was up.\"</p>"),
-            ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API. "
-             "Refreshed automatically every 15 minutes.</p>"),
-        ],
-        history, lambda row: f"{row['mover']['symbol']} {row['mover']['change']:+.1f}%",
-    )
-
-    pages["risk-radar.html"] = _indicator_page_shell(
-        "The Crypto Playback", "Risk Radar",
-        f'<span class="pulse-risk-badge pulse-risk-{signals["risk_level"]} indicator-risk-badge">{signals["risk_level"].upper()}</span>',
-        [
-            ("What It Measures", "<p>A simple read on how turbulent current market conditions are &mdash; "
-             "Low, Moderate, or Elevated.</p>"),
-            ("How It's Calculated", "<p>A Crypto Playback score built from two real inputs: how extreme the "
-             "Fear &amp; Greed reading is, and the average size of the 24-hour price move across our 6 tracked "
-             "coins. Extreme sentiment (Fear &amp; Greed &ge;80 or &le;20) adds 2 points, borderline extreme "
-             "(&ge;70 or &le;30) adds 1. Average 24h volatility &ge;8% adds 2 points, &ge;4% adds 1. "
-             "0&ndash;1 points reads Low, 2&ndash;3 reads Moderate, 4+ reads Elevated.</p>"),
-            ("Why It Matters", "<p>A temperature check on current conditions, not a forecast of what happens "
-             "next.</p>"),
-            ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from Alternative.me "
-             "and CoinGecko data &mdash; not pulled from any third-party \"risk\" API. "
-             "Refreshed automatically every 15 minutes.</p>"),
-        ],
-        history, lambda row: row["risk_level"].upper(),
-    )
-
-    pages["capital-flow.html"] = _indicator_page_shell(
-        "The Crypto Playback", "Capital Flow",
-        f'<div class="indicator-value" style="color:{flow_color};">{signals["capital_flow_score"]}'
-        f'<span class="indicator-value-word">{signals["capital_flow_signal"]}</span></div>',
-        [
-            ("What It Measures", "<p>Whether price and sector breadth, weighted against sentiment, currently "
-             "lean toward accumulation or distribution.</p>"),
-            ("How It's Calculated", "<p>60% weight on breadth (the share of our 6 tracked coins and tracked "
-             "sectors that are positive over 24 hours) plus 40% weight on the Fear &amp; Greed value, scaled "
-             "0&ndash;100. A score of 60+ reads Accumulation, 40&ndash;59 reads Mixed, below 40 reads "
-             "Distribution.</p>"),
-            ("An Honest Note On The Name", "<p>This is <strong>not</strong> built from ETF flows, exchange "
-             "order flow, or on-chain institutional transaction data &mdash; it's a composite of price/sector "
-             "breadth and sentiment. We plan to fold in real spot Bitcoin ETF flow data in a future update, "
-             "which will make this score more literally about capital flow.</p>"),
-            ("Why It Matters", "<p>Distinguishes whether a move is broad-based across many assets, or being "
-             "carried by just a couple of large coins.</p>"),
-            ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from CoinGecko and "
-             "Alternative.me data. Refreshed automatically every 15 minutes.</p>"),
-        ],
-        history, lambda row: f"{row['capital_flow_score']} {row['capital_flow_signal']}",
-    )
-
-    sector_rows_html = "".join(
-        f'<div class="pulse-sector-row"><span class="pulse-sector-name">{s["label"]}</span>'
-        f'<span class="pulse-sector-change" style="color:{"#8FBF5C" if s["change_24h"] >= 0 else "#E8837A"};">{s["change_24h"]:+.1f}%</span></div>'
-        for s in sectors
-    )
-    pages["top-sectors.html"] = _indicator_page_shell(
-        "The Crypto Playback", "Top Sectors",
-        f'<div class="pulse-sector-list indicator-sector-list">{sector_rows_html}</div>',
-        [
-            ("What It Measures", "<p>Which major crypto narrative categories &mdash; AI, RWA, DeFi, L1, L2, "
-             "Gaming, Memecoins, DePIN, NFT &mdash; are performing best over the last 24 hours.</p>"),
-            ("How It's Calculated", "<p>Ranked by 24-hour market-cap change within a curated watchlist of "
-             "recognizable sectors, so a narrow, noisy micro-category can't crowd out the real narratives.</p>"),
-            ("Why It Matters", "<p>Shows where money is rotating within the market, not just whether the "
-             "market overall is up or down.</p>"),
-            ("Data Source &amp; Update Frequency", "<p>CoinGecko categories API. "
-             "Refreshed automatically every 15 minutes.</p>"),
-        ],
-        history, lambda row: (f"{row['sectors'][0]['label']} {row['sectors'][0]['change_24h']:+.1f}%"
-                               if row.get("sectors") else "&ndash;"),
-    )
-
-    pages["stablecoin-liquidity.html"] = _indicator_page_shell(
-        "The Crypto Playback", "Stablecoin Liquidity",
-        f'<div class="indicator-value" style="color:{stable_signal["color"]};">'
-        f'${stablecoins["total_usd"]/1e9:.1f}B<span class="indicator-value-word">{stable_signal["signal"]}</span></div>',
-        [
-            ("What It Measures", "<p>The total circulating supply of major USD-pegged stablecoins (USDT, USDC, "
-             "DAI, and others) across all chains &mdash; a proxy for how much \"dry powder\" is sitting inside "
-             "the crypto ecosystem, ready to move.</p>"),
-            ("How It's Calculated", "<p>Total stablecoin market cap today vs. 7 days ago. A positive 7-day "
-             "change reads Expanding, negative reads Contracting.</p>"),
-            ("Why It Matters", "<p>Price charts don't show whether new capital is entering or leaving the "
-             "ecosystem. Expanding stablecoin supply means more capital is parked and available to buy; "
-             "contracting supply means capital is leaving the space entirely, not just rotating between "
-             "coins.</p>"),
-            ("Data Source &amp; Update Frequency", "<p>DefiLlama's free stablecoins API "
-             "(stablecoins.llama.fi). Refreshed automatically every 15 minutes.</p>"),
-        ],
-        history, lambda row: (f"${row['stablecoins']['total_usd']/1e9:.1f}B "
-                               f"({row['stablecoins']['change_7d_pct']:+.1f}%)"
-                               if row.get("stablecoins") else "&ndash;"),
-    )
-
-    etf = _load_etf_dashboard()
-    if etf:
-        flow_m = float(etf["latest_flow_usd"]) / 1e6
-        etf_color = "#8FBF5C" if flow_m >= 0 else "#E8837A"
-        thirty_d_html = (f"${float(etf['flow_30d_usd'])/1e6:+.0f}M" if etf["have_30d"]
-                          else f"building ({etf['available_days']} trading days stored so far)")
-        etf_hero = (f'<div class="indicator-value" style="color:{etf_color};">{flow_m:+.1f}M'
-                    f'<span class="indicator-value-word">{_etf_pressure_label(etf["pressure_score"], flow_m)}</span></div>')
-        etf_history_rows = [
-            {"date_display": d, "flow": f} for d, f in etf["history"][:12]
-        ]
-        etf_history_formatter = lambda row: f"${float(row['flow'])/1e6:+.1f}M"
-        validation_line = (
-            f"<p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering "
-            f"IBIT, BITB, and ARKB) for the same three funds: current status "
-            f"<strong>{etf['validation_status'] or 'UNAVAILABLE'}</strong>"
-            + (f", difference ${float(etf['validation_difference_usd'])/1e6:.1f}M." if etf.get('validation_difference_usd') else ".")
-            + "</p>"
+    for ind in ctx["indicators"]:
+        history_rows = ind.get("_etf_history_rows", shared_history)
+        pages[ind["page"]] = _indicator_page_shell(
+            "The Crypto Playback", ind["page_title"], ind["page_hero_html"],
+            ind["page_sections"], history_rows, ind["history_formatter"],
         )
-        freshness_line = f"<p>Data freshness: <strong>{etf['freshness']}</strong> ({etf['days_old']} day(s) since the latest confirmed trading day, {etf['latest_date']}).</p>"
-    else:
-        etf_hero = '<span class="pulse-risk-badge" style="color:#8A7F5C;background:rgba(138,127,92,0.14);border:1px solid rgba(138,127,92,0.4);">AWAITING DAILY ETF DATA</span>'
-        etf_history_rows = []
-        etf_history_formatter = lambda row: "&ndash;"
-        validation_line = "<p>No reading yet.</p>"
-        freshness_line = ""
-
-    pages["etf-flow.html"] = _indicator_page_shell(
-        "The Crypto Playback", "Bitcoin ETF Flow",
-        etf_hero,
-        [
-            ("What It Measures", "<p>The net daily flow of money into or out of US spot Bitcoin ETFs "
-             "(shares created/redeemed, valued in USD) &mdash; not a price prediction, a measurement of "
-             "fund-level buying and selling pressure on a single US trading day.</p>"),
-            ("How It's Calculated", "<p>Primary data: SoSoValue's aggregate net flow across all US spot "
-             "BTC ETFs. From the stored daily history we compute the latest confirmed flow, 3D/7D/30D/90D "
-             "cumulative totals and averages (30D/90D only shown once that much real history has actually "
-             "accumulated - never a shorter window mislabeled as a longer one), the current consecutive "
-             "inflow/outflow streak, a Flow Momentum read (7-day average vs. 30-day average, scaled by the "
-             "size of the 30-day average: &ge;50% relative difference reads Accelerating/Decelerating, "
-             "&ge;15% reads Strengthening/Weakening, otherwise Neutral), and a 0&ndash;100 Flow Pressure "
-             "score (40% the percentile rank of today's flow, 60% the percentile rank of the trailing "
-             "7-day cumulative, both against all stored history - weighted toward the 7-day figure so one "
-             "unusually large single day can't dominate the score).</p>"),
-            ("Independent Validation", validation_line +
-             "<p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check "
-             "(SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against "
-             "SoSoValue's full-universe total. Data via <a href=\"https://xoomar.com\">xoomar.com</a>.</p>"),
-            ("Why It Matters", "<p>Distinguishes real, fund-level capital movement from ordinary secondary-"
-             "market price action. We deliberately don't say things like \"institutions are buying\" or "
-             "\"this predicts price\" &mdash; only what the flow itself was.</p>"),
-            ("Data Source, Freshness &amp; Update Frequency", freshness_line +
-             "<p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day "
-             "figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute "
-             "cycle the other live indicators use, since polling a daily number that often would be "
-             "pointless.</p>"),
-        ],
-        etf_history_rows, etf_history_formatter,
-    )
-
     return pages
+
 
 
 def render_archive(entries):
