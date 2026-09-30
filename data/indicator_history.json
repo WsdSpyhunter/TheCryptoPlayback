@@ -2434,5 +2434,93 @@
       "total_market_cap_usd": 2882479810277.831
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-09-30T15:48:21.999771+00:00",
+    "prices": [
+      {
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 84112,
+        "change_24h": 1.08757,
+        "change_7d": -2.2983
+      },
+      {
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2683.22,
+        "change_24h": 0.03934,
+        "change_7d": -1.369
+      },
+      {
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 768.21,
+        "change_24h": 1.63226,
+        "change_7d": -1.8715
+      },
+      {
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.5,
+        "change_24h": -1.10444,
+        "change_7d": -5.0049
+      },
+      {
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 119.12,
+        "change_24h": 0.43448,
+        "change_7d": 1.7881
+      },
+      {
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.338535,
+        "change_24h": 1.31354,
+        "change_7d": -0.847
+      }
+    ],
+    "fng": {
+      "value": 71,
+      "classification": "Greed"
+    },
+    "mover": {
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 768.21,
+      "change_24h": 1.63226,
+      "change_7d": -1.8715
+    },
+    "week_mover": {
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.5,
+      "change_24h": -1.10444,
+      "change_7d": -5.0049
+    },
+    "sectors": [
+      {
+        "label": "AI",
+        "change_24h": 1.8881454044719883
+      },
+      {
+        "label": "L2",
+        "change_24h": 1.3900396757050264
+      },
+      {
+        "label": "RWA",
+        "change_24h": 0.8798091321889295
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 310955914423.15,
+      "change_7d_pct": 1.0025200520786572
+    },
+    "dominance": {
+      "btc_dominance_pct": 58.43242848938633,
+      "total_market_cap_usd": 2885869801133.7466
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
