@@ -1,0 +1,52 @@
+name: Refresh Live Indicators
+
+# Independent of the daily/weekly newsletter workflows - this keeps the
+# homepage's Market Snapshot / Signal Confluence / What Changed / Alerts &
+# Indicators current between issues instead of only updating once a day.
+# Unlike daily.yml/weekly.yml, this pushes straight to main (no PR review):
+# it only ever touches regenerated data/HTML files produced by
+# refresh_indicators.py, never post content or site source.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # every 15 minutes
+  workflow_dispatch: {}       # lets you trigger it manually from the Actions tab to test
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-indicators
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Refresh live indicator data
+        working-directory: scripts
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+        run: python refresh_indicators.py
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/live_indicators.json data/indicator_history.json \
+                  assets/gauges/live.png index.html \
+                  fear-greed-index.html biggest-mover.html risk-radar.html \
+                  capital-flow.html top-sectors.html stablecoin-liquidity.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Auto-refresh live indicators [skip ci]"
+          git pull --rebase origin main
+          git push

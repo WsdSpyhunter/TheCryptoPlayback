@@ -12,7 +12,7 @@ import json
 import math
 import os
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from PIL import Image, ImageDraw
 from partials import page, asset_version
 
@@ -26,6 +26,11 @@ POSTS_DATA_DIR = os.path.join(DATA_DIR, "posts")
 POSTS_HTML_DIR = os.path.join(ROOT, "posts")
 GAUGES_DIR = os.path.join(ROOT, "assets", "gauges")
 INDEX_FILE = os.path.join(DATA_DIR, "posts_index.json")
+# Live indicator data (see refresh_indicators.py) - refreshed on its own
+# schedule, completely independent of when a newsletter issue publishes.
+LIVE_DATA_FILE = os.path.join(DATA_DIR, "live_indicators.json")
+LIVE_HISTORY_FILE = os.path.join(DATA_DIR, "indicator_history.json")
+MAX_HISTORY_ENTRIES = 500  # ~5 days at a 15-minute refresh interval
 
 os.makedirs(POSTS_DATA_DIR, exist_ok=True)
 os.makedirs(POSTS_HTML_DIR, exist_ok=True)
@@ -318,25 +323,113 @@ def _market_data_from_post(post):
     return prices, fng, mover
 
 
-def _resolve_mover(mover, week_mover, tag):
-    """Which mover to show + its real change, shared by the dashboard cards,
-    the Signal Confluence dots and the indicator pages so they can never
-    show different numbers for the same thing."""
-    if tag == "Weekly" and week_mover:
-        return {
-            "symbol": week_mover["symbol"],
-            "change": week_mover["change_7d"],
-            "label": "BIGGEST MOVER OF THE WEEK",
-            "caption": "Rolling data from the previous 7 days",
-            "period": "the previous 7 days",
-        }
+def _live_mover_display(mover):
+    """Wraps the 24h biggest-mover reading for display - shared by the
+    Alerts & Indicators card, Signal Confluence, What Changed, and the
+    indicator page so they can never show different numbers for the same
+    thing. The live dashboard refreshes independently of the newsletter
+    now (see refresh_indicators.py), so there's no Daily/Weekly "tag" to
+    switch framing on anymore - always a 24h reading."""
     return {
         "symbol": mover["symbol"],
         "change": mover["change_24h"],
-        "label": "BIGGEST MOVER TODAY",
-        "caption": "",
+        "label": "BIGGEST MOVER (24H)",
+        "caption": "Ranked by size of the 24-hour move, not direction",
         "period": "the last 24 hours",
     }
+
+
+def load_indicator_history():
+    """Rolling log written by refresh_indicators.py, oldest first, capped
+    at MAX_HISTORY_ENTRIES. Used for each indicator page's Recent Readings
+    and for finding a real ~24h-ago snapshot to diff against in What
+    Changed. Returns [] if the refresh workflow hasn't run yet."""
+    try:
+        with open(LIVE_HISTORY_FILE) as f:
+            return json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def _find_comparison_snapshot(history, hours_ago=24):
+    """The history entry closest to `hours_ago` before the latest one, for
+    a real "what changed since about a day ago" diff. Falls back to the
+    oldest entry available while the history is still younger than that
+    (e.g. the first day after the refresh workflow goes live) rather than
+    reporting nothing at all."""
+    if len(history) < 2:
+        return None
+    latest_ts = datetime.fromisoformat(history[-1]["updated_at"])
+    target = latest_ts - timedelta(hours=hours_ago)
+    best, best_diff = None, None
+    for row in history[:-1]:
+        ts = datetime.fromisoformat(row["updated_at"])
+        diff = abs((ts - target).total_seconds())
+        if best_diff is None or diff < best_diff:
+            best, best_diff = row, diff
+    return best
+
+
+def _load_dashboard_data(entries):
+    """Everything the homepage's live indicator sections need - Market
+    Snapshot, Signal Confluence, What Changed, Alerts & Indicators, and
+    each indicator's own page. Sourced from data/live_indicators.json,
+    refreshed independently of the newsletter by refresh_indicators.py on
+    its own schedule (.github/workflows/refresh-indicators.yml) - not tied
+    to when a newsletter issue publishes.
+
+    Falls back to the latest published post's saved snapshot only if that
+    file doesn't exist yet (e.g. before the refresh workflow has ever run,
+    or on a fresh checkout) - the site should never break just because a
+    scheduled job hasn't fired."""
+    try:
+        with open(LIVE_DATA_FILE) as f:
+            live = json.load(f)
+        if live.get("prices"):
+            return live
+    except (OSError, json.JSONDecodeError):
+        pass
+
+    if not entries:
+        return None
+    latest_slug = entries[0]["slug"]
+    try:
+        with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
+            latest_full = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return None
+    prices, fng, mover = _market_data_from_post(latest_full)
+    if not prices:
+        return None
+    if len(prices) < 6:
+        # Predates the Top-6 change - pad so the design still reviews as a
+        # real 6-wide grid. Not a real price; gone the moment a refresh runs.
+        prices = prices + [{"symbol": "DOGE", "price": 0.18, "change_24h": 3.4}]
+    sectors = latest_full.get("sectors") or [
+        {"label": "RWA", "change_24h": 12.4},
+        {"label": "AI", "change_24h": 8.7},
+        {"label": "DeFi", "change_24h": 5.2},
+    ]
+    stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
+    return {
+        "updated_at": None,
+        "prices": prices,
+        "fng": fng,
+        "mover": mover,
+        "sectors": sectors,
+        "stablecoins": stablecoins,
+        "gauge_path": latest_full.get("gauge_path", ""),
+    }
+
+
+def _format_live_updated(updated_at_iso, fallback_display):
+    """'Sept. 29, 2026 - 2:45 PM UTC' from the live refresh timestamp, or
+    the post's own date_display if there's no live timestamp yet (the
+    fallback-to-latest-post path in _load_dashboard_data)."""
+    if not updated_at_iso:
+        return fallback_display
+    dt = datetime.fromisoformat(updated_at_iso)
+    return f"{format_date_abbrev(dt)} &middot; {dt.strftime('%-I:%M %p')} UTC"
 
 
 def _compute_derived_signals(prices, fng, sectors):
@@ -464,43 +557,25 @@ def render_index(entries):
     if not entries:
         return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year)
 
-    # Homepage-only market design (see render_market_pulse) built from the
-    # latest issue's real numbers - a static snapshot from the last publish
-    # for now (design pass only, per explicit instruction to nail the layout
-    # before wiring up any live CoinGecko/Fear&Greed pulls).
-    latest_slug = entries[0]["slug"]
-    with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
-        latest_full = json.load(f)
-    prices, fng, mover = _market_data_from_post(latest_full)
-    if len(prices) < 6:
-        # This snapshot predates the Top-6 change (fetch_prices.py/
-        # generate_issue.py already fetch and save 6 real coins for every
-        # post from here on) - padding with one placeholder card just so
-        # the design can be reviewed as a real 6-wide grid. Not a real
-        # price; replaced automatically the next time a post publishes.
-        prices = prices + [{"symbol": "DOGE", "price": 0.18, "change_24h": 3.4}]
-    gauge_src = latest_full.get("gauge_path", "")
-    date_abbrev = latest_full.get("date_abbrev", latest_full.get("date_display", ""))
-    # Posts from before the sectors feature don't have this field saved -
-    # fall back to a placeholder top-3 so older snapshots still render the
-    # card instead of breaking.
-    sectors = latest_full.get("sectors") or [
-        {"label": "RWA", "change_24h": 12.4},
-        {"label": "AI", "change_24h": 8.7},
-        {"label": "DeFi", "change_24h": 5.2},
-    ]
-    # Posts from before the rolling-7-day mover existed don't have this
-    # field saved either - a placeholder here just so a Weekly snapshot
-    # still previews the card's real 7-day framing.
-    week_mover = latest_full.get("week_mover") or {"symbol": "SOL", "change_7d": 18.6}
-    # Posts from before the stablecoin liquidity feature don't have this
-    # field saved either - placeholder here only, replaced automatically
-    # the next time a post publishes.
-    stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
+    # Homepage's live indicator sections (ticker, Market Snapshot, Signal
+    # Confluence, What Changed, Alerts & Indicators) are sourced from
+    # data/live_indicators.json, refreshed on its own 15-minute schedule by
+    # refresh_indicators.py - completely independent of when a newsletter
+    # issue publishes. See _load_dashboard_data for the fallback used
+    # before that file exists.
+    dashboard = _load_dashboard_data(entries)
+    if dashboard is None:
+        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year)
+    prices = dashboard["prices"]
+    fng = dashboard["fng"]
+    mover = dashboard["mover"]
+    sectors = dashboard["sectors"]
+    stablecoins = dashboard["stablecoins"]
+    gauge_src = dashboard["gauge_path"]
+    date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
     stable_signal = _stablecoin_signal(stablecoins)
-    tag = latest_full.get("tag", "Daily")
     signals = _compute_derived_signals(prices, fng, sectors)
-    resolved_mover = _resolve_mover(mover, week_mover, tag)
+    resolved_mover = _live_mover_display(mover)
     market_strip = render_market_pulse(prices, date_abbrev)
 
     # ============ Playback Snapshot: Signal Confluence + What Changed? ============
@@ -582,7 +657,7 @@ def render_index(entries):
       <h2 class="snapshot-title">Market Snapshot</h2>
       <p class="snapshot-text">{snapshot_text}</p>
       <div class="snapshot-meta">
-        <span>Updated {latest_full.get('date_display', '')}</span>
+        <span>Updated {date_abbrev}</span>
         <span class="snapshot-meta-dot">&middot;</span>
         <span>Based on {total_count} market indicators</span>
       </div>
@@ -599,75 +674,64 @@ def render_index(entries):
     </div>
   </section>"""
 
-    # "What Changed?" compares the latest issue to the most recent *different*
-    # prior issue - real deltas only; an indicator that didn't move is left
-    # out rather than padded with a non-change to hit some item count.
-    prev_full = None
-    seen_slugs = {latest_slug}
-    for e in entries[1:]:
-        if e["slug"] in seen_slugs:
-            continue
-        seen_slugs.add(e["slug"])
-        try:
-            with open(os.path.join(POSTS_DATA_DIR, f"{e['slug']}.json")) as f:
-                prev_full = json.load(f)
-        except (OSError, json.JSONDecodeError):
-            prev_full = None
-        break
+    # "What Changed?" compares the latest live reading to the snapshot from
+    # about 24 hours ago in data/indicator_history.json (written by
+    # refresh_indicators.py on every scheduled run) - real deltas only,
+    # completely independent of the newsletter's publish cadence now. An
+    # indicator that didn't move meaningfully is left out rather than
+    # padded with a non-change to hit some item count.
+    history = load_indicator_history()
+    prev_snapshot = _find_comparison_snapshot(history, hours_ago=24)
 
     change_items = []
-    if prev_full:
-        prev_prices, prev_fng, prev_mover_raw = _market_data_from_post(prev_full)
-        prev_sectors = prev_full.get("sectors") or []
-        if prev_prices:
-            prev_signals = _compute_derived_signals(prev_prices, prev_fng, prev_sectors)
-            prev_resolved_mover = _resolve_mover(
-                prev_mover_raw, prev_full.get("week_mover"), prev_full.get("tag", "Daily")
-            )
+    if prev_snapshot:
+        prev_fng = prev_snapshot["fng"]
+        prev_sectors = prev_snapshot.get("sectors") or []
+        prev_signals = _compute_derived_signals(prev_snapshot["prices"], prev_fng, prev_sectors)
+        prev_mover_display = _live_mover_display(prev_snapshot["mover"])
 
-            fng_delta = fng["value"] - prev_fng["value"]
-            if fng_delta != 0:
-                dot = "&#128994;" if fng_delta > 0 else "&#128308;"
-                change_items.append((dot, "Fear &amp; Greed shifted",
-                                      f"{prev_fng['value']} &rarr; {fng['value']} ({fng_delta:+d})"))
+        fng_delta = fng["value"] - prev_fng["value"]
+        if fng_delta != 0:
+            dot = "&#128994;" if fng_delta > 0 else "&#128308;"
+            change_items.append((dot, "Fear &amp; Greed shifted",
+                                  f"{prev_fng['value']} &rarr; {fng['value']} ({fng_delta:+d})"))
 
-            if signals["risk_level"] != prev_signals["risk_level"]:
-                risk_rank = {"low": 0, "moderate": 1, "elevated": 2}
-                dot = "&#128994;" if risk_rank[signals["risk_level"]] < risk_rank[prev_signals["risk_level"]] else "&#128308;"
-                change_items.append((dot, "Risk Radar shifted",
-                                      f"{prev_signals['risk_level'].upper()} &rarr; {signals['risk_level'].upper()}"))
+        if signals["risk_level"] != prev_signals["risk_level"]:
+            risk_rank = {"low": 0, "moderate": 1, "elevated": 2}
+            dot = "&#128994;" if risk_rank[signals["risk_level"]] < risk_rank[prev_signals["risk_level"]] else "&#128308;"
+            change_items.append((dot, "Risk Radar shifted",
+                                  f"{prev_signals['risk_level'].upper()} &rarr; {signals['risk_level'].upper()}"))
 
-            flow_delta = signals["capital_flow_score"] - prev_signals["capital_flow_score"]
-            if abs(flow_delta) >= 5:
-                dot = "&#128994;" if flow_delta > 0 else "&#128308;"
-                change_items.append((dot, "Capital Flow moved",
-                                      f"{prev_signals['capital_flow_score']} &rarr; {signals['capital_flow_score']} ({flow_delta:+d})"))
+        flow_delta = signals["capital_flow_score"] - prev_signals["capital_flow_score"]
+        if abs(flow_delta) >= 5:
+            dot = "&#128994;" if flow_delta > 0 else "&#128308;"
+            change_items.append((dot, "Capital Flow moved",
+                                  f"{prev_signals['capital_flow_score']} &rarr; {signals['capital_flow_score']} ({flow_delta:+d})"))
 
-            if sectors and prev_sectors and sectors[0]["label"] != prev_sectors[0]["label"]:
-                change_items.append(("&#128993;", "Sector leadership rotated",
-                                      f"{prev_sectors[0]['label']} &rarr; {sectors[0]['label']}"))
+        if sectors and prev_sectors and sectors[0]["label"] != prev_sectors[0]["label"]:
+            change_items.append(("&#128993;", "Sector leadership rotated",
+                                  f"{prev_sectors[0]['label']} &rarr; {sectors[0]['label']}"))
 
-            if resolved_mover["symbol"] != prev_resolved_mover["symbol"]:
-                change_items.append(("&#128993;", "Biggest mover changed",
-                                      f"{prev_resolved_mover['symbol']} &rarr; {resolved_mover['symbol']}"))
+        if resolved_mover["symbol"] != prev_mover_display["symbol"]:
+            change_items.append(("&#128993;", "Biggest mover changed",
+                                  f"{prev_mover_display['symbol']} &rarr; {resolved_mover['symbol']}"))
 
-            prev_stablecoins = prev_full.get("stablecoins")
-            if prev_stablecoins:
-                stable_delta_b = (stablecoins["total_usd"] - prev_stablecoins["total_usd"]) / 1e9
-                if abs(stable_delta_b) >= 0.5:
-                    dot = "&#128994;" if stable_delta_b > 0 else "&#128308;"
-                    change_items.append((dot, "Stablecoin supply moved",
-                                          f"${prev_stablecoins['total_usd']/1e9:.1f}B &rarr; "
-                                          f"${stablecoins['total_usd']/1e9:.1f}B ({stable_delta_b:+.1f}B)"))
+        prev_stablecoins = prev_snapshot.get("stablecoins")
+        if prev_stablecoins:
+            stable_delta_b = (stablecoins["total_usd"] - prev_stablecoins["total_usd"]) / 1e9
+            if abs(stable_delta_b) >= 0.5:
+                dot = "&#128994;" if stable_delta_b > 0 else "&#128308;"
+                change_items.append((dot, "Stablecoin supply moved",
+                                      f"${prev_stablecoins['total_usd']/1e9:.1f}B &rarr; "
+                                      f"${stablecoins['total_usd']/1e9:.1f}B ({stable_delta_b:+.1f}B)"))
 
-    if not change_items and prev_full:
+    if not change_items and prev_snapshot:
         # PREVIEW COPY, requested by the user to see the section's real
-        # layout with content in it (today's two saved issues happen to
-        # carry identical market data, so the real comparison above finds
-        # nothing to report). Same 5 real indicators this section actually
-        # tracks, illustrative numbers only - swap back to the genuine
-        # "No major shifts" empty state (still handled below) once real
-        # day-over-day drift exists, or sooner on request.
+        # layout with content in it (there isn't 24h of real drift yet).
+        # Same real indicators this section actually tracks, illustrative
+        # numbers only - swap back to the genuine "No major shifts" empty
+        # state (still handled below) once real drift exists, or sooner
+        # on request.
         change_items = [
             ("&#128994;", "Fear &amp; Greed climbed", "62 &rarr; 70 (+8)"),
             ("&#128994;", "Capital Flow strengthened", "74 &rarr; 88 (+14)"),
@@ -824,15 +888,13 @@ def render_index(entries):
     # visitor knows what they're looking at. Icons/images are reused from the
     # dashboard cards themselves (same gauge image, same emoji) rather than
     # inventing new art, so the two sections visibly reference each other.
-    mover_period = "the previous 7 days" if latest_full.get("tag", "Daily") == "Weekly" else "the last 24 hours"
-    mover_title = "Biggest Mover Of The Week" if latest_full.get("tag", "Daily") == "Weekly" else "Biggest Mover Today"
     explainer_cards = [
         (f'<img class="explainer-icon-img" src="{gauge_src}" alt="">', "Fear &amp; Greed Index",
          "A 0&ndash;100 read on overall market mood, from Extreme Fear to Extreme Greed. "
          "Calculated daily from real volatility, momentum, and social data, not opinion. "
          "Extremes often line up with emotional turning points, not rational ones."),
-        ("&#128200;", mover_title,
-         f"Whichever of our top 6 tracked coins moved the most, up or down, over {mover_period}. "
+        ("&#128200;", "Biggest Mover (24H)",
+         "Whichever of our top 6 tracked coins moved the most, up or down, over the last 24 hours. "
          "Ranked purely by the size of the move, not its direction. "
          "A quick read on where the action is happening right now."),
         ("&#9888;&#65039;", "Risk Radar",
@@ -847,6 +909,10 @@ def render_index(entries):
          "Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a "
          "curated list of major sectors so tiny micro-categories can't skew the results. "
          "Shows where money is rotating inside the market, not just up or down overall."),
+        ("&#128181;", "Stablecoin Liquidity",
+         "Tracks total stablecoin supply and its 7-day change &mdash; a proxy for how much capital is "
+         "parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is "
+         "entering; contracting means it's leaving the space entirely."),
     ]
     explainer_html = "".join(
         f"""<div class="explainer-card">
@@ -872,39 +938,31 @@ def render_index(entries):
     return page("", "The Crypto Playback", body, datetime.now().year)
 
 
-def _historical_readings(entries):
-    """Real per-issue snapshots (oldest first) across every saved issue -
-    used for the 'Recent Readings' list on each indicator page. Only ever
-    as deep as real published issues go; nothing here is backfilled or
-    estimated, so it starts thin and grows with every new issue."""
-    seen = set()
+def _recent_readings(history, limit=12):
+    """The most recent `limit` live snapshots (oldest first for display),
+    each with its derived signals recomputed the same way as the current
+    reading. Sourced from data/indicator_history.json, written on every
+    refresh_indicators.py run - independent of the newsletter, so this
+    grows on its own 15-minute schedule rather than once per issue."""
     rows = []
-    for e in entries:
-        if e["slug"] in seen:
+    for snap in history[-limit:]:
+        prices = snap.get("prices") or []
+        fng = snap.get("fng")
+        if not prices or not fng:
             continue
-        seen.add(e["slug"])
-        try:
-            with open(os.path.join(POSTS_DATA_DIR, f"{e['slug']}.json")) as f:
-                full = json.load(f)
-        except (OSError, json.JSONDecodeError):
-            continue
-        p, f_, m = _market_data_from_post(full)
-        if not p:
-            continue
-        s = full.get("sectors") or []
-        sig = _compute_derived_signals(p, f_, s)
+        sectors = snap.get("sectors") or []
+        sig = _compute_derived_signals(prices, fng, sectors)
+        dt = datetime.fromisoformat(snap["updated_at"])
         rows.append({
-            "date_display": full.get("date_display", ""),
-            "tag": full.get("tag", "Daily"),
-            "fng": f_,
-            "mover": _resolve_mover(m, full.get("week_mover"), full.get("tag", "Daily")),
-            "sectors": s,
+            "date_display": f"{format_date_abbrev(dt)} {dt.strftime('%-I:%M %p')} UTC",
+            "fng": fng,
+            "mover": _live_mover_display(snap["mover"]),
+            "sectors": sectors,
             "risk_level": sig["risk_level"],
             "capital_flow_score": sig["capital_flow_score"],
             "capital_flow_signal": sig["capital_flow_signal"],
-            "stablecoins": full.get("stablecoins"),
+            "stablecoins": snap.get("stablecoins"),
         })
-    rows.reverse()
     return rows
 
 
@@ -919,13 +977,13 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
     if history_rows:
         history_html = "".join(
             f"""<div class="indicator-history-row">
-            <span class="indicator-history-date">{row['date_display']} &middot; {row['tag']}</span>
+            <span class="indicator-history-date">{row['date_display']}</span>
             <span class="indicator-history-value">{history_formatter(row)}</span>
           </div>"""
             for row in history_rows
         )
     else:
-        history_html = '<p class="changed-empty">No history yet &mdash; check back after the next issue.</p>'
+        history_html = '<p class="changed-empty">No history yet &mdash; check back after the next refresh.</p>'
     body_html = f"""<section class="indicator-hero">
     <div class="indicator-hero-inner">
       <span class="snapshot-eyebrow">{eyebrow}</span>
@@ -938,38 +996,34 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
     <div class="indicator-section">
       <h2>Recent Readings</h2>
       <div class="indicator-history">{history_html}</div>
-      <p class="indicator-history-note">History builds up with every new issue we publish &mdash; it isn't backfilled or estimated.</p>
+      <p class="indicator-history-note">Refreshed automatically every 15 minutes &mdash; nothing here is backfilled or estimated.</p>
     </div>
   </div>"""
     return page("", f"{title} — The Crypto Playback", body_html, datetime.now().year)
 
 
 def render_indicator_pages(entries):
-    """{filename: html} for every real indicator's dedicated page. Called
-    from both the daily/weekly automation and a manual full rebuild so
-    these always reflect the latest published issue. Deliberately built
-    for all 5 indicators we have real data for (not just one), so the
-    Alerts & Indicators cards on the homepage never link to a dead page."""
-    if not entries:
+    """{filename: html} for every real indicator's dedicated page. Sourced
+    from the same live indicator data as the homepage (see
+    _load_dashboard_data) - refreshed on its own 15-minute schedule by
+    refresh_indicators.py, independent of the newsletter. `entries` is
+    only needed for _load_dashboard_data's fallback path (before the
+    refresh workflow has ever run). Deliberately built for every indicator
+    we have real data for (not just one), so the Alerts & Indicators cards
+    on the homepage never link to a dead page."""
+    dashboard = _load_dashboard_data(entries)
+    if dashboard is None:
         return {}
-    latest_slug = entries[0]["slug"]
-    try:
-        with open(os.path.join(POSTS_DATA_DIR, f"{latest_slug}.json")) as f:
-            latest_full = json.load(f)
-    except (OSError, json.JSONDecodeError):
-        return {}
-    prices, fng, mover = _market_data_from_post(latest_full)
-    if not prices:
-        return {}
-    sectors = latest_full.get("sectors") or []
-    week_mover = latest_full.get("week_mover")
-    tag = latest_full.get("tag", "Daily")
-    gauge_src = latest_full.get("gauge_path", "")
+    prices = dashboard["prices"]
+    fng = dashboard["fng"]
+    mover = dashboard["mover"]
+    sectors = dashboard["sectors"]
+    gauge_src = dashboard["gauge_path"]
     signals = _compute_derived_signals(prices, fng, sectors)
-    resolved_mover = _resolve_mover(mover, week_mover, tag)
-    stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
+    resolved_mover = _live_mover_display(mover)
+    stablecoins = dashboard["stablecoins"]
     stable_signal = _stablecoin_signal(stablecoins)
-    history = _historical_readings(entries)
+    history = _recent_readings(load_indicator_history())
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
         signals["capital_flow_signal"].lower(), "#8A7F5C"
     )
@@ -993,7 +1047,7 @@ def render_indicator_pages(entries):
              "turning points: extreme fear near local bottoms, extreme greed near local tops. It's a sentiment "
              "gauge, not a price prediction.</p>"),
             ("Data Source &amp; Update Frequency", "<p>Alternative.me Crypto Fear &amp; Greed Index "
-             "(api.alternative.me/fng). Refreshed every time we publish a new issue, daily and weekly.</p>"),
+             "(api.alternative.me/fng). Refreshed automatically every 15 minutes.</p>"),
         ],
         history, lambda row: f"{row['fng']['value']} {row['fng']['classification']}",
     )
@@ -1011,8 +1065,8 @@ def render_indicator_pages(entries):
              "over that window and surface the single biggest mover, in either direction.</p>"),
             ("Why It Matters", "<p>Highlights where the action is actually concentrated, instead of just "
              "reporting that \"the market was up.\"</p>"),
-            ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API. Refreshed every time we "
-             "publish a new issue.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API. "
+             "Refreshed automatically every 15 minutes.</p>"),
         ],
         history, lambda row: f"{row['mover']['symbol']} {row['mover']['change']:+.1f}%",
     )
@@ -1031,8 +1085,8 @@ def render_indicator_pages(entries):
             ("Why It Matters", "<p>A temperature check on current conditions, not a forecast of what happens "
              "next.</p>"),
             ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from Alternative.me "
-             "and CoinGecko data &mdash; not pulled from any third-party \"risk\" API. Refreshed every time we "
-             "publish a new issue.</p>"),
+             "and CoinGecko data &mdash; not pulled from any third-party \"risk\" API. "
+             "Refreshed automatically every 15 minutes.</p>"),
         ],
         history, lambda row: row["risk_level"].upper(),
     )
@@ -1055,7 +1109,7 @@ def render_indicator_pages(entries):
             ("Why It Matters", "<p>Distinguishes whether a move is broad-based across many assets, or being "
              "carried by just a couple of large coins.</p>"),
             ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from CoinGecko and "
-             "Alternative.me data. Refreshed every time we publish a new issue.</p>"),
+             "Alternative.me data. Refreshed automatically every 15 minutes.</p>"),
         ],
         history, lambda row: f"{row['capital_flow_score']} {row['capital_flow_signal']}",
     )
@@ -1075,8 +1129,8 @@ def render_indicator_pages(entries):
              "recognizable sectors, so a narrow, noisy micro-category can't crowd out the real narratives.</p>"),
             ("Why It Matters", "<p>Shows where money is rotating within the market, not just whether the "
              "market overall is up or down.</p>"),
-            ("Data Source &amp; Update Frequency", "<p>CoinGecko categories API. Refreshed every time we "
-             "publish a new issue.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>CoinGecko categories API. "
+             "Refreshed automatically every 15 minutes.</p>"),
         ],
         history, lambda row: (f"{row['sectors'][0]['label']} {row['sectors'][0]['change_24h']:+.1f}%"
                                if row.get("sectors") else "&ndash;"),
@@ -1097,7 +1151,7 @@ def render_indicator_pages(entries):
              "contracting supply means capital is leaving the space entirely, not just rotating between "
              "coins.</p>"),
             ("Data Source &amp; Update Frequency", "<p>DefiLlama's free stablecoins API "
-             "(stablecoins.llama.fi). Refreshed every time we publish a new issue.</p>"),
+             "(stablecoins.llama.fi). Refreshed automatically every 15 minutes.</p>"),
         ],
         history, lambda row: (f"${row['stablecoins']['total_usd']/1e9:.1f}B "
                                f"({row['stablecoins']['change_7d_pct']:+.1f}%)"
