@@ -22,6 +22,7 @@ from fetch_prices import get_top_prices
 from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
+from fetch_dominance import get_btc_dominance
 from build_site import (
     ROOT, LIVE_DATA_FILE, LIVE_HISTORY_FILE, MAX_HISTORY_ENTRIES,
     compute_biggest_mover, compute_weekly_mover, save_gauge_image,
@@ -34,6 +35,7 @@ def refresh():
     fng = get_fear_greed()
     sectors = get_top_sectors()
     stablecoins = get_stablecoin_liquidity()
+    dominance = get_btc_dominance()
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
     # Fixed slug ("live", not a post slug) - this is the one gauge image
@@ -49,6 +51,7 @@ def refresh():
         "week_mover": week_mover,
         "sectors": sectors,
         "stablecoins": stablecoins,
+        "dominance": dominance,
         "gauge_path": gauge_path,
     }
     with open(LIVE_DATA_FILE, "w") as f:
@@ -76,6 +79,7 @@ def refresh():
     print(f"Refreshed live indicators at {live['updated_at']} "
           f"(F&G {fng['value']} {fng['classification']}, "
           f"stablecoins ${stablecoins['total_usd']/1e9:.1f}B, "
+          f"BTC dominance {dominance['btc_dominance_pct']:.1f}%, "
           f"{len(history)} history entries)")
 
 

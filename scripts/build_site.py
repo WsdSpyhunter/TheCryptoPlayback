@@ -386,6 +386,10 @@ def _load_dashboard_data(entries):
         with open(LIVE_DATA_FILE) as f:
             live = json.load(f)
         if live.get("prices"):
+            # "dominance" is a newer field - a live_indicators.json written by an
+            # older refresh_indicators.py (before its next scheduled run) won't
+            # have it yet, so backfill a harmless placeholder rather than KeyError.
+            live.setdefault("dominance", {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -411,6 +415,7 @@ def _load_dashboard_data(entries):
         {"label": "DeFi", "change_24h": 5.2},
     ]
     stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
+    dominance = latest_full.get("dominance") or {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12}
     return {
         "updated_at": None,
         "prices": prices,
@@ -418,6 +423,7 @@ def _load_dashboard_data(entries):
         "mover": mover,
         "sectors": sectors,
         "stablecoins": stablecoins,
+        "dominance": dominance,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -523,6 +529,39 @@ def _stablecoin_signal(stablecoins):
     }
 
 
+DOMINANCE_ROTATION_THRESHOLD = 3.0  # percentage points of 24h-change gap between BTC and the alt average
+
+
+def _dominance_signal(prices, dominance):
+    """Altcoin Rotation / BTC Dominance's signal: not a history lookback,
+    just BTC's own 24h price change vs. the average 24h change of the
+    other tracked coins - reusing data this refresh already fetched, so
+    the reading is real from the very first run instead of waiting on
+    accumulated history like ETF Flow or Market Breadth need to.
+
+    A positive gap (alts up more than BTC over the same 24 hours) reads
+    as alts gaining ground; a negative gap reads as BTC gaining ground.
+    +-3 percentage points is the threshold for calling it a real gap
+    rather than ordinary day-to-day noise between two return series."""
+    btc = next((p for p in prices if p["symbol"] == "BTC"), None)
+    alts = [p for p in prices if p is not btc]
+    if btc is None or not alts:
+        return {"gap": None, "label": "Insufficient Data", "positive": None}
+
+    alt_avg_change = sum(a["change_24h"] for a in alts) / len(alts)
+    gap = alt_avg_change - btc["change_24h"]
+    if gap >= DOMINANCE_ROTATION_THRESHOLD:
+        label, positive = "Alts Outperforming", True
+    elif gap <= -DOMINANCE_ROTATION_THRESHOLD:
+        label, positive = "BTC Outperforming", False
+    else:
+        # A genuinely neutral read shouldn't force a green or red Signal
+        # Confluence dot - "In Line" sits out of confluence entirely, same
+        # as an indicator still awaiting its first real data.
+        label, positive = "In Line", None
+    return {"gap": gap, "label": label, "positive": positive}
+
+
 def _etf_pressure_label(pressure_score, flow_m):
     """Documented, symmetric mapping from the 0-100 pressure score (see
     etf_data.py) to a plain-language label - deliberately never says
@@ -621,9 +660,11 @@ def _build_indicator_registry(dashboard, gauge_src):
     mover = dashboard["mover"]
     sectors = dashboard["sectors"]
     stablecoins = dashboard["stablecoins"]
+    dominance = dashboard["dominance"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
+    rotation = _dominance_signal(prices, dominance)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -631,6 +672,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
         signals["capital_flow_signal"].lower(), "#8A7F5C"
     )
+    rotation_color = {"Alts Outperforming": "#8FBF5C", "BTC Outperforming": "#E8837A"}.get(rotation["label"], "#F2C94C")
 
     registry = [
         {
@@ -791,6 +833,46 @@ def _build_indicator_registry(dashboard, gauge_src):
             ],
             "history_formatter": lambda row: (f"{row['sectors'][0]['label']} {row['sectors'][0]['change_24h']:+.1f}%"
                                                if row.get("sectors") else "&ndash;"),
+        },
+        {
+            "id": "dominance_rotation",
+            "page": "btc-dominance.html",
+            "card_label": "&#129517; Altcoin Rotation",
+            "card_main_html": _value_visual(f'{dominance["btc_dominance_pct"]:.1f}%', rotation["label"], rotation_color, "card"),
+            "card_caption": (f'{"Alts" if rotation["gap"] >= 0 else "BTC"} leading by {abs(rotation["gap"]):.1f}pp over 24h'
+                             if rotation["gap"] is not None else "BTC share of total crypto market cap"),
+            "confluence_name": "Altcoin Rotation",
+            "confluence_positive": rotation["positive"],
+            "confluence_display": f'{dominance["btc_dominance_pct"]:.1f}% BTC dom. ({rotation["label"]})',
+            "explainer_icon": "&#129517;",
+            "explainer_text": (
+                "Bitcoin's share of total crypto market cap, plus whether the other tracked coins are "
+                "outperforming or underperforming BTC over the last 24 hours. Rising alt participation reads "
+                "as broader breadth, not a price prediction for either side."),
+            "page_title": "Altcoin Rotation / BTC Dominance",
+            "page_hero_html": _value_visual(f'{dominance["btc_dominance_pct"]:.1f}%', rotation["label"], rotation_color, "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>Two related reads: Bitcoin's share of total crypto market capitalization "
+                 "(\"BTC dominance\"), and whether our tracked altcoins are currently outperforming or "
+                 "underperforming BTC on a 24-hour basis.</p>"),
+                ("How It's Calculated", "<p>BTC dominance comes directly from CoinGecko's global market data "
+                 f"(no calculation on our end). The rotation label compares BTC's own 24-hour price change "
+                 f"against the average 24-hour change of the other tracked coins: a gap of "
+                 f"&ge;{DOMINANCE_ROTATION_THRESHOLD:.0f} percentage points either way reads Alts Outperforming "
+                 f"or BTC Outperforming; anything smaller reads In Line.</p>"),
+                ("How We Read \"Positive\"", "<p>In Signal Confluence, Alts Outperforming counts as the "
+                 "\"positive\" reading here &mdash; the same broadening-participation convention Top Sectors "
+                 "and Capital Flow use &mdash; not a call that altcoins are the better trade. An In Line "
+                 "reading is left out of Signal Confluence entirely rather than forced green or red, and BTC "
+                 "dominance rising or falling says nothing about where the total market is headed.</p>"),
+                ("Why It Matters", "<p>Distinguishes a market where gains are concentrated in Bitcoin from one "
+                 "where participation has broadened into altcoins &mdash; two very different market states "
+                 "that a single \"market is up\" headline can't tell apart.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>CoinGecko public global-market API. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (f"{row['dominance']['btc_dominance_pct']:.1f}% BTC dom."
+                                               if row.get("dominance") else "&ndash;"),
         },
         {
             "id": "stablecoin_liquidity",
@@ -1060,6 +1142,7 @@ def render_index(entries):
     mover = dashboard["mover"]
     sectors = dashboard["sectors"]
     stablecoins = dashboard["stablecoins"]
+    dominance = dashboard["dominance"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
 
@@ -1212,6 +1295,15 @@ def render_index(entries):
                 change_items.append((dot, "Stablecoin supply moved",
                                       f"${prev_stablecoins['total_usd']/1e9:.1f}B &rarr; "
                                       f"${stablecoins['total_usd']/1e9:.1f}B ({stable_delta_b:+.1f}B)"))
+
+        prev_dominance = prev_snapshot.get("dominance")
+        if prev_dominance:
+            dom_delta = dominance["btc_dominance_pct"] - prev_dominance["btc_dominance_pct"]
+            if abs(dom_delta) >= 0.5:
+                dot = "&#128994;" if dom_delta < 0 else "&#128308;"  # falling dominance = alts gaining share
+                change_items.append((dot, "BTC Dominance shifted",
+                                      f"{prev_dominance['btc_dominance_pct']:.1f}% &rarr; "
+                                      f"{dominance['btc_dominance_pct']:.1f}% ({dom_delta:+.1f}pp)"))
 
     # ETF Flow diffs against its own most recent prior trading day (from
     # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has
