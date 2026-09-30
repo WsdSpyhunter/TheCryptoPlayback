@@ -394,6 +394,8 @@ def _load_dashboard_data(entries):
             live.setdefault("defi_tvl", {"total_usd": 95e9, "change_7d_pct": 0.0})
             live.setdefault("network_health", {"hashrate_eh": 950.0, "difficulty_change_pct": 0.0,
                                                 "fastest_fee_satvb": 5, "pending_tx_count": 10000})
+            live.setdefault("liquidations", {"long_liq_usd": 0.0, "short_liq_usd": 0.0,
+                                              "event_count": 0, "window_minutes": 0.0})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -424,6 +426,8 @@ def _load_dashboard_data(entries):
     defi_tvl = latest_full.get("defi_tvl") or {"total_usd": 95e9, "change_7d_pct": 0.0}
     network_health = latest_full.get("network_health") or {"hashrate_eh": 950.0, "difficulty_change_pct": 0.0,
                                                              "fastest_fee_satvb": 5, "pending_tx_count": 10000}
+    liquidations = latest_full.get("liquidations") or {"long_liq_usd": 0.0, "short_liq_usd": 0.0,
+                                                         "event_count": 0, "window_minutes": 0.0}
     return {
         "updated_at": None,
         "prices": prices,
@@ -435,6 +439,7 @@ def _load_dashboard_data(entries):
         "leverage": leverage,
         "defi_tvl": defi_tvl,
         "network_health": network_health,
+        "liquidations": liquidations,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -575,6 +580,27 @@ def _network_health_signal(network_health):
         "positive": change >= 0,
         "color": "#8FBF5C" if change >= 0 else "#E8837A",
     }
+
+
+LIQUIDATION_DOMINANCE_THRESHOLD = 0.65  # share of total liquidated USD on one side
+
+
+def _liquidation_signal(liquidations):
+    """'Long/Short Liquidations Dominant' vs 'Balanced'/'Quiet' from OKX's
+    most recent ~100 BTC perpetual liquidation events (fetch_liquidations.py).
+    Heavy liquidations in EITHER direction represent forced, cascading
+    market action (long-dominant: a hard drop; short-dominant: a short
+    squeeze) - same "either direction is the risk state" convention as
+    Leverage Heat, not a directional call."""
+    total = liquidations["long_liq_usd"] + liquidations["short_liq_usd"]
+    if total <= 0:
+        return {"label": "Quiet", "positive": True, "color": "#8FBF5C"}
+    long_share = liquidations["long_liq_usd"] / total
+    if long_share >= LIQUIDATION_DOMINANCE_THRESHOLD:
+        return {"label": "Long Liquidations Dominant", "positive": False, "color": "#E24C4C"}
+    if long_share <= (1 - LIQUIDATION_DOMINANCE_THRESHOLD):
+        return {"label": "Short Liquidations Dominant", "positive": False, "color": "#E24C4C"}
+    return {"label": "Balanced", "positive": True, "color": "#8FBF5C"}
 
 
 DOMINANCE_ROTATION_THRESHOLD = 3.0  # percentage points of 24h-change gap between BTC and the alt average
@@ -740,6 +766,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     leverage = dashboard["leverage"]
     defi_tvl = dashboard["defi_tvl"]
     network_health = dashboard["network_health"]
+    liquidations = dashboard["liquidations"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
@@ -747,6 +774,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     lev_signal = _leverage_signal(leverage)
     defi_signal = _defi_tvl_signal(defi_tvl)
     net_signal = _network_health_signal(network_health)
+    liq_signal = _liquidation_signal(liquidations)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -1099,6 +1127,52 @@ def _build_indicator_registry(dashboard, gauge_src):
             "history_formatter": lambda row: (f'{row["network_health"]["hashrate_eh"]:.0f} EH/s'
                                                if row.get("network_health") else "&ndash;"),
         },
+        {
+            "id": "liquidations",
+            "page": "liquidations.html",
+            "card_label": "&#128165; Liquidations",
+            "card_main_html": _value_visual(
+                f'${(liquidations["long_liq_usd"]+liquidations["short_liq_usd"])/1e6:.2f}M',
+                liq_signal["label"], liq_signal["color"], "card"),
+            "card_caption": f'${liquidations["long_liq_usd"]/1e6:.1f}M long &middot; ${liquidations["short_liq_usd"]/1e6:.1f}M short',
+            "confluence_name": "Liquidations",
+            "confluence_positive": liq_signal["positive"],
+            "confluence_display": f'${(liquidations["long_liq_usd"]+liquidations["short_liq_usd"])/1e6:.2f}M ({liq_signal["label"]})',
+            "explainer_icon": "&#128165;",
+            "explainer_text": (
+                "The size and direction of BTC perpetual futures liquidations - forced closeouts of "
+                "over-leveraged positions - over the most recent ~100 events on OKX. Heavy liquidations in "
+                "either direction mean forced, cascading action, not a directional price call."),
+            "page_title": "Liquidations",
+            "page_hero_html": _value_visual(
+                f'${(liquidations["long_liq_usd"]+liquidations["short_liq_usd"])/1e6:.2f}M',
+                liq_signal["label"], liq_signal["color"], "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>The dollar size and direction of BTC perpetual futures liquidations "
+                 "&mdash; forced closeouts of over-leveraged long or short positions &mdash; over the most "
+                 "recent batch of events.</p>"),
+                ("How It's Calculated", f"<p>Pulled from OKX's public liquidation-orders feed for the "
+                 f"BTC-USDT perpetual swap: the most recent 100 filled liquidation events, split into total "
+                 f"long-side vs. short-side notional value. A share of "
+                 f"&ge;{int(LIQUIDATION_DOMINANCE_THRESHOLD*100)}% on one side reads that side Dominant; "
+                 f"otherwise Balanced, or Quiet if there were no liquidations at all in the window. Because "
+                 f"this is a fixed <em>count</em> of events rather than a fixed time window, the window itself "
+                 f"stretches during quiet markets and shrinks during volatile ones - the last 100 events "
+                 f"span roughly {liquidations['window_minutes']:.0f} minutes right now.</p>"),
+                ("An Honest Note On Coverage", "<p>This covers OKX's own order flow only, not an aggregate "
+                 "across every exchange &mdash; there is no free, no-key data source for that (the well-known "
+                 "aggregators require a paid plan). Treat this as a real, representative sample of BTC "
+                 "perpetual liquidation activity, not a total market figure.</p>"),
+                ("Why It Matters", "<p>Long-dominant liquidations mean a sharp drop forced leveraged longs out; "
+                 "short-dominant means a sharp rise forced leveraged shorts out (a short squeeze). Either way, "
+                 "it's forced selling or buying, not organic.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>OKX public liquidation-orders API, no key required. "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (
+                f'${(row["liquidations"]["long_liq_usd"]+row["liquidations"]["short_liq_usd"])/1e6:.2f}M'
+                if row.get("liquidations") else "&ndash;"),
+        },
     ]
 
     if etf:
@@ -1338,6 +1412,7 @@ def render_index(entries):
     leverage = dashboard["leverage"]
     defi_tvl = dashboard["defi_tvl"]
     network_health = dashboard["network_health"]
+    liquidations = dashboard["liquidations"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
 
@@ -1520,6 +1595,14 @@ def render_index(entries):
                 change_items.append((dot, "Hash rate moved",
                                       f"{prev_network_health['hashrate_eh']:.0f} &rarr; "
                                       f"{network_health['hashrate_eh']:.0f} EH/s ({hash_delta:+.0f})"))
+
+        prev_liquidations = prev_snapshot.get("liquidations")
+        if prev_liquidations:
+            liq_now, liq_prev = _liquidation_signal(liquidations), _liquidation_signal(prev_liquidations)
+            if liq_now["label"] != liq_prev["label"] and not (liq_now["positive"] and liq_prev["positive"]):
+                dot = "&#128994;" if liq_now["positive"] else "&#128308;"
+                change_items.append((dot, "Liquidations shifted",
+                                      f"{liq_prev['label']} &rarr; {liq_now['label']}"))
 
     # ETF Flow diffs against its own most recent prior trading day (from
     # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has

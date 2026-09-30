@@ -47,7 +47,7 @@ jobs:
                   fear-greed-index.html biggest-mover.html risk-radar.html \
                   capital-flow.html top-sectors.html stablecoin-liquidity.html \
                   btc-dominance.html leverage-heat.html defi-pulse.html \
-                  network-health.html
+                  network-health.html liquidations.html
           git diff --cached --quiet && exit 0
           git commit -m "Auto-refresh live indicators [skip ci]"
           git pull --rebase origin main
