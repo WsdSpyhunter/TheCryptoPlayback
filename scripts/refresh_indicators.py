@@ -28,6 +28,7 @@ from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from fetch_dominance import get_btc_dominance
+from fetch_leverage import get_funding_and_oi
 from build_site import (
     ROOT, LIVE_DATA_FILE, LIVE_HISTORY_FILE, MAX_HISTORY_ENTRIES,
     compute_biggest_mover, compute_weekly_mover, save_gauge_image,
@@ -41,6 +42,7 @@ def refresh():
     sectors = get_top_sectors()
     stablecoins = get_stablecoin_liquidity()
     dominance = get_btc_dominance()
+    leverage = get_funding_and_oi()
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
     # Fixed slug ("live", not a post slug) - this is the one gauge image
@@ -57,6 +59,7 @@ def refresh():
         "sectors": sectors,
         "stablecoins": stablecoins,
         "dominance": dominance,
+        "leverage": leverage,
         "gauge_path": gauge_path,
     }
     with open(LIVE_DATA_FILE, "w") as f:
@@ -94,6 +97,7 @@ def refresh():
           f"(F&G {fng['value']} {fng['classification']}, "
           f"stablecoins ${stablecoins['total_usd']/1e9:.1f}B, "
           f"BTC dominance {dominance['btc_dominance_pct']:.1f}%, "
+          f"funding rate {leverage['funding_rate_pct']:+.3f}%, "
           f"{len(history)} history entries)")
 
 

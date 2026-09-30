@@ -390,6 +390,7 @@ def _load_dashboard_data(entries):
             # older refresh_indicators.py (before its next scheduled run) won't
             # have it yet, so backfill a harmless placeholder rather than KeyError.
             live.setdefault("dominance", {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12})
+            live.setdefault("leverage", {"funding_rate_pct": 0.01, "next_funding_time_ms": 0, "open_interest_usd": 2.5e9})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -416,6 +417,7 @@ def _load_dashboard_data(entries):
     ]
     stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
     dominance = latest_full.get("dominance") or {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12}
+    leverage = latest_full.get("leverage") or {"funding_rate_pct": 0.01, "next_funding_time_ms": 0, "open_interest_usd": 2.5e9}
     return {
         "updated_at": None,
         "prices": prices,
@@ -424,6 +426,7 @@ def _load_dashboard_data(entries):
         "sectors": sectors,
         "stablecoins": stablecoins,
         "dominance": dominance,
+        "leverage": leverage,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -562,6 +565,34 @@ def _dominance_signal(prices, dominance):
     return {"gap": gap, "label": label, "positive": positive}
 
 
+LEVERAGE_ELEVATED_THRESHOLD = 0.01  # % per funding period
+LEVERAGE_EXTREME_THRESHOLD = 0.05   # % per funding period
+
+
+def _leverage_signal(leverage):
+    """BTC perpetual futures funding rate -> a plain-language crowding
+    label. Positive funding means longs are paying shorts (long side more
+    crowded with leverage); negative means the reverse. Thresholds are
+    symmetric and based on typical historical funding ranges - OKX's own
+    "normal" range hovers near +-0.01%/period, with +-0.05%+ historically
+    coinciding with crowded, liquidation-prone positioning.
+
+    Unlike Risk Radar (low risk = positive), "positive" here specifically
+    means balanced/uncrowded leverage - elevated leverage in EITHER
+    direction raises liquidation-cascade risk, so both directions read as
+    the non-positive state, not just the "short" side."""
+    rate = leverage["funding_rate_pct"]
+    if rate >= LEVERAGE_EXTREME_THRESHOLD:
+        return {"label": "Extreme Long Leverage", "positive": False}
+    if rate >= LEVERAGE_ELEVATED_THRESHOLD:
+        return {"label": "Elevated Long Leverage", "positive": False}
+    if rate <= -LEVERAGE_EXTREME_THRESHOLD:
+        return {"label": "Extreme Short Leverage", "positive": False}
+    if rate <= -LEVERAGE_ELEVATED_THRESHOLD:
+        return {"label": "Elevated Short Leverage", "positive": False}
+    return {"label": "Balanced", "positive": True}
+
+
 def _etf_pressure_label(pressure_score, flow_m):
     """Documented, symmetric mapping from the 0-100 pressure score (see
     etf_data.py) to a plain-language label - deliberately never says
@@ -661,10 +692,12 @@ def _build_indicator_registry(dashboard, gauge_src):
     sectors = dashboard["sectors"]
     stablecoins = dashboard["stablecoins"]
     dominance = dashboard["dominance"]
+    leverage = dashboard["leverage"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
     rotation = _dominance_signal(prices, dominance)
+    lev_signal = _leverage_signal(leverage)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -673,6 +706,8 @@ def _build_indicator_registry(dashboard, gauge_src):
         signals["capital_flow_signal"].lower(), "#8A7F5C"
     )
     rotation_color = {"Alts Outperforming": "#8FBF5C", "BTC Outperforming": "#E8837A"}.get(rotation["label"], "#F2C94C")
+    lev_color = "#8FBF5C" if lev_signal["label"] == "Balanced" else (
+        "#E24C4C" if "Extreme" in lev_signal["label"] else "#F2C94C")
 
     registry = [
         {
@@ -873,6 +908,46 @@ def _build_indicator_registry(dashboard, gauge_src):
             ],
             "history_formatter": lambda row: (f"{row['dominance']['btc_dominance_pct']:.1f}% BTC dom."
                                                if row.get("dominance") else "&ndash;"),
+        },
+        {
+            "id": "leverage_heat",
+            "page": "leverage-heat.html",
+            "card_label": "&#128293; Leverage Heat",
+            "card_main_html": _value_visual(f'{leverage["funding_rate_pct"]:+.3f}%', lev_signal["label"], lev_color, "card"),
+            "card_caption": f'${leverage["open_interest_usd"]/1e9:.2f}B BTC perp open interest',
+            "confluence_name": "Leverage Heat",
+            "confluence_positive": lev_signal["positive"],
+            "confluence_display": f'{leverage["funding_rate_pct"]:+.3f}% ({lev_signal["label"]})',
+            "explainer_icon": "&#128293;",
+            "explainer_text": (
+                "BTC perpetual futures funding rate - the periodic payment between long and short leverage "
+                "positions. Elevated readings in either direction mean one side is more crowded with leverage, "
+                "which raises liquidation-cascade risk, not a directional price call."),
+            "page_title": "Leverage Heat",
+            "page_hero_html": _value_visual(f'{leverage["funding_rate_pct"]:+.3f}%', lev_signal["label"], lev_color, "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>The BTC perpetual futures funding rate - the periodic payment "
+                 "exchanged directly between long and short position holders on perpetual futures contracts. "
+                 "A positive rate means longs are paying shorts (the long side is more crowded with leverage); "
+                 "a negative rate means the reverse.</p>"),
+                ("How It's Calculated", f"<p>Pulled directly from OKX's BTC-USDT perpetual swap (no calculation "
+                 f"on our end). A rate within &plusmn;{LEVERAGE_ELEVATED_THRESHOLD:.2f}% reads Balanced; "
+                 f"&plusmn;{LEVERAGE_ELEVATED_THRESHOLD:.2f}&ndash;{LEVERAGE_EXTREME_THRESHOLD:.2f}% reads "
+                 f"Elevated Long/Short Leverage; beyond &plusmn;{LEVERAGE_EXTREME_THRESHOLD:.2f}% reads Extreme "
+                 f"Long/Short Leverage, based on OKX's own typical historical funding range.</p>"),
+                ("How We Read \"Positive\"", "<p>Unlike most indicators here, \"positive\" doesn't mean "
+                 "bullish - it means balanced, uncrowded positioning. Elevated leverage in <strong>either</strong> "
+                 "direction counts as the non-positive reading in Signal Confluence, since crowded leverage on "
+                 "either side raises the risk of a fast, forced liquidation cascade, not just for one side.</p>"),
+                ("Why It Matters", "<p>Crowded leverage - long or short - is fuel for sharp, fast moves as "
+                 "over-leveraged positions get forcibly liquidated. Balanced funding means positioning is "
+                 "healthier and less prone to a cascade in either direction.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>OKX public market-data API (BTC-USDT-SWAP), no key "
+                 "required. Refreshed automatically every 15 minutes. (Binance's equivalent endpoint is "
+                 "geo-blocked for US-region requests, so this uses OKX instead.)</p>"),
+            ],
+            "history_formatter": lambda row: (f'{row["leverage"]["funding_rate_pct"]:+.3f}%'
+                                               if row.get("leverage") else "&ndash;"),
         },
         {
             "id": "stablecoin_liquidity",
@@ -1143,6 +1218,7 @@ def render_index(entries):
     sectors = dashboard["sectors"]
     stablecoins = dashboard["stablecoins"]
     dominance = dashboard["dominance"]
+    leverage = dashboard["leverage"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
 
@@ -1298,6 +1374,15 @@ def render_index(entries):
                 change_items.append((dot, "BTC Dominance shifted",
                                       f"{prev_dominance['btc_dominance_pct']:.1f}% &rarr; "
                                       f"{dominance['btc_dominance_pct']:.1f}% ({dom_delta:+.1f}pp)"))
+
+        prev_leverage = prev_snapshot.get("leverage")
+        if prev_leverage:
+            lev_now, lev_prev = _leverage_signal(leverage), _leverage_signal(prev_leverage)
+            if lev_now["label"] != lev_prev["label"]:
+                dot = "&#128994;" if lev_now["positive"] and not lev_prev["positive"] else (
+                    "&#128308;" if not lev_now["positive"] and lev_prev["positive"] else "&#128993;")
+                change_items.append((dot, "Leverage Heat shifted",
+                                      f"{lev_prev['label']} &rarr; {lev_now['label']}"))
 
     # ETF Flow diffs against its own most recent prior trading day (from
     # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has
