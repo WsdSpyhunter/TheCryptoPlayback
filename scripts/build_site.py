@@ -391,6 +391,7 @@ def _load_dashboard_data(entries):
             # have it yet, so backfill a harmless placeholder rather than KeyError.
             live.setdefault("dominance", {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12})
             live.setdefault("leverage", {"funding_rate_pct": 0.01, "next_funding_time_ms": 0, "open_interest_usd": 2.5e9})
+            live.setdefault("defi_tvl", {"total_usd": 95e9, "change_7d_pct": 0.0})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -418,6 +419,7 @@ def _load_dashboard_data(entries):
     stablecoins = latest_full.get("stablecoins") or {"total_usd": 312400000000, "change_7d_pct": 1.8}
     dominance = latest_full.get("dominance") or {"btc_dominance_pct": 55.0, "total_market_cap_usd": 2.5e12}
     leverage = latest_full.get("leverage") or {"funding_rate_pct": 0.01, "next_funding_time_ms": 0, "open_interest_usd": 2.5e9}
+    defi_tvl = latest_full.get("defi_tvl") or {"total_usd": 95e9, "change_7d_pct": 0.0}
     return {
         "updated_at": None,
         "prices": prices,
@@ -427,6 +429,7 @@ def _load_dashboard_data(entries):
         "stablecoins": stablecoins,
         "dominance": dominance,
         "leverage": leverage,
+        "defi_tvl": defi_tvl,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -529,6 +532,20 @@ def _stablecoin_signal(stablecoins):
         "expanding": expanding,
         "signal": "Expanding" if expanding else "Contracting",
         "color": "#8FBF5C" if expanding else "#E8837A",
+    }
+
+
+def _defi_tvl_signal(defi_tvl):
+    """'Growing'/'Shrinking' from real DefiLlama TVL data (fetch_defi_tvl.py)
+    - a different metric than Stablecoin Liquidity's dry-powder read: TVL is
+    capital actually deployed/locked into DeFi protocols, and moves with the
+    price of what's locked (a broad crypto rally can lift TVL even with zero
+    net new deposits), not purely a fresh-capital signal."""
+    growing = defi_tvl["change_7d_pct"] >= 0
+    return {
+        "growing": growing,
+        "signal": "Growing" if growing else "Shrinking",
+        "color": "#8FBF5C" if growing else "#E8837A",
     }
 
 
@@ -693,11 +710,13 @@ def _build_indicator_registry(dashboard, gauge_src):
     stablecoins = dashboard["stablecoins"]
     dominance = dashboard["dominance"]
     leverage = dashboard["leverage"]
+    defi_tvl = dashboard["defi_tvl"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
     rotation = _dominance_signal(prices, dominance)
     lev_signal = _leverage_signal(leverage)
+    defi_signal = _defi_tvl_signal(defi_tvl)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -982,6 +1001,40 @@ def _build_indicator_registry(dashboard, gauge_src):
                                                f"({row['stablecoins']['change_7d_pct']:+.1f}%)"
                                                if row.get("stablecoins") else "&ndash;"),
         },
+        {
+            "id": "defi_pulse",
+            "page": "defi-pulse.html",
+            "card_label": "&#9889; DeFi Pulse",
+            "card_main_html": _value_visual(f'${defi_tvl["total_usd"]/1e9:.1f}B', defi_signal["signal"], defi_signal["color"], "card"),
+            "card_caption": f'{defi_tvl["change_7d_pct"]:+.1f}% over 7 days',
+            "confluence_name": "DeFi Pulse",
+            "confluence_positive": defi_signal["growing"],
+            "confluence_display": f"${defi_tvl['total_usd']/1e9:.1f}B ({defi_tvl['change_7d_pct']:+.1f}%)",
+            "explainer_icon": "&#9889;",
+            "explainer_text": (
+                "Total value locked (TVL) across DeFi protocols, all chains combined, and its 7-day change. "
+                "A different read than Stablecoin Liquidity - this is capital actually deployed into DeFi, not "
+                "just dry powder sitting on the sidelines."),
+            "page_title": "DeFi Pulse",
+            "page_hero_html": _value_visual(f'${defi_tvl["total_usd"]/1e9:.1f}B', defi_signal["signal"], defi_signal["color"], "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>Total Value Locked (TVL) across DeFi protocols &mdash; lending "
+                 "markets, DEXs, staking, and more &mdash; combined across every chain DefiLlama tracks.</p>"),
+                ("How It's Calculated", "<p>Total TVL today vs. 7 days ago. A positive 7-day change reads "
+                 "Growing, negative reads Shrinking.</p>"),
+                ("How This Differs From Stablecoin Liquidity", "<p>Stablecoin Liquidity tracks dry powder "
+                 "sitting in USD-pegged tokens, ready to deploy but not yet used. TVL tracks capital already "
+                 "deployed into DeFi protocols &mdash; and moves with the price of what's locked (a broad "
+                 "rally can lift TVL with zero new deposits), not purely a fresh-capital signal.</p>"),
+                ("Why It Matters", "<p>A rising TVL means more capital and activity is flowing into DeFi "
+                 "protocols specifically, beyond just holding or trading spot assets.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>DefiLlama's free TVL API (api.llama.fi). "
+                 "Refreshed automatically every 15 minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (f"${row['defi_tvl']['total_usd']/1e9:.1f}B "
+                                               f"({row['defi_tvl']['change_7d_pct']:+.1f}%)"
+                                               if row.get("defi_tvl") else "&ndash;"),
+        },
     ]
 
     if etf:
@@ -1219,6 +1272,7 @@ def render_index(entries):
     stablecoins = dashboard["stablecoins"]
     dominance = dashboard["dominance"]
     leverage = dashboard["leverage"]
+    defi_tvl = dashboard["defi_tvl"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
 
@@ -1383,6 +1437,15 @@ def render_index(entries):
                     "&#128308;" if not lev_now["positive"] and lev_prev["positive"] else "&#128993;")
                 change_items.append((dot, "Leverage Heat shifted",
                                       f"{lev_prev['label']} &rarr; {lev_now['label']}"))
+
+        prev_defi_tvl = prev_snapshot.get("defi_tvl")
+        if prev_defi_tvl:
+            tvl_delta_b = (defi_tvl["total_usd"] - prev_defi_tvl["total_usd"]) / 1e9
+            if abs(tvl_delta_b) >= 1.0:
+                dot = "&#128994;" if tvl_delta_b > 0 else "&#128308;"
+                change_items.append((dot, "DeFi TVL moved",
+                                      f"${prev_defi_tvl['total_usd']/1e9:.1f}B &rarr; "
+                                      f"${defi_tvl['total_usd']/1e9:.1f}B ({tvl_delta_b:+.1f}B)"))
 
     # ETF Flow diffs against its own most recent prior trading day (from
     # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has

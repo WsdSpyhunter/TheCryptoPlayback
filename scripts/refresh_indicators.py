@@ -29,6 +29,7 @@ from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from fetch_dominance import get_btc_dominance
 from fetch_leverage import get_funding_and_oi
+from fetch_defi_tvl import get_defi_tvl
 from build_site import (
     ROOT, LIVE_DATA_FILE, LIVE_HISTORY_FILE, MAX_HISTORY_ENTRIES,
     compute_biggest_mover, compute_weekly_mover, save_gauge_image,
@@ -43,6 +44,7 @@ def refresh():
     stablecoins = get_stablecoin_liquidity()
     dominance = get_btc_dominance()
     leverage = get_funding_and_oi()
+    defi_tvl = get_defi_tvl()
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
     # Fixed slug ("live", not a post slug) - this is the one gauge image
@@ -60,6 +62,7 @@ def refresh():
         "stablecoins": stablecoins,
         "dominance": dominance,
         "leverage": leverage,
+        "defi_tvl": defi_tvl,
         "gauge_path": gauge_path,
     }
     with open(LIVE_DATA_FILE, "w") as f:
@@ -98,6 +101,7 @@ def refresh():
           f"stablecoins ${stablecoins['total_usd']/1e9:.1f}B, "
           f"BTC dominance {dominance['btc_dominance_pct']:.1f}%, "
           f"funding rate {leverage['funding_rate_pct']:+.3f}%, "
+          f"DeFi TVL ${defi_tvl['total_usd']/1e9:.1f}B, "
           f"{len(history)} history entries)")
 
 
