@@ -2082,5 +2082,93 @@
       "total_market_cap_usd": 2927482684923.522
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-09-30T13:46:08.145512+00:00",
+    "prices": [
+      {
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 84478,
+        "change_24h": 0.32666,
+        "change_7d": -0.369
+      },
+      {
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2700.43,
+        "change_24h": -0.9352,
+        "change_7d": 0.2028
+      },
+      {
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 769.72,
+        "change_24h": 0.67554,
+        "change_7d": -0.8181
+      },
+      {
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.52,
+        "change_24h": -2.01708,
+        "change_7d": -2.3547
+      },
+      {
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 120.99,
+        "change_24h": -0.10543,
+        "change_7d": 4.199
+      },
+      {
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.339678,
+        "change_24h": 1.44768,
+        "change_7d": -0.7698
+      }
+    ],
+    "fng": {
+      "value": 71,
+      "classification": "Greed"
+    },
+    "mover": {
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.52,
+      "change_24h": -2.01708,
+      "change_7d": -2.3547
+    },
+    "week_mover": {
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 120.99,
+      "change_24h": -0.10543,
+      "change_7d": 4.199
+    },
+    "sectors": [
+      {
+        "label": "AI",
+        "change_24h": 2.3936793918976447
+      },
+      {
+        "label": "RWA",
+        "change_24h": 0.5094090103172407
+      },
+      {
+        "label": "L2",
+        "change_24h": 0.3099596062208688
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 310955914423.15,
+      "change_7d_pct": 1.0025200520786572
+    },
+    "dominance": {
+      "btc_dominance_pct": 58.42658160695577,
+      "total_market_cap_usd": 2882459096532.819
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
