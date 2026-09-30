@@ -11,8 +11,13 @@ Writes data/live_indicators.json (the current reading) and appends to
 data/indicator_history.json (a rolling log, capped at MAX_HISTORY_ENTRIES,
 used for each indicator page's Recent Readings and for the "since ~24h
 ago" comparison in What Changed). Then regenerates index.html and every
-indicator page - NOT posts, archive, or the static pages, which this
-script never touches.
+indicator page this workflow actually owns - NOT posts, archive, or the
+static pages, and NOT etf-flow.html/market-breadth.html, which belong to
+their own decoupled workflows (refresh_etf_flow.py/refresh_market_breadth.py)
+and would otherwise get committed here with a stale timestamp context and
+without .github/workflows/refresh-indicators.yml's git-add step even
+knowing to stage them - the exact mismatch that broke the commit/push step
+once Market Breadth and ETF Flow joined the shared indicator registry.
 """
 import json
 import os
@@ -72,7 +77,16 @@ def refresh():
     entries = load_index()
     with open(os.path.join(ROOT, "index.html"), "w") as f:
         f.write(render_index(entries))
+    # etf-flow.html and market-breadth.html are owned by their own decoupled
+    # workflows - writing them here too would leave real, uncommitted
+    # modifications in the working tree (their data only changes on their
+    # own schedule, but the shared registry still regenerates their HTML
+    # every run), which broke `git pull --rebase` in the commit step below
+    # since it refuses to rebase over a dirty working tree.
+    OTHER_WORKFLOWS_OWN = {"etf-flow.html", "market-breadth.html"}
     for filename, html in render_indicator_pages(entries).items():
+        if filename in OTHER_WORKFLOWS_OWN:
+            continue
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
 
