@@ -291,9 +291,10 @@ h1, h2, h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  /* Darker than the ticker's coin-symbol gold, closer to the brass used in
-     the title ovals, for a richer, less pastel band. */
-  background: #D9A857;
+  /* Same light band as Top News Stories/Subscribe (was a mood-based
+     red/green/brass, set inline from Python - now a fixed neutral color
+     so this section always matches its neighbors). */
+  background: #EDE9E2;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   padding: 56px 24px;
@@ -343,10 +344,12 @@ h1, h2, h3 {
 .snapshot-banner .snapshot-title {
   display: inline-block;
   font-size: 30px;
-  /* Same brass gradient oval as the Signal Confluence title below it. */
+  /* Same "greedy" green used for Fear & Greed/Risk Radar LOW/positive
+     movers (#8FBF5C) - was the same brass gradient as Signal Confluence's
+     title below it. */
   color: #fff;
-  background: linear-gradient(135deg, #D9A857, var(--accent-dark));
-  box-shadow: 0 4px 14px rgba(147, 96, 56, 0.4);
+  background: linear-gradient(135deg, #8FBF5C, #5D7C3C);
+  box-shadow: 0 4px 14px rgba(93, 124, 60, 0.4);
   padding: 10px 30px;
   border-radius: 30px;
   margin-bottom: 20px;

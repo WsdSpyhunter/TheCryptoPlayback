@@ -1209,21 +1209,15 @@ def render_index(entries):
     else:
         snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
 
-    # Band color reflects overall sentiment - same Fear & Greed thresholds
-    # used everywhere else on the site (<=45 fearful/red, >=55 greedy/green,
-    # otherwise neutral), so a glance at the color alone hints at the mood
-    # before reading a word of the text. Neutral keeps the original brass.
-    if fng["value"] <= 45:
-        snapshot_band_color = "#E8837A"
-    elif fng["value"] >= 55:
-        snapshot_band_color = "#8FBF5C"
-    else:
-        snapshot_band_color = "#D9A857"
-
     # Sits directly under the Top 6 Market ticker now, in the spot the old
     # Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to occupy -
-    # those are shown once now, in Alerts & Indicators further down.
-    market_snapshot_section = f"""<section class="snapshot-banner" style="background:{snapshot_band_color};">
+    # those are shown once now, in Alerts & Indicators further down. Band
+    # background is the fixed light-gray from assets/styles.css
+    # (.snapshot-banner), matching Top News Stories/Subscribe - no longer a
+    # mood-based color (previously red/green/brass depending on Fear &
+    # Greed) now that the section header itself carries the same green
+    # treatment as Fear & Greed's own "greedy" reading.
+    market_snapshot_section = f"""<section class="snapshot-banner">
     <div class="snapshot-solo">
       <h2 class="snapshot-title">Market Snapshot</h2>
       <p class="snapshot-text">{snapshot_text}</p>
