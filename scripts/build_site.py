@@ -448,6 +448,19 @@ def _load_etf_dashboard():
         return None
 
 
+def _load_market_breadth_dashboard():
+    """The Market Breadth indicator (% of a locked 40-coin universe above
+    its own 50/200-day SMA), computed from data/market_breadth.json (see
+    market_breadth_data.py) - refreshed a few times a day by its own
+    workflow, same reasoning as _load_etf_dashboard() above: a moving-average
+    breadth reading only changes once a day at most."""
+    try:
+        from market_breadth_data import load_store, compute_breadth
+        return compute_breadth(load_store())
+    except Exception:
+        return None
+
+
 def _compute_derived_signals(prices, fng, sectors):
     """Risk Radar and Capital Flow, computed here instead of hardcoded.
 
@@ -612,6 +625,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
     etf = _load_etf_dashboard()
+    breadth = _load_market_breadth_dashboard()
 
     fng_color = "#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
@@ -884,9 +898,77 @@ def _build_indicator_registry(dashboard, gauge_src):
              "pointless.</p>"),
         ],
         "history_formatter": etf_history_formatter,
-        "_etf_history_rows": etf_history_rows,  # only this entry has its own history source, not the shared one
+        "_own_history_rows": etf_history_rows,  # only this entry has its own history source, not the shared one
+        "refresh_note": ("Refreshed a few times a day &mdash; ETF flow is a once-per-US-trading-day figure, "
+                          "not something backfilled or estimated between real updates."),
     }
     registry.append(etf_entry)
+
+    if breadth and breadth["have_50"]:
+        breadth_color = "#8FBF5C" if breadth["pct_above_50"] >= 55 else (
+            "#E8837A" if breadth["pct_above_50"] < 45 else "#F2C94C")
+        breadth_card_main = _value_visual(f'{breadth["pct_above_50"]}%', breadth["label"], breadth_color, "card")
+        breadth_hero_main = _value_visual(f'{breadth["pct_above_50"]}%', breadth["label"], breadth_color, "hero")
+        two_hundred_d_line = (
+            f'<p>The same read against each coin\'s 200-day SMA: <strong>{breadth["pct_above_200"]}%</strong> '
+            f'({breadth["eligible_200"]} of {breadth["universe_size"]} coins eligible).</p>'
+            if breadth["have_200"] else
+            f'<p>The 200-day version of this reading is still building - {breadth["available_days"]} of the '
+            f'200 days of price history it needs have been stored so far.</p>'
+        )
+        breadth_caption = f'{breadth["eligible_50"]} of {breadth["universe_size"]} coins eligible &middot; {breadth["latest_date"]}'
+        breadth_history_rows = [{"date_display": h["date"], "pct": h["pct_above_50"]} for h in breadth["history"]]
+        breadth_history_formatter = lambda row: f'{row["pct"]}%'
+        breadth_confluence_positive = breadth["pct_above_50"] >= 55
+        breadth_confluence_display = f'{breadth["pct_above_50"]}% {breadth["label"]}'
+    else:
+        awaiting_days = breadth["available_days"] if breadth else 0
+        breadth_card_main = breadth_hero_main = _badge_visual(
+            f"BUILDING ({awaiting_days}/50 DAYS)" if awaiting_days else "AWAITING DATA", "", "card")
+        breadth_caption = "Share of tracked coins above their moving average"
+        two_hundred_d_line = "<p>No reading yet.</p>"
+        breadth_history_rows, breadth_history_formatter = [], lambda row: "&ndash;"
+        breadth_confluence_positive, breadth_confluence_display = None, None
+
+    breadth_entry = {
+        "id": "market_breadth",
+        "page": "market-breadth.html",
+        "card_label": "&#128200; Market Breadth",
+        "card_main_html": breadth_card_main,
+        "card_caption": breadth_caption,
+        "confluence_name": "Market Breadth",
+        "confluence_positive": breadth_confluence_positive,
+        "confluence_display": breadth_confluence_display,
+        "explainer_icon": "&#128200;",
+        "explainer_text": (
+            "The share of a fixed 40-coin universe currently trading above its own 50-day moving average. "
+            "A broad measure of how widespread the current trend actually is, not just whether a few large "
+            "coins are moving."),
+        "page_title": "Market Breadth",
+        "page_hero_html": breadth_hero_main,
+        "page_sections": [
+            ("What It Measures", "<p>The percentage of a fixed universe of 40 major coins (by market cap, "
+             "stablecoins and wrapped/staked tokens excluded) currently trading above their own 50-day simple "
+             "moving average - the same style of \"breadth\" reading traders use for stocks (e.g. the share of "
+             "S&amp;P 500 members above their 200-day average), applied to crypto.</p>"),
+            ("How It's Calculated", "<p>Each coin's own 50-day SMA is computed from its stored daily price "
+             "history, then we count what share of the universe is currently priced above that line. The "
+             "40-coin universe is locked in on this indicator's first day and isn't reshuffled day to day, so "
+             "the reading tracks the same set of coins over time instead of silently changing what it "
+             "measures.</p>" + two_hundred_d_line),
+            ("Why It Matters", "<p>Distinguishes a broad, widespread trend from one being carried by just a "
+             "handful of large coins - two markets can show the same headline price action with very different "
+             "breadth underneath it.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API, one price snapshot per "
+             "coin per day. Refreshed a few times a day on its own schedule - not the 15-minute cycle the "
+             "other live indicators use, since a moving-average reading doesn't change faster than daily.</p>"),
+        ],
+        "history_formatter": breadth_history_formatter,
+        "_own_history_rows": breadth_history_rows,
+        "refresh_note": ("Refreshed a few times a day &mdash; a moving-average breadth reading changes at "
+                          "most once a day, not something backfilled or estimated between real updates."),
+    }
+    registry.append(breadth_entry)
 
     # Returned alongside the registry (not just the registry alone) so
     # callers that also need the raw signals/mover/etc. for other sections
@@ -1328,7 +1410,8 @@ def _recent_readings(history, limit=12):
     return rows
 
 
-def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, history_formatter):
+def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, history_formatter,
+                           refresh_note="Refreshed automatically every 15 minutes &mdash; nothing here is backfilled or estimated."):
     sections_html = "".join(
         f"""<div class="indicator-section">
         <h2>{heading}</h2>
@@ -1358,7 +1441,7 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
     <div class="indicator-section">
       <h2>Recent Readings</h2>
       <div class="indicator-history">{history_html}</div>
-      <p class="indicator-history-note">Refreshed automatically every 15 minutes &mdash; nothing here is backfilled or estimated.</p>
+      <p class="indicator-history-note">{refresh_note}</p>
     </div>
   </div>"""
     return page("", f"{title} — The Crypto Playback", body_html, datetime.now().year)
@@ -1368,9 +1451,9 @@ def render_indicator_pages(entries):
     """{filename: html} for every real indicator's dedicated page - one
     _indicator_page_shell() call per entry in the shared registry (see
     _build_indicator_registry), using that indicator's own recent-history
-    source (the general 15-minute live history for most; ETF Flow carries
-    its own daily-trading-day history instead, see the registry entry's
-    "_etf_history_rows"). `entries` is only needed for _load_dashboard_data's
+    source (the general 15-minute live history for most; ETF Flow and
+    Market Breadth each carry their own daily history instead, see the
+    registry entries' "_own_history_rows"). `entries` is only needed for _load_dashboard_data's
     fallback path (before the refresh workflow has ever run). Adding an 8th
     indicator later needs no change here at all - it already has a page the
     moment it's added to the registry."""
@@ -1383,10 +1466,12 @@ def render_indicator_pages(entries):
 
     pages = {}
     for ind in ctx["indicators"]:
-        history_rows = ind.get("_etf_history_rows", shared_history)
+        history_rows = ind.get("_own_history_rows", shared_history)
+        shell_kwargs = {"refresh_note": ind["refresh_note"]} if "refresh_note" in ind else {}
         pages[ind["page"]] = _indicator_page_shell(
             "The Crypto Playback", ind["page_title"], ind["page_hero_html"],
             ind["page_sections"], history_rows, ind["history_formatter"],
+            **shell_kwargs,
         )
     return pages
 

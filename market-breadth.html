@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Market Breadth — The Crypto Playback</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@400;600&family=Black+Ops+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=c722a90572">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%82%BF</text></svg>">
+
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo-link" href="index.html">
+      <img class="logo" src="assets/logo-wordmark.png?v=0cd7520595" alt="The Crypto Playback">
+    </a>
+    <nav class="site-nav">
+      <a href="about.html">About</a>
+      <a href="#">Subscribe</a>
+      <a href="archive.html">Archives</a>
+      <a href="resources.html">Resources</a>
+    </nav>
+  </div>
+</header>
+
+<section class="indicator-hero">
+    <div class="indicator-hero-inner">
+      <span class="snapshot-eyebrow">The Crypto Playback</span>
+      <h1 class="indicator-title">Market Breadth</h1>
+      <div class="indicator-hero-value"><span class="pulse-risk-badge ">AWAITING DATA</span></div>
+    </div>
+  </section>
+  <div class="indicator-body">
+    <div class="indicator-section">
+        <h2>What It Measures</h2>
+        <p>The percentage of a fixed universe of 40 major coins (by market cap, stablecoins and wrapped/staked tokens excluded) currently trading above their own 50-day simple moving average - the same style of "breadth" reading traders use for stocks (e.g. the share of S&amp;P 500 members above their 200-day average), applied to crypto.</p>
+      </div><div class="indicator-section">
+        <h2>How It's Calculated</h2>
+        <p>Each coin's own 50-day SMA is computed from its stored daily price history, then we count what share of the universe is currently priced above that line. The 40-coin universe is locked in on this indicator's first day and isn't reshuffled day to day, so the reading tracks the same set of coins over time instead of silently changing what it measures.</p><p>No reading yet.</p>
+      </div><div class="indicator-section">
+        <h2>Why It Matters</h2>
+        <p>Distinguishes a broad, widespread trend from one being carried by just a handful of large coins - two markets can show the same headline price action with very different breadth underneath it.</p>
+      </div><div class="indicator-section">
+        <h2>Data Source &amp; Update Frequency</h2>
+        <p>CoinGecko public markets API, one price snapshot per coin per day. Refreshed a few times a day on its own schedule - not the 15-minute cycle the other live indicators use, since a moving-average reading doesn't change faster than daily.</p>
+      </div>
+    <div class="indicator-section">
+      <h2>Recent Readings</h2>
+      <div class="indicator-history"><p class="changed-empty">No history yet &mdash; check back after the next refresh.</p></div>
+      <p class="indicator-history-note">Refreshed a few times a day &mdash; a moving-average breadth reading changes at most once a day, not something backfilled or estimated between real updates.</p>
+    </div>
+  </div>
+<div class="disclaimer">
+  <div class="wrap">
+    <span class="disclaimer-label">Disclaimer</span>
+    <strong>THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong>
+    The material in this newsletter has no regard to any specific investment objectives, financial situation,
+    or particular needs of any reader. It is published solely for informational purposes and is not to be
+    construed as a solicitation nor does it constitute advice, investment or otherwise. References made to
+    third parties are based on information obtained from sources believed to be reliable but not guaranteed
+    as being accurate. Readers should not regard it as a substitute for the exercise of their own judgment.
+    Our comments are an expression of opinion. While we believe our statements to be true, they always depend
+    on the reliability of our own credible sources. We recommend that you consult with a licensed, qualified
+    investment advisor before making any investment decisions.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-copy">&copy; 2026 The Crypto Playback &middot; <a href="about.html">Contact</a></div>
+    <div class="footer-brand">
+      <img class="footer-mascot" src="assets/footer-mascot-web.png?v=00608b1198" alt="">
+      <img class="footer-logo" src="assets/logo-wordmark.png?v=0cd7520595" alt="The Crypto Playback">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
