@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-09-30T10:46:59.447770+00:00",
+  "updated_at": "2026-09-30T11:15:26.482194+00:00",
   "prices": [
     {
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 83862,
-      "change_24h": -0.17034,
-      "change_7d": -2.6641
+      "price": 83730,
+      "change_24h": -0.23705,
+      "change_7d": -2.2742
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2693.19,
-      "change_24h": -0.65392,
-      "change_7d": -1.7063
+      "price": 2688.33,
+      "change_24h": -0.97207,
+      "change_7d": -1.422
     },
     {
       "symbol": "BNB",
       "name": "BNB",
-      "price": 768.49,
-      "change_24h": 0.64278,
-      "change_7d": -2.7824
+      "price": 769.1,
+      "change_24h": 0.82187,
+      "change_7d": -1.6232
     },
     {
       "symbol": "XRP",
       "name": "XRP",
       "price": 1.51,
-      "change_24h": 0.57654,
-      "change_7d": -5.426
+      "change_24h": 0.22656,
+      "change_7d": -5.1541
     },
     {
       "symbol": "SOL",
       "name": "Solana",
-      "price": 119.76,
-      "change_24h": 0.3236,
-      "change_7d": 1.6469
+      "price": 119.34,
+      "change_24h": 0.14293,
+      "change_7d": 2.0819
     },
     {
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.338559,
-      "change_24h": 0.94969,
-      "change_7d": -1.425
+      "price": 0.338908,
+      "change_24h": 1.04213,
+      "change_7d": -1.1214
     }
   ],
   "fng": {
@@ -51,29 +51,29 @@
   "mover": {
     "symbol": "TRX",
     "name": "TRON",
-    "price": 0.338559,
-    "change_24h": 0.94969,
-    "change_7d": -1.425
+    "price": 0.338908,
+    "change_24h": 1.04213,
+    "change_7d": -1.1214
   },
   "week_mover": {
     "symbol": "XRP",
     "name": "XRP",
     "price": 1.51,
-    "change_24h": 0.57654,
-    "change_7d": -5.426
+    "change_24h": 0.22656,
+    "change_7d": -5.1541
   },
   "sectors": [
     {
       "label": "RWA",
-      "change_24h": 42.57485917412594
+      "change_24h": 42.00985670701714
     },
     {
       "label": "AI",
-      "change_24h": 2.4053120342427436
+      "change_24h": 2.1065676373098143
     },
     {
       "label": "L2",
-      "change_24h": 0.6544060479224978
+      "change_24h": 0.11172350939728337
     }
   ],
   "stablecoins": {
@@ -81,8 +81,8 @@
     "change_7d_pct": 1.0025200520786572
   },
   "dominance": {
-    "btc_dominance_pct": 58.29044700241609,
-    "total_market_cap_usd": 2884476415062.626
+    "btc_dominance_pct": 58.291128475111506,
+    "total_market_cap_usd": 2879020036221.45
   },
   "gauge_path": "assets/gauges/live.png"
 }
