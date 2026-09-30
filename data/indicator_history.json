@@ -334,5 +334,89 @@
       "change_7d_pct": 0.8549056424670366
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-09-30T02:48:17.043789+00:00",
+    "prices": [
+      {
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 83364,
+        "change_24h": 0.39276,
+        "change_7d": -3.5202
+      },
+      {
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2671.49,
+        "change_24h": 0.44711,
+        "change_7d": -3.2266
+      },
+      {
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 761.93,
+        "change_24h": 0.76971,
+        "change_7d": -3.8695
+      },
+      {
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.5,
+        "change_24h": 1.53792,
+        "change_7d": -5.5684
+      },
+      {
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 119.56,
+        "change_24h": 2.19198,
+        "change_7d": 0.5098
+      },
+      {
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.335022,
+        "change_24h": 0.13862,
+        "change_7d": -2.313
+      }
+    ],
+    "fng": {
+      "value": 71,
+      "classification": "Greed"
+    },
+    "mover": {
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 119.56,
+      "change_24h": 2.19198,
+      "change_7d": 0.5098
+    },
+    "week_mover": {
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.5,
+      "change_24h": 1.53792,
+      "change_7d": -5.5684
+    },
+    "sectors": [
+      {
+        "label": "AI",
+        "change_24h": 4.042311512072228
+      },
+      {
+        "label": "Memecoins",
+        "change_24h": 3.3720916839312207
+      },
+      {
+        "label": "DePIN",
+        "change_24h": 3.2578693512377237
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 310501454735.42,
+      "change_7d_pct": 0.8549056424670366
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
