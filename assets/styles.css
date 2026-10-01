@@ -520,7 +520,9 @@ h1, h2, h3 {
    its dot landed, so dots and headlines drifted left/right row to row.
    Sizing the whole list to its widest row and centering THAT as one block
    keeps every row's dot and headline starting at the same shared x. */
-.changed-list { margin: 22px auto 0; width: fit-content; display: flex; flex-direction: column; gap: 18px; }
+/* Wider top margin - more separation between the disclaimer line above
+   ("Compares each indicator's current reading...") and the row list. */
+.changed-list { margin: 40px auto 0; width: fit-content; display: flex; flex-direction: column; gap: 18px; }
 .changed-row { display: flex; align-items: flex-start; gap: 14px; text-align: left; }
 /* Fixed width + centered glyph - the three dot emoji don't all have the
    same natural character width, which was enough on its own to nudge
