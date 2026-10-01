@@ -579,7 +579,11 @@ h1, h2, h3 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 18px 48px;
-  margin: 40px auto 0;
+  /* fit-content (not a full-width stretch) so the two columns size to
+     their own content and the whole block centers as a unit, instead of
+     stretching edge to edge with each column left-hugging its own half. */
+  width: fit-content;
+  margin: 56px auto 0;
   text-align: left;
 }
 @media (max-width: 700px) {
