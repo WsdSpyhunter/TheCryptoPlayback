@@ -775,13 +775,18 @@ def _etf_pressure_label(pressure_score, flow_m):
 # assets/styles.css, untouched by this file.
 # ============================================================================
 
-def _value_visual(value, word, color, context, prefix_html=""):
+def _value_visual(value, word, color, context, prefix_html="", stacked=False):
     """Big colored number + smaller word next to it - Fear & Greed,
     Capital Flow, Stablecoin Liquidity, and ETF Flow all use this shape.
     `prefix_html` is for anything that goes before the number itself,
-    e.g. Fear & Greed's gauge image."""
+    e.g. Fear & Greed's gauge image. `stacked=True` (Liquidations' long
+    "Long/Short Liquidations Dominant" word) centers the word under the
+    value instead of wrapping it awkwardly beside it - the side-by-side
+    layout only reads cleanly for a single short word."""
     value_class = "pulse-card-value" if context == "card" else "indicator-value"
     word_class = "pulse-card-word" if context == "card" else "indicator-value-word"
+    if stacked:
+        value_class += " stacked-value"
     return (f'{prefix_html}<div class="{value_class}" style="color:{color};">{value}'
             f'<span class="{word_class}">{word}</span></div>')
 
@@ -1216,7 +1221,7 @@ def _build_indicator_registry(dashboard, gauge_src):
             "card_label": "&#128165; Liquidations",
             "card_main_html": _value_visual(
                 f'${(liquidations["long_liq_usd"]+liquidations["short_liq_usd"])/1e6:.2f}M',
-                liq_signal["label"], liq_signal["color"], "card"),
+                liq_signal["label"], liq_signal["color"], "card", stacked=True),
             "card_caption": f'${liquidations["long_liq_usd"]/1e6:.1f}M long &middot; ${liquidations["short_liq_usd"]/1e6:.1f}M short',
             "confluence_name": "Liquidations",
             "confluence_positive": liq_signal["positive"],
@@ -1229,7 +1234,7 @@ def _build_indicator_registry(dashboard, gauge_src):
             "page_title": "Liquidations",
             "page_hero_html": _value_visual(
                 f'${(liquidations["long_liq_usd"]+liquidations["short_liq_usd"])/1e6:.2f}M',
-                liq_signal["label"], liq_signal["color"], "hero"),
+                liq_signal["label"], liq_signal["color"], "hero", stacked=True),
             "page_sections": [
                 ("What It Measures", "<p>The dollar size and direction of BTC perpetual futures liquidations "
                  "&mdash; forced closeouts of over-leveraged long or short positions &mdash; over the most "

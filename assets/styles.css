@@ -247,6 +247,13 @@ h1, h2, h3 {
   gap: 10px;
 }
 .pulse-card-word { font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 600; color: var(--paper); opacity: 0.85; }
+/* A multi-word word (e.g. Liquidations' "Long Liquidations Dominant")
+   reads as a lopsided wrap next to the number in the default side-by-side
+   baseline row - stack it centered underneath instead, same idea as a
+   stock-ticker card that drops to two lines for a long label. Smaller
+   value font so the number doesn't crowd the stacked word beneath it. */
+.pulse-card-value.stacked-value { flex-direction: column; align-items: center; gap: 4px; font-size: 34px; }
+.pulse-card-value.stacked-value .pulse-card-word { text-align: center; }
 .pulse-mover-symbol { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 42px; color: var(--paper); }
 .pulse-mover-change { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 26px; margin-left: 12px; }
 
@@ -583,6 +590,10 @@ h1, h2, h3 {
   color: var(--paper);
 }
 .indicator-value-word { font-family: 'Source Sans 3', sans-serif; font-size: 19px; font-weight: 600; opacity: 0.85; }
+/* Same stacked treatment as .pulse-card-value.stacked-value, scaled up for
+   the indicator page's own hero size. */
+.indicator-value.stacked-value { flex-direction: column; align-items: center; gap: 8px; font-size: 46px; }
+.indicator-value.stacked-value .indicator-value-word { text-align: center; }
 .indicator-mover-symbol { font-size: 44px; margin-right: 4px; }
 .indicator-risk-badge { font-size: 34px; padding: 12px 28px; }
 .indicator-sector-list { min-width: 260px; }
