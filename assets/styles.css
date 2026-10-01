@@ -530,11 +530,12 @@ h1, h2, h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  /* Same gray band as Market Snapshot's - .changed-inner keeps its own
-     black card fill, only the outer frame around it changes. */
-  background: #BBB7B0;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  /* Same darker-black/lighter-black pairing as Signal Confluence/Alerts &
+     Indicators - this band is the darker #121212, .changed-inner below is
+     the lighter shade sitting on top of it. */
+  background: #121212;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   padding: 48px 24px 56px;
 }
 /* Same scoped treatment as .confluence-solo's eyebrow - extra gap below
@@ -561,7 +562,7 @@ h1, h2, h3 {
   border-radius: 20px;
   padding: 40px 48px;
   background:
-    linear-gradient(#0d0c0a, #0d0c0a) padding-box,
+    linear-gradient(#1b1b1b, #1b1b1b) padding-box,
     linear-gradient(135deg, #D9A857, var(--accent-dark)) border-box;
 }
 /* width:fit-content + margin:auto (not align-items:center) - centering
