@@ -954,7 +954,11 @@ h1, h2, h3 {
   max-width: 320px;
 }
 .explainer-icon { font-size: 34px; line-height: 1; margin-bottom: 16px; }
-.explainer-icon-img { height: 48px; width: auto; margin-bottom: 16px; }
+/* margin: 0 auto, not just margin-bottom - the global `img { display: block }`
+   reset means text-align:center on .explainer-card has no effect on this
+   image (that only centers inline content), so without an explicit auto
+   left/right margin it sits flush-left instead of centered over the title. */
+.explainer-icon-img { height: 48px; width: auto; margin: 0 auto 16px; }
 .explainer-card-title {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
