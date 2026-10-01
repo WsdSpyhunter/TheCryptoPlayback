@@ -686,9 +686,15 @@ h1, h2, h3 {
   margin: 0 auto;
 }
 .indicator-hero-content { max-width: 700px; text-align: center; }
+/* align-self:end + negative margin-bottom matching .indicator-hero's own
+   bottom padding (48px) - pulls the mascot down to stand flush on the
+   black/white dividing line instead of floating centered in the black
+   area, same trick as .section-mascot in Top News Stories. */
 .indicator-mascot {
   justify-self: end;
+  align-self: end;
   margin-right: 160px;
+  margin-bottom: -48px;
   height: 280px;
   width: auto;
 }
