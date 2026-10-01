@@ -555,7 +555,7 @@ h1, h2, h3 {
    the gradient rather than a flat color. Sets this section apart from
    its neighbors' plain hairline-border cards. */
 .changed-inner {
-  max-width: 760px;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
   border: 1.5px solid transparent;
@@ -563,7 +563,7 @@ h1, h2, h3 {
   padding: 40px 48px;
   background:
     linear-gradient(#1b1b1b, #1b1b1b) padding-box,
-    linear-gradient(135deg, #D9A857, var(--accent-dark)) border-box;
+    linear-gradient(135deg, #ffffff, #8a8a8a) border-box;
 }
 /* width:fit-content + margin:auto (not align-items:center) - centering
    each row individually let every row's own text width determine where
@@ -572,7 +572,19 @@ h1, h2, h3 {
    keeps every row's dot and headline starting at the same shared x. */
 /* Wider top margin - more separation between the disclaimer line above
    ("Compares each indicator's current reading...") and the row list. */
-.changed-list { margin: 40px auto 0; width: fit-content; display: flex; flex-direction: column; gap: 18px; }
+/* Same 2-column grid as .confluence-list, now that this card is wide
+   enough (max-width bumped to match .confluence-solo) to hold pairs of
+   rows side by side instead of one long stack. */
+.changed-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 48px;
+  margin: 40px auto 0;
+  text-align: left;
+}
+@media (max-width: 700px) {
+  .changed-list { grid-template-columns: 1fr; }
+}
 .changed-row { display: flex; align-items: flex-start; gap: 14px; text-align: left; }
 /* Fixed width + centered glyph - the three dot emoji don't all have the
    same natural character width, which was enough on its own to nudge
