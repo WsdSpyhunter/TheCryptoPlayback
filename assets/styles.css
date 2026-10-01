@@ -539,7 +539,8 @@ h1, h2, h3 {
    the title oval specifically here, so the oval stays put but everything
    under it (the "What Changed?" heading, disclaimer, and row list) shifts
    down away from it. */
-.changed-inner .snapshot-eyebrow { font-size: 18px; padding: 9px 20px; margin-bottom: 32px; }
+.changed-inner .snapshot-eyebrow { font-size: 18px; padding: 9px 20px; margin-bottom: 10px; }
+.changed-inner .snapshot-meta { margin-top: 0; margin-bottom: 36px; }
 /* text-align:center (not just a centered box with left-aligned text inside
    it) - this section is much narrower than its neighbors (900px vs. the
    1200-1400px sections above/below), so left-aligned text inside a merely
