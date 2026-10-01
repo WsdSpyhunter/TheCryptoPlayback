@@ -38,35 +38,74 @@
           <span class="pulse-eyebrow">Top 6 Market</span>
           <svg class="pulse-trend-icon" viewBox="0 0 24 24" fill="none" stroke="#E8837A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 8,13 12,10 22,20"/><polyline points="15,20 22,20 22,13"/></svg>
         </div>
-        <span class="pulse-asof">Price data via CoinGecko &middot; OCT. 1, 2026 &middot; 3:17 AM UTC</span>
+        <span class="pulse-asof" id="pulse-asof">Price data via CoinGecko &middot; OCT. 1, 2026 &middot; 3:17 AM UTC</span>
       </div>
-      <div class="pulse-ticker-grid"><div class="pulse-coin">
+      <div class="pulse-ticker-grid"><div class="pulse-coin" data-coingecko-id="">
         <span class="pulse-coin-sym">BTC</span>
         <span class="pulse-coin-price">$83,439.00</span>
         <span class="pulse-coin-change" style="color:#8FBF5C;">+0.2%</span>
-      </div><div class="pulse-coin">
+      </div><div class="pulse-coin" data-coingecko-id="">
         <span class="pulse-coin-sym">ETH</span>
         <span class="pulse-coin-price">$2,686.65</span>
         <span class="pulse-coin-change" style="color:#8FBF5C;">+0.6%</span>
-      </div><div class="pulse-coin">
+      </div><div class="pulse-coin" data-coingecko-id="">
         <span class="pulse-coin-sym">BNB</span>
         <span class="pulse-coin-price">$767.06</span>
         <span class="pulse-coin-change" style="color:#8FBF5C;">+0.9%</span>
-      </div><div class="pulse-coin">
+      </div><div class="pulse-coin" data-coingecko-id="">
         <span class="pulse-coin-sym">XRP</span>
         <span class="pulse-coin-price">$1.49</span>
         <span class="pulse-coin-change" style="color:#E8837A;">-0.1%</span>
-      </div><div class="pulse-coin">
+      </div><div class="pulse-coin" data-coingecko-id="">
         <span class="pulse-coin-sym">SOL</span>
         <span class="pulse-coin-price">$118.03</span>
         <span class="pulse-coin-change" style="color:#E8837A;">-1.2%</span>
-      </div><div class="pulse-coin">
+      </div><div class="pulse-coin" data-coingecko-id="">
         <span class="pulse-coin-sym">TRX</span>
         <span class="pulse-coin-price">$0.34</span>
         <span class="pulse-coin-change" style="color:#8FBF5C;">+0.8%</span>
       </div></div>
     </div>
-  </section><section class="snapshot-banner">
+  </section>
+  <script>
+(function () {
+  var coins = Array.prototype.slice.call(document.querySelectorAll('.pulse-coin[data-coingecko-id]'))
+    .filter(function (el) { return el.getAttribute('data-coingecko-id'); });
+  if (!coins.length) return;
+  var ids = coins.map(function (el) { return el.getAttribute('data-coingecko-id'); }).join(',');
+  var asof = document.getElementById('pulse-asof');
+
+  function poll() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + encodeURIComponent(ids) +
+          '&vs_currencies=usd&include_24hr_change=true')
+      .then(function (r) { if (!r.ok) throw new Error('CoinGecko ' + r.status); return r.json(); })
+      .then(function (data) {
+        coins.forEach(function (el) {
+          var id = el.getAttribute('data-coingecko-id');
+          var quote = data[id];
+          if (!quote || typeof quote.usd !== 'number') return;
+          var priceEl = el.querySelector('.pulse-coin-price');
+          var changeEl = el.querySelector('.pulse-coin-change');
+          if (priceEl) priceEl.textContent = '$' + quote.usd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+          if (changeEl && typeof quote.usd_24h_change === 'number') {
+            var change = quote.usd_24h_change;
+            changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(1) + '%';
+            changeEl.style.color = change >= 0 ? '#8FBF5C' : '#E8837A';
+          }
+        });
+        if (asof) {
+          var now = new Date();
+          asof.textContent = 'Live price updates via CoinGecko \u00b7 last updated ' +
+            now.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', second: '2-digit'});
+        }
+      })
+      .catch(function (err) { console.warn('Live ticker update skipped:', err); });
+  }
+
+  poll();
+  setInterval(poll, 60000);
+})();
+</script><section class="snapshot-banner">
     <div class="snapshot-solo">
       <h2 class="snapshot-title">Market Snapshot</h2>
       <p class="snapshot-text">The market is currently showing a greed-leaning profile, with low volatility risk and accumulation capital flow. AI is leading sector rotation, and participation across tracked assets looks broad.</p>

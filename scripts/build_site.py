@@ -1565,14 +1565,74 @@ def _build_indicator_registry(dashboard, gauge_src):
     }
 
 
+# Client-side, in-browser live price updates for the Top 6 Market ticker
+# only - every other indicator on the site is still a server-rendered
+# static page rebuilt by the 15-minute (or 4x/day) GitHub Actions workflows,
+# which is the right cadence for numbers that take real computation. Price
+# itself changes constantly though, and polling CoinGecko's free, public,
+# unauthenticated /simple/price endpoint directly from each visitor's own
+# browser - no API key involved, so nothing of ours is exposed - gets prices
+# visibly live without needing a 1-minute GitHub Actions schedule (which
+# GitHub doesn't reliably honor below ~5 minutes anyway) or multiplying load
+# on every other indicator's own data source just to speed up six prices.
+# Fails silently (console.warn only) on a network hiccup or rate limit -
+# the server-rendered values stay on screen either way, so a visitor never
+# sees blank or broken numbers, just a slightly stale ones until the next
+# successful poll.
+LIVE_TICKER_SCRIPT = """<script>
+(function () {
+  var coins = Array.prototype.slice.call(document.querySelectorAll('.pulse-coin[data-coingecko-id]'))
+    .filter(function (el) { return el.getAttribute('data-coingecko-id'); });
+  if (!coins.length) return;
+  var ids = coins.map(function (el) { return el.getAttribute('data-coingecko-id'); }).join(',');
+  var asof = document.getElementById('pulse-asof');
+
+  function poll() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + encodeURIComponent(ids) +
+          '&vs_currencies=usd&include_24hr_change=true')
+      .then(function (r) { if (!r.ok) throw new Error('CoinGecko ' + r.status); return r.json(); })
+      .then(function (data) {
+        coins.forEach(function (el) {
+          var id = el.getAttribute('data-coingecko-id');
+          var quote = data[id];
+          if (!quote || typeof quote.usd !== 'number') return;
+          var priceEl = el.querySelector('.pulse-coin-price');
+          var changeEl = el.querySelector('.pulse-coin-change');
+          if (priceEl) priceEl.textContent = '$' + quote.usd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+          if (changeEl && typeof quote.usd_24h_change === 'number') {
+            var change = quote.usd_24h_change;
+            changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(1) + '%';
+            changeEl.style.color = change >= 0 ? '#8FBF5C' : '#E8837A';
+          }
+        });
+        if (asof) {
+          var now = new Date();
+          asof.textContent = 'Live price updates via CoinGecko \\u00b7 last updated ' +
+            now.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', second: '2-digit'});
+        }
+      })
+      .catch(function (err) { console.warn('Live ticker update skipped:', err); });
+  }
+
+  poll();
+  setInterval(poll, 60000);
+})();
+</script>"""
+
+
 def render_market_pulse(prices, date_abbrev):
     """Homepage-only Top 6 Market ticker. Used to also render Fear & Greed /
     Biggest Mover / Risk Radar / Capital Flow / Top Sectors as their own
     cards right below the ticker, but those are now shown once, in the
     Alerts & Indicators section further down the page - kept here rather
-    than duplicated so there's a single source of truth for each card."""
+    than duplicated so there's a single source of truth for each card.
+
+    Each .pulse-coin carries data-coingecko-id so the client-side live-price
+    script (see LIVE_TICKER_SCRIPT) knows which coin each card is without
+    guessing from the symbol - coins fetched before this field existed just
+    won't live-update until the next 15-minute refresh backfills it."""
     coin_cards = "".join(
-        f"""<div class="pulse-coin">
+        f"""<div class="pulse-coin" data-coingecko-id="{c.get('id', '')}">
         <span class="pulse-coin-sym">{c['symbol']}</span>
         <span class="pulse-coin-price">${c['price']:,.2f}</span>
         <span class="pulse-coin-change" style="color:{'#8FBF5C' if c['change_24h'] >= 0 else '#E8837A'};">{c['change_24h']:+.1f}%</span>
@@ -1588,11 +1648,12 @@ def render_market_pulse(prices, date_abbrev):
           <span class="pulse-eyebrow">Top {len(prices)} Market</span>
           <svg class="pulse-trend-icon" viewBox="0 0 24 24" fill="none" stroke="#E8837A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 8,13 12,10 22,20"/><polyline points="15,20 22,20 22,13"/></svg>
         </div>
-        <span class="pulse-asof">Price data via CoinGecko &middot; {date_abbrev}</span>
+        <span class="pulse-asof" id="pulse-asof">Price data via CoinGecko &middot; {date_abbrev}</span>
       </div>
       <div class="pulse-ticker-grid">{coin_cards}</div>
     </div>
-  </section>"""
+  </section>
+  {LIVE_TICKER_SCRIPT}"""
 
 
 def _teaser_image(slug):

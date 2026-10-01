@@ -30,6 +30,7 @@ def get_top_prices(count=6):
         if coin["symbol"].lower() in STABLECOINS:
             continue
         results.append({
+            "id": coin["id"],
             "symbol": coin["symbol"].upper(),
             "name": coin["name"],
             "price": coin["current_price"],
