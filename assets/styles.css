@@ -673,28 +673,21 @@ h1, h2, h3 {
 }
 
 /* ============ Individual indicator pages ============ */
-.indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; }
-/* Same 1fr/auto/1fr centering trick as Market Snapshot's bull/bear -
-   mascot sits in the left column so the content column stays truly
-   centered on the page regardless of how wide the mascot's own column
-   is. */
-.indicator-hero-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-.indicator-hero-content { max-width: 700px; text-align: center; }
-/* align-self:end + negative margin-bottom matching .indicator-hero's own
-   bottom padding (48px) - pulls the mascot down to stand flush on the
-   black/white dividing line instead of floating centered in the black
-   area, same trick as .section-mascot in Top News Stories. */
+/* position:relative anchors .indicator-mascot's absolute positioning
+   below - fixed pixel offsets from the hero's own edges, not tied to the
+   content column's width. The 1fr/auto/1fr grid trick (used for Market
+   Snapshot's bull/bear) doesn't work here: the title text varies a lot in
+   length page to page ("Capital Flow" vs. "Altcoin Rotation / BTC
+   Dominance"), and a longer middle column there shrinks the two 1fr side
+   columns, so the mascot - pinned to that column's own edge - drifted to
+   a different spot on every page. Fixed absolute positioning keeps it in
+   the exact same place everywhere, independent of the title's width. */
+.indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; position: relative; }
+.indicator-hero-inner { max-width: 700px; margin: 0 auto; }
 .indicator-mascot {
-  justify-self: end;
-  align-self: end;
-  margin-right: 160px;
-  margin-bottom: -48px;
+  position: absolute;
+  left: 160px;
+  bottom: 0;
   height: 280px;
   width: auto;
 }

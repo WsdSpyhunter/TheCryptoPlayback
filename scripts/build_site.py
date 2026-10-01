@@ -2186,14 +2186,12 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
     else:
         history_html = '<p class="changed-empty">No history yet &mdash; check back after the next refresh.</p>'
     body_html = f"""<section class="indicator-hero">
+    <img class="indicator-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter, {title} indicator">
     <div class="indicator-hero-inner">
-      <img class="indicator-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter, {title} indicator">
-      <div class="indicator-hero-content">
-        <span class="snapshot-eyebrow">{eyebrow}</span>
-        <div class="snapshot-meta"><span>Last updated {last_updated_display}</span></div>
-        <h1 class="indicator-title">{title}</h1>
-        <div class="indicator-hero-value">{hero_html}</div>
-      </div>
+      <span class="snapshot-eyebrow">{eyebrow}</span>
+      <div class="snapshot-meta"><span>Last updated {last_updated_display}</span></div>
+      <h1 class="indicator-title">{title}</h1>
+      <div class="indicator-hero-value">{hero_html}</div>
     </div>
   </section>
   <div class="indicator-body">
