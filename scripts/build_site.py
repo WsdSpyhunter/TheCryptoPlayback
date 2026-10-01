@@ -397,6 +397,7 @@ def _load_dashboard_data(entries):
             live.setdefault("liquidations", {"long_liq_usd": 0.0, "short_liq_usd": 0.0,
                                               "event_count": 0, "window_minutes": 0.0})
             live.setdefault("whale_activity", {"amounts_btc": [], "sample_size": 0})
+            live.setdefault("macro", {"vix": 16.0, "vix_change_pct": 0.0, "dxy": 100.0, "dxy_change_pct": 0.0})
             return live
     except (OSError, json.JSONDecodeError):
         pass
@@ -430,6 +431,7 @@ def _load_dashboard_data(entries):
     liquidations = latest_full.get("liquidations") or {"long_liq_usd": 0.0, "short_liq_usd": 0.0,
                                                          "event_count": 0, "window_minutes": 0.0}
     whale_activity = latest_full.get("whale_activity") or {"amounts_btc": [], "sample_size": 0}
+    macro = latest_full.get("macro") or {"vix": 16.0, "vix_change_pct": 0.0, "dxy": 100.0, "dxy_change_pct": 0.0}
     return {
         "updated_at": None,
         "prices": prices,
@@ -443,6 +445,7 @@ def _load_dashboard_data(entries):
         "network_health": network_health,
         "liquidations": liquidations,
         "whale_activity": whale_activity,
+        "macro": macro,
         "gauge_path": latest_full.get("gauge_path", ""),
     }
 
@@ -640,6 +643,31 @@ def _whale_signal(whale_activity, prices):
     }
 
 
+def _macro_risk_signal(macro):
+    """Low/Moderate/Elevated from traditional-markets conditions - VIX
+    (equity volatility/fear) and the US Dollar Index's daily move - same
+    points-based scoring style as Risk Radar, but reading macro conditions
+    instead of crypto's own volatility/sentiment. VIX >=30 (equities'
+    classic "high fear" threshold) adds 2 points, >=20 (above its
+    long-run average) adds 1. A dollar move of >=0.5% in a single day
+    (large for an index this size) adds 1 point, in either direction,
+    since a sharp FX move either way reflects macro turbulence."""
+    score = 0
+    if macro["vix"] >= 30:
+        score += 2
+    elif macro["vix"] >= 20:
+        score += 1
+    if abs(macro["dxy_change_pct"]) >= 0.5:
+        score += 1
+
+    level = "elevated" if score >= 3 else ("moderate" if score >= 1 else "low")
+    return {
+        "level": level,
+        "score": score,
+        "positive": level == "low",
+    }
+
+
 DOMINANCE_ROTATION_THRESHOLD = 3.0  # percentage points of 24h-change gap between BTC and the alt average
 
 
@@ -805,6 +833,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     network_health = dashboard["network_health"]
     liquidations = dashboard["liquidations"]
     whale_activity = dashboard["whale_activity"]
+    macro = dashboard["macro"]
     signals = _compute_derived_signals(prices, fng, sectors)
     resolved_mover = _live_mover_display(mover)
     stable_signal = _stablecoin_signal(stablecoins)
@@ -814,6 +843,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     net_signal = _network_health_signal(network_health)
     liq_signal = _liquidation_signal(liquidations)
     whale_signal = _whale_signal(whale_activity, prices)
+    macro_signal = _macro_risk_signal(macro)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
 
@@ -1250,6 +1280,42 @@ def _build_indicator_registry(dashboard, gauge_src):
                 f'{_whale_signal(row["whale_activity"], row["prices"])["whale_count"]} transfers'
                 if row.get("whale_activity") and row.get("prices") else "&ndash;"),
         },
+        {
+            "id": "macro_risk",
+            "page": "macro-risk.html",
+            "card_label": "&#127758; Macro Risk",
+            "card_main_html": _badge_visual(macro_signal["level"].upper(), f'pulse-risk-{macro_signal["level"]}', "card"),
+            "card_caption": f'VIX {macro["vix"]:.1f} &middot; DXY {macro["dxy"]:.1f}',
+            "confluence_name": "Macro Risk",
+            "confluence_positive": macro_signal["positive"],
+            "confluence_display": f'{macro_signal["level"].upper()} (VIX {macro["vix"]:.1f})',
+            "explainer_icon": "&#127758;",
+            "explainer_text": (
+                "A Low/Moderate/Elevated read on traditional-market conditions - equity volatility (VIX) and "
+                "US dollar strength (DXY) - the only indicator here that looks outside crypto. A temperature "
+                "check on macro turbulence, not a crypto-specific signal."),
+            "page_title": "Macro Risk",
+            "page_hero_html": _badge_visual(macro_signal["level"].upper(), f'pulse-risk-{macro_signal["level"]}', "hero"),
+            "page_sections": [
+                ("What It Measures", "<p>How turbulent <em>traditional</em> financial markets look right now "
+                 "&mdash; equity volatility and US dollar strength &mdash; not a crypto-specific read. The "
+                 "only indicator on this site that looks outside crypto entirely.</p>"),
+                ("How It's Calculated", "<p>A Crypto Playback score built from two real inputs: the CBOE "
+                 "Volatility Index (VIX) and the US Dollar Index's (DXY) daily move. VIX &ge;30 (equities' "
+                 "classic \"high fear\" threshold) adds 2 points, &ge;20 (above its long-run average) adds 1. "
+                 "A single-day DXY move of &ge;0.5% in either direction adds 1 point. 0 points reads Low, "
+                 "1&ndash;2 reads Moderate, 3 reads Elevated.</p>"),
+                ("Why It Matters", "<p>Crypto doesn't trade in a vacuum - a risk-off shock in traditional "
+                 "markets (volatility spikes, a sharply strengthening dollar) often spills into crypto risk "
+                 "appetite too, even when nothing crypto-specific has changed.</p>"),
+                ("Data Source &amp; Update Frequency", "<p>Yahoo Finance's public market data (VIX, DX-Y.NYB). "
+                 "Both only update during US trading hours, so readings hold steady overnight and on weekends "
+                 "&mdash; not stale data, just no new trading session yet. Refreshed automatically every 15 "
+                 "minutes.</p>"),
+            ],
+            "history_formatter": lambda row: (f'{row["macro"]["vix"]:.1f} VIX'
+                                               if row.get("macro") else "&ndash;"),
+        },
     ]
 
     if etf:
@@ -1490,6 +1556,7 @@ def render_index(entries):
     defi_tvl = dashboard["defi_tvl"]
     network_health = dashboard["network_health"]
     liquidations = dashboard["liquidations"]
+    macro = dashboard["macro"]
     gauge_src = dashboard["gauge_path"]
     date_abbrev = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", ""))
 
@@ -1680,6 +1747,15 @@ def render_index(entries):
                 dot = "&#128994;" if liq_now["positive"] else "&#128308;"
                 change_items.append((dot, "Liquidations shifted",
                                       f"{liq_prev['label']} &rarr; {liq_now['label']}"))
+
+        prev_macro = prev_snapshot.get("macro")
+        if prev_macro:
+            macro_now, macro_prev = _macro_risk_signal(macro), _macro_risk_signal(prev_macro)
+            if macro_now["level"] != macro_prev["level"]:
+                risk_rank = {"low": 0, "moderate": 1, "elevated": 2}
+                dot = "&#128994;" if risk_rank[macro_now["level"]] < risk_rank[macro_prev["level"]] else "&#128308;"
+                change_items.append((dot, "Macro Risk shifted",
+                                      f"{macro_prev['level'].upper()} &rarr; {macro_now['level'].upper()}"))
 
     # ETF Flow diffs against its own most recent prior trading day (from
     # data/etf_flows.json) rather than the ~24h-ago snapshot above - it has
