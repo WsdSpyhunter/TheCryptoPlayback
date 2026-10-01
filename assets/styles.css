@@ -442,14 +442,19 @@ h1, h2, h3 {
 }
 .confluence-row { display: flex; align-items: center; gap: 10px; }
 .confluence-row-dot { font-size: 15px; line-height: 1; flex-shrink: 0; }
-.confluence-row-name {
+/* Signal Confluence row names and What Changed headlines are deliberately
+   the same font-weight/font-size (see .changed-headline below) - sharing
+   one definition here instead of duplicating the values in both places so
+   they can't drift apart again the way they did before (600 vs 17px here,
+   600 vs 17px there, from two different past edits). 300 is a real loaded
+   Oswald weight (see partials.py's font link), not a synthesized one. */
+.confluence-row-name, .changed-headline {
   font-family: 'Oswald', sans-serif;
-  /* 400 (regular), not 600 - Oswald is only loaded at 400/700, so 600 was
-     being synthetically bolded by the browser rather than using a real
-     weight. 400 is both lighter and a genuine loaded weight. */
-  font-weight: 400;
+  font-weight: 300;
   font-size: 18px;
   color: var(--paper);
+}
+.confluence-row-name {
   flex: 1;
   /* Without this, .confluence-banner's text-align:center centers this
      text within its flex:1 box, stranding it far from its dot - left
@@ -502,7 +507,6 @@ h1, h2, h3 {
    headlines out of alignment even after fixing the row-centering bug. */
 .changed-dot { font-size: 19px; line-height: 1.4; flex-shrink: 0; width: 22px; text-align: center; }
 .changed-body { display: flex; flex-direction: column; gap: 3px; }
-.changed-headline { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 17px; color: var(--paper); }
 .changed-detail { font-size: 15px; color: rgba(251,249,245,0.6); }
 .changed-empty { font-size: 15px; color: rgba(251,249,245,0.55); margin-top: 16px; }
 @media (max-width: 600px) {
