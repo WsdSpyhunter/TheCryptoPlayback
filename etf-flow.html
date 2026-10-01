@@ -30,7 +30,7 @@
     <div class="indicator-hero-inner">
       <span class="snapshot-eyebrow">The Crypto Playback</span>
       <h1 class="indicator-title">Bitcoin ETF Flow</h1>
-      <div class="indicator-hero-value"><div class="indicator-value" style="color:#8FBF5C;">+31.1M<span class="indicator-value-word">Inflow</span></div></div>
+      <div class="indicator-hero-value"><div class="indicator-value" style="color:#8FBF5C;">+66.2M<span class="indicator-value-word">Inflow</span></div></div>
     </div>
   </section>
   <div class="indicator-body">
@@ -42,17 +42,20 @@
         <p>Primary data: SoSoValue's aggregate net flow across all US spot BTC ETFs. From the stored daily history we compute the latest confirmed flow, 3D/7D/30D/90D cumulative totals and averages (30D/90D only shown once that much real history has actually accumulated - never a shorter window mislabeled as a longer one), the current consecutive inflow/outflow streak, a Flow Momentum read (7-day average vs. 30-day average, scaled by the size of the 30-day average: &ge;50% relative difference reads Accelerating/Decelerating, &ge;15% reads Strengthening/Weakening, otherwise Neutral), and a 0&ndash;100 Flow Pressure score (40% the percentile rank of today's flow, 60% the percentile rank of the trailing 7-day cumulative, both against all stored history - weighted toward the 7-day figure so one unusually large single day can't dominate the score).</p>
       </div><div class="indicator-section">
         <h2>Independent Validation</h2>
-        <p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering IBIT, BITB, and ARKB) for the same three funds: current status <strong>MATCH</strong>, difference $0.0M.</p><p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check (SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against SoSoValue's full-universe total. Data via <a href="https://xoomar.com">xoomar.com</a>.</p>
+        <p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering IBIT, BITB, and ARKB) for the same three funds: current status <strong>DIVERGENCE</strong>, difference $33.2M.</p><p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check (SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against SoSoValue's full-universe total. Data via <a href="https://xoomar.com">xoomar.com</a>.</p>
       </div><div class="indicator-section">
         <h2>Why It Matters</h2>
         <p>Distinguishes real, fund-level capital movement from ordinary secondary-market price action. We deliberately don't say things like "institutions are buying" or "this predicts price" &mdash; only what the flow itself was.</p>
       </div><div class="indicator-section">
         <h2>Data Source, Freshness &amp; Update Frequency</h2>
-        <p>Data freshness: <strong>CURRENT</strong> (3 day(s) since the latest confirmed trading day, 2026-09-28).</p><p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute cycle the other live indicators use, since polling a daily number that often would be pointless.</p>
+        <p>Data freshness: <strong>CURRENT</strong> (2 day(s) since the latest confirmed trading day, 2026-09-29).</p><p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute cycle the other live indicators use, since polling a daily number that often would be pointless.</p>
       </div>
     <div class="indicator-section">
       <h2>Recent Readings</h2>
       <div class="indicator-history"><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-09-29</span>
+            <span class="indicator-history-value">$+66.2M</span>
+          </div><div class="indicator-history-row">
             <span class="indicator-history-date">2026-09-28</span>
             <span class="indicator-history-value">$+31.1M</span>
           </div><div class="indicator-history-row">
@@ -85,9 +88,6 @@
           </div><div class="indicator-history-row">
             <span class="indicator-history-date">2026-09-14</span>
             <span class="indicator-history-value">$+160.0M</span>
-          </div><div class="indicator-history-row">
-            <span class="indicator-history-date">2026-09-11</span>
-            <span class="indicator-history-value">$-13.3M</span>
           </div></div>
       <p class="indicator-history-note">Refreshed a few times a day &mdash; ETF flow is a once-per-US-trading-day figure, not something backfilled or estimated between real updates.</p>
     </div>
