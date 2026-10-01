@@ -550,6 +550,17 @@ def _compute_derived_signals(prices, fng, sectors):
     }
 
 
+# The one green and one red used across every live indicator's "positive"/
+# "negative" reading - defined once here so a future indicator can't
+# introduce a slightly-different shade (this is exactly how DeFi Pulse's
+# shrinking color ended up as a different red, #E8837A, than Liquidations'
+# #E24C4C, before this constant existed). Amber (#F2C94C) for a middle
+# "neutral/moderate" state isn't a red/green question, so it stays
+# hardcoded per indicator rather than living here.
+INDICATOR_GREEN = "#8FBF5C"
+INDICATOR_RED = "#E24C4C"
+
+
 def _stablecoin_signal(stablecoins):
     """'Expanding'/'Contracting' from real DefiLlama data (fetch_stablecoins.py)
     - dry powder entering or leaving the crypto ecosystem, not a price
@@ -560,7 +571,7 @@ def _stablecoin_signal(stablecoins):
     return {
         "expanding": expanding,
         "signal": "Expanding" if expanding else "Contracting",
-        "color": "#8FBF5C" if expanding else "#E8837A",
+        "color": INDICATOR_GREEN if expanding else INDICATOR_RED,
     }
 
 
@@ -574,7 +585,7 @@ def _defi_tvl_signal(defi_tvl):
     return {
         "growing": growing,
         "signal": "Growing" if growing else "Shrinking",
-        "color": "#8FBF5C" if growing else "#E8837A",
+        "color": INDICATOR_GREEN if growing else INDICATOR_RED,
     }
 
 
@@ -597,7 +608,7 @@ def _network_health_signal(network_health):
     return {
         "label": label,
         "positive": change >= 0,
-        "color": "#8FBF5C" if change >= 0 else "#E8837A",
+        "color": INDICATOR_GREEN if change >= 0 else INDICATOR_RED,
     }
 
 
@@ -613,13 +624,13 @@ def _liquidation_signal(liquidations):
     Leverage Heat, not a directional call."""
     total = liquidations["long_liq_usd"] + liquidations["short_liq_usd"]
     if total <= 0:
-        return {"label": "Quiet", "positive": True, "color": "#8FBF5C"}
+        return {"label": "Quiet", "positive": True, "color": INDICATOR_GREEN}
     long_share = liquidations["long_liq_usd"] / total
     if long_share >= LIQUIDATION_DOMINANCE_THRESHOLD:
-        return {"label": "Long Liquidations Dominant", "positive": False, "color": "#E24C4C"}
+        return {"label": "Long Liquidations Dominant", "positive": False, "color": INDICATOR_RED}
     if long_share <= (1 - LIQUIDATION_DOMINANCE_THRESHOLD):
-        return {"label": "Short Liquidations Dominant", "positive": False, "color": "#E24C4C"}
-    return {"label": "Balanced", "positive": True, "color": "#8FBF5C"}
+        return {"label": "Short Liquidations Dominant", "positive": False, "color": INDICATOR_RED}
+    return {"label": "Balanced", "positive": True, "color": INDICATOR_GREEN}
 
 
 WHALE_THRESHOLD_USD = 1_000_000  # standard "whale transaction" floor
@@ -801,7 +812,7 @@ def _badge_visual(text, badge_class, context):
 
 def _mover_visual(symbol, change, context):
     """Symbol + signed percent, side by side - Biggest Mover's shape."""
-    color = "#8FBF5C" if change >= 0 else "#E24C4C"
+    color = INDICATOR_GREEN if change >= 0 else INDICATOR_RED
     sign = "+" if change >= 0 else ""
     if context == "card":
         return (f'<span class="pulse-mover-symbol">{symbol}</span>'
@@ -814,7 +825,7 @@ def _sector_list_visual(sectors, context):
     """A short list of name/change rows - Top Sectors' shape."""
     rows = "".join(
         f'<div class="pulse-sector-row"><span class="pulse-sector-name">{s["label"]}</span>'
-        f'<span class="pulse-sector-change" style="color:{"#8FBF5C" if s["change_24h"] >= 0 else "#E8837A"};">'
+        f'<span class="pulse-sector-change" style="color:{INDICATOR_GREEN if s["change_24h"] >= 0 else INDICATOR_RED};">'
         f'{s["change_24h"]:+.1f}%</span></div>'
         for s in sectors
     )
@@ -866,13 +877,13 @@ def _build_indicator_registry(dashboard, gauge_src):
     breadth = _load_market_breadth_dashboard()
     narrative = _load_narrative_momentum_dashboard()
 
-    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")
-    flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
+    fng_color = INDICATOR_RED if fng["value"] <= 45 else (INDICATOR_GREEN if fng["value"] >= 55 else "#8A7F5C")
+    flow_color = {"accumulation": INDICATOR_GREEN, "mixed": "#F2C94C", "distribution": INDICATOR_RED}.get(
         signals["capital_flow_signal"].lower(), "#8A7F5C"
     )
-    rotation_color = {"Alts Outperforming": "#8FBF5C", "BTC Outperforming": "#E8837A"}.get(rotation["label"], "#F2C94C")
-    lev_color = "#8FBF5C" if lev_signal["label"] == "Balanced" else (
-        "#E24C4C" if "Extreme" in lev_signal["label"] else "#F2C94C")
+    rotation_color = {"Alts Outperforming": INDICATOR_GREEN, "BTC Outperforming": INDICATOR_RED}.get(rotation["label"], "#F2C94C")
+    lev_color = INDICATOR_GREEN if lev_signal["label"] == "Balanced" else (
+        INDICATOR_RED if "Extreme" in lev_signal["label"] else "#F2C94C")
 
     registry = [
         {
@@ -1339,7 +1350,7 @@ def _build_indicator_registry(dashboard, gauge_src):
 
     if etf:
         flow_m = float(etf["latest_flow_usd"]) / 1e6
-        etf_color = "#8FBF5C" if flow_m >= 0 else "#E8837A"
+        etf_color = INDICATOR_GREEN if flow_m >= 0 else INDICATOR_RED
         etf_word = _etf_pressure_label(etf["pressure_score"], flow_m)
         etf_card_main = _value_visual(f"{flow_m:+.1f}M", etf_word, etf_color, "card")
         etf_hero_main = _value_visual(f"{flow_m:+.1f}M", etf_word, etf_color, "hero")
@@ -1415,8 +1426,8 @@ def _build_indicator_registry(dashboard, gauge_src):
     registry.append(etf_entry)
 
     if breadth and breadth["have_50"]:
-        breadth_color = "#8FBF5C" if breadth["pct_above_50"] >= 55 else (
-            "#E8837A" if breadth["pct_above_50"] < 45 else "#F2C94C")
+        breadth_color = INDICATOR_GREEN if breadth["pct_above_50"] >= 55 else (
+            INDICATOR_RED if breadth["pct_above_50"] < 45 else "#F2C94C")
         breadth_card_main = _value_visual(f'{breadth["pct_above_50"]}%', breadth["label"], breadth_color, "card")
         breadth_hero_main = _value_visual(f'{breadth["pct_above_50"]}%', breadth["label"], breadth_color, "hero")
         two_hundred_d_line = (

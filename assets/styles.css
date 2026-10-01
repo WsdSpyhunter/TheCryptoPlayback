@@ -273,7 +273,7 @@ h1, h2, h3 {
 }
 .pulse-risk-low { color: #8FBF5C; background: rgba(143,191,92,0.14); border: 1px solid rgba(143,191,92,0.4); }
 .pulse-risk-moderate { color: #F2C94C; background: rgba(242,201,76,0.14); border: 1px solid rgba(242,201,76,0.4); }
-.pulse-risk-elevated { color: #E8837A; background: rgba(232,131,122,0.14); border: 1px solid rgba(232,131,122,0.4); }
+.pulse-risk-elevated { color: #E24C4C; background: rgba(226,76,76,0.14); border: 1px solid rgba(226,76,76,0.4); }
 
 @media (max-width: 900px) {
   .pulse-ticker-grid { grid-template-columns: repeat(3, 1fr); }
