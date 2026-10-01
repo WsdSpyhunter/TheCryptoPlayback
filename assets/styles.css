@@ -745,7 +745,7 @@ h1, h2, h3 {
 /* Negative margin pulls the mascot past the row's centered position down
    to the banner's own bottom border (banner padding is 40px) - same
    technique used for the Subscribe section's mascot. */
-.section-mascot { height: 112px; width: auto; justify-self: end; margin-right: 48px; margin-bottom: -40px; align-self: end; }
+.section-mascot { height: 112px; width: auto; justify-self: end; margin-right: 136px; margin-bottom: -40px; align-self: end; }
 @media (max-width: 900px) {
   .section-banner-inner { grid-template-columns: 1fr; justify-items: center; gap: 14px; }
   .section-mascot { justify-self: center; margin-right: 0; margin-bottom: 0; align-self: center; height: 84px; }
