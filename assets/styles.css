@@ -298,10 +298,11 @@ h1, h2, h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  /* Same light band as Top News Stories/Subscribe (was a mood-based
-     red/green/brass, set inline from Python - now a fixed neutral color
-     so this section always matches its neighbors). */
-  background: #EDE9E2;
+  /* Darker gray than the card sitting on top of it (was the same light
+     #EDE9E2 as Top News Stories/Subscribe - that shade now lives on
+     .snapshot-solo instead, swapped so the band reads as a visibly
+     darker frame around the card rather than blending into it). */
+  background: #BBB7B0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   padding: 56px 24px;
@@ -310,9 +311,9 @@ h1, h2, h3 {
 .snapshot-solo {
   max-width: 760px;
   margin: 0 auto;
-  /* A step down from pure --paper white - the full-brightness card read as
-     glary/hard to read against the gold band behind it. */
-  background: #F2EEE3;
+  /* The band's own former color (#EDE9E2) - swapped here so the card
+     reads as the lighter of the two, band now the darker frame around it. */
+  background: #EDE9E2;
   border-radius: 20px;
   padding: 40px 48px;
   box-shadow: 0 10px 34px rgba(23,21,18,0.1);
