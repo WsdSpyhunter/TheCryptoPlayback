@@ -445,13 +445,17 @@ h1, h2, h3 {
 /* Signal Confluence row names and What Changed headlines are deliberately
    the same font-weight/font-size (see .changed-headline below) - sharing
    one definition here instead of duplicating the values in both places so
-   they can't drift apart again the way they did before (600 vs 17px here,
-   600 vs 17px there, from two different past edits). 300 is a real loaded
-   Oswald weight (see partials.py's font link), not a synthesized one. */
+   they can't drift apart again the way they did before. Source Sans 3
+   instead of Oswald here specifically - Oswald is a condensed display face
+   (narrow letterforms by design), which read as cramped/hard-to-scan for a
+   whole row of label text even at a light weight. Source Sans 3 is a
+   normal-width, already-loaded UI font (600 is a real loaded weight, not
+   synthesized), so it has room to breathe while still standing out from
+   the lighter 400-weight body copy around it. */
 .confluence-row-name, .changed-headline {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 300;
-  font-size: 18px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
   color: var(--paper);
 }
 .confluence-row-name {
