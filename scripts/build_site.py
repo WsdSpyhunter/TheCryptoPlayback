@@ -1826,6 +1826,7 @@ def render_index(entries):
     confluence_section = f"""<section class="confluence-banner">
     <div class="confluence-solo">
       <span class="snapshot-eyebrow">Signal Confluence</span>
+      <div class="snapshot-meta"><span>Updated {date_abbrev}</span></div>
       <div class="confluence-score">{positive_count}<span class="confluence-score-slash">/{total_count}</span></div>
       <div class="confluence-score-label">signals positive</div>
       <div class="confluence-list">{confluence_rows}</div>
@@ -1985,6 +1986,7 @@ def render_index(entries):
       &mdash; except Bitcoin ETF Flow, which compares to its most recent prior trading day, since it only updates
       once a day.</p>
       <div class="changed-list">{changed_rows}</div>
+      <div class="snapshot-meta"><span>Updated {date_abbrev}</span></div>
     </div>
   </section>"""
 
