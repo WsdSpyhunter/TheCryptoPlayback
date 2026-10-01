@@ -530,9 +530,11 @@ h1, h2, h3 {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  background: #000000;
-  border-top: 1px solid rgba(255,255,255,0.12);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  /* Same gray band as Market Snapshot's - .changed-inner keeps its own
+     black card fill, only the outer frame around it changes. */
+  background: #BBB7B0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
   padding: 48px 24px 56px;
 }
 /* Same scoped treatment as .confluence-solo's eyebrow - extra gap below
