@@ -496,7 +496,11 @@ h1, h2, h3 {
   border-bottom: 1px solid rgba(255,255,255,0.12);
   padding: 48px 24px 56px;
 }
-.changed-inner .snapshot-eyebrow { font-size: 15px; padding: 9px 20px; }
+/* Same scoped treatment as .confluence-solo's eyebrow - extra gap below
+   the title oval specifically here, so the oval stays put but everything
+   under it (the "What Changed?" heading, disclaimer, and row list) shifts
+   down away from it. */
+.changed-inner .snapshot-eyebrow { font-size: 15px; padding: 9px 20px; margin-bottom: 32px; }
 /* text-align:center (not just a centered box with left-aligned text inside
    it) - this section is much narrower than its neighbors (900px vs. the
    1200-1400px sections above/below), so left-aligned text inside a merely
