@@ -1363,6 +1363,8 @@ def _build_indicator_registry(dashboard, gauge_src):
             f"<strong>{etf['validation_status'] or 'UNAVAILABLE'}</strong>"
             + (f", difference ${float(etf['validation_difference_usd'])/1e6:.1f}M." if etf.get('validation_difference_usd') else ".")
             + "</p>"
+            + (f"<p>{etf['validation_notes']}</p>"
+               if etf.get("validation_notes") and "Driven mainly by" in etf["validation_notes"] else "")
         )
         freshness_line = (f"<p>Data freshness: <strong>{etf['freshness']}</strong> ({etf['days_old']} day(s) "
                            f"since the latest confirmed trading day, {etf['latest_date']}).</p>")

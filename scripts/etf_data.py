@@ -119,6 +119,40 @@ def _validate_subset(sosovalue_subset_total, xoomar_subset_total):
     return status, abs_diff, rel_diff
 
 
+def _explain_validation(status, tickers, xoomar_by_ticker_date, date):
+    """Names which specific fund(s) actually drove a CLOSE/DIVERGENCE flag,
+    instead of leaving it as an opaque "the subset disagreed." Discovered
+    need: on 2026-09-29, IBIT and BITB matched XOOMAR within ~0.3%, but
+    XOOMAR's ARKB showed $0 (holdings frozen at the same value for 4
+    straight days) while SoSoValue showed +$33.2M - ARK 21Shares' own
+    holdings-disclosure file (which XOOMAR derives ARKB from) had lagged a
+    day, and the flow appeared in XOOMAR's data a day later instead. A
+    single MATCH/CLOSE/DIVERGENCE label gave no hint this was one fund's
+    disclosure timing, not a real cross-source data problem."""
+    base = "SoSoValue IBIT+BITB+ARKB subset vs XOOMAR's holdings-derived total for the same three funds."
+    if status in (None, "MATCH", "UNAVAILABLE"):
+        return base
+
+    diffs = []
+    for ticker in XOOMAR_COVERED_TICKERS:
+        so_value = _dec(tickers.get(ticker))
+        xoomar_value = xoomar_by_ticker_date.get(ticker, {}).get(date)
+        if so_value is None or xoomar_value is None:
+            continue
+        diffs.append((ticker, abs(so_value - xoomar_value), so_value, xoomar_value))
+    if not diffs:
+        return base
+
+    diffs.sort(key=lambda t: t[1], reverse=True)
+    worst_ticker, worst_diff, so_val, xo_val = diffs[0]
+    if worst_diff < Decimal("1000000"):
+        return base  # no single ticker stands out enough to call out by name
+    return (f"{base} Driven mainly by {worst_ticker}: SoSoValue "
+            f"${so_val/1_000_000:+.1f}M vs XOOMAR ${xo_val/1_000_000:+.1f}M for that fund alone "
+            f"(the other covered funds were within tolerance) - often a one-day lag in that "
+            f"issuer's own holdings-disclosure file rather than a real data problem.")
+
+
 def ingest_and_store():
     """Fetches both sources, validates the last REVISION_WINDOW_DAYS days
     against XOOMAR (same-subset only), merges into data/etf_flows.json
@@ -142,12 +176,19 @@ def ingest_and_store():
 
     xoomar_rows = get_xoomar_btc_flows(days=REVISION_WINDOW_DAYS + 5)
     xoomar_by_date = {}
+    xoomar_by_ticker_date = {}  # {ticker: {date: flow}} - kept alongside the summed
+                                # total so a CLOSE/DIVERGENCE flag can name which
+                                # specific fund actually disagrees, not just "the
+                                # subset" as an opaque blob.
     for row in xoomar_rows:
-        if row.get("ticker") not in XOOMAR_COVERED_TICKERS:
+        ticker = row.get("ticker")
+        if ticker not in XOOMAR_COVERED_TICKERS:
             continue
         d = row["date"]
+        flow = _dec(row.get("flowUsd")) or Decimal("0")
         xoomar_by_date.setdefault(d, Decimal("0"))
-        xoomar_by_date[d] += _dec(row.get("flowUsd")) or Decimal("0")
+        xoomar_by_date[d] += flow
+        xoomar_by_ticker_date.setdefault(ticker, {})[d] = flow
 
     store = _load_store()
     observations = store.setdefault("observations", {})
@@ -166,11 +207,15 @@ def ingest_and_store():
                 if date in by_date:
                     tickers[ticker] = str(by_date[date])
 
-        validation_status, validation_diff, validation_pct = record.get("validation_status"), None, None
+        validation_status = record.get("validation_status")
+        validation_diff, validation_pct = None, None
+        validation_notes = record.get("validation_notes") or (
+            "SoSoValue IBIT+BITB+ARKB subset vs XOOMAR's holdings-derived total for the same three funds.")
         if is_in_revision_window:
             sosovalue_subset = sum((_dec(v) for v in tickers.values() if v is not None), Decimal("0"))
             xoomar_subset = xoomar_by_date.get(date)
             validation_status, validation_diff, validation_pct = _validate_subset(sosovalue_subset, xoomar_subset)
+            validation_notes = _explain_validation(validation_status, tickers, xoomar_by_ticker_date, date)
 
         revised = previous_total is not None and total_flow is not None and previous_total != total_flow
 
@@ -186,7 +231,7 @@ def ingest_and_store():
             "validation_status": validation_status,
             "validation_difference_usd": str(validation_diff) if validation_diff is not None else record.get("validation_difference_usd"),
             "validation_difference_pct": str(validation_pct) if validation_pct is not None else record.get("validation_difference_pct"),
-            "validation_notes": "SoSoValue IBIT+BITB+ARKB subset vs XOOMAR's holdings-derived total for the same three funds.",
+            "validation_notes": validation_notes,
             "previous_value": str(previous_total) if revised else record.get("previous_value"),
             "revised_at": now.isoformat() if revised else record.get("revised_at"),
         }
@@ -317,6 +362,7 @@ def compute_indicator(store, as_of=None):
         "validation_status": latest_obs.get("validation_status"),
         "validation_difference_usd": latest_obs.get("validation_difference_usd"),
         "validation_difference_pct": latest_obs.get("validation_difference_pct"),
+        "validation_notes": latest_obs.get("validation_notes"),
         "history": dated_rows[:HISTORY_DAYS],
     }
 
