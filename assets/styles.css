@@ -236,6 +236,18 @@ h1, h2, h3 {
   text-align: center;
   line-height: 1.35;
 }
+/* Card grows a little taller to fit this - flex-wrap's default
+   align-items:stretch means every card sharing a wrapped row grows to
+   match automatically, no fixed height needed. */
+.pulse-card-updated {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--paper);
+  opacity: 0.4;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
 .pulse-gauge { width: 64px; height: auto; }
 .pulse-card-value {
   font-family: 'Oswald', sans-serif;
@@ -663,6 +675,7 @@ h1, h2, h3 {
 /* ============ Individual indicator pages ============ */
 .indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; }
 .indicator-hero-inner { max-width: 700px; margin: 0 auto; }
+.indicator-mascot { display: block; height: 84px; width: auto; margin: 0 auto 18px; }
 .indicator-title {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;

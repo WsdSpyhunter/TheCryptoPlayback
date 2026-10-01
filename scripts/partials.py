@@ -66,7 +66,7 @@ FOOTER = """<footer class="site-footer">
   <div class="wrap">
     <div class="footer-copy">&copy; {year} The Crypto Playback &middot; <a href="{root}about.html">Contact</a></div>
     <div class="footer-brand">
-      <img class="footer-mascot" src="{root}assets/footer-mascot-web.png?v=""" + FOOTER_MASCOT_VERSION + """" alt="">
+      <img class="footer-mascot" src="{root}assets/footer-mascot-web.png?v=""" + FOOTER_MASCOT_VERSION + """" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter">
       <img class="footer-logo" src="{root}assets/logo-wordmark.png?v=""" + LOGO_VERSION + """" alt="The Crypto Playback">
     </div>
   </div>

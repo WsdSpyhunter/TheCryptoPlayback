@@ -462,6 +462,14 @@ def _format_live_updated(updated_at_iso, fallback_display):
     return f"{format_date_abbrev(dt)} &middot; {dt.strftime('%-I:%M %p')} UTC"
 
 
+def _format_date_only(date_str):
+    """'Sept. 30, 2026' from a plain 'YYYY-MM-DD' string - used for the
+    handful of indicators (ETF Flow, Market Breadth, Narrative Momentum)
+    whose own data only carries a date, not a time of day, so showing a
+    time for them would fabricate precision the data doesn't have."""
+    return format_date_abbrev(datetime.strptime(date_str, "%Y-%m-%d"))
+
+
 def _load_etf_dashboard():
     """The Bitcoin ETF Flow indicator, computed from data/etf_flows.json
     (see etf_data.py) - refreshed on its own low-frequency schedule
@@ -1350,6 +1358,15 @@ def _build_indicator_registry(dashboard, gauge_src):
         },
     ]
 
+    # All 13 indicators above share the one 15-minute live refresh
+    # timestamp - set once here instead of repeating it in every dict.
+    # ETF Flow/Market Breadth/Narrative Momentum below set their own
+    # (date-only, no fabricated time) since they refresh on a different
+    # schedule entirely.
+    live_updated_display = _format_live_updated(dashboard.get("updated_at"), "recently")
+    for entry in registry:
+        entry["last_updated_display"] = live_updated_display
+
     if etf:
         flow_m = float(etf["latest_flow_usd"]) / 1e6
         etf_color = INDICATOR_GREEN if flow_m >= 0 else INDICATOR_RED
@@ -1378,6 +1395,7 @@ def _build_indicator_registry(dashboard, gauge_src):
         etf_history_rows, etf_history_formatter = [], lambda row: "&ndash;"
         validation_line, freshness_line = "<p>No reading yet.</p>", ""
         etf_confluence_positive, etf_confluence_display = None, None
+    etf_last_updated = _format_date_only(etf['latest_date']) if etf else "awaiting first daily update"
 
     etf_entry = {
         "id": "etf_flow",
@@ -1385,6 +1403,7 @@ def _build_indicator_registry(dashboard, gauge_src):
         "card_label": "&#127974; ETF Flow",
         "card_main_html": etf_card_main,
         "card_caption": etf_caption,
+        "last_updated_display": etf_last_updated,
         "confluence_name": "ETF Flow",
         "confluence_positive": etf_confluence_positive,
         "confluence_display": etf_confluence_display,
@@ -1454,11 +1473,14 @@ def _build_indicator_registry(dashboard, gauge_src):
         two_hundred_d_line = "<p>No reading yet.</p>"
         breadth_history_rows, breadth_history_formatter = [], lambda row: "&ndash;"
         breadth_confluence_positive, breadth_confluence_display = None, None
+    breadth_last_updated = (_format_date_only(breadth['latest_date']) if breadth
+                             else "awaiting first daily update")
 
     breadth_entry = {
         "id": "market_breadth",
         "page": "market-breadth.html",
         "card_label": "&#128200; Market Breadth",
+        "last_updated_display": breadth_last_updated,
         "card_main_html": breadth_card_main,
         "card_caption": breadth_caption,
         "confluence_name": "Market Breadth",
@@ -1514,10 +1536,13 @@ def _build_indicator_registry(dashboard, gauge_src):
         narrative_caption = "Sectors ranked by sustained weekly performance"
         narrative_history_rows, narrative_history_formatter = [], lambda row: "&ndash;"
         narrative_confluence_positive, narrative_confluence_display = None, None
+    narrative_last_updated = (_format_date_only(narrative['latest_date']) if narrative
+                               else "awaiting first daily update")
 
     narrative_entry = {
         "id": "narrative_momentum",
         "page": "narrative-momentum.html",
+        "last_updated_display": narrative_last_updated,
         "card_label": "&#128161; Narrative Momentum",
         "card_main_html": narrative_card_main,
         "card_caption": narrative_caption,
@@ -1804,7 +1829,7 @@ def render_index(entries):
     market_snapshot_section = f"""<section class="snapshot-banner">
     <div class="snapshot-banner-inner">
       <div class="snapshot-side-icon snapshot-side-bull" aria-hidden="true">
-        <img class="snapshot-side-img" src="assets/mascots/bull.png?v={SNAPSHOT_BULL_VERSION}" alt="">
+        <img class="snapshot-side-img" src="assets/mascots/bull.png?v={SNAPSHOT_BULL_VERSION}" alt="Bull market icon &mdash; Bitcoin and crypto market sentiment, The Crypto Playback newsletter">
         {bull_x}
       </div>
       <div class="snapshot-solo">
@@ -1817,7 +1842,7 @@ def render_index(entries):
         <p class="snapshot-text">{snapshot_text}</p>
       </div>
       <div class="snapshot-side-icon snapshot-side-bear" aria-hidden="true">
-        <img class="snapshot-side-img" src="assets/mascots/bear.png?v={SNAPSHOT_BEAR_VERSION}" alt="">
+        <img class="snapshot-side-img" src="assets/mascots/bear.png?v={SNAPSHOT_BEAR_VERSION}" alt="Bear market icon &mdash; Bitcoin and crypto market sentiment, The Crypto Playback newsletter">
         {bear_x}
       </div>
     </div>
@@ -2001,6 +2026,7 @@ def render_index(entries):
         <span class="pulse-card-label">{ind['card_label']}</span>
         <div class="pulse-card-main">{ind['card_main_html']}</div>
         <span class="pulse-card-caption">{ind['card_caption']}</span>
+        <span class="pulse-card-updated">Last updated {ind['last_updated_display']}</span>
         <span class="indicator-card-cta">View full breakdown &rarr;</span>
       </a>"""
         for ind in indicators
@@ -2048,7 +2074,7 @@ def render_index(entries):
 
     section_banner = f"""<section class="section-banner">
     <div class="section-banner-inner">
-      <img class="section-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
+      <img class="section-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market news newsletter">
       <div class="section-title-wrap">
         <h2 class="section-title">Top News Stories</h2>
         <span class="section-title-rule"></span>
@@ -2064,13 +2090,13 @@ def render_index(entries):
     subscribe_section = f"""<section class="subscribe-banner">
     <div class="subscribe-grid">
       <div class="subscribe-decor">
-        <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
+        <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
       </div>
       <div class="subscribe-inner">
         <span class="subscribe-eyebrow">Join The Playback</span>
         <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
         <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
-        <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="">
+        <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
         <form class="subscribe-form">
           <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
           <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
@@ -2140,6 +2166,7 @@ def _recent_readings(history, limit=12):
 
 
 def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, history_formatter,
+                           last_updated_display,
                            refresh_note="Refreshed automatically every 15 minutes &mdash; nothing here is backfilled or estimated."):
     sections_html = "".join(
         f"""<div class="indicator-section">
@@ -2160,7 +2187,9 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
         history_html = '<p class="changed-empty">No history yet &mdash; check back after the next refresh.</p>'
     body_html = f"""<section class="indicator-hero">
     <div class="indicator-hero-inner">
+      <img class="indicator-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter, {title} indicator">
       <span class="snapshot-eyebrow">{eyebrow}</span>
+      <div class="snapshot-meta"><span>Last updated {last_updated_display}</span></div>
       <h1 class="indicator-title">{title}</h1>
       <div class="indicator-hero-value">{hero_html}</div>
     </div>
@@ -2200,6 +2229,7 @@ def render_indicator_pages(entries):
         pages[ind["page"]] = _indicator_page_shell(
             "The Crypto Playback", ind["page_title"], ind["page_hero_html"],
             ind["page_sections"], history_rows, ind["history_formatter"],
+            ind["last_updated_display"],
             **shell_kwargs,
         )
     return pages
