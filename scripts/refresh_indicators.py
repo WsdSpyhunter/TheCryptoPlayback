@@ -34,6 +34,7 @@ from fetch_network_health import get_network_health
 from fetch_liquidations import get_recent_liquidations
 from fetch_whale_activity import get_large_transaction_amounts
 from fetch_macro import get_macro_data
+from narrative_momentum_data import ingest_and_store as ingest_narrative_momentum
 from build_site import (
     ROOT, LIVE_DATA_FILE, LIVE_HISTORY_FILE, MAX_HISTORY_ENTRIES,
     compute_biggest_mover, compute_weekly_mover, save_gauge_image,
@@ -53,6 +54,7 @@ def refresh():
     liquidations = get_recent_liquidations()
     whale_activity = get_large_transaction_amounts()
     macro = get_macro_data()
+    ingest_narrative_momentum(sectors)  # at most one new day of history recorded per calendar day
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
     # Fixed slug ("live", not a post slug) - this is the one gauge image

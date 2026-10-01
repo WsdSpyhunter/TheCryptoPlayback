@@ -489,6 +489,19 @@ def _load_market_breadth_dashboard():
         return None
 
 
+def _load_narrative_momentum_dashboard():
+    """The Narrative Momentum indicator (sectors ranked by trailing 7-day
+    average daily change, not today's snapshot) - computed from
+    data/narrative_momentum.json (see narrative_momentum_data.py), which
+    refresh_indicators.py appends to once per day using the same sector
+    data it already fetches every 15 minutes."""
+    try:
+        from narrative_momentum_data import load_store, compute_momentum
+        return compute_momentum(load_store())
+    except Exception:
+        return None
+
+
 def _compute_derived_signals(prices, fng, sectors):
     """Risk Radar and Capital Flow, computed here instead of hardcoded.
 
@@ -846,6 +859,7 @@ def _build_indicator_registry(dashboard, gauge_src):
     macro_signal = _macro_risk_signal(macro)
     etf = _load_etf_dashboard()
     breadth = _load_market_breadth_dashboard()
+    narrative = _load_narrative_momentum_dashboard()
 
     fng_color = "#E24C4C" if fng["value"] <= 45 else ("#8FBF5C" if fng["value"] >= 55 else "#8A7F5C")
     flow_color = {"accumulation": "#8FBF5C", "mixed": "#F2C94C", "distribution": "#E8837A"}.get(
@@ -1460,6 +1474,65 @@ def _build_indicator_registry(dashboard, gauge_src):
                           "most once a day, not something backfilled or estimated between real updates."),
     }
     registry.append(breadth_entry)
+
+    if narrative and narrative["have_7d"]:
+        top3 = narrative["ranked"][:3]
+        narrative_visual_rows = [{"label": r["label"], "change_24h": r["avg_change_pct"]} for r in top3]
+        narrative_card_main = _sector_list_visual(narrative_visual_rows, "card")
+        narrative_hero_main = _sector_list_visual(narrative_visual_rows, "hero")
+        narrative_caption = f'7-day average &middot; {narrative["latest_date"]}'
+        narrative_history_rows = [{"date_display": h["date"], "label": h["leader_label"], "value": h["leader_avg"]}
+                                   for h in narrative["history"]]
+        narrative_history_formatter = lambda row: f'{row["label"]} {row["value"]:+.1f}%'
+        leader = top3[0] if top3 else None
+        narrative_confluence_positive = bool(top3) and sum(1 for r in top3 if r["avg_change_pct"] >= 0) > len(top3) / 2
+        narrative_confluence_display = f'{leader["label"]} {leader["avg_change_pct"]:+.1f}%' if leader else "&ndash;"
+    else:
+        awaiting_days = narrative["available_days"] if narrative else 0
+        narrative_card_main = narrative_hero_main = _badge_visual(
+            f"BUILDING ({awaiting_days}/7 DAYS)" if awaiting_days else "AWAITING DATA", "", "card")
+        narrative_caption = "Sectors ranked by sustained weekly performance"
+        narrative_history_rows, narrative_history_formatter = [], lambda row: "&ndash;"
+        narrative_confluence_positive, narrative_confluence_display = None, None
+
+    narrative_entry = {
+        "id": "narrative_momentum",
+        "page": "narrative-momentum.html",
+        "card_label": "&#128161; Narrative Momentum",
+        "card_main_html": narrative_card_main,
+        "card_caption": narrative_caption,
+        "confluence_name": "Narrative Momentum",
+        "confluence_positive": narrative_confluence_positive,
+        "confluence_display": narrative_confluence_display,
+        "explainer_icon": "&#128161;",
+        "explainer_text": (
+            "Ranks sectors by their trailing 7-day average daily performance, not just today's snapshot - a "
+            "different cut than Top Sectors, surfacing sustained strength over a single good day."),
+        "page_title": "Narrative Momentum",
+        "page_hero_html": narrative_hero_main,
+        "page_sections": [
+            ("What It Measures", "<p>Which crypto narrative/sector categories have shown the strongest "
+             "<em>sustained</em> performance over the trailing 7 days - not just today's 24-hour move.</p>"),
+            ("How It's Calculated", "<p>Each day, we record every tracked sector's 24-hour change (the same "
+             "data Top Sectors uses). This indicator then ranks sectors by their average daily change across "
+             "the last 7 stored days, once a real 7 days of history has accumulated - a 2 or 3-day average is "
+             "never silently labeled as a 7-day read.</p>"),
+            ("How This Differs From Top Sectors", "<p>Top Sectors answers \"what's leading right now.\" This "
+             "answers \"what's been consistently strong all week.\" A sector can spike for a single day "
+             "without appearing here, or grind steadily upward all week without topping today's "
+             "leaderboard.</p>"),
+            ("Why It Matters", "<p>Distinguishes a narrative with real, sustained rotation behind it from one "
+             "single volatile day of price action.</p>"),
+            ("Data Source &amp; Update Frequency", "<p>Computed by The Crypto Playback from CoinGecko sector "
+             "data already fetched every 15 minutes - one new day of history is recorded once per day. "
+             "Refreshed automatically every 15 minutes.</p>"),
+        ],
+        "history_formatter": narrative_history_formatter,
+        "_own_history_rows": narrative_history_rows,
+        "refresh_note": ("Refreshed automatically every 15 minutes, but a 7-day average only moves once a day "
+                          "at most, when that day's sector snapshot is recorded."),
+    }
+    registry.append(narrative_entry)
 
     # Returned alongside the registry (not just the registry alone) so
     # callers that also need the raw signals/mover/etc. for other sections
