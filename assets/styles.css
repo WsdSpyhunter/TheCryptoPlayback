@@ -308,6 +308,40 @@ h1, h2, h3 {
   padding: 56px 24px;
   text-align: center;
 }
+/* Same 1fr/auto/1fr centering trick as the site header and
+   .section-banner-inner - the card stays truly centered on the page no
+   matter how wide the bull/bear icons' own columns are, because those two
+   outer columns are equal 1fr tracks. */
+.snapshot-banner-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.snapshot-side-icon {
+  position: relative;
+  display: inline-block;
+  font-size: 72px;
+  line-height: 1;
+}
+.snapshot-side-bull { justify-self: end; margin-right: 56px; }
+.snapshot-side-bear { justify-self: start; margin-left: 56px; }
+.snapshot-side-emoji { filter: grayscale(0.15); }
+/* Centered directly over the mascot emoji, not the whole column, so the
+   X always lands on the icon itself regardless of column width. */
+.snapshot-side-x {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 56px;
+}
+@media (max-width: 1100px) {
+  /* No room for side mascots once the layout narrows - same breakpoint
+     .alerts-banner's grid already switches at. */
+  .snapshot-side-icon { display: none; }
+}
 .snapshot-solo {
   max-width: 760px;
   margin: 0 auto;

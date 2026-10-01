@@ -1775,6 +1775,22 @@ def render_index(entries):
     else:
         snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
 
+    # Bull (left) / bear (right) mascots flanking the card - same "temperature"
+    # read the title oval used to use before it became a fixed green (Fear &
+    # Greed >=55 bullish-leaning, <=45 bearish-leaning, otherwise genuinely
+    # neutral). The losing side gets a red X, same honest "don't force a
+    # direction when it's genuinely neutral" convention Altcoin Rotation's
+    # In Line state already uses elsewhere on this page - neither side is
+    # crossed out when the market isn't clearly leaning either way.
+    if fng["value"] >= 55:
+        market_lean = "bullish"
+    elif fng["value"] <= 45:
+        market_lean = "bearish"
+    else:
+        market_lean = "neutral"
+    bull_x = '<span class="snapshot-side-x">&#10060;</span>' if market_lean == "bearish" else ""
+    bear_x = '<span class="snapshot-side-x">&#10060;</span>' if market_lean == "bullish" else ""
+
     # Sits directly under the Top 6 Market ticker now, in the spot the old
     # Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to occupy -
     # those are shown once now, in Alerts & Indicators further down. Band
@@ -1784,13 +1800,23 @@ def render_index(entries):
     # Greed) now that the section header itself carries the same green
     # treatment as Fear & Greed's own "greedy" reading.
     market_snapshot_section = f"""<section class="snapshot-banner">
-    <div class="snapshot-solo">
-      <h2 class="snapshot-title">Market Snapshot</h2>
-      <p class="snapshot-text">{snapshot_text}</p>
-      <div class="snapshot-meta">
-        <span>Updated {date_abbrev}</span>
-        <span class="snapshot-meta-dot">&middot;</span>
-        <span>Based on {total_count} market indicators</span>
+    <div class="snapshot-banner-inner">
+      <div class="snapshot-side-icon snapshot-side-bull" aria-hidden="true">
+        <span class="snapshot-side-emoji">&#128002;</span>
+        {bull_x}
+      </div>
+      <div class="snapshot-solo">
+        <h2 class="snapshot-title">Market Snapshot</h2>
+        <p class="snapshot-text">{snapshot_text}</p>
+        <div class="snapshot-meta">
+          <span>Updated {date_abbrev}</span>
+          <span class="snapshot-meta-dot">&middot;</span>
+          <span>Based on {total_count} market indicators</span>
+        </div>
+      </div>
+      <div class="snapshot-side-icon snapshot-side-bear" aria-hidden="true">
+        <span class="snapshot-side-emoji">&#128059;</span>
+        {bear_x}
       </div>
     </div>
   </section>"""
