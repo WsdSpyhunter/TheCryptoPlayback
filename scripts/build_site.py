@@ -1809,12 +1809,12 @@ def render_index(entries):
       </div>
       <div class="snapshot-solo">
         <h2 class="snapshot-title">Market Snapshot</h2>
-        <p class="snapshot-text">{snapshot_text}</p>
         <div class="snapshot-meta">
           <span>Updated {date_abbrev}</span>
           <span class="snapshot-meta-dot">&middot;</span>
           <span>Based on {total_count} market indicators</span>
         </div>
+        <p class="snapshot-text">{snapshot_text}</p>
       </div>
       <div class="snapshot-side-icon snapshot-side-bear" aria-hidden="true">
         <img class="snapshot-side-img" src="assets/mascots/bear.png?v={SNAPSHOT_BEAR_VERSION}" alt="">

@@ -402,14 +402,14 @@ h1, h2, h3 {
 .snapshot-banner .snapshot-text { font-size: 20px; color: var(--ink); opacity: 0.85; }
 .snapshot-meta {
   margin-top: 18px;
-  font-size: 12.5px;
+  font-size: 13.5px;
   color: rgba(251,249,245,0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
-.snapshot-banner .snapshot-meta { color: rgba(23,21,18,0.75); }
+.snapshot-banner .snapshot-meta { margin: 0 0 18px; color: rgba(23,21,18,0.88); }
 .snapshot-meta-dot { opacity: 0.6; }
 /* ============ Signal Confluence (standalone section, between Market
    Snapshot and What Changed?) ============ */
