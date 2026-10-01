@@ -674,8 +674,30 @@ h1, h2, h3 {
 
 /* ============ Individual indicator pages ============ */
 .indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; }
-.indicator-hero-inner { max-width: 700px; margin: 0 auto; }
-.indicator-mascot { display: block; height: 84px; width: auto; margin: 0 auto 18px; }
+/* Same 1fr/auto/1fr centering trick as Market Snapshot's bull/bear -
+   mascot sits in the left column so the content column stays truly
+   centered on the page regardless of how wide the mascot's own column
+   is. */
+.indicator-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.indicator-hero-content { max-width: 700px; text-align: center; }
+.indicator-mascot {
+  justify-self: end;
+  margin-right: 64px;
+  height: 280px;
+  width: auto;
+}
+@media (max-width: 1100px) {
+  /* No room for a side mascot once the layout narrows - same breakpoint
+     Market Snapshot's own side icons already use. */
+  .indicator-hero-inner { grid-template-columns: 1fr; }
+  .indicator-mascot { display: none; }
+}
 .indicator-title {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;

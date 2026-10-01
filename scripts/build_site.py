@@ -2188,10 +2188,12 @@ def _indicator_page_shell(eyebrow, title, hero_html, sections, history_rows, his
     body_html = f"""<section class="indicator-hero">
     <div class="indicator-hero-inner">
       <img class="indicator-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter, {title} indicator">
-      <span class="snapshot-eyebrow">{eyebrow}</span>
-      <div class="snapshot-meta"><span>Last updated {last_updated_display}</span></div>
-      <h1 class="indicator-title">{title}</h1>
-      <div class="indicator-hero-value">{hero_html}</div>
+      <div class="indicator-hero-content">
+        <span class="snapshot-eyebrow">{eyebrow}</span>
+        <div class="snapshot-meta"><span>Last updated {last_updated_display}</span></div>
+        <h1 class="indicator-title">{title}</h1>
+        <div class="indicator-hero-value">{hero_html}</div>
+      </div>
     </div>
   </section>
   <div class="indicator-body">
