@@ -546,14 +546,21 @@ h1, h2, h3 {
    1200-1400px sections above/below), so left-aligned text inside a merely
    centered box still reads as shoved into the left half of the page on a
    wide screen. */
+/* Gradient-border frame (same brass gradient as the oval badge above it)
+   via the double-background trick - a padding-box layer for the card's
+   own fill, a border-box layer for the gradient, so the border itself is
+   the gradient rather than a flat color. Sets this section apart from
+   its neighbors' plain hairline-border cards. */
 .changed-inner {
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1.5px solid transparent;
   border-radius: 20px;
   padding: 40px 48px;
+  background:
+    linear-gradient(#0d0c0a, #0d0c0a) padding-box,
+    linear-gradient(135deg, #D9A857, var(--accent-dark)) border-box;
 }
 /* width:fit-content + margin:auto (not align-items:center) - centering
    each row individually let every row's own text width determine where
