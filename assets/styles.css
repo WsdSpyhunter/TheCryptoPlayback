@@ -448,7 +448,8 @@ h1, h2, h3 {
    everything under it (score, label, row list, interpretation line) down
    a bit, without affecting .snapshot-eyebrow's other reuses (Market
    Snapshot, What Changed) or moving the oval itself. */
-.confluence-solo .snapshot-eyebrow { font-size: 18px; padding: 12px 26px; margin-bottom: 32px; }
+.confluence-solo .snapshot-eyebrow { font-size: 18px; padding: 12px 26px; margin-bottom: 10px; }
+.confluence-solo .snapshot-meta { margin-top: 0; margin-bottom: 24px; }
 .confluence-solo .snapshot-text { font-size: 17px; }
 .confluence-score {
   font-family: 'Oswald', sans-serif;
