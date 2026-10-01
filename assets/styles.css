@@ -406,7 +406,11 @@ h1, h2, h3 {
   background: linear-gradient(135deg, #D9A857, var(--accent-dark));
   box-shadow: 0 4px 14px rgba(147, 96, 56, 0.4);
 }
-.confluence-solo .snapshot-eyebrow { font-size: 18px; padding: 12px 26px; }
+/* Extra gap below the title oval specifically in this section - pushes
+   everything under it (score, label, row list, interpretation line) down
+   a bit, without affecting .snapshot-eyebrow's other reuses (Market
+   Snapshot, What Changed) or moving the oval itself. */
+.confluence-solo .snapshot-eyebrow { font-size: 18px; padding: 12px 26px; margin-bottom: 32px; }
 .confluence-solo .snapshot-text { font-size: 17px; }
 .confluence-score {
   font-family: 'Oswald', sans-serif;
