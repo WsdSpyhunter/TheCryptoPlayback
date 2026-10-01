@@ -414,7 +414,10 @@ h1, h2, h3 {
   font-size: 52px;
   color: var(--paper);
   line-height: 1;
-  margin-bottom: 16px;
+  /* Tight gap up to "signals positive" right below it - the extra room
+     this used to leave now lives on .confluence-score-label's own
+     margin-bottom instead, so the row list underneath doesn't shift up. */
+  margin-bottom: 6px;
 }
 /* "/5" inherits .confluence-score's own Oswald/52px/paper styling directly
    (no overrides here) so it reads as one big "4/5", matching size. */
@@ -425,7 +428,9 @@ h1, h2, h3 {
   font-weight: 600;
   color: var(--paper);
   opacity: 0.7;
-  margin-bottom: 16px;
+  /* Wider gap down to the indicator list below - keeps the list itself
+     roughly where it was even though the score moved closer above it. */
+  margin-bottom: 32px;
 }
 /* Labeled rows (dot + indicator name + its current reading) instead of a
    bare row of colored dots - a dot alone doesn't say which indicator it
@@ -434,7 +439,10 @@ h1, h2, h3 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px 48px;
-  margin: 4px 0 18px;
+  /* Wider bottom margin - more breathing room before the interpretation
+     line ("Signals are mixed...") below, so it doesn't read as cramped
+     against the row list right above it. */
+  margin: 4px 0 34px;
   text-align: left;
 }
 @media (max-width: 700px) {
