@@ -1953,6 +1953,9 @@ def render_index(entries):
     <div class="changed-inner">
       <span class="snapshot-eyebrow">Since The Last Update</span>
       <h2 class="snapshot-title">What Changed?</h2>
+      <p class="explainer-sub">Compares each indicator's current reading to its own value from about 24 hours ago
+      &mdash; except Bitcoin ETF Flow, which compares to its most recent prior trading day, since it only updates
+      once a day.</p>
       <div class="changed-list">{changed_rows}</div>
     </div>
   </section>"""

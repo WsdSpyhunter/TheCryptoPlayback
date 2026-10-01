@@ -178,7 +178,7 @@ h1, h2, h3 {
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 19px;
   letter-spacing: 0.06em;
   color: #F2C879;
   background: rgba(242,200,121,0.14);
@@ -444,8 +444,11 @@ h1, h2, h3 {
 .confluence-row-dot { font-size: 15px; line-height: 1; flex-shrink: 0; }
 .confluence-row-name {
   font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  /* 400 (regular), not 600 - Oswald is only loaded at 400/700, so 600 was
+     being synthetically bolded by the browser rather than using a real
+     weight. 400 is both lighter and a genuine loaded weight. */
+  font-weight: 400;
+  font-size: 18px;
   color: var(--paper);
   flex: 1;
   /* Without this, .confluence-banner's text-align:center centers this
