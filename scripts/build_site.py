@@ -19,6 +19,8 @@ from partials import page, asset_version
 HEADER_WEB_VERSION = asset_version("header-web.png")
 SECTION_MASCOT_VERSION = asset_version("mascot-color-section.png")
 CAMO_VERSION = asset_version("camo-brand.png")
+SNAPSHOT_BULL_VERSION = asset_version("mascots/bull.png")
+SNAPSHOT_BEAR_VERSION = asset_version("mascots/bear.png")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
@@ -1802,7 +1804,7 @@ def render_index(entries):
     market_snapshot_section = f"""<section class="snapshot-banner">
     <div class="snapshot-banner-inner">
       <div class="snapshot-side-icon snapshot-side-bull" aria-hidden="true">
-        <span class="snapshot-side-emoji">&#128002;</span>
+        <img class="snapshot-side-img" src="assets/mascots/bull.png?v={SNAPSHOT_BULL_VERSION}" alt="">
         {bull_x}
       </div>
       <div class="snapshot-solo">
@@ -1815,7 +1817,7 @@ def render_index(entries):
         </div>
       </div>
       <div class="snapshot-side-icon snapshot-side-bear" aria-hidden="true">
-        <span class="snapshot-side-emoji">&#128059;</span>
+        <img class="snapshot-side-img" src="assets/mascots/bear.png?v={SNAPSHOT_BEAR_VERSION}" alt="">
         {bear_x}
       </div>
     </div>

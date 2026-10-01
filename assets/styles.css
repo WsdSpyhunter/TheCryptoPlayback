@@ -322,20 +322,23 @@ h1, h2, h3 {
 .snapshot-side-icon {
   position: relative;
   display: inline-block;
-  font-size: 72px;
   line-height: 1;
 }
 .snapshot-side-bull { justify-self: end; margin-right: 56px; }
 .snapshot-side-bear { justify-self: start; margin-left: 56px; }
-.snapshot-side-emoji { filter: grayscale(0.15); }
-/* Centered directly over the mascot emoji, not the whole column, so the
+.snapshot-side-img {
+  display: block;
+  height: 220px;
+  width: auto;
+}
+/* Centered directly over the mascot photo, not the whole column, so the
    X always lands on the icon itself regardless of column width. */
 .snapshot-side-x {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 56px;
+  font-size: 140px;
 }
 @media (max-width: 1100px) {
   /* No room for side mascots once the layout narrows - same breakpoint
