@@ -682,19 +682,38 @@ h1, h2, h3 {
    columns, so the mascot - pinned to that column's own edge - drifted to
    a different spot on every page. Fixed absolute positioning keeps it in
    the exact same place everywhere, independent of the title's width. */
-.indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; position: relative; }
-.indicator-hero-inner { max-width: 700px; margin: 0 auto; }
+.indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; }
+/* Mascot + content centered together AS ONE GROUP with a fixed gap
+   between them, instead of each centered independently - that's what a
+   fixed-position or 1fr/auto/1fr grid both get wrong: either one only
+   matches at a single window width (content drifts relative to a fixed
+   px position as the viewport changes) or one ties the mascot's spot to
+   the title's own text width. Flex + justify-content:center keeps the
+   same visual gap between mascot and content no matter the title length
+   or the browser window's width. */
+.indicator-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.indicator-hero-content { max-width: 700px; text-align: center; }
+/* align-self:flex-end + negative margin-bottom matching .indicator-hero's
+   own bottom padding (48px) - stands the mascot flush on the black/white
+   dividing line while the text content stays vertically centered (the
+   row's align-items:center), same trick as .section-mascot elsewhere. */
 .indicator-mascot {
-  position: absolute;
-  left: 146px;
-  bottom: 0;
+  align-self: flex-end;
+  margin-bottom: -48px;
   height: 280px;
   width: auto;
+  flex-shrink: 0;
 }
 @media (max-width: 1100px) {
   /* No room for a side mascot once the layout narrows - same breakpoint
      Market Snapshot's own side icons already use. */
-  .indicator-hero-inner { grid-template-columns: 1fr; }
   .indicator-mascot { display: none; }
 }
 .indicator-title {
