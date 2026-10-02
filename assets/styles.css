@@ -627,11 +627,25 @@ h1, h2, h3 {
 .changed-body { display: flex; flex-direction: column; gap: 3px; }
 .changed-detail { font-size: 15px; color: rgba(251,249,245,0.6); }
 .changed-empty { font-size: 15px; color: rgba(251,249,245,0.55); margin-top: 16px; }
+@media (max-width: 700px) {
+  /* Single column now, so the left-aligned dot+headline convention that
+     makes sense as a scannable list in the 2-column desktop layout just
+     reads as left-leaning here - center each row and its text instead. */
+  .changed-row { justify-content: center; text-align: center; }
+  .changed-body { align-items: center; }
+}
 @media (max-width: 600px) {
   .snapshot-solo, .confluence-solo, .changed-inner { padding: 28px 24px; }
   .snapshot-banner, .confluence-banner, .changed-banner { padding-left: 16px; padding-right: 16px; }
   .snapshot-banner .snapshot-title { font-size: 24px; padding: 9px 22px; }
   .confluence-score { font-size: 42px; }
+  /* The date and the indicator count don't fit on one line at phone
+     width - with the row staying nowrap, the first span's own text was
+     wrapping mid-flex-item while squeezed next to the second span,
+     producing a jumbled staircase. Stack them as two clean centered
+     lines instead, and drop the now-pointless middle dot. */
+  .snapshot-meta { flex-direction: column; gap: 4px; }
+  .snapshot-meta-dot { display: none; }
 }
 
 /* ============ Alerts & Indicators - same #121212 as the ticker panel
