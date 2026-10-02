@@ -632,7 +632,11 @@ h1, h2, h3 {
      makes sense as a scannable list in the 2-column desktop layout just
      reads as left-leaning here - center each row and its text instead. */
   .changed-row { justify-content: center; text-align: center; }
-  .changed-body { align-items: center; }
+  /* Capped so a long detail line (e.g. "Long Liquidations Dominant ->
+     Short Liquidations Dominant") wraps at the same width every other
+     row's text already wraps at, instead of growing wide enough to make
+     that one row's dot+title group sit far off to the left of the rest. */
+  .changed-body { align-items: center; max-width: 200px; }
 }
 @media (max-width: 600px) {
   .snapshot-solo, .confluence-solo, .changed-inner { padding: 28px 24px; }
