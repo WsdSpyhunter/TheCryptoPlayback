@@ -1,0 +1,167 @@
+{
+  "slug": "2026-10-02-daily",
+  "title": "Uptober Opens With Fireworks and a Few Fires",
+  "date_display": "October 02, 2026",
+  "tag": "Daily",
+  "issue_number": 4,
+  "gauge_path": "assets/gauges/2026-10-02-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 86292,
+      "change_24h": 2.83679,
+      "change_7d": 2.037
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2743.53,
+      "change_24h": 1.61671,
+      "change_7d": 1.4565
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 776.02,
+      "change_24h": 0.80764,
+      "change_7d": -0.0886
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.54,
+      "change_24h": 3.21153,
+      "change_7d": -0.9245
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 121.94,
+      "change_24h": 3.41411,
+      "change_7d": 3.0493
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.335034,
+      "change_24h": 0.68086,
+      "change_7d": -0.6765
+    }
+  ],
+  "fng": {
+    "value": 72,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 121.94,
+    "change_24h": 3.41411,
+    "change_7d": 3.0493
+  },
+  "week_mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 121.94,
+    "change_24h": 3.41411,
+    "change_7d": 3.0493
+  },
+  "sectors": [
+    {
+      "label": "RWA",
+      "change_24h": 42.13738204824516
+    },
+    {
+      "label": "Gaming",
+      "change_24h": 8.816182110355308
+    },
+    {
+      "label": "NFT",
+      "change_24h": 7.146547695968547
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 311179588451.09,
+    "change_7d_pct": 0.8692764665670776
+  },
+  "date_abbrev": "OCT. 2, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $86,292.00 <span style=\"color:#8FBF5C;\">(+2.8%)</span></span><span class=\"price-chip\">ETH $2,743.53 <span style=\"color:#8FBF5C;\">(+1.6%)</span></span><span class=\"price-chip\">BNB $776.02 <span style=\"color:#8FBF5C;\">(+0.8%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.54 <span style=\"color:#8FBF5C;\">(+3.2%)</span></span><span class=\"price-chip\">SOL $121.94 <span style=\"color:#8FBF5C;\">(+3.4%)</span></span><span class=\"price-chip\">TRX $0.34 <span style=\"color:#8FBF5C;\">(+0.7%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 2, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <span class=\"ticker-subscribe-text\">SUBSCRIBE HERE</span>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">72</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">SOL</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+3.4%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin is flexing into October while regulators, hackers, and a Trump-branded dinner party all compete for the spotlight.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Muscles Toward $87K as Shorts Get Wrecked",
+      "body": "<p>Bitcoin buyers pushed through a wall of ask-side liquidity to hit new October highs near $87,800, triggering more than $120 million in short liquidations along the way. The move suggests momentum traders are leaning hard into the 'Uptober' narrative after a strong September.</p><p>Liquidation cascades like this tend to exaggerate moves in both directions, so the same leverage that's fueling the pump can just as easily unwind it. Worth watching, not worth assuming it's a straight line from here.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-87k-order-book-liquidity-wall-shifts-higher?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M3XVAAGW8Q0D84XWS8J7794K/behind-bitcoins-1k-bounce-1-1280x853.webp"
+    },
+    {
+      "headline": "Spot Bitcoin ETFs Just Had Their Second-Best Month Ever",
+      "body": "<p>US spot bitcoin ETFs pulled in $2.65 billion in net inflows during September, their second-largest monthly haul since October 2025, as institutional demand held steady through the quarter.</p><p>Steady institutional buying has quietly become one of the more durable stories in this market \u2014 it's less flashy than a liquidation cascade, but arguably more important for where the asset class is headed structurally.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-10-02-spot-bitcoin-etfs-september-inflows-417547",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/09/article-16x9-v2.png"
+    },
+    {
+      "headline": "NEAR Intents Gets Drained for $3.8 Million, Adding to Crypto's Grim Hack Tally",
+      "body": "<p>NEAR Intents was hit by a $3.8 million exploit, the latest entry in what CoinDesk describes as crypto's rough year for hacks, even as bitcoin itself enjoys a strong quarter.</p><p>The disconnect is the real story here: price can rip higher while the plumbing underneath stays leaky. Infrastructure security hasn't caught up to the capital flowing into this space, and that gap isn't closing on its own.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/10/01/near-intents-hit-by-usd3-8-million-exploit-as-crypto-s-rough-year-of-hacks-continues",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/5844591d4fc53908b4ecc1fda0511af88a269620-6024x4024.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "SEC Tries to Finally Answer the 'Who Can Hold My Crypto' Question",
+      "body": "<p>The SEC proposed rules to clarify how investment advisers and funds can custody digital assets, including letting them use state trust companies as custodians and permitting self-custody under certain conditions \u2014 an attempt to replace years of ambiguity with an actual compliance path.</p><p>This is the unglamorous but necessary work of building a regulatory skeleton for institutional crypto. It won't trend on social media, but it matters more to how much serious capital eventually shows up than most of the headlines that will outrank it.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379899/sec-proposes-rules-advisers-funds-hold-crypto",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/08/paul-atkins-decrypt-style-01-gID_7.jpg"
+    },
+    {
+      "headline": "The ECB Starts Sketching Out Its Own Onchain Future",
+      "body": "<p>The European Central Bank outlined three possible models for putting central bank money onchain as financial institutions explore new settlement infrastructure.</p><p>There's a nice bit of irony in watching the world's central banks study blockchain rails that were built, in no small part, to route around them. Whether that ends in genuine innovation or a watered-down imitation is the open question.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-10-02-ecb-outlines-three-models-for-putting-central-bank-money-onchain-417552",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/ecb.png"
+    },
+    {
+      "headline": "Illinois Hits Pause on Its Crypto Tax, Again",
+      "body": "<p>Illinois agreed to a six-month delay of its crypto tax as the industry continues its court battle against the measure, pushing implementation further down the calendar while the legal fight plays out.</p><p>State-by-state crypto policy is turning into a patchwork quilt, and this is another thread of it. Delays aren't resolutions \u2014 they're just extra time for both sides to keep arguing.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/09/30/illinois-agrees-to-six-month-delay-of-crypto-tax-as-industry-continues-court-battle",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/edd10316fa7620a12d0bce0492520092d00802b5-4752x3168.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "A $1 Billion XRP Treasury Is About to Hit Nasdaq",
+      "body": "<p>Shareholders approved Evernorth's merger with Armada Acquisition Corp. II, clearing the way for the Ripple-backed firm \u2014 holding roughly 473 million XRP \u2014 to begin trading October 8 as what's being called the largest pure-play XRP treasury.</p><p>Corporate treasury strategies built around a single token are having a moment across the board, not just with bitcoin. It's a notable escalation in how publicly traded vehicles are choosing to express a view on specific crypto assets.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379856/the-largest-pure-play-xrp-treasury-is-about-to-go-public",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/xrp-decrypt-style-01-gID_7.png"
+    },
+    {
+      "headline": "Another Trump Memecoin Dinner Is on the Menu",
+      "body": "<p>A new dinner event is being advertised for top investors in a Trump-affiliated memecoin, continuing a pattern of exclusive access tied to political figures and token holdings.</p><p>These events keep blurring the line between political access and crypto speculation, which is exactly the kind of optics that makes skeptics of the industry feel vindicated. Worth keeping an eye on regardless of where you land on it.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/10/01/another-trump-memecoin-dinner-advertised-for-token-s-top-investors",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/d57c5a353c65e31a6e602ab3904699590ce499de-3081x1733.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "A $1.26 Billion Reminder That Growth and Security Aren't the Same Thing",
+      "body": "<p>Crypto lost an estimated $1.26 billion to hacks over the quarter, even as bitcoin bulls enjoyed one of their strongest stretches in recent memory.</p><p>Big numbers on both sides of the ledger at once is basically the current state of crypto: record price performance stacked right next to record theft. It's a decent gut-check against treating rallies as proof that the underlying systems have gotten any safer.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/daybook-us/2026/10/01/crypto-lost-usd1-26-billion-in-hacks-while-bitcoin-bulls-enjoyed-a-monster-quarter",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/46896a614298dcf705810c12a113e9dab6ce84fb-4416x2488.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    }
+  ],
+  "excerpt": "Bitcoin is flexing into October while regulators, hackers, and a Trump-branded dinner party all compete for the spotlight."
+}
