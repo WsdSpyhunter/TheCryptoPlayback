@@ -683,33 +683,37 @@ h1, h2, h3 {
    a different spot on every page. Fixed absolute positioning keeps it in
    the exact same place everywhere, independent of the title's width. */
 .indicator-hero { background: #000000; padding: 56px 20px 48px; text-align: center; }
-/* Mascot + content centered together AS ONE GROUP with a fixed gap
-   between them, instead of each centered independently - that's what a
-   fixed-position or 1fr/auto/1fr grid both get wrong: either one only
-   matches at a single window width (content drifts relative to a fixed
-   px position as the viewport changes) or one ties the mascot's spot to
-   the title's own text width. Flex + justify-content:center keeps the
-   same visual gap between mascot and content no matter the title length
-   or the browser window's width. */
+/* 1fr/FIXED-700px/1fr grid - the middle column is a constant 700px (same
+   as .indicator-hero-content's own max-width) on every page, instead of
+   "auto" (which sizes to that specific page's title text, so a long
+   title like Altcoin Rotation's made the two 1fr side columns narrower
+   than a short one like Capital Flow's, shifting the mascot - pinned to
+   its column's own edge - to a different spot per page) or a flex group
+   centered as a unit (which has the opposite problem: it keeps a
+   constant gap to the content, but the content's own box still shifts
+   with page/title width, so the mascot's absolute spot on the page still
+   drifted). A fixed-width middle column removes both: every page gets
+   identical 1fr side columns at a given viewport width, and the mascot's
+   position scales with viewport exactly the way the original (content
+   dependent) layout happened to for Altcoin Rotation's own title. */
 .indicator-hero-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 700px 1fr;
   align-items: center;
-  justify-content: center;
-  gap: 56px;
   max-width: 1400px;
   margin: 0 auto;
 }
-.indicator-hero-content { max-width: 700px; text-align: center; }
-/* align-self:flex-end + negative margin-bottom matching .indicator-hero's
-   own bottom padding (48px) - stands the mascot flush on the black/white
-   dividing line while the text content stays vertically centered (the
-   row's align-items:center), same trick as .section-mascot elsewhere. */
+.indicator-hero-content { text-align: center; }
+/* align-self:end + negative margin-bottom matching .indicator-hero's own
+   bottom padding (48px) - stands the mascot flush on the black/white
+   dividing line, same trick as .section-mascot elsewhere. */
 .indicator-mascot {
-  align-self: flex-end;
+  justify-self: end;
+  align-self: end;
+  margin-right: 160px;
   margin-bottom: -48px;
   height: 280px;
   width: auto;
-  flex-shrink: 0;
 }
 @media (max-width: 1100px) {
   /* No room for a side mascot once the layout narrows - same breakpoint
