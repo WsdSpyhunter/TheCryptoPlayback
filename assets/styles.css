@@ -336,8 +336,14 @@ h1, h2, h3 {
   display: inline-block;
   line-height: 1;
 }
-.snapshot-side-bull { justify-self: end; margin-right: 56px; }
-.snapshot-side-bear { justify-self: start; margin-left: 56px; }
+/* grid-column pinned explicitly (not left to auto-placement) - same
+   display:none/auto-placement gotcha as the site header: hiding the
+   bull/bear icons on mobile removes them from grid flow entirely, which
+   without this would shift .snapshot-solo into column 1 instead of
+   keeping it centered in column 2. */
+.snapshot-side-bull { grid-column: 1; justify-self: end; margin-right: 56px; }
+.snapshot-side-bear { grid-column: 3; justify-self: start; margin-left: 56px; }
+.snapshot-solo { grid-column: 2; }
 .snapshot-side-img {
   display: block;
   height: 220px;
@@ -503,7 +509,13 @@ h1, h2, h3 {
 @media (max-width: 700px) {
   .confluence-list { grid-template-columns: 1fr; }
 }
-.confluence-row { display: flex; align-items: center; gap: 10px; }
+/* min-width:0 overrides a flex item's default min-width:auto, which
+   otherwise uses the row's content (the nowrap value span especially) as
+   a hard floor - on the single-column mobile layout that floor was wider
+   than the screen, pushing the row (and the whole page) into horizontal
+   overflow. With this, the row can actually shrink to fit, wrapping the
+   name text instead. */
+.confluence-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .confluence-row-dot { font-size: 15px; line-height: 1; flex-shrink: 0; }
 /* Signal Confluence row names and What Changed headlines are deliberately
    the same font-weight/font-size (see .changed-headline below) - sharing
@@ -529,6 +541,12 @@ h1, h2, h3 {
   text-align: left;
 }
 .confluence-row-value { font-size: 15px; color: rgba(251,249,245,0.6); white-space: nowrap; }
+@media (max-width: 700px) {
+  /* The longest readings (e.g. "Short Liquidations Dominant") don't fit
+     on one line at phone width even after the row itself can shrink -
+     let the value wrap here instead of forcing horizontal overflow. */
+  .confluence-row-value { white-space: normal; text-align: right; }
+}
 
 /* ============ What Changed? - similar full-width "obvious section"
    treatment as Market Snapshot (top+bottom rules spanning the page), but
