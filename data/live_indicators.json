@@ -1,52 +1,52 @@
 {
-  "updated_at": "2026-10-02T10:16:09.121612+00:00",
+  "updated_at": "2026-10-02T10:46:10.277928+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 86325,
-      "change_24h": 3.25264,
+      "price": 86413,
+      "change_24h": 3.09655,
       "change_7d": 2.3429
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2743.78,
-      "change_24h": 2.25773,
+      "price": 2749.62,
+      "change_24h": 2.08892,
       "change_7d": 2.1474
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 775.82,
-      "change_24h": 1.08791,
+      "price": 776.74,
+      "change_24h": 0.79155,
       "change_7d": 0.2166
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 1.54,
-      "change_24h": 3.69075,
+      "price": 1.55,
+      "change_24h": 3.7784,
       "change_7d": -0.1612
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 121.62,
-      "change_24h": 3.60868,
+      "price": 122.06,
+      "change_24h": 3.61483,
       "change_7d": 3.944
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.334382,
-      "change_24h": -0.47122,
+      "price": 0.334993,
+      "change_24h": 0.48835,
       "change_7d": -1.0355
     }
   ],
@@ -58,30 +58,30 @@
     "id": "ripple",
     "symbol": "XRP",
     "name": "XRP",
-    "price": 1.54,
-    "change_24h": 3.69075,
+    "price": 1.55,
+    "change_24h": 3.7784,
     "change_7d": -0.1612
   },
   "week_mover": {
     "id": "solana",
     "symbol": "SOL",
     "name": "Solana",
-    "price": 121.62,
-    "change_24h": 3.60868,
+    "price": 122.06,
+    "change_24h": 3.61483,
     "change_7d": 3.944
   },
   "sectors": [
     {
       "label": "RWA",
-      "change_24h": 42.341671588617466
+      "change_24h": 42.49398226051774
     },
     {
       "label": "Gaming",
-      "change_24h": 5.574236664131506
+      "change_24h": 8.487199806155465
     },
     {
       "label": "NFT",
-      "change_24h": 5.569444869084964
+      "change_24h": 7.244592779124989
     }
   ],
   "stablecoins": {
@@ -89,23 +89,23 @@
     "change_7d_pct": 0.8692764665670776
   },
   "dominance": {
-    "btc_dominance_pct": 58.79302828370289,
-    "total_market_cap_usd": 2944388145574.437
+    "btc_dominance_pct": 58.76789814426423,
+    "total_market_cap_usd": 2951096788447.9404
   },
   "leverage": {
     "funding_rate_pct": 0.01,
     "next_funding_time_ms": 1790985600000,
-    "open_interest_usd": 2530108782.32839
+    "open_interest_usd": 2534227366.6316304
   },
   "defi_tvl": {
-    "total_usd": 96417292937.0,
-    "change_7d_pct": 1.3593286491944858
+    "total_usd": 96760400623.0,
+    "change_7d_pct": 1.7200229152123294
   },
   "network_health": {
-    "hashrate_eh": 986.1749563631201,
-    "difficulty_change_pct": 0.06875760300417699,
-    "fastest_fee_satvb": 3,
-    "pending_tx_count": 79798
+    "hashrate_eh": 988.9595150381328,
+    "difficulty_change_pct": 0.27952234770609596,
+    "fastest_fee_satvb": 1,
+    "pending_tx_count": 71791
   },
   "liquidations": {
     "long_liq_usd": 886.67575,
@@ -115,35 +115,16 @@
   },
   "whale_activity": {
     "amounts_btc": [
-      1094.58243844,
-      158.94437369,
-      147.72027455,
-      56.50398484,
-      51.25099466,
-      50.35786709,
-      39.49758383,
-      27.63988569,
-      21.30243322,
-      19.69695934,
-      18.21796912,
-      15.7974203,
-      14.9356032,
-      12.68764661,
-      11.04330577,
-      9.0076086,
-      8.64472486,
-      6.35477365,
-      5.83610707,
-      5.58867593,
-      5.5295187
+      147.71675519,
+      22.45997609
     ],
     "sample_size": 1000
   },
   "macro": {
-    "vix": 15.96,
-    "vix_change_pct": -2.624,
-    "dxy": 101.947,
-    "dxy_change_pct": -0.149
+    "vix": 16.01,
+    "vix_change_pct": -2.318,
+    "dxy": 102.003,
+    "dxy_change_pct": -0.094
   },
   "gauge_path": "assets/gauges/live.png"
 }
