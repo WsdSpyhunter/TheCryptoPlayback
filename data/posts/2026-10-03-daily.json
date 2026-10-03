@@ -1,0 +1,166 @@
+{
+  "slug": "2026-10-03-daily",
+  "title": "Uptober Rally Meets Regulatory Rubble",
+  "date_display": "October 03, 2026",
+  "tag": "Daily",
+  "issue_number": 4,
+  "gauge_path": "assets/gauges/2026-10-03-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 84753,
+      "change_24h": 0.32775,
+      "change_7d": 0.8293
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2686.64,
+      "change_24h": 0.85477,
+      "change_7d": 0.342
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 785.75,
+      "change_24h": 2.53559,
+      "change_7d": 2.1233
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.49,
+      "change_24h": 0.7628,
+      "change_7d": -1.6322
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 119.69,
+      "change_24h": 1.30911,
+      "change_7d": -0.5679
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.33525,
+      "change_24h": 0.28676,
+      "change_7d": 0.1284
+    }
+  ],
+  "fng": {
+    "value": 67,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "binancecoin",
+    "symbol": "BNB",
+    "name": "BNB",
+    "price": 785.75,
+    "change_24h": 2.53559,
+    "change_7d": 2.1233
+  },
+  "week_mover": {
+    "id": "binancecoin",
+    "symbol": "BNB",
+    "name": "BNB",
+    "price": 785.75,
+    "change_24h": 2.53559,
+    "change_7d": 2.1233
+  },
+  "sectors": [
+    {
+      "label": "DePIN",
+      "change_24h": 3.4505287632388213
+    },
+    {
+      "label": "AI",
+      "change_24h": 2.9990784989268464
+    },
+    {
+      "label": "DeFi",
+      "change_24h": 2.89883898031005
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 311564621602.83,
+    "change_7d_pct": 1.2303764429331117
+  },
+  "date_abbrev": "OCT. 3, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $84,753.00 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span><span class=\"price-chip\">ETH $2,686.64 <span style=\"color:#8FBF5C;\">(+0.9%)</span></span><span class=\"price-chip\">BNB $785.75 <span style=\"color:#8FBF5C;\">(+2.5%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.49 <span style=\"color:#8FBF5C;\">(+0.8%)</span></span><span class=\"price-chip\">SOL $119.69 <span style=\"color:#8FBF5C;\">(+1.3%)</span></span><span class=\"price-chip\">TRX $0.34 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 3, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <span class=\"ticker-subscribe-text\">SUBSCRIBE HERE</span>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">67</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">BNB</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+2.5%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin is partying like it's 2025 again while Washington's crypto rulebook lies in pieces and an Ethereum L2 quietly calls it quits.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Chainalysis Used AI to Hunt Down North Korea's $387M Bitget Heist",
+      "body": "<p>Chainalysis says it deployed in-house AI to trace the September 24 Bitget breach across four blockchains, tying the hack to North Korea and pushing the regime's 2026 crypto haul past $1 billion. The firm framed it as a race against the attackers to track funds before they could be laundered away.</p><p>It's a neat case study in how both sides of the crypto security arms race are now AI-powered \u2014 the question is whether the defenders' AI can actually move faster than a state that has nothing but time and motive.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380005/chainalysis-ai-87m-bitget-hack-north-korea",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/north-korea-missiles-dprk-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Trump's Meme Coin Throws Another Gala, Right After It Helped Sink the Clarity Act",
+      "body": "<p>The TRUMP meme coin project is inviting its top 185 holders to a November 22 dinner with the president \u2014 just two weeks after ethics disputes over his crypto holdings reportedly helped stall the Clarity Act in the Senate.</p><p>The optics here are not subtle: a sitting president's meme coin throwing exclusive access dinners while the legislation meant to regulate exactly this kind of thing stalls out. You don't need a hot take to see the irony writing itself.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380002/trump-third-meme-coin-dinner-details",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Trump-decrypt-style-10-gID_7.png"
+    },
+    {
+      "headline": "Bitcoin Pokes $87K as Weak Jobs Data Spooks Bond Yields",
+      "body": "<p>Bitcoin briefly touched $87,000 after a weaker-than-expected September payrolls report sent Treasury yields lower, with traders reading the soft labor data as support for a Fed pause or cut.</p><p>Bitcoin trading on jobs-report crumbs is now just the macro furniture of this market \u2014 it's less a crypto story than a reminder that BTC has fully wired itself into the same rate-sensitivity as everything else on Wall Street.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-briefly-taps-87k-as-bond-yields-drop-on-low-us-nonfarm-payrolls-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M3YJCPAEGNQQMRKZHXC717XH/hi-bitcoins-hidden-messages-bitcoin-price-960x640.webp"
+    },
+    {
+      "headline": "Once a $2.3 Billion Network, Ethereum L2 Blast Is Shutting Down",
+      "body": "<p>Blast says its operating costs now exceed the revenue the layer-2 generates and is asking users to withdraw assets to Ethereum mainnet before October 26. It's a steep fall for a network that once held billions in deposits.</p><p>The L2 land grab of the past few years produced a lot of chains chasing the same liquidity, and the economics were always going to catch up with the ones that couldn't turn activity into sustainable revenue. Consider this a preview of more consolidation to come.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379972/ethereum-layer-2-blast-shutting-down",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Ethereum-decrypt-style-03-gID_7.png"
+    },
+    {
+      "headline": "Community Banks Sue the OCC Over Crypto Firms' Trust Charters",
+      "body": "<p>A community banking group has filed suit against the Office of the Comptroller of the Currency, claiming the regulator overstepped its mandate by granting trust bank charters to crypto firms.</p><p>This is the old-guard banking lobby pushing back on crypto's quiet march into federally chartered respectability \u2014 expect more of these turf wars as traditional finance decides whether crypto firms are competitors to be fought or partners to be absorbed.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/community-banks-sue-occ-over-trust-bank-charters-of-crypto-firms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M40GZ6STY7R8TJPNFCZ17PJ8/courtroom-court-lawsuit-justice-jurisdiction-breaking-news-3.png"
+    },
+    {
+      "headline": "BitGo CEO: Clarity Act's Collapse Left Markets Exposed to Lehman-Level Risk",
+      "body": "<p>BitGo's Mike Belshe warned that the Clarity Act's failure leaves systemic risk on the table, specifically the danger of a single firm holding exchange, brokerage, and custody functions all under one roof with no clear regulatory guardrails.</p><p>It's a pointed warning from inside the industry rather than outside it \u2014 when a custody executive starts invoking Lehman Brothers, it's a sign the stalled legislation isn't just a Washington squabble but a structural gap that someone, eventually, will fall through.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-10-02-mike-belshe-bitgo-interview-clarity-417560",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/photo_2026-10-02-21.04.25.jpeg"
+    },
+    {
+      "headline": "Circle Tells Europe: MiCA's Bank-Deposit Rules Are Pushing Stablecoins Away",
+      "body": "<p>Circle told the European Commission that MiCA's reserve mandates and concentration caps are keeping the largest global stablecoins outside Europe's regulatory perimeter, aligning itself with the ECB in calling for more flexible rules.</p><p>Europe wanted to build a rulebook strict enough to inspire confidence, and instead it may be building walls that keep the biggest players \u2014 and their liquidity \u2014 on the outside looking in. That's a strange outcome for a regulation designed to bring stablecoins into the fold.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379984/circle-pushes-back-on-micas-bank-deposit-mandate-for-stablecoins",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/circle-logo-decrypt-style-01-gID_7.png"
+    },
+    {
+      "headline": "Anchorage Digital Cuts 17% of Its Workforce Even as It Expands",
+      "body": "<p>Reports indicate the $4.2 billion crypto bank Anchorage Digital has trimmed its staff by 17%, even as it continues expanding its institutional footprint.</p><p>Layoffs alongside expansion is a now-familiar crypto pattern: firms chasing institutional growth while quietly tightening the belt elsewhere, a reminder that 'institutional adoption' headlines don't always translate into stable headcount.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/anchorage-digital-cuts-workforce-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M3YXTXPJFKWR2XDKAZGD2DR2/layoffs-fired-human-resource-hr-leaving-quit-1.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "A Thief Returned $3.8 Million After Getting an Ultimatum",
+    "body": "NEAR Intents recovered the entire $3.8 million stolen in an exploit after the attacker was identified and given an ultimatum. Rather than face consequences, the exploiter simply returned the full sum. It's a rare happy ending in a space where recovered funds are usually measured in single-digit percentages, not a full refund.",
+    "source_title": "Cointelegraph",
+    "source_url": "https://cointelegraph.com/news/near-intents-recovers-entire-stolen-38m-after-ultimatum-to-exploiter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+  },
+  "excerpt": "Bitcoin is partying like it's 2025 again while Washington's crypto rulebook lies in pieces and an Ethereum L2 quietly calls it quits."
+}
