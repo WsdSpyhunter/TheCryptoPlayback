@@ -1,7 +1,12 @@
 name: Email test (Version 2 layout)
 
 on:
-  workflow_dispatch: {}     # manual only - never runs on a schedule
+  workflow_dispatch:        # manual only - never runs on a schedule
+    inputs:
+      label:
+        description: "Test number shown in the draft's subject, e.g. 3"
+        required: false
+        default: 
 
 permissions:
   contents: read
@@ -23,4 +28,5 @@ jobs:
         working-directory: scripts
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          TEST_LABEL: ${{ github.event.inputs.label }}
         run: python send_email_test.py
