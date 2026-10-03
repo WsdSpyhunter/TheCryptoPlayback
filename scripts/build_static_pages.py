@@ -9,11 +9,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ABOUT_BODY = """<div class="page-content">
   <h1>About The Crypto Playback</h1>
-  <p>The Crypto Playback is a trusted source for efficient Bitcoin and crypto news
-  updates — a quick daily read plus a deeper weekly roundup, so you can stay
-  current without spending your whole day scrolling crypto Twitter.</p>
-  <p>Nothing here is financial advice. See the note at the bottom of every
-  page for the full disclosure.</p>
+  <p>The Crypto Playback is your trusted source for efficient Bitcoin and crypto news and data.</p>
+  <p>The website and newsletter both offer a quick scan of the top headlines plus deep, high-value data. All in one place, on a single page, free for subscribers.</p>
+  <p>No more spending your day scrolling Crypto Twitter or hunting across multiple sites for the information you need.</p>
+  <p>One stop. One look. A quick Crypto Playback and you&rsquo;re fully informed on the fastest-moving industry on the planet.</p>
+  <p>Nothing here is financial advice. See the note at the bottom of every page for the full disclosure.</p>
   <h1 style="margin-top:2em;">Contact</h1>
   <p>Questions, tips, or feedback: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></p>
 </div>"""
