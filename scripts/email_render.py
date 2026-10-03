@@ -153,8 +153,15 @@ def ticker_bar_email_html(prices, date_abbrev):
     # already borderline on desktop's much wider column) - a 2-per-row grid
     # (three full pairs) gives each chip roughly half the row instead of a
     # third, which fits comfortably at a normal, readable size.
+    def mobile_chip(c):
+        arrow_color = "#8FBF5C" if c["change_24h"] >= 0 else "#E8837A"
+        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:15px; white-space:nowrap;">'
+                f'{c["symbol"]} ${c["price"]:,.2f}</span><br>'
+                f'<span style="color:{arrow_color}; font-family:Arial,sans-serif; font-size:14px; white-space:nowrap;">'
+                f'({c["change_24h"]:+.1f}%)</span>')
+
     def mobile_price_cell(c, pad):
-        return f'<td width="50%" style="padding:{pad};">{chip(c, size=15)}</td>'
+        return f'<td width="50%" style="padding:{pad}; line-height:1.35;">{mobile_chip(c)}</td>'
 
     mobile_rows = [prices[0:2], prices[2:4], prices[4:6]]
     mobile_prices_html = "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"table-layout:fixed;\">"
@@ -328,8 +335,8 @@ def release_row_email_html(date_display, issue_number, tag):
     return f"""<div style="margin:20px 20px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F1EEE7; border-radius:4px; box-shadow:0 2px 5px rgba(23,21,18,0.18);">
   <tr>
-    <td style="padding:10px 16px; font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD};" valign="middle">Release date: {date_display}</td>
-    <td style="padding:10px 16px; text-align:right; white-space:nowrap;" valign="middle">
+    <td class="rel-left" style="padding:10px 16px; font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD};" valign="middle"><span style="white-space:nowrap;">Release date:</span> <span class="rel-date" style="white-space:nowrap;">{date_display}</span></td>
+    <td class="rel-right" style="padding:10px 16px; text-align:right; white-space:nowrap;" valign="middle">
       <span style="display:inline-block;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;letter-spacing:0.04em;color:#FBF9F5;background:#268CCA;padding:4px 10px;border-radius:3px;">{label}</span>
       <span style="font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD}; margin-left:20px;">Issue #{issue_number}</span>
     </td>
@@ -369,7 +376,7 @@ def top_story_to_email_html(intro):
     <td class="ts-label-cell" width="112" style="background:#268CCA; border-radius:6px 0 0 6px;" align="center" valign="middle">
       <img class="ts-label" src="{ASSET_BASE}/top-story-label-2x.png" width="88" alt="TOP STORY" style="display:block; width:88px; height:auto; border:0;">
     </td>
-    <td style="padding:24px 28px 24px 24px; font-family:Arial,Helvetica,sans-serif; font-weight:600; font-size:24px; line-height:1.4; color:#171512;" valign="middle">{intro}</td>
+    <td class="ts-text" style="padding:24px 28px 24px 24px; font-family:Arial,Helvetica,sans-serif; font-weight:600; font-size:24px; line-height:1.4; color:#171512;" valign="middle">{intro}</td>
   </tr>
 </table>
 </div>"""
@@ -385,10 +392,10 @@ def footer_email_html():
     )
     return f"""{disclaimer_html}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td style="padding:14px 20px; color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;" valign="bottom">&copy; {year} The Crypto Playback &middot; info@cryptoplayback.com</td>
-  <td style="padding:14px 20px; text-align:right; white-space:nowrap;" valign="bottom">
-    <a href="{SITE_URL}" style="text-decoration:none;"><img src="{ASSET_BASE}/mascot-icon.png" width="44" height="55" style="width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;" alt="The Crypto Playback"></a>
-    <a href="{SITE_URL}" style="text-decoration:none;"><img src="{ASSET_BASE}/logo-white.png" width="90" height="43" style="width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;" alt="The Crypto Playback"></a>
+  <td class="ft-cell" style="padding:14px 20px; color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;" valign="bottom">&copy; {year} The Crypto Playback &middot; <span style="white-space:nowrap;">info&#8203;@cryptoplayback.com</span></td>
+  <td class="ft-cell" style="padding:14px 20px; text-align:right; white-space:nowrap;" valign="bottom">
+    <a href="{SITE_URL}" style="text-decoration:none;"><img class="ft-img" src="{ASSET_BASE}/mascot-icon.png" width="44" height="55" style="width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;" alt="The Crypto Playback"></a>
+    <a href="{SITE_URL}" style="text-decoration:none;"><img class="ft-img" src="{ASSET_BASE}/logo-white.png" width="90" height="43" style="width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;" alt="The Crypto Playback"></a>
   </td>
 </tr></table>
 <p style="text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#666666;padding:10px 0;margin:0;background:#FBF9F5;">
@@ -613,7 +620,7 @@ def story_you_missed_email_html(missed):
         </tr></table>
         <div style="font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:20px; line-height:1.35; color:{V2_PAPER}; margin:20px 0 10px;">{missed["headline"]}</div>
         <div style="font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.55; color:#BCBBB8; margin-bottom:12px;">{body}</div>
-        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D9A857; text-decoration:none;"><span style="color:#D9A857;">Read more at {missed["source_title"]} &rarr;</span></a>
+        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D9A857 !important; text-decoration:none;"><span style="color:#D9A857 !important;">Read more at {missed["source_title"]} &rarr;</span></a>
       </td></tr>
     </table>
   </td></tr>
@@ -630,7 +637,7 @@ def story_blocks_email_html(stories):
             f"<div style='margin:0 20px;'>"
             f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:{V2_INK};margin:0 0 10px;text-align:center;'>{s['headline']}</h3>"
             f"{img_html}<div style='font-size:16px;'>{s['body']}</div>"
-            f"<p><a href='{s['source_url']}' style='color:{GOLD};font-weight:bold;text-decoration:none;'><span style='color:{GOLD};'>Read more at {s['source_title']} &rarr;</span></a></p>"
+            f"<p><a href='{s['source_url']}' style='color:{GOLD} !important;font-weight:bold;text-decoration:none;'><span style='color:{GOLD} !important;'>Read more at {s['source_title']} &rarr;</span></a></p>"
             f"<div style='height:1px; background:{PLAYBACK_P_GOLD}; margin:16px 0;'></div>"
             f"</div>"
         )
@@ -664,8 +671,16 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <style>
+a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !important; font-size:inherit !important; font-family:inherit !important; font-weight:inherit !important; line-height:inherit !important; }}
 @media only screen and (max-width: 600px) {{
+  .rel-left, .rel-right {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; }}
+  .rel-right {{ padding-top:0 !important; }}
+  .rel-date {{ display:block !important; }}
+  .ft-cell {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:10px 20px !important; }}
+  .ft-img {{ height:auto !important; max-width:100% !important; }}
+  .ts-text {{ font-size:18px !important; padding:16px 14px !important; }}
   .tbar-desktop {{ display:none !important; }}
   .tbar-mobile {{ display:block !important; }}
   .fng-desktop {{ display:none !important; }}
