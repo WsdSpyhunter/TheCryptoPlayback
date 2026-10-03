@@ -15,7 +15,7 @@ the "Here's A Story You Missed" section can be reviewed.
 import os
 from datetime import datetime, timezone
 
-from buttondown_client import create_draft
+from buttondown_client import create_draft, send_draft_to_reviewer
 from preview_email import render_latest
 
 SAMPLE_MISSED_STORY = {
@@ -37,3 +37,4 @@ if __name__ == "__main__":
     tag = f"TEST #{label} {stamp}" if label else f"TEST {stamp}"
     draft = create_draft(f"[{tag} - Version 2 layout] The Crypto Playback — {post['title']}", html)
     print(f"Created TEST draft from {post['slug']}: {draft.get('id', '(no id returned)')}")
+    send_draft_to_reviewer(draft.get("id"), os.environ.get("REVIEW_EMAIL", "").strip())

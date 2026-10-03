@@ -24,7 +24,9 @@ from build_site import (
     load_index, save_gauge_image, format_date_abbrev, load_market_overview,
 )
 from email_render import stories_to_plain_email_html, stories_to_plain_email_html_v1, upload_gauge_image
-from buttondown_client import create_draft
+import os
+
+from buttondown_client import create_draft, send_draft_to_reviewer
 
 
 def build_system_prompt(story_min, story_max, cadence_label):
@@ -214,3 +216,6 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
+    # "Ready to review" alert: a preview copy of the draft goes to the
+    # reviewer's own inbox (REVIEW_EMAIL, set in the workflow). Best-effort.
+    send_draft_to_reviewer(draft.get("id"), os.environ.get("REVIEW_EMAIL", "").strip())

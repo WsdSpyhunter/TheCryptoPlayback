@@ -28,5 +28,6 @@ jobs:
         working-directory: scripts
         env:
           BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          REVIEW_EMAIL: scottdrealty@gmail.com
           TEST_LABEL: ${{ github.event.inputs.label }}
         run: python send_email_test.py
