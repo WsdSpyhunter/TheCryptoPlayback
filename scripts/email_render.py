@@ -69,10 +69,10 @@ def preheader_email_html():
     front of it into an intentional, branded line instead of dead space."""
     return (
         f'<div style="background:{BLACK}; padding:14px 20px; text-align:center;">'
-        f'<a href="{SITE_URL}" style="text-decoration:none;">'
+        f'<a href="{SITE_URL}" style="text-decoration:none; color:#FBF9F5 !important;">'
         f'<span style="font-family:Georgia,serif; font-weight:bold; font-size:16px; '
-        f'letter-spacing:0.15em; color:#FBF9F5;">THE CRYPTO '
-        f'<span style="color:{GOLD};">PLAYBACK</span></span></a></div>'
+        f'letter-spacing:0.15em; color:#FBF9F5 !important;">THE CRYPTO '
+        f'<span style="color:{GOLD} !important;">PLAYBACK</span></span></a></div>'
     )
 
 
