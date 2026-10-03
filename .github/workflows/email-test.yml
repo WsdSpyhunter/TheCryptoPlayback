@@ -6,7 +6,7 @@ on:
       label:
         description: "Test number shown in the draft's subject, e.g. 3"
         required: false
-        default: 
+        default: "3"
 
 permissions:
   contents: read
