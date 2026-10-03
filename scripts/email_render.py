@@ -24,6 +24,9 @@ from buttondown_client import upload_image
 # so they resolve correctly inside an actual email sent to real inboxes
 # (unlike design-tool preview URLs, which only work inside that tool).
 ASSET_BASE = "https://cryptoplayback.com/assets"
+# Where the clickable header / brand images / Market Snapshot / Signal
+# Confluence sections send readers.
+SITE_URL = "https://cryptoplayback.com/"
 
 # The one width every section is capped at, so nothing (masthead, ticker,
 # stories, footer) can end up wider than any other section. Previously only
@@ -66,9 +69,10 @@ def preheader_email_html():
     front of it into an intentional, branded line instead of dead space."""
     return (
         f'<div style="background:{BLACK}; padding:14px 20px; text-align:center;">'
+        f'<a href="{SITE_URL}" style="text-decoration:none;">'
         f'<span style="font-family:Georgia,serif; font-weight:bold; font-size:16px; '
         f'letter-spacing:0.15em; color:#FBF9F5;">THE CRYPTO '
-        f'<span style="color:{GOLD};">PLAYBACK</span></span></div>'
+        f'<span style="color:{GOLD};">PLAYBACK</span></span></a></div>'
     )
 
 
@@ -81,9 +85,10 @@ def masthead_email_html():
     # up as a blank black rectangle in live testing. A plain <img> is the
     # universally-supported way to show an image in email.
     return (
+        f'<a href="{SITE_URL}" style="display:block; text-decoration:none;">'
         f'<img src="{ASSET_BASE}/header-a.png" alt="The Crypto Playback" '
         f'width="{CONTENT_WIDTH}" style="width:100%;max-width:{CONTENT_WIDTH}px;'
-        f'height:auto;display:block;margin:10px auto 0;border:0;">'
+        f'height:auto;display:block;margin:10px auto 0;border:0;"></a>'
     )
 
 
@@ -382,8 +387,8 @@ def footer_email_html():
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:14px 20px; color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;" valign="bottom">&copy; {year} The Crypto Playback &middot; info@cryptoplayback.com</td>
   <td style="padding:14px 20px; text-align:right; white-space:nowrap;" valign="bottom">
-    <img src="{ASSET_BASE}/mascot-icon.png" width="44" height="55" style="width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;" alt="The Crypto Playback">
-    <img src="{ASSET_BASE}/logo-white.png" width="90" height="43" style="width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;">
+    <a href="{SITE_URL}" style="text-decoration:none;"><img src="{ASSET_BASE}/mascot-icon.png" width="44" height="55" style="width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;" alt="The Crypto Playback"></a>
+    <a href="{SITE_URL}" style="text-decoration:none;"><img src="{ASSET_BASE}/logo-white.png" width="90" height="43" style="width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;" alt="The Crypto Playback"></a>
   </td>
 </tr></table>
 <p style="text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#666666;padding:10px 0;margin:0;background:#FBF9F5;">
@@ -531,6 +536,7 @@ def market_snapshot_email_html(overview):
     bear_img = "email-bear-x.png" if lean == "bullish" else "email-bear.png"
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_BAND};">
   <tr><td class="band-pad" style="padding:34px 12px;">
+    <a href="{SITE_URL}" style="display:block; text-decoration:none; color:inherit;">
     <table class="snap-table" role="presentation" align="center" width="860" cellpadding="0" cellspacing="0" border="0" style="width:860px; max-width:100%; margin:0 auto; table-layout:fixed;">
       <tr>
         <td class="snap-side" width="170" valign="middle" align="left" style="width:170px;"><img src="{ASSET_BASE}/{bull_img}" width="160" alt="Bull" style="display:block; width:160px; max-width:160px; height:auto; border:0;"></td>
@@ -545,7 +551,7 @@ def market_snapshot_email_html(overview):
         </td>
         <td class="snap-side" width="170" valign="middle" align="right" style="width:170px;"><img src="{ASSET_BASE}/{bear_img}" width="160" alt="Bear" style="display:block; width:160px; max-width:160px; height:auto; border:0; margin-left:auto;"></td>
       </tr>
-    </table>
+    </table></a>
   </td></tr>
 </table>"""
 
@@ -571,6 +577,7 @@ def signal_confluence_email_html(overview):
         grid += f'<tr class="conf-row">{cells}</tr>'
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_DARK_BAND};">
   <tr><td class="band-pad" style="padding:42px 12px;">
+    <a href="{SITE_URL}" style="display:block; text-decoration:none; color:inherit;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px;">
       <tr><td class="conf-card" style="padding:30px 16px; text-align:center;">
         {_oval_email_html("Signal Confluence", V2_GOLD_GRAD, 17)}
@@ -582,7 +589,7 @@ def signal_confluence_email_html(overview):
         <div class="conf-wrap" style="padding-left:30px;"><table class="conf-table" role="presentation" align="center" width="784" cellpadding="0" cellspacing="0" border="0" style="width:784px; max-width:100%; table-layout:fixed; margin:0 auto;">{grid}</table></div>
         <div style="font-family:Arial,sans-serif; font-size:16px; color:#A1A09E; margin-top:56px;">{overview["interpretation"]}</div>
       </td></tr>
-    </table>
+    </table></a>
   </td></tr>
 </table>"""
 
