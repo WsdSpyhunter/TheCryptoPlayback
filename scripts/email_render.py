@@ -166,9 +166,9 @@ def ticker_bar_email_html(prices, date_abbrev):
 
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-desktop" style="background:{BLACK}; display:table;">
   <tr>
-    <td style="padding:28px 20px 18px;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-        <td valign="top">
+    <td align="center" style="padding:28px 20px 18px;">
+      <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
+        <td valign="top" align="left">
           {tab_html}
           <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.35;white-space:nowrap;">Prices as of<br>6AM (cst) on<br>printed date</div>
         </td>
@@ -555,10 +555,14 @@ def signal_confluence_email_html(overview):
     on phones), then the one-line interpretation."""
     def cell(name, pos, value):
         dot = V2_GREEN if pos else V2_RED
-        return (f'<td class="conf-cell" valign="top" style="padding:9px 28px; font-family:Arial,sans-serif; line-height:1.35; text-align:left;">'
-                f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{dot};margin-right:7px;vertical-align:middle;">&nbsp;</span>'
-                f'<span class="conf-name" style="font-weight:bold; font-size:18px; color:{V2_PAPER}; vertical-align:middle;">{name}</span><br>'
-                f'<span class="conf-val" style="color:#9D9C99; padding-left:19px; font-size:15px;">{value}</span></td>')
+        return (f'<td class="conf-cell" width="205" valign="top" style="width:205px; padding:9px 4px;">'
+                f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
+                f'<td width="18" valign="top" style="width:18px; padding-top:7px;">'
+                f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{dot};">&nbsp;</span></td>'
+                f'<td valign="top" align="left" style="font-family:Arial,sans-serif; line-height:1.35; text-align:left;">'
+                f'<span class="conf-name" style="font-weight:bold; font-size:18px; color:{V2_PAPER};">{name}</span><br>'
+                f'<span class="conf-val" style="color:#9D9C99; font-size:15px;">{value}</span></td>'
+                f'</tr></table></td>')
     items = overview["confluence_items"]
     grid = ""
     for i in range(0, len(items), 4):
@@ -568,14 +572,14 @@ def signal_confluence_email_html(overview):
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_DARK_BAND};">
   <tr><td class="band-pad" style="padding:42px 12px;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px;">
-      <tr><td class="conf-card" style="padding:30px 32px; text-align:center;">
+      <tr><td class="conf-card" style="padding:30px 16px; text-align:center;">
         {_oval_email_html("Signal Confluence", V2_GOLD_GRAD, 17)}
         <div style="font-family:Arial,sans-serif; font-size:14.5px; color:#8A8A88; margin:12px 0 20px;">Updated {overview["updated"]}</div>
         <div style="margin:0 0 56px;"><div style="display:inline-block; background:#262626; border:2px solid {GOLD}; border-radius:14px; padding:14px 44px 16px; box-shadow:0 10px 26px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5);">
           <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:#8A8A88; font-weight:normal;">/{overview["total_count"]}</span></span></div>
           <div style="font-family:Arial,sans-serif; font-size:18px; color:#A1A09E;">signals positive</div>
         </div></div>
-        <table class="conf-table" role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">{grid}</table>
+        <table class="conf-table" role="presentation" align="center" width="820" cellpadding="0" cellspacing="0" border="0" style="width:820px; max-width:100%; table-layout:fixed; margin:0 auto;">{grid}</table>
         <div style="font-family:Arial,sans-serif; font-size:16px; color:#A1A09E; margin-top:56px;">{overview["interpretation"]}</div>
       </td></tr>
     </table>
@@ -670,9 +674,9 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
   .conf-card {{ padding:24px 12px !important; }}
   .conf-table {{ width:100% !important; }}
   .conf-row {{ display:block !important; }}
-  .conf-cell {{ display:inline-block !important; width:50% !important; box-sizing:border-box !important; padding:9px 8px !important; }}
+  .conf-cell {{ display:inline-block !important; width:50% !important; box-sizing:border-box !important; padding:9px 4px !important; }}
   .conf-name {{ font-size:15px !important; }}
-  .conf-val {{ font-size:13px !important; padding-left:0 !important; display:block; margin-left:16px; }}
+  .conf-val {{ font-size:13px !important; }}
   .missed-card {{ padding:24px 18px !important; }}
   .missed-badge {{ font-size:13px !important; padding:9px 16px !important; }}
   .missed-icon-cell {{ width:52px !important; }}
