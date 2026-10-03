@@ -555,7 +555,7 @@ def signal_confluence_email_html(overview):
     on phones), then the one-line interpretation."""
     def cell(name, pos, value):
         dot = V2_GREEN if pos else V2_RED
-        return (f'<td class="conf-cell" width="205" valign="top" style="width:205px; padding:9px 4px;">'
+        return (f'<td class="conf-cell" width="196" valign="top" style="width:196px; padding:9px 0;">'
                 f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
                 f'<td width="18" valign="top" style="width:18px; padding-top:7px;">'
                 f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{dot};">&nbsp;</span></td>'
@@ -579,7 +579,7 @@ def signal_confluence_email_html(overview):
           <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:#8A8A88; font-weight:normal;">/{overview["total_count"]}</span></span></div>
           <div style="font-family:Arial,sans-serif; font-size:18px; color:#A1A09E;">signals positive</div>
         </div></div>
-        <table class="conf-table" role="presentation" align="center" width="820" cellpadding="0" cellspacing="0" border="0" style="width:820px; max-width:100%; table-layout:fixed; margin:0 auto;">{grid}</table>
+        <div class="conf-wrap" style="padding-left:30px;"><table class="conf-table" role="presentation" align="center" width="784" cellpadding="0" cellspacing="0" border="0" style="width:784px; max-width:100%; table-layout:fixed; margin:0 auto;">{grid}</table></div>
         <div style="font-family:Arial,sans-serif; font-size:16px; color:#A1A09E; margin-top:56px;">{overview["interpretation"]}</div>
       </td></tr>
     </table>
@@ -638,7 +638,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
     the stories, footer. The old Fear & Greed / Biggest Mover box is gone
     (both live in Signal Confluence now)."""
     segments = [
-        _cap_email_html(ticker_bar_email_html(ticker_prices, date_abbrev)),
+        _cap_email_html(masthead_email_html() + ticker_bar_email_html(ticker_prices, date_abbrev)),
         _cap_email_html(release_row_email_html(date_display, issue_number, tag) + "<div style='height:20px;'></div>"),
         market_snapshot_email_html(overview),
         signal_confluence_email_html(overview),
@@ -665,6 +665,7 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
   .fng-mobile {{ display:block !important; }}
   .subscribe-desktop {{ display:none !important; }}
   .subscribe-mobile {{ display:block !important; }}
+  .conf-wrap {{ padding-left:0 !important; }}
   .snap-side {{ display:none !important; }}
   .snap-table {{ width:100% !important; }}
   .snap-mid {{ width:auto !important; }}
@@ -692,7 +693,6 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
 </head>
 <body style="margin:0; padding:0; background:{V2_PAPER};">
 {preheader_email_html()}
-{masthead_email_html()}
 {body_html}
 </body>
 </html>"""
