@@ -126,7 +126,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     )
 
     tab_html = (
-        f'<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>'
+        f'<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>'
         f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 6 Market</td>'
         f'</tr></table>'
     )
@@ -168,9 +168,9 @@ def ticker_bar_email_html(prices, date_abbrev):
   <tr>
     <td align="center" style="padding:28px 20px 18px;">
       <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
-        <td valign="top" align="left">
+        <td valign="top" align="center">
           {tab_html}
-          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.35;white-space:nowrap;">Prices as of<br>6AM (cst) on<br>printed date</div>
+          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.35;white-space:nowrap;text-align:center;">Prices as of<br>6AM (cst) on<br>printed date</div>
         </td>
         <td style="width:48px; font-size:0; line-height:0;">&nbsp;</td>
         <td valign="middle">{prices_html}</td>
@@ -195,10 +195,10 @@ def ticker_bar_email_html(prices, date_abbrev):
   </td>
 </tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td style="padding:10px 20px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
+  <td style="padding:10px 20px 6px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
 </tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:table;"><tr>
-  <td style="padding:12px 20px; text-align:center; white-space:nowrap;">
+  <td style="padding:6px 20px 12px; text-align:center; white-space:nowrap;">
     <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
     &nbsp;&nbsp;
     <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5;">SUBSCRIBE HERE</span>
@@ -210,7 +210,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
   </td>
 </tr></table>
-<div class="subscribe-mobile" style="background:{BLACK}; padding:14px 20px; text-align:center; display:none;">
+<div class="subscribe-mobile" style="background:{BLACK}; padding:10px 20px 14px; text-align:center; display:none;">
     <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
     <div style="margin-top:10px;">
       <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; vertical-align:middle;">SUBSCRIBE HERE</span>
