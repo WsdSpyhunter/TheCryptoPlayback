@@ -161,18 +161,18 @@ def ticker_bar_email_html(prices, date_abbrev):
                 f'({c["change_24h"]:+.1f}%)</span>')
 
     def mobile_price_cell(c, pad):
-        return f'<td width="50%" style="padding:{pad}; line-height:1.35;">{mobile_chip(c)}</td>'
+        return f'<td style="padding:{pad}; line-height:1.35;">{mobile_chip(c)}</td>'
 
     mobile_rows = [prices[0:2], prices[2:4], prices[4:6]]
-    mobile_prices_html = "<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"table-layout:fixed;\">"
+    mobile_prices_html = "<table role=\"presentation\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin:0 auto;\">"
     for i, pair in enumerate(mobile_rows):
         pad_bottom = "0" if i == len(mobile_rows) - 1 else "14px"
         cells = "".join(
-            mobile_price_cell(c, f"0 8px {pad_bottom} 0" if j == 0 else f"0 0 {pad_bottom} 8px")
+            mobile_price_cell(c, f"0 16px {pad_bottom} 0" if j == 0 else f"0 0 {pad_bottom} 16px")
             for j, c in enumerate(pair)
         )
         if len(pair) < 2:
-            cells += '<td width="50%"></td>'
+            cells += '<td></td>'
         mobile_prices_html += f"<tr>{cells}</tr>"
     mobile_prices_html += "</table>"
 
@@ -195,7 +195,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     {tab_html_mobile}
     <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
   </td></tr>
-  <tr><td style="padding:14px 20px 18px;">{mobile_prices_html}</td></tr>
+  <tr><td align="center" style="padding:14px 20px 18px; text-align:center;">{mobile_prices_html}</td></tr>
 </table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
   <td style="padding:2px 20px 8px;">
@@ -682,7 +682,7 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
   .ft-img {{ height:auto !important; max-width:100% !important; }}
   .ts-text {{ font-size:18px !important; padding:16px 14px !important; }}
   .tbar-desktop {{ display:none !important; }}
-  .tbar-mobile {{ display:block !important; }}
+  .tbar-mobile {{ display:table !important; width:100% !important; }}
   .fng-desktop {{ display:none !important; }}
   .fng-mobile {{ display:block !important; }}
   .subscribe-desktop {{ display:none !important; }}
