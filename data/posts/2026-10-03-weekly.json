@@ -1,0 +1,166 @@
+{
+  "slug": "2026-10-03-weekly",
+  "title": "Bitcoin Breaks Out While Washington Breaks Down",
+  "date_display": "October 03, 2026",
+  "tag": "Weekly",
+  "issue_number": 7,
+  "gauge_path": "assets/gauges/2026-10-03-weekly.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 84880,
+      "change_24h": 0.50438,
+      "change_7d": 1.0049
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2687.71,
+      "change_24h": 0.72321,
+      "change_7d": 0.0149
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 788.68,
+      "change_24h": 2.91846,
+      "change_7d": 2.4124
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.49,
+      "change_24h": 1.03101,
+      "change_7d": -2.1268
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 119.93,
+      "change_24h": 1.53285,
+      "change_7d": -1.0534
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.335746,
+      "change_24h": 0.36839,
+      "change_7d": -0.1378
+    }
+  ],
+  "fng": {
+    "value": 67,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "binancecoin",
+    "symbol": "BNB",
+    "name": "BNB",
+    "price": 788.68,
+    "change_24h": 2.91846,
+    "change_7d": 2.4124
+  },
+  "week_mover": {
+    "id": "binancecoin",
+    "symbol": "BNB",
+    "name": "BNB",
+    "price": 788.68,
+    "change_24h": 2.91846,
+    "change_7d": 2.4124
+  },
+  "sectors": [
+    {
+      "label": "DePIN",
+      "change_24h": 3.9234306580827454
+    },
+    {
+      "label": "NFT",
+      "change_24h": 3.8754456530741686
+    },
+    {
+      "label": "AI",
+      "change_24h": 3.5319976483368984
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 311564621602.83,
+    "change_7d_pct": 1.2303764429331117
+  },
+  "date_abbrev": "OCT. 3, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $84,880.00 <span style=\"color:#8FBF5C;\">(+0.5%)</span></span><span class=\"price-chip\">ETH $2,687.71 <span style=\"color:#8FBF5C;\">(+0.7%)</span></span><span class=\"price-chip\">BNB $788.68 <span style=\"color:#8FBF5C;\">(+2.9%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.49 <span style=\"color:#8FBF5C;\">(+1.0%)</span></span><span class=\"price-chip\">SOL $119.93 <span style=\"color:#8FBF5C;\">(+1.5%)</span></span><span class=\"price-chip\">TRX $0.34 <span style=\"color:#8FBF5C;\">(+0.4%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 3, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <span class=\"ticker-subscribe-text\">SUBSCRIBE HERE</span>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">67</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">BNB</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+2.9%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKLY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin is rallying on bad jobs data, Ethereum's biggest L2 experiments are folding, and Washington's crypto rulebook is still being written one lawsuit at a time.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Pokes Its Head Above $87K as the Job Market Wobbles",
+      "body": "<p>A weak September payrolls report sent bond yields lower and traders piling into risk assets, with Bitcoin briefly tagging $87,000 as sellers who'd been defending $85,000 finally gave way. The move lines up with growing bets that the Fed will hold or cut rather than hike heading into mid-October CPI data.</p><p>Bitcoin loves nothing more than bad news for the 'real' economy \u2014 a soft jobs print is basically rocket fuel these days. Worth remembering that macro-driven pumps can reverse just as fast as they arrive once the next data point lands.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-briefly-taps-87k-as-bond-yields-drop-on-low-us-nonfarm-payrolls-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M3YJCPAEGNQQMRKZHXC717XH/hi-bitcoins-hidden-messages-bitcoin-price-960x640.webp"
+    },
+    {
+      "headline": "Chainalysis Used AI to Chase Down North Korea's $387M Bitget Heist",
+      "body": "<p>Chainalysis says it deployed in-house AI to trace the proceeds of the September 24 Bitget breach across four blockchains, in what amounted to a real-time race against the hackers. The firm's tally puts North Korea's 2026 crypto haul north of $1 billion so far.</p><p>It's genuinely wild that blockchain forensics firms are now fighting AI with AI, in a cat-and-mouse game that used to be pure manual detective work. The fact that this is even a routine news category \u2014 nation-state hacking crews with annual quotas \u2014 says a lot about where this industry still has to grow up.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380005/chainalysis-ai-87m-bitget-hack-north-korea",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/north-korea-missiles-dprk-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "NEAR Intents Gets All $3.8M Back After Giving a Hacker an Ultimatum",
+      "body": "<p>The exploiter who drained NEAR Intents returned the entire stolen sum after being publicly identified, a rare clean ending for what started as another DeFi exploit headline.</p><p>Call it the 'we know who you are' school of incident response. It's not a system anyone should rely on, but it's a nice reminder that on-chain transparency cuts both ways \u2014 sometimes it's the attacker who ends up exposed.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/near-intents-recovers-entire-stolen-38m-after-ultimatum-to-exploiter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M40T1J9CWEBBB07G6QG02X27/hi-5-greatest-hacks-in-the-cryptocurrency-industry.png"
+    },
+    {
+      "headline": "Trump's Meme Coin Throws Another Gala While the Clarity Act Gathers Dust",
+      "body": "<p>The TRUMP meme coin project is inviting its top 185 holders to a November gala dinner with the president \u2014 just two weeks after ethics concerns over his crypto interests reportedly helped stall the Clarity Act in the Senate.</p><p>At this point it's hard to tell whether this is satire of crypto's conflict-of-interest problem or just the problem itself, performed live. Either way, pairing 'pay-to-dine-with-the-president' with 'stalled regulatory clarity' is not a great look for an industry that keeps saying it wants rules.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380002/trump-third-meme-coin-dinner-details",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Trump-decrypt-style-10-gID_7.png"
+    },
+    {
+      "headline": "BitGo's CEO Says Clarity's Failure Left Markets More Exposed Than Lehman",
+      "body": "<p>BitGo CEO Mike Belshe warned that the collapse of Clarity Act negotiations has left systemic risk on the table, pointing to the danger of single firms controlling exchange, brokerage, and custody functions all at once.</p><p>Invoking Lehman is a bold rhetorical move, but the underlying structural point \u2014 concentrated functions, concentrated risk \u2014 is exactly the kind of thing regulation is supposed to address before it becomes a headline instead of a warning.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-10-02-mike-belshe-bitgo-interview-clarity-417560",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/photo_2026-10-02-21.04.25.jpeg"
+    },
+    {
+      "headline": "Community Banks Sue the OCC Over Crypto Firms' Trust Charters",
+      "body": "<p>A community banking group is suing the Office of the Comptroller of the Currency, arguing the regulator overstepped its mandate in granting trust bank charters to crypto firms.</p><p>This is the regulatory turf war crypto was always going to run into eventually \u2014 traditional banks don't love watching newcomers get federal charters that let them compete on more favorable terms. Expect more of these lawsuits as crypto firms keep knocking on the doors of traditional finance.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/community-banks-sue-occ-over-trust-bank-charters-of-crypto-firms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M40GZ6STY7R8TJPNFCZ17PJ8/courtroom-court-lawsuit-justice-jurisdiction-breaking-news-3.png"
+    },
+    {
+      "headline": "Once a $2 Billion Ethereum L2, Blast Is Shutting Down",
+      "body": "<p>Blast, once among Ethereum's largest layer-2 networks by total value locked, is winding down after operating costs outpaced revenue and assets on the network plunged 98%. Users have until October 26 to withdraw to mainnet.</p><p>A sobering data point for the L2 gold rush: having a huge TVL number at launch doesn't mean much if the economics never catch up. Expect this story to repeat itself as the layer-2 landscape gets weeded out.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/379972/ethereum-layer-2-blast-shutting-down",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Ethereum-decrypt-style-03-gID_7.png"
+    },
+    {
+      "headline": "SEC Floats Letting Investment Advisers Self-Custody Crypto",
+      "body": "<p>The SEC has proposed a framework that would allow investment advisers and funds to self-custody crypto in certain cases, and would also permit state trust companies to act as custodians.</p><p>This is the kind of quiet, technical rulemaking that actually matters more than the louder headlines \u2014 it directly shapes how much institutional money can comfortably flow into crypto without jumping through custody hoops built for a different asset class.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-10-01-sec-proposes-crypto-custody-rule-investment-advisers-funds-417498",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2023/09/20230814_TheSEC_News2.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "The US Just Designated a $179 Billion Ruble Crypto Network as a Criminal Organization",
+    "body": "Treasury has proposed designating Russia's A7 Network as a transnational criminal organization, aiming to cut its front companies off from US finance entirely, crypto included. The headline number is wild: A7's ruble-pegged token reportedly moved $179 billion. It's a reminder that stablecoins aren't just a Western finance story \u2014 state-linked actors are building their own versions for very different purposes.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/379921/us-designates-russias-a7-network-as-transnational-criminal-organization"
+  },
+  "excerpt": "Bitcoin is rallying on bad jobs data, Ethereum's biggest L2 experiments are folding, and Washington's crypto rulebook is still being written one lawsuit at a time."
+}
