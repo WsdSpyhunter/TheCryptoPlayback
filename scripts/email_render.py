@@ -170,9 +170,9 @@ def ticker_bar_email_html(prices, date_abbrev):
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
         <td valign="top">
           {tab_html}
-          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.3;white-space:nowrap;">prices as of 6AM&nbsp;(cst)<br>on printed date</div>
+          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.35;white-space:nowrap;">Prices as of<br>6AM (cst) on<br>printed date</div>
         </td>
-        <td style="width:44px; font-size:0; line-height:0;">&nbsp;</td>
+        <td style="width:48px; font-size:0; line-height:0;">&nbsp;</td>
         <td valign="middle">{prices_html}</td>
       </tr></table>
     </td>
@@ -531,10 +531,10 @@ def market_snapshot_email_html(overview):
     bear_img = "email-bear-x.png" if lean == "bullish" else "email-bear.png"
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_BAND};">
   <tr><td class="band-pad" style="padding:34px 12px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; width:100%; margin:0 auto; table-layout:fixed;">
+    <table class="snap-table" role="presentation" align="center" width="860" cellpadding="0" cellspacing="0" border="0" style="width:860px; max-width:100%; margin:0 auto; table-layout:fixed;">
       <tr>
-        <td class="snap-side" width="190" valign="middle" align="left" style="width:190px;"><img src="{ASSET_BASE}/{bull_img}" width="180" alt="Bull" style="display:block; width:180px; height:auto; border:0;"></td>
-        <td valign="middle" style="padding:0 16px;">
+        <td class="snap-side" width="170" valign="middle" align="left" style="width:170px;"><img src="{ASSET_BASE}/{bull_img}" width="160" alt="Bull" style="display:block; width:160px; max-width:160px; height:auto; border:0;"></td>
+        <td class="snap-mid" width="520" valign="middle" style="width:520px; padding:0 0;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_CARD}; border-radius:20px; box-shadow:0 10px 34px rgba(23,21,18,0.12);">
             <tr><td class="snap-card" style="padding:26px 44px; text-align:center;">
               {_oval_email_html("Market Snapshot", V2_GREEN_GRAD, 26, "16px 42px", "snap-badge")}
@@ -543,7 +543,7 @@ def market_snapshot_email_html(overview):
             </td></tr>
           </table>
         </td>
-        <td class="snap-side" width="190" valign="middle" align="right" style="width:190px;"><img src="{ASSET_BASE}/{bear_img}" width="180" alt="Bear" style="display:block; width:180px; height:auto; border:0;"></td>
+        <td class="snap-side" width="170" valign="middle" align="right" style="width:170px;"><img src="{ASSET_BASE}/{bear_img}" width="160" alt="Bear" style="display:block; width:160px; max-width:160px; height:auto; border:0; margin-left:auto;"></td>
       </tr>
     </table>
   </td></tr>
@@ -662,6 +662,8 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
   .subscribe-desktop {{ display:none !important; }}
   .subscribe-mobile {{ display:block !important; }}
   .snap-side {{ display:none !important; }}
+  .snap-table {{ width:100% !important; }}
+  .snap-mid {{ width:auto !important; }}
   .snap-card {{ padding:22px 18px !important; }}
   .snap-badge {{ font-size:18px !important; padding:12px 24px !important; }}
   .snap-text {{ font-size:16px !important; }}
