@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@400;600&family=Black+Ops+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=a9311fad38">
+<link rel="stylesheet" href="assets/styles.css?v=412fe5217d">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%82%BF</text></svg>">
 
 </head>
@@ -19,7 +19,7 @@
     </a>
     <nav class="site-nav">
       <a href="about.html">About</a>
-      <a href="#">Subscribe</a>
+      <a href="index.html#subscribe">Subscribe</a>
       <a href="archive.html">Archives</a>
       <a href="resources.html">Resources</a>
     </nav>
@@ -336,7 +336,7 @@
         <p class="excerpt">This week, Washington's crypto bill died so the regulators could finally get to work, Bitcoin tore back toward its highs on a short squeeze, and Wall Street kept quietly building the plumbing for a very different kind of</p>
         <span class="read-more">Read the full playback &rarr;</span>
       </div>
-    </a></section><section class="subscribe-banner">
+    </a></section><section class="subscribe-banner" id="subscribe">
     <div class="subscribe-grid">
       <div class="subscribe-decor">
         <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v=b7063f2c1b" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
@@ -346,10 +346,10 @@
         <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
         <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
         <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v=b7063f2c1b" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
-        <form class="subscribe-form">
-          <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
+        <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/cryptoplayback', 'popupwindow')">
+          <input type="text" name="metadata__first_name" placeholder="First name" autocomplete="given-name" required>
           <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-          <button type="button" class="subscribe-btn">Subscribe</button>
+          <button type="submit" class="subscribe-btn">Subscribe</button>
         </form>
         <span class="subscribe-fineprint">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</span>
       </div>

@@ -38,7 +38,7 @@ HEADER = """<header class="site-header">
     </a>
     <nav class="site-nav">
       <a href="{root}about.html">About</a>
-      <a href="#">Subscribe</a>
+      <a href="{root}index.html#subscribe">Subscribe</a>
       <a href="{root}archive.html">Archives</a>
       <a href="{root}resources.html">Resources</a>
     </nav>

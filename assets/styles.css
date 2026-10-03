@@ -938,6 +938,7 @@ h1, h2, h3 {
    story list and the disclaimer. Visual mockup only for now; the form has
    no real action/backend until a Brevo hosted-form endpoint is wired up. */
 .subscribe-banner {
+  scroll-margin-top: 90px; /* keeps the sticky header from covering the section when the nav jumps here */
   width: 100vw;
   position: relative;
   left: 50%;

@@ -212,7 +212,7 @@ def render_ticker_bar(prices, date_abbrev):
   </div>
   <div class="ticker-subscribe-row">
     <span class="ticker-share-prompt">Enjoying this? Share it with a friend &rarr;</span>
-    <span class="ticker-subscribe-text">SUBSCRIBE HERE</span>
+    <a class="ticker-subscribe-text" href="https://cryptoplayback.com/#subscribe" style="text-decoration:none;">SUBSCRIBE HERE</a>
     <a class="ticker-icon" href="#" style="background:#B5702E;" aria-label="Email">&#9993;</a>
     <a class="ticker-icon" href="https://x.com/cryptoplayback" style="background:#4A90D9;" aria-label="X">X</a>
   </div>"""
@@ -2124,10 +2124,12 @@ def render_index(entries):
   </section>"""
     teaser_section = f'<section class="latest">{teasers_html}</section>'
 
-    # Visual mockup only for now - no form action/backend wired up yet
-    # (needs a real Brevo hosted-form endpoint from the user's account).
-    # button type="button" (not submit) keeps it inert without needing JS.
-    subscribe_section = f"""<section class="subscribe-banner">
+    # Wired to the newsletter's Buttondown embed-subscribe endpoint (Buttondown's
+    # standard embeddable form: posts the email, then opens their confirmation
+    # popup). First name is saved as subscriber metadata (metadata__first_name).
+    # id="subscribe" is what the nav's Subscribe link and the ticker's
+    # SUBSCRIBE HERE jump to.
+    subscribe_section = f"""<section class="subscribe-banner" id="subscribe">
     <div class="subscribe-grid">
       <div class="subscribe-decor">
         <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
@@ -2137,10 +2139,10 @@ def render_index(entries):
         <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
         <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
         <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
-        <form class="subscribe-form">
-          <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required>
+        <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/cryptoplayback', 'popupwindow')">
+          <input type="text" name="metadata__first_name" placeholder="First name" autocomplete="given-name" required>
           <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-          <button type="button" class="subscribe-btn">Subscribe</button>
+          <button type="submit" class="subscribe-btn">Subscribe</button>
         </form>
         <span class="subscribe-fineprint">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</span>
       </div>
