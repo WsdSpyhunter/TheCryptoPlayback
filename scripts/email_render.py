@@ -30,7 +30,7 @@ ASSET_BASE = "https://cryptoplayback.com/assets"
 # the masthead/disclaimer images had an explicit max-width — everything else
 # just filled whatever container Buttondown's own template happened to give
 # it, which only looked consistent by coincidence.
-CONTENT_WIDTH = 860
+CONTENT_WIDTH = 900
 
 # Sampled directly from the masthead artwork (black background, gold wordmark)
 # so the surrounding chrome matches it exactly rather than an eyeballed guess.
@@ -128,9 +128,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     tab_html = (
         f'<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>'
         f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 6 Market</td>'
-        f'<td style="width:0; padding:0; line-height:0; font-size:0;">'
-        f'<div style="width:0;height:0;border-top:19px solid transparent;border-bottom:19px solid transparent;border-left:14px solid {PLAYBACK_P_GOLD};">&nbsp;</div>'
-        f'</td></tr></table>'
+        f'</tr></table>'
     )
 
     # Mobile: a centered pill instead of the left-aligned tab+arrow - the
@@ -172,7 +170,7 @@ def ticker_bar_email_html(prices, date_abbrev):
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
         <td valign="top">
           {tab_html}
-          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.3;">prices as of 6AM (cst)<br>on printed date</div>
+          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.3;white-space:nowrap;">prices as of 6AM&nbsp;(cst)<br>on printed date</div>
         </td>
         <td style="width:44px; font-size:0; line-height:0;">&nbsp;</td>
         <td valign="middle">{prices_html}</td>
@@ -533,19 +531,19 @@ def market_snapshot_email_html(overview):
     bear_img = "email-bear-x.png" if lean == "bullish" else "email-bear.png"
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_BAND};">
   <tr><td class="band-pad" style="padding:34px 12px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; width:100%; margin:0 auto; table-layout:fixed;">
       <tr>
-        <td class="snap-side" width="190" valign="middle" align="left"><img src="{ASSET_BASE}/{bull_img}" width="180" alt="Bull" style="display:block; width:180px; height:auto; border:0;"></td>
+        <td class="snap-side" width="190" valign="middle" align="left" style="width:190px;"><img src="{ASSET_BASE}/{bull_img}" width="180" alt="Bull" style="display:block; width:180px; height:auto; border:0;"></td>
         <td valign="middle" style="padding:0 16px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_CARD}; border-radius:20px; box-shadow:0 10px 34px rgba(23,21,18,0.12);">
             <tr><td class="snap-card" style="padding:26px 44px; text-align:center;">
               {_oval_email_html("Market Snapshot", V2_GREEN_GRAD, 26, "16px 42px", "snap-badge")}
-              <div style="font-family:Arial,sans-serif; font-size:13.5px; color:rgba(23,21,18,0.7); margin:16px 0 14px;">Updated {overview["updated"]} &middot; Based on {overview["total_count"]} market indicators</div>
+              <div style="font-family:Arial,sans-serif; font-size:13.5px; color:#575550; margin:16px 0 14px;">Updated {overview["updated"]} &middot; Based on {overview["total_count"]} market indicators</div>
               <p class="snap-text" style="font-family:Arial,sans-serif; font-size:19.5px; font-weight:bold; line-height:1.55; color:{V2_INK}; margin:0; text-align:center;">{overview["snapshot_text"]}</p>
             </td></tr>
           </table>
         </td>
-        <td class="snap-side" width="190" valign="middle" align="right"><img src="{ASSET_BASE}/{bear_img}" width="180" alt="Bear" style="display:block; width:180px; height:auto; border:0;"></td>
+        <td class="snap-side" width="190" valign="middle" align="right" style="width:190px;"><img src="{ASSET_BASE}/{bear_img}" width="180" alt="Bear" style="display:block; width:180px; height:auto; border:0;"></td>
       </tr>
     </table>
   </td></tr>
@@ -560,7 +558,7 @@ def signal_confluence_email_html(overview):
         return (f'<td class="conf-cell" valign="top" style="padding:9px 28px; font-family:Arial,sans-serif; line-height:1.35; text-align:left;">'
                 f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{dot};margin-right:7px;vertical-align:middle;">&nbsp;</span>'
                 f'<span class="conf-name" style="font-weight:bold; font-size:18px; color:{V2_PAPER}; vertical-align:middle;">{name}</span><br>'
-                f'<span class="conf-val" style="color:rgba(251,249,245,0.58); padding-left:19px; font-size:15px;">{value}</span></td>')
+                f'<span class="conf-val" style="color:#9D9C99; padding-left:19px; font-size:15px;">{value}</span></td>')
     items = overview["confluence_items"]
     grid = ""
     for i in range(0, len(items), 4):
@@ -572,13 +570,13 @@ def signal_confluence_email_html(overview):
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px;">
       <tr><td class="conf-card" style="padding:30px 32px; text-align:center;">
         {_oval_email_html("Signal Confluence", V2_GOLD_GRAD, 17)}
-        <div style="font-family:Arial,sans-serif; font-size:14.5px; color:rgba(251,249,245,0.5); margin:12px 0 20px;">Updated {overview["updated"]}</div>
+        <div style="font-family:Arial,sans-serif; font-size:14.5px; color:#8A8A88; margin:12px 0 20px;">Updated {overview["updated"]}</div>
         <div style="margin:0 0 56px;"><div style="display:inline-block; background:#262626; border:2px solid {GOLD}; border-radius:14px; padding:14px 44px 16px; box-shadow:0 10px 26px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5);">
-          <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:rgba(251,249,245,0.5); font-weight:normal;">/{overview["total_count"]}</span></span></div>
-          <div style="font-family:Arial,sans-serif; font-size:18px; color:rgba(251,249,245,0.6);">signals positive</div>
+          <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:#8A8A88; font-weight:normal;">/{overview["total_count"]}</span></span></div>
+          <div style="font-family:Arial,sans-serif; font-size:18px; color:#A1A09E;">signals positive</div>
         </div></div>
         <table class="conf-table" role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">{grid}</table>
-        <div style="font-family:Arial,sans-serif; font-size:16px; color:rgba(251,249,245,0.6); margin-top:56px;">{overview["interpretation"]}</div>
+        <div style="font-family:Arial,sans-serif; font-size:16px; color:#A1A09E; margin-top:56px;">{overview["interpretation"]}</div>
       </td></tr>
     </table>
   </td></tr>
@@ -588,9 +586,11 @@ def signal_confluence_email_html(overview):
 def story_you_missed_email_html(missed):
     """Gray band + dark card with the spy badge. `missed` is a dict with
     headline, body (plain text or <p> HTML), source_title, source_url."""
-    body = missed["body"]
-    if "<" not in body:
-        body = f"<p style='margin:0;'>{body}</p>"
+    # Plain text in a div, never a <p>: the mail platform styles <p> with its
+    # own dark text color, which made this unreadable on the dark card.
+    import re as _re
+    body = _re.sub(r"</p>\s*<p[^>]*>", "<br><br>", missed["body"])
+    body = _re.sub(r"</?p[^>]*>", "", body).strip()
     return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_BAND};">
   <tr><td class="band-pad" style="padding:34px 12px;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px; box-shadow:0 10px 34px rgba(23,21,18,0.18);">
@@ -601,8 +601,8 @@ def story_you_missed_email_html(missed):
           <td class="missed-spacer" width="25%">&nbsp;</td>
         </tr></table>
         <div style="font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:20px; line-height:1.35; color:{V2_PAPER}; margin:20px 0 10px;">{missed["headline"]}</div>
-        <div style="font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.55; color:rgba(251,249,245,0.72); margin-bottom:12px;">{body}</div>
-        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D9A857; text-decoration:none;">Read more at {missed["source_title"]} &rarr;</a>
+        <div style="font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.55; color:#BCBBB8; margin-bottom:12px;">{body}</div>
+        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D9A857; text-decoration:none;"><span style="color:#D9A857;">Read more at {missed["source_title"]} &rarr;</span></a>
       </td></tr>
     </table>
   </td></tr>
@@ -619,7 +619,7 @@ def story_blocks_email_html(stories):
             f"<div style='margin:0 20px;'>"
             f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:{V2_INK};margin:0 0 10px;text-align:center;'>{s['headline']}</h3>"
             f"{img_html}<div style='font-size:16px;'>{s['body']}</div>"
-            f"<p><a href='{s['source_url']}' style='color:{GOLD};font-weight:bold;text-decoration:none;'>Read more at {s['source_title']} &rarr;</a></p>"
+            f"<p><a href='{s['source_url']}' style='color:{GOLD};font-weight:bold;text-decoration:none;'><span style='color:{GOLD};'>Read more at {s['source_title']} &rarr;</span></a></p>"
             f"<div style='height:1px; background:{PLAYBACK_P_GOLD}; margin:16px 0;'></div>"
             f"</div>"
         )
