@@ -21,9 +21,9 @@ from claude_client import ask_claude_json
 from build_site import (
     add_post_and_rebuild, render_ticker_bar, render_sentiment_combined,
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
-    load_index, save_gauge_image, format_date_abbrev,
+    load_index, save_gauge_image, format_date_abbrev, load_market_overview,
 )
-from email_render import stories_to_plain_email_html, upload_gauge_image
+from email_render import stories_to_plain_email_html, stories_to_plain_email_html_v1, upload_gauge_image
 from buttondown_client import create_draft
 
 
@@ -61,6 +61,15 @@ Rules:
 - For each story, if its headline has an image URL listed, copy it EXACTLY \
   into that story's "image_url". Never invent or guess an image URL. If a \
   headline has no image URL listed, set that story's "image_url" to null.
+- ALSO pick ONE extra story for the "Here's A Story You Missed" slot: the \
+  most genuinely intriguing, unusual, or surprising crypto-related item in \
+  the list — an offbeat on-chain event, a strange legal or cultural moment, \
+  an unexpected use of the technology, a curiosity. It must be a DIFFERENT \
+  headline from every story you selected above, and not routine price or \
+  regulation news. Base it ENTIRELY on that one headline's own summary \
+  (never invent details), and write it as plain text in 2-3 sentences with \
+  NO HTML tags. If nothing in the list is genuinely unusual, set \
+  "missed_story" to null rather than forcing a dull pick.
 - CRITICAL for valid output: never use a literal double-quote character (") \
   inside any string value. If you need quotation marks for HTML attributes, \
   use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
@@ -78,7 +87,13 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
       "source_url": "exact link from the list",
       "image_url": "exact image URL from the list for this headline, or null"
     }}
-  ]
+  ],
+  "missed_story": {{
+    "headline": "punchy headline, your own words",
+    "body": "2-3 plain-text sentences, no HTML",
+    "source_title": "exact source name from the list",
+    "source_url": "exact link from the list"
+  }}
 }}"""
 
 
@@ -103,6 +118,25 @@ def clean_issue_title(title):
     return stripped
 
 
+def validated_missed_story(result, headlines):
+    """The "Here's A Story You Missed" pick, or None. Dropped (not repaired)
+    if the model left it out, left a field empty, or cited a link that isn't
+    one of the real headlines it was given - this slot is only ever built
+    from real source material."""
+    m = result.get("missed_story")
+    if not isinstance(m, dict):
+        return None
+    if not all(isinstance(m.get(k), str) and m[k].strip() for k in ("headline", "body", "source_title", "source_url")):
+        return None
+    if m["source_url"] not in {h["link"] for h in headlines}:
+        print("missed_story cited a link not in the headline list - dropping it.")
+        return None
+    if m["source_url"] in {st.get("source_url") for st in result["stories"]}:
+        print("missed_story duplicates one of the main stories - dropping it.")
+        return None
+    return {k: m[k].strip() for k in ("headline", "body", "source_title", "source_url")}
+
+
 def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
                     max_per_feed, max_headlines, story_min, story_max, max_tokens=8000):
     """Generates one issue (daily or weekly — same shape now, just different
@@ -122,6 +156,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     result = ask_claude_json(model, system_prompt, user_prompt, max_tokens=max_tokens)
     result["issue_title"] = clean_issue_title(result["issue_title"])
 
+    missed_story = validated_missed_story(result, headlines)
     fng = get_fear_greed()
     mover = compute_biggest_mover(prices)
     week_mover = compute_weekly_mover(prices)
@@ -156,14 +191,26 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         "issue_pill_html": render_issue_pill(tag),
         "top_story_html": render_top_story_box(result["intro"]),
         "stories": result["stories"],
+        "missed_story": missed_story,
         "excerpt": result["intro"][:220],
     }
     add_post_and_rebuild(post)
     print(f"Generated {tag.lower()} post: {slug} ({len(result['stories'])} stories)")
 
-    email_body = stories_to_plain_email_html(
-        result["issue_title"], result["intro"], result["stories"], prices,
-        fng, mover, tag, date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
-    )
+    # Newsletter Version 2 (Market Snapshot, Signal Confluence, news section).
+    # Falls back to the Version 1 layout only if there's no live indicator
+    # data on disk to build the new sections from.
+    overview = load_market_overview()
+    if overview is not None:
+        email_body = stories_to_plain_email_html(
+            result["issue_title"], result["intro"], result["stories"], prices,
+            tag, date_display, date_abbrev, issue_number, overview, missed_story,
+        )
+    else:
+        print("No live indicator data found - falling back to the Version 1 email layout.")
+        email_body = stories_to_plain_email_html_v1(
+            result["issue_title"], result["intro"], result["stories"], prices,
+            fng, mover, tag, date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
+        )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")

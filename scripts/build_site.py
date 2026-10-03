@@ -1700,6 +1700,78 @@ def _teaser_image(slug):
     return None
 
 
+def compute_market_overview(indicators, signals, fng, sectors):
+    """The Market Snapshot paragraph, Signal Confluence rows/score/
+    interpretation, and the bullish/bearish/neutral lean - computed once so
+    the homepage (render_index) and the newsletter email (email_render) can
+    never drift apart on wording or numbers."""
+    confluence_items = [
+        (ind["confluence_name"], ind["confluence_positive"], ind["confluence_display"])
+        for ind in indicators if ind["confluence_positive"] is not None
+    ]
+    positive_count = sum(1 for _, pos, _ in confluence_items if pos)
+    total_count = len(confluence_items)
+    negatives = [name for name, pos, _ in confluence_items if not pos]
+    positives = [name for name, pos, _ in confluence_items if pos]
+    if positive_count == total_count:
+        interpretation = "Every signal we track is currently pointing the same direction: up."
+    elif positive_count == 0:
+        interpretation = "Every signal we track is currently pointing the same direction: down."
+    elif positive_count >= total_count - 1:
+        interpretation = f"Signals are broadly positive, with {negatives[0]} the lone holdout."
+    elif positive_count <= 1:
+        interpretation = f"Signals lean cautious, with {positives[0] if positives else 'nothing'} the lone bright spot."
+    else:
+        interpretation = "Signals are mixed, split between bullish and cautious readings."
+
+    fng_word = fng["classification"].lower()
+    breadth_phrase = ("broad" if signals["breadth_pct"] >= 0.6
+                       else ("narrow" if signals["breadth_pct"] <= 0.4 else "mixed"))
+    top_sector_name = sectors[0]["label"] if sectors else None
+    snapshot_text = (
+        f"The market is currently showing a {fng_word}-leaning profile, with "
+        f"{signals['risk_level']} volatility risk and {signals['capital_flow_signal'].lower()} capital flow. "
+    )
+    if top_sector_name:
+        snapshot_text += (
+            f"{top_sector_name} is leading sector rotation, and participation across tracked assets "
+            f"looks {breadth_phrase}."
+        )
+    else:
+        snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
+
+
+    if fng["value"] >= 55:
+        market_lean = "bullish"
+    elif fng["value"] <= 45:
+        market_lean = "bearish"
+    else:
+        market_lean = "neutral"
+    return {
+        "confluence_items": confluence_items,
+        "positive_count": positive_count,
+        "total_count": total_count,
+        "interpretation": interpretation,
+        "snapshot_text": snapshot_text,
+        "market_lean": market_lean,
+    }
+
+
+def load_market_overview():
+    """Same overview, built straight from the latest live data on disk
+    (data/live_indicators.json) - what the newsletter email calls. Returns
+    the overview dict plus the 'Updated ...' line and the raw fng value."""
+    entries = load_index()
+    dashboard = _load_dashboard_data(entries)
+    if dashboard is None:
+        return None
+    ctx = _build_indicator_registry(dashboard, dashboard["gauge_path"])
+    overview = compute_market_overview(ctx["indicators"], ctx["signals"], dashboard["fng"], dashboard["sectors"])
+    overview["updated"] = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", "") if entries else "")
+    overview["fng_value"] = dashboard["fng"]["value"]
+    return overview
+
+
 def render_index(entries):
     # header-web.png: same masthead art as the email (header-a.png), but with
     # the candlestick chart decoration in the corners painted out for the
@@ -1757,24 +1829,14 @@ def render_index(entries):
     # external "AI live" call at page-load, no invented deltas. The market
     # snapshot paragraph and interpretation lines are templated prose driven
     # by the actual numbers, same pattern as mover_label/mover_caption above.
-    confluence_items = [
-        (ind["confluence_name"], ind["confluence_positive"], ind["confluence_display"])
-        for ind in indicators if ind["confluence_positive"] is not None
-    ]
-    positive_count = sum(1 for _, pos, _ in confluence_items if pos)
-    total_count = len(confluence_items)
-    negatives = [name for name, pos, _ in confluence_items if not pos]
-    positives = [name for name, pos, _ in confluence_items if pos]
-    if positive_count == total_count:
-        interpretation = "Every signal we track is currently pointing the same direction: up."
-    elif positive_count == 0:
-        interpretation = "Every signal we track is currently pointing the same direction: down."
-    elif positive_count >= total_count - 1:
-        interpretation = f"Signals are broadly positive, with {negatives[0]} the lone holdout."
-    elif positive_count <= 1:
-        interpretation = f"Signals lean cautious, with {positives[0] if positives else 'nothing'} the lone bright spot."
-    else:
-        interpretation = "Signals are mixed, split between bullish and cautious readings."
+    overview = compute_market_overview(indicators, signals, fng, sectors)
+    confluence_items = overview["confluence_items"]
+    positive_count = overview["positive_count"]
+    total_count = overview["total_count"]
+    interpretation = overview["interpretation"]
+    snapshot_text = overview["snapshot_text"]
+    market_lean = overview["market_lean"]
+
     # Labeled rows, not a bare row of dots - a colored dot alone doesn't tell
     # a visitor which indicator it belongs to or what it's currently reading.
     confluence_rows = "".join(
@@ -1786,22 +1848,6 @@ def render_index(entries):
         for name, pos, val in confluence_items
     )
 
-    fng_word = fng["classification"].lower()
-    breadth_phrase = ("broad" if signals["breadth_pct"] >= 0.6
-                       else ("narrow" if signals["breadth_pct"] <= 0.4 else "mixed"))
-    top_sector_name = sectors[0]["label"] if sectors else None
-    snapshot_text = (
-        f"The market is currently showing a {fng_word}-leaning profile, with "
-        f"{signals['risk_level']} volatility risk and {signals['capital_flow_signal'].lower()} capital flow. "
-    )
-    if top_sector_name:
-        snapshot_text += (
-            f"{top_sector_name} is leading sector rotation, and participation across tracked assets "
-            f"looks {breadth_phrase}."
-        )
-    else:
-        snapshot_text += f"Participation across tracked assets looks {breadth_phrase}."
-
     # Bull (left) / bear (right) mascots flanking the card - same "temperature"
     # read the title oval used to use before it became a fixed green (Fear &
     # Greed >=55 bullish-leaning, <=45 bearish-leaning, otherwise genuinely
@@ -1809,12 +1855,6 @@ def render_index(entries):
     # direction when it's genuinely neutral" convention Altcoin Rotation's
     # In Line state already uses elsewhere on this page - neither side is
     # crossed out when the market isn't clearly leaning either way.
-    if fng["value"] >= 55:
-        market_lean = "bullish"
-    elif fng["value"] <= 45:
-        market_lean = "bearish"
-    else:
-        market_lean = "neutral"
     bull_x = '<span class="snapshot-side-x">&#10060;</span>' if market_lean == "bearish" else ""
     bear_x = '<span class="snapshot-side-x">&#10060;</span>' if market_lean == "bullish" else ""
 

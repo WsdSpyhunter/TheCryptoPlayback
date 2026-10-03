@@ -1,0 +1,26 @@
+name: Email test (Version 2 layout)
+
+on:
+  workflow_dispatch: {}     # manual only - never runs on a schedule
+
+permissions:
+  contents: read
+
+jobs:
+  email-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create a TEST draft in Buttondown (never sends)
+        working-directory: scripts
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: python send_email_test.py

@@ -325,10 +325,10 @@ def release_row_email_html(date_display, issue_number, tag):
     return f"""<div style="margin:20px 20px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F1EEE7; border-radius:4px; box-shadow:0 2px 5px rgba(23,21,18,0.18);">
   <tr>
-    <td style="padding:10px 16px; font-family:Arial,sans-serif; font-size:12px; color:#666666;" valign="middle">Release date: {date_display}</td>
+    <td style="padding:10px 16px; font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD};" valign="middle">Release date: {date_display}</td>
     <td style="padding:10px 16px; text-align:right; white-space:nowrap;" valign="middle">
       <span style="display:inline-block;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;letter-spacing:0.04em;color:#FBF9F5;background:#268CCA;padding:4px 10px;border-radius:3px;">{label}</span>
-      <span style="font-family:Arial,sans-serif; font-size:12px; color:#666666; margin-left:20px;">Issue #{issue_number}</span>
+      <span style="font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD}; margin-left:20px;">Issue #{issue_number}</span>
     </td>
   </tr>
 </table>
@@ -341,7 +341,7 @@ def issue_title_block_email_html(title):
     # margin — this fights that back to keep the title tight to the release
     # row above it instead of leaving a large gap.
     return f"""<div style="margin:20px 20px 4px; text-align:center;">
-<span style="display:inline-block; font-family:Arial,sans-serif; font-weight:bold; font-size:12px; letter-spacing:0.14em; color:{GOLD}; background:#171512; padding:8px 22px; border-radius:8px 8px 0 0;">SNAPSHOT</span>
+<span class="notable-tab" style="display:inline-block; font-family:Arial,sans-serif; font-weight:bold; font-size:48px; line-height:1.15; letter-spacing:0.14em; color:{GOLD}; background:#171512; padding:10px 38px; border-radius:8px 8px 0 0;">NOTA<img class="notable-b" src="{ASSET_BASE}/email-notable-b.png" height="45" alt="B" style="height:45px; width:auto; vertical-align:-5px; margin:0 4px; border:0;">LE</span>
 <div style="background:#F1EEE7; border:2px solid {PLAYBACK_P_GOLD}; border-radius:0 8px 8px 8px; padding:4px; margin-top:-1px; box-shadow:0 4px 10px rgba(23,21,18,0.2);">
   <div style="border:1px solid {GOLD}; border-radius:4px; padding:18px 22px;">
     <h1 style="font-family:Arial,sans-serif;font-weight:bold;font-style:italic;font-size:26px;color:#171512;margin:0 !important;line-height:1.15;">{title}</h1>
@@ -363,8 +363,8 @@ def top_story_to_email_html(intro):
     return f"""<div style="margin:20px 20px 32px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F1EEE7; border-radius:8px; border:2px solid #268CCA; box-shadow:0 4px 10px rgba(23,21,18,0.2);">
   <tr>
-    <td width="56" style="background:#268CCA; border-radius:6px 0 0 6px;" align="center" valign="middle">
-      <img src="{ASSET_BASE}/top-story-label.png" width="44" alt="TOP STORY" style="display:block; width:44px; height:auto; border:0;">
+    <td class="ts-label-cell" width="112" style="background:#268CCA; border-radius:6px 0 0 6px;" align="center" valign="middle">
+      <img class="ts-label" src="{ASSET_BASE}/top-story-label-2x.png" width="88" alt="TOP STORY" style="display:block; width:88px; height:auto; border:0;">
     </td>
     <td style="padding:24px 28px 24px 24px; font-family:Arial,Helvetica,sans-serif; font-weight:600; font-size:24px; line-height:1.4; color:#171512;" valign="middle">{intro}</td>
   </tr>
@@ -393,7 +393,7 @@ def footer_email_html():
 </p>"""
 
 
-def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, date_abbrev, issue_number, gauge_src):
+def stories_to_plain_email_html_v1(issue_title, intro, stories, ticker_prices, fng, mover, tag, date_display, date_abbrev, issue_number, gauge_src):
     """Full HTML rendering for the email body — masthead through footer,
     matching the approved design exactly. `stories` can be a single-item
     list (daily) or several (weekly)."""
@@ -474,3 +474,219 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, fng,
 </body>
 </html>"""
     return html_doc
+
+
+# =====================================================================
+# Newsletter Version 2 — new sections + assembler
+# =====================================================================
+# Website-style full-bleed bands (Market Snapshot, Signal Confluence,
+# Here's A Story You Missed) between the ticker and the stories. Same
+# table-based, inline-styled approach as everything above. Gradients always
+# carry a solid `background-color` fallback first, because older desktop
+# Outlook ignores `background-image: linear-gradient(...)` entirely.
+V2_PAPER = "#FBF9F5"
+V2_INK = "#171512"
+V2_SNAP_BAND = "#9C9892"
+V2_SNAP_CARD = "#EDE9E2"
+V2_DARK_BAND = "#121212"
+V2_DARK_CARD = "#1B1B1B"
+V2_GREEN = "#8FBF5C"
+V2_RED = "#E24C4C"
+V2_GOLD_GRAD = ("#B68047", "linear-gradient(135deg, #D9A857, #936038)")
+V2_GREEN_GRAD = ("#76A04A", "linear-gradient(135deg, #8FBF5C, #5D7C3C)")
+
+
+def _cap_email_html(inner):
+    return (f"<div style='max-width:{CONTENT_WIDTH}px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;"
+            f"color:{V2_INK};font-size:15px;line-height:1.5;'>{inner}</div>")
+
+
+def _oval_email_html(label, grad, size=13, pad="10px 26px", css_class=""):
+    solid, image = grad
+    cls = f' class="{css_class}"' if css_class else ""
+    return (f'<span{cls} style="display:inline-block; font-family:Arial,sans-serif; font-weight:bold; font-size:{size}px; '
+            f'letter-spacing:0.1em; text-transform:uppercase; color:#ffffff; background-color:{solid}; '
+            f'background-image:{image}; padding:{pad}; border-radius:30px; '
+            f'box-shadow:0 4px 14px rgba(0,0,0,0.25);">{label}</span>')
+
+
+def news_highlights_header_email_html():
+    """Bordered divider that announces the news section is starting."""
+    return f"""<div style="padding:30px 20px 12px; text-align:center;">
+  <table role="presentation" align="center" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto; border:3px solid {V2_INK}; background-color:#2E2E2E;">
+    <tr><td style="padding:5px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid {GOLD};">
+        <tr><td class="news-hl" align="center" style="padding:16px 12px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:26px; letter-spacing:6px; color:#FFFFFF;">NEWS HIGHLIGHTS</td></tr>
+      </table>
+    </td></tr>
+  </table>
+</div>"""
+
+
+def market_snapshot_email_html(overview):
+    """Gray full-bleed band: bull / Market Snapshot card / bear. The mascot
+    that doesn't match the market's lean carries a pre-rendered red X (a PNG,
+    since email can't overlay one element on another reliably); the mascots
+    hide on phones, where the card needs the full width."""
+    lean = overview["market_lean"]
+    bull_img = "email-bull-x.png" if lean == "bearish" else "email-bull.png"
+    bear_img = "email-bear-x.png" if lean == "bullish" else "email-bear.png"
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_BAND};">
+  <tr><td class="band-pad" style="padding:34px 12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto;">
+      <tr>
+        <td class="snap-side" width="190" valign="middle" align="left"><img src="{ASSET_BASE}/{bull_img}" width="180" alt="Bull" style="display:block; width:180px; height:auto; border:0;"></td>
+        <td valign="middle" style="padding:0 16px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_CARD}; border-radius:20px; box-shadow:0 10px 34px rgba(23,21,18,0.12);">
+            <tr><td class="snap-card" style="padding:26px 44px; text-align:center;">
+              {_oval_email_html("Market Snapshot", V2_GREEN_GRAD, 26, "16px 42px", "snap-badge")}
+              <div style="font-family:Arial,sans-serif; font-size:13.5px; color:rgba(23,21,18,0.7); margin:16px 0 14px;">Updated {overview["updated"]} &middot; Based on {overview["total_count"]} market indicators</div>
+              <p class="snap-text" style="font-family:Arial,sans-serif; font-size:19.5px; font-weight:bold; line-height:1.55; color:{V2_INK}; margin:0; text-align:center;">{overview["snapshot_text"]}</p>
+            </td></tr>
+          </table>
+        </td>
+        <td class="snap-side" width="190" valign="middle" align="right"><img src="{ASSET_BASE}/{bear_img}" width="180" alt="Bear" style="display:block; width:180px; height:auto; border:0;"></td>
+      </tr>
+    </table>
+  </td></tr>
+</table>"""
+
+
+def signal_confluence_email_html(overview):
+    """Black full-bleed band: score box + every indicator, 4 across (2 across
+    on phones), then the one-line interpretation."""
+    def cell(name, pos, value):
+        dot = V2_GREEN if pos else V2_RED
+        return (f'<td class="conf-cell" valign="top" style="padding:9px 28px; font-family:Arial,sans-serif; line-height:1.35; text-align:left;">'
+                f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{dot};margin-right:7px;vertical-align:middle;">&nbsp;</span>'
+                f'<span class="conf-name" style="font-weight:bold; font-size:18px; color:{V2_PAPER}; vertical-align:middle;">{name}</span><br>'
+                f'<span class="conf-val" style="color:rgba(251,249,245,0.58); padding-left:19px; font-size:15px;">{value}</span></td>')
+    items = overview["confluence_items"]
+    grid = ""
+    for i in range(0, len(items), 4):
+        chunk = items[i:i + 4]
+        cells = "".join(cell(*it) for it in chunk) + "<td></td>" * (4 - len(chunk))
+        grid += f'<tr class="conf-row">{cells}</tr>'
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_DARK_BAND};">
+  <tr><td class="band-pad" style="padding:42px 12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px;">
+      <tr><td class="conf-card" style="padding:30px 32px; text-align:center;">
+        {_oval_email_html("Signal Confluence", V2_GOLD_GRAD, 17)}
+        <div style="font-family:Arial,sans-serif; font-size:14.5px; color:rgba(251,249,245,0.5); margin:12px 0 20px;">Updated {overview["updated"]}</div>
+        <div style="margin:0 0 56px;"><div style="display:inline-block; background:#262626; border:2px solid {GOLD}; border-radius:14px; padding:14px 44px 16px; box-shadow:0 10px 26px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5);">
+          <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:rgba(251,249,245,0.5); font-weight:normal;">/{overview["total_count"]}</span></span></div>
+          <div style="font-family:Arial,sans-serif; font-size:18px; color:rgba(251,249,245,0.6);">signals positive</div>
+        </div></div>
+        <table class="conf-table" role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">{grid}</table>
+        <div style="font-family:Arial,sans-serif; font-size:16px; color:rgba(251,249,245,0.6); margin-top:56px;">{overview["interpretation"]}</div>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>"""
+
+
+def story_you_missed_email_html(missed):
+    """Gray band + dark card with the spy badge. `missed` is a dict with
+    headline, body (plain text or <p> HTML), source_title, source_url."""
+    body = missed["body"]
+    if "<" not in body:
+        body = f"<p style='margin:0;'>{body}</p>"
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{V2_SNAP_BAND};">
+  <tr><td class="band-pad" style="padding:34px 12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px; box-shadow:0 10px 34px rgba(23,21,18,0.18);">
+      <tr><td class="missed-card" style="padding:30px 32px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+          <td class="missed-icon-cell" width="25%" align="left" valign="middle"><img class="missed-icon" src="{ASSET_BASE}/email-spy-badge.png" width="72" height="72" alt="" style="display:block; width:72px; height:72px; border:0;"></td>
+          <td align="center" valign="middle">{_oval_email_html("Here's A Story You Missed", V2_GOLD_GRAD, 17, css_class="missed-badge")}</td>
+          <td class="missed-spacer" width="25%">&nbsp;</td>
+        </tr></table>
+        <div style="font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:20px; line-height:1.35; color:{V2_PAPER}; margin:20px 0 10px;">{missed["headline"]}</div>
+        <div style="font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.55; color:rgba(251,249,245,0.72); margin-bottom:12px;">{body}</div>
+        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D9A857; text-decoration:none;">Read more at {missed["source_title"]} &rarr;</a>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>"""
+
+
+def story_blocks_email_html(stories):
+    """The issue's stories: centered headline + image, 16px body, brass rule."""
+    out = ""
+    for s in stories:
+        img_html = (f"<p style='text-align:center;'><img src='{s['image_url']}' style='max-width:100%; display:block; margin:0 auto;'></p>"
+                    if s.get("image_url") else "")
+        out += (
+            f"<div style='margin:0 20px;'>"
+            f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:{V2_INK};margin:0 0 10px;text-align:center;'>{s['headline']}</h3>"
+            f"{img_html}<div style='font-size:16px;'>{s['body']}</div>"
+            f"<p><a href='{s['source_url']}' style='color:{GOLD};font-weight:bold;text-decoration:none;'>Read more at {s['source_title']} &rarr;</a></p>"
+            f"<div style='height:1px; background:{PLAYBACK_P_GOLD}; margin:16px 0;'></div>"
+            f"</div>"
+        )
+    return out
+
+
+def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag, date_display, date_abbrev,
+                                issue_number, overview, missed_story=None):
+    """Newsletter Version 2 — full HTML for the email body. Order: masthead,
+    ticker, release row, Market Snapshot, Signal Confluence, NEWS HIGHLIGHTS,
+    Top Story, Here's A Story You Missed (when there is one), NOTABLE title,
+    the stories, footer. The old Fear & Greed / Biggest Mover box is gone
+    (both live in Signal Confluence now)."""
+    segments = [
+        _cap_email_html(ticker_bar_email_html(ticker_prices, date_abbrev)),
+        _cap_email_html(release_row_email_html(date_display, issue_number, tag) + "<div style='height:20px;'></div>"),
+        market_snapshot_email_html(overview),
+        signal_confluence_email_html(overview),
+        _cap_email_html(news_highlights_header_email_html() + top_story_to_email_html(intro)),
+    ]
+    if missed_story:
+        segments.append(story_you_missed_email_html(missed_story))
+    segments.append(_cap_email_html(issue_title_block_email_html(issue_title)))
+    segments.append(_cap_email_html("<div style='padding-top:40px;'>" + story_blocks_email_html(stories) + "</div>" + footer_email_html()))
+    body_html = "\n".join(segments)
+
+    return f"""<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<style>
+@media only screen and (max-width: 600px) {{
+  .tbar-desktop {{ display:none !important; }}
+  .tbar-mobile {{ display:block !important; }}
+  .fng-desktop {{ display:none !important; }}
+  .fng-mobile {{ display:block !important; }}
+  .subscribe-desktop {{ display:none !important; }}
+  .subscribe-mobile {{ display:block !important; }}
+  .snap-side {{ display:none !important; }}
+  .snap-card {{ padding:22px 18px !important; }}
+  .snap-badge {{ font-size:18px !important; padding:12px 24px !important; }}
+  .snap-text {{ font-size:16px !important; }}
+  .conf-card {{ padding:24px 12px !important; }}
+  .conf-table {{ width:100% !important; }}
+  .conf-row {{ display:block !important; }}
+  .conf-cell {{ display:inline-block !important; width:50% !important; box-sizing:border-box !important; padding:9px 8px !important; }}
+  .conf-name {{ font-size:15px !important; }}
+  .conf-val {{ font-size:13px !important; padding-left:0 !important; display:block; margin-left:16px; }}
+  .missed-card {{ padding:24px 18px !important; }}
+  .missed-badge {{ font-size:13px !important; padding:9px 16px !important; }}
+  .missed-icon-cell {{ width:52px !important; }}
+  .missed-icon {{ width:44px !important; height:44px !important; }}
+  .missed-spacer {{ display:none !important; }}
+  .news-hl {{ font-size:18px !important; letter-spacing:3px !important; }}
+  .notable-tab {{ font-size:28px !important; padding:8px 20px !important; }}
+  .notable-b {{ height:26px !important; vertical-align:-3px !important; }}
+  .ts-label-cell {{ width:64px !important; }}
+  .ts-label {{ width:52px !important; }}
+}}
+</style>
+</head>
+<body style="margin:0; padding:0; background:{V2_PAPER};">
+{preheader_email_html()}
+{masthead_email_html()}
+{body_html}
+</body>
+</html>"""
