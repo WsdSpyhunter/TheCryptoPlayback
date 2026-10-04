@@ -188,7 +188,7 @@ def _build_resources():
 
     chips = "".join(f'<a class="res-signal" href="{href}">{label}</a>' for href, label in SIGNALS)
     signals = (
-        '<section class="res-band res-band--sand" id="signals"><div class="res-inner">'
+        '<section class="res-band res-band--stone" id="signals"><div class="res-inner">'
         '<div class="res-head"><span class="res-kicker">On This Site</span>'
         '<h2 class="res-title">Know Your Signals</h2>'
         '<p class="res-sub">Every indicator on our dashboard has its own page explaining what it measures and how it is scored.</p></div>'

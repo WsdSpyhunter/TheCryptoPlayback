@@ -1478,6 +1478,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .res-inner { max-width: 1200px; margin: 0 auto; }
 .res-band--paper { background: var(--paper); }
 .res-band--sand  { background: #EDE9E2; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+/* Darker stone gray (same shade as the homepage Market Snapshot band) - used
+   only by the "On This Site" section so it sits apart from the sand bands. */
+.res-band--stone { background: #BBB7B0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .res-band--dark  { background: #121212; border-top: 1px solid rgba(255,255,255,0.08); }
 .res-band--black { background: #000000; }
 
