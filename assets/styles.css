@@ -1528,15 +1528,18 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #fff;
-  background: linear-gradient(135deg, #D9A857, var(--accent-dark));
-  box-shadow: 0 4px 14px rgba(147, 96, 56, 0.35);
-  padding: 6px 16px;
-  border-radius: 20px;
-  margin-bottom: 14px;
+  /* Deeper bronze than the audience tags (#D9A857 -> #936038), so a section
+     title reads as its own, heavier thing rather than another gold tag. */
+  background: linear-gradient(135deg, #A9732F, #5E3A1B);
+  border: 1px solid rgba(255, 226, 170, 0.4);
+  box-shadow: 0 6px 18px rgba(94, 58, 27, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  padding: 8px 22px;
+  border-radius: 24px;
+  margin-bottom: 16px;
 }
 .res-title {
   font-family: 'Oswald', sans-serif;
