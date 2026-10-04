@@ -2,15 +2,42 @@ name: Daily Playback
 
 on:
   schedule:
-    - cron: "0 11 * * *"   # ~6:00 AM CST every day
+    # Monday-Friday, 6:30 AM Central. GitHub cron is UTC-only and best-effort,
+    # so there are three starts: 11:30 UTC is 6:30 AM during daylight time,
+    # 12:30 UTC is 6:30 AM during standard time (and the 7:30 backup in
+    # summer), and 14:30 UTC is a later backup. The guard job lets only the
+    # first useful one through, so there is never more than one issue a day.
+    - cron: "30 11 * * 1-5"
+    - cron: "30 12 * * 1-5"
+    - cron: "30 14 * * 1-5"
   workflow_dispatch: {}     # lets you trigger it manually from the Actions tab to test
 
 permissions:
   contents: write
   pull-requests: write
+  actions: read   # lets the guard job look at today's earlier runs
 
 jobs:
+  # Decides whether this start should really generate an issue (see
+  # scripts/should_run.py): not before 6:30 AM Central, and only if today's
+  # issue hasn't already been made. Manual runs always go ahead.
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decide
+        id: decide
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          WORKFLOW_FILE: daily.yml
+        run: python scripts/should_run.py
+
   generate:
+    needs: guard
+    if: needs.guard.outputs.run == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
