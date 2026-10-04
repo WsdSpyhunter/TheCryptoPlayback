@@ -1705,6 +1705,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .res-links a { font-weight: 600; margin: 0 10px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .res-links a:hover { color: var(--paper); }
 
+/* Backdrop for the Resources page only (pages containing .res-band): any sliver
+   that ever shows between bands, or above the disclaimer, is dark instead of white. */
+body:has(.res-band) { background: #121212; }
 /* The disclaimer's usual 60px top margin would show as a cream strip under the
    last gray band, so butt it up against the band on this page only. */
 .res-band + .disclaimer { margin-top: 0; }

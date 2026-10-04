@@ -167,7 +167,7 @@ def _build_resources():
     inst = _section("institutional", "sand", "Advanced", "Institutional &amp; Advanced",
                     "Market structure, regulation and investment research for professional allocators and serious investors.",
                     INSTITUTIONAL)
-    protect = _section("protect", "paper", "Safeguard Your Assets", "Protect &amp; Plan",
+    protect = _section("protect", "stone", "Safeguard Your Assets", "Protect &amp; Plan",
                        "Custody, security, taxes and estate planning &mdash; the unglamorous parts that matter most.", PROTECT)
 
     read_items = "".join(
