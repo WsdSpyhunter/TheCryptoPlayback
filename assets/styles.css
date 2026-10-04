@@ -1511,9 +1511,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 }
 .res-hero-sub { max-width: 640px; margin: 0 auto 28px; font-size: 18px; color: rgba(251, 249, 245, 0.72); }
 .res-legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 30px; }
-/* The hero's audience key is shown at double size (the same tags on the cards
-   below stay small) so it reads as a legend for the whole page. */
-.res-legend .res-tag { font-size: 26px; padding: 8px 24px; border-radius: 24px; box-shadow: 0 5px 16px rgba(0, 0, 0, 0.45); }
+/* The hero's audience key is shown larger (the same tags on the cards
+   below stay smaller) so it reads as a legend for the whole page. */
+.res-legend .res-tag { font-size: 18px; padding: 6px 17px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45); }
 .res-jump { display: flex; flex-wrap: wrap; gap: 8px 10px; justify-content: center; max-width: 860px; margin: 0 auto; }
 .res-jump a {
   font-family: 'Oswald', sans-serif;
@@ -1703,7 +1703,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .res-band { padding: 48px 18px 56px; }
   .res-hero { padding: 56px 18px 48px; }
   .res-hero-title { font-size: 38px; }
-  .res-legend .res-tag { font-size: 19px; padding: 6px 18px; }
+  .res-legend .res-tag { font-size: 14px; padding: 5px 13px; }
   .res-title { font-size: 28px; }
   .res-grid, .res-read, .res-gloss { grid-template-columns: 1fr; }
 }
