@@ -147,7 +147,7 @@ GLOSSARY = [
 def _build_resources():
     hero = (
         '<section class="res-band res-band--black res-hero"><div class="res-inner">'
-        '<span class="res-eyebrow">The Playback Library</span>'
+        '<span class="res-eyebrow">The Play<img class="res-btc" src="assets/email-notable-b.png" alt="B">ack Library</span>'
         '<h1 class="res-hero-title">Resources</h1>'
         '<p class="res-hero-sub">Hand-picked tools, research and reading for retail and institutional investors. Quality over quantity.</p>'
         '<div class="res-legend">'

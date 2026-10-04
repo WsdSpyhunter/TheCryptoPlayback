@@ -1490,7 +1490,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -1499,6 +1499,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   border-radius: 20px;
   margin-bottom: 18px;
 }
+/* The Bitcoin B standing in for the B in "Playback" (same bronze B as the
+   newsletter's NOTABLE tab); sized off the surrounding text. */
+.res-btc { display: inline-block; height: 1.45em; width: auto; vertical-align: -0.3em; margin: 0 0.08em; filter: brightness(1.35) saturate(0.95); }
 .res-hero-title {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
