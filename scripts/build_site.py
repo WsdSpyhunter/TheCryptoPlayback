@@ -2135,7 +2135,7 @@ def render_index(entries):
         <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
       </div>
       <div class="subscribe-inner">
-        <span class="subscribe-eyebrow">Join The Playback</span>
+        <span class="subscribe-eyebrow">Join The Play<img class="subscribe-btc" src="assets/email-notable-b.png" alt="B">ack</span>
         <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
         <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
         <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
