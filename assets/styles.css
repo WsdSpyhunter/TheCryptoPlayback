@@ -669,6 +669,11 @@ h1, h2, h3 {
 }
 .alerts-head { text-align: center; margin-bottom: 32px; }
 .alerts-head .snapshot-title { margin-bottom: 8px; }
+/* The two homepage section-title ovals ("The Crypto Playback" here and
+   "Know Your Signals" in Decode The Dashboard) share one size, a bit larger
+   than before; scoped so the other .snapshot-eyebrow uses don't change. */
+.alerts-head .snapshot-eyebrow,
+.explainer-head .explainer-eyebrow { font-size: 16px; letter-spacing: 0.16em; padding: 7px 18px; }
 /* Firm 5-across grid (not the dashboard's flex-wrap) - this section is
    meant to grow to 3 full rows of 5 as more indicators come online, so
    each row needs to hold exactly 5 equal-width cards instead of wrapping
