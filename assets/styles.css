@@ -1476,13 +1476,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   padding: 64px 24px 72px;
 }
 .res-inner { max-width: 1200px; margin: 0 auto; }
-/* Light bands, each at least twice as dark as before: paper #FBF9F5 -> #D6D1C8,
-   sand #EDE9E2 -> #BBB7B0, stone #BBB7B0 -> #8E8A84. */
-.res-band--paper { background: #D6D1C8; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.res-band--sand  { background: #BBB7B0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+/* Light bands now share one mid-gray (#8E8A84); "On This Site" (stone) is a
+   deeper gray (#6B6760) with light text so it stands apart. */
+.res-band--paper { background: #8E8A84; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.res-band--sand  { background: #8E8A84; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 /* Darker stone gray (same shade as the homepage Market Snapshot band) - used
    only by the "On This Site" section so it sits apart from the sand bands. */
-.res-band--stone { background: #8E8A84; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.res-band--stone { background: #6B6760; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .res-band--dark  { background: #121212; border-top: 1px solid rgba(255,255,255,0.08); }
 .res-band--black { background: #000000; }
 
@@ -1562,7 +1562,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   margin: 0 0 10px;
 }
 .res-sub { max-width: 640px; margin: 0 auto; font-size: 16.5px; color: rgba(23, 21, 18, 0.7); }
-.res-band--sand .res-sub, .res-band--stone .res-sub, .res-band--paper .res-sub { color: rgba(23, 21, 18, 0.85); }
+.res-band--sand .res-sub, .res-band--paper .res-sub { color: rgba(23, 21, 18, 0.88); }
+.res-band--stone .res-title { color: var(--paper); }
+.res-band--stone .res-sub { color: rgba(251, 249, 245, 0.88); }
 .res-band--dark .res-title, .res-band--black .res-title { color: var(--paper); }
 .res-band--dark .res-sub, .res-band--black .res-sub { color: rgba(251, 249, 245, 0.68); }
 
@@ -1700,10 +1702,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .res-term dt { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase; margin: 0 0 4px; }
 .res-term dd { margin: 0; font-size: 15px; line-height: 1.55; color: rgba(23, 21, 18, 0.75); }
 .res-links { text-align: center; margin-top: 30px; font-size: 15.5px; }
-.res-links a { font-weight: 600; margin: 0 10px; }
+.res-links a { font-weight: 600; margin: 0 10px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.res-links a:hover { color: var(--paper); }
+
+/* The disclaimer's usual 60px top margin would show as a cream strip under the
+   last gray band, so butt it up against the band on this page only. */
+.res-band + .disclaimer { margin-top: 0; }
 
 /* Closing note */
-.res-note { max-width: 760px; margin: 0 auto; text-align: center; font-size: 14px; line-height: 1.6; color: rgba(23, 21, 18, 0.8); padding: 36px 20px 0; }
+.res-note { max-width: 760px; margin: 0 auto; text-align: center; font-size: 14px; line-height: 1.6; color: rgba(23, 21, 18, 0.9); padding: 36px 20px 0; }
 
 @media (max-width: 700px) {
   .res-band { padding: 48px 18px 56px; }
