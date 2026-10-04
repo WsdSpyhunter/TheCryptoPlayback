@@ -2074,7 +2074,7 @@ def render_index(entries):
     alerts_indicators_section = f"""<section class="alerts-banner">
     <div class="pulse-wrap">
       <div class="alerts-head">
-        <span class="snapshot-eyebrow">The Crypto Playback</span>
+        <span class="snapshot-eyebrow">The Crypto Play<span class="btc-mark" role="img" aria-label="B"></span>ack</span>
         <h2 class="snapshot-title">Alerts &amp; Indicators</h2>
         <p class="explainer-sub">Tap any card for the full methodology and history</p>
       </div>
@@ -2135,7 +2135,7 @@ def render_index(entries):
         <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
       </div>
       <div class="subscribe-inner">
-        <span class="subscribe-eyebrow">Join The Play<img class="subscribe-btc" src="assets/email-notable-b.png" alt="B">ack</span>
+        <span class="subscribe-eyebrow">Join The Play<span class="btc-mark" role="img" aria-label="B"></span>ack</span>
         <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
         <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
         <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">

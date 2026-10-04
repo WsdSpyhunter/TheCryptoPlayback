@@ -1038,7 +1038,19 @@ h1, h2, h3 {
   margin-bottom: 20px;
 }
 /* The Bitcoin B standing in for the B in "Playback" - sized to the capitals. */
-.subscribe-btc { display: inline-block; height: 1.1em; width: auto; vertical-align: -0.12em; margin: 0 0.06em; }
+.btc-mark {
+  display: inline-block;
+  height: 1.1em;
+  width: 0.68em;
+  vertical-align: -0.12em;
+  margin: 0 0.06em;
+  background-color: currentColor;
+  -webkit-mask: url("email-notable-b.png") center / contain no-repeat;
+  mask: url("email-notable-b.png") center / contain no-repeat;
+  /* The B's strokes are lighter than Oswald Bold's; a hair of same-color halo
+     brings the weight up to match the letters around it. */
+  filter: drop-shadow(0.5px 0 0 currentColor) drop-shadow(-0.5px 0 0 currentColor) drop-shadow(0 0.4px 0 currentColor);
+}
 .subscribe-title {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
