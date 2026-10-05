@@ -1,0 +1,181 @@
+{
+  "slug": "2026-10-05-weekly",
+  "title": "Orange Treasuries, Green Uptober, and a Side Door Nobody Asked For",
+  "date_display": "October 05, 2026",
+  "tag": "Weekly",
+  "issue_number": 3,
+  "gauge_path": "assets/gauges/2026-10-05-weekly.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 85518,
+      "change_24h": 0.42412,
+      "change_7d": 3.4489
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2699.1,
+      "change_24h": 0.10826,
+      "change_7d": 1.2204
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 786.3,
+      "change_24h": -0.0741,
+      "change_7d": 2.9109
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.5,
+      "change_24h": 0.18218,
+      "change_7d": -0.4936
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 119.43,
+      "change_24h": -1.6958,
+      "change_7d": 0.6566
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.336382,
+      "change_24h": 0.19424,
+      "change_7d": 0.2735
+    }
+  ],
+  "fng": {
+    "value": 70,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 119.43,
+    "change_24h": -1.6958,
+    "change_7d": 0.6566
+  },
+  "week_mover": {
+    "id": "bitcoin",
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "price": 85518,
+    "change_24h": 0.42412,
+    "change_7d": 3.4489
+  },
+  "sectors": [
+    {
+      "label": "RWA",
+      "change_24h": 46.014160399090706
+    },
+    {
+      "label": "Memecoins",
+      "change_24h": 1.141117567331645
+    },
+    {
+      "label": "DeFi",
+      "change_24h": 0.7431659643561938
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 311870440065.86,
+    "change_7d_pct": 0.21522550194896709
+  },
+  "date_abbrev": "OCT. 5, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $85,518.00 <span style=\"color:#8FBF5C;\">(+0.4%)</span></span><span class=\"price-chip\">ETH $2,699.10 <span style=\"color:#8FBF5C;\">(+0.1%)</span></span><span class=\"price-chip\">BNB $786.30 <span style=\"color:#E8837A;\">(-0.1%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.50 <span style=\"color:#8FBF5C;\">(+0.2%)</span></span><span class=\"price-chip\">SOL $119.43 <span style=\"color:#E8837A;\">(-1.7%)</span></span><span class=\"price-chip\">TRX $0.34 <span style=\"color:#8FBF5C;\">(+0.2%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 5, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">70</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">SOL</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-1.7%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKLY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin flirted with eight-month highs, corporate treasuries kept stacking (and occasionally un-stacking) BTC to prove a point, and Washington's revolving door spun crypto's old antagonist into its new AI czar.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Strategy Posts a $21B Paper Gain, Keeps Buying (Sort Of)",
+      "body": "<p>Strategy's Bitcoin pile hit a record 848,000 BTC after a modest 334-coin purchase, but the bigger number this quarter was the $21 billion fair-value gain \u2014 alongside $176.3 million spent buying back STRC shares, which actually outpaced the week's BTC purchases. The company now holds roughly 4% of Bitcoin's entire 21 million supply cap.</p><p>Strategy shifting dollars toward propping up its own preferred stock rather than adding more coins is a subtle tell: even the industry's most committed bitcoin maximalist has to mind the plumbing of its own balance sheet. The 'number go up' story is still intact, but it's getting more complicated to tell.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380056/strategy-posts-21b-q3-gain-buys-29m-in-btc-repurchases-176m-in-strc",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/strategy-logo-x-twitter-2-gID_7.png"
+    },
+    {
+      "headline": "Metaplanet Sold 10,000 Bitcoin Just to Buy Back 11,000",
+      "body": "<p>In one of the stranger treasury moves of the quarter, Metaplanet sold 10,000 BTC in Q3 and then repurchased 11,000 \u2014 a net add of just 1,000 BTC \u2014 specifically to answer rating agencies questioning whether a bitcoin-holding company would actually sell when obligations came due. 'We answered by doing it,' said CEO Simon Gerovich.</p><p>It's a clever bit of financial theater: burn some trading fees and slippage to demonstrate liquidity exists, rather than just claiming it does. Whether rating agencies and bondholders find that reassuring or slightly unhinged probably depends on how much Bitcoin they already own themselves.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380053/metaplanet-sold-10000-bitcoin-and-bought-back-11000-to-prove-a-point",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/01/bitcoin-yen-decrypt-style-new-gID_7.jpg"
+    },
+    {
+      "headline": "Uptober Lives Up to Its Name, Bitcoin ETFs Keep Drawing Cash",
+      "body": "<p>Spot Bitcoin ETFs pulled in $134.4 million over the first two trading days of October, rebounding from a late-September outflow as a weak jobs report cooled expectations of further Fed rate hikes. That follows a $2.65 billion September haul, the second-largest monthly inflow since October 2025, with Bitcoin itself nearing $87,000 before reversing.</p><p>Seasonal nicknames aside, the real story is macro: traders are reading soft labor data as fuel for looser policy, and institutional ETF flows are tracking that bet in real time. Whether that pattern holds past the headline is, as always, nobody's to promise.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380007/uptober-starts-green-bitcoin-etfs-draw-134-million",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Bitcoin-decrypt-style-05-gID_7.png"
+    },
+    {
+      "headline": "OKX and the NYSE's Parent Want to Trade Nvidia and SpaceX Shares as Tokens, 24/7",
+      "body": "<p>A joint venture between OKX and NYSE owner ICE has filed with the SEC under the agency's new Innovation Exemption to launch a round-the-clock tokenized stock trading venue, listing more than 60 US securities \u2014 including Nvidia and SpaceX \u2014 paired against stablecoins.</p><p>This is the most concrete sign yet that 'tokenize everything' isn't just a crypto-native fantasy; it's being built by the incumbents who own the actual exchanges. If it works, the line between 'crypto market' and 'stock market' gets blurrier than regulators may be ready for.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380032/okx-and-nyse-owner-ice-plan-24-7-tokenized-stock-trading-under-sec-exemption",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/01/nyse-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "The Man Who Sued Ripple Now Runs Trump's AI Policy",
+      "body": "<p>President Trump named former SEC chair Jay Clayton to lead a new 'Super Intelligence Force' coordinating federal AI policy. As SEC chair, Clayton was the architect of the agency's lawsuit against Ripple \u2014 a case that shaped years of crypto regulatory uncertainty.</p><p>Crypto Twitter's reaction writes itself, but the irony is real: the industry spent years fighting Clayton's legacy at the SEC, and now he's steering policy on the technology many expect to eventually reshape crypto markets too. Washington's revolving door rarely closes a story, it just reassigns the characters.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380019/trump-jay-clayton-sec-ripple-ai-push-super-intelligence",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2021/04/bitcoin-jay-clayton-sec-gID_4.jpg"
+    },
+    {
+      "headline": "BitGo's CEO Says Clarity Act's Death Left a Lehman-Sized Hole",
+      "body": "<p>BitGo CEO Mike Belshe warned that the Clarity Act's failure in the Senate left capital markets exposed to risks he considers potentially worse than Lehman Brothers, pointing to the danger of single firms combining exchange, brokerage, and custody functions without clear regulatory guardrails.</p><p>Strong words from someone who runs a custody business, but the underlying concern isn't crazy: crypto has built FTX-shaped single points of failure before, and a stalled legislative framework doesn't make that structural risk disappear \u2014 it just leaves it unaddressed.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-10-02-mike-belshe-bitgo-interview-clarity-417560",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/photo_2026-10-02-21.04.25.jpeg"
+    },
+    {
+      "headline": "China's Crypto Ban Isn't Stopping the Stablecoin Workaround",
+      "body": "<p>Chainalysis data shows unique wallets sending peer-to-peer stablecoin transactions in China grew 43-fold between Q1 2024 and Q2 2026, despite the country's ongoing crypto restrictions.</p><p>Capital controls and crypto bans have a long history of producing exactly this kind of workaround rather than actual compliance. Stablecoins, it turns out, are very good at finding the cracks in a wall \u2014 no matter how many times the wall gets rebuilt.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/china-stablecoin-p2p-wallets-crypto-restrictions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M45C7SQN6DV5Z1GMPSEJ4CRN/china-ban-bitcoin.png"
+    },
+    {
+      "headline": "Chainalysis Used AI to Trace North Korea's $387M Bitget Hack",
+      "body": "<p>Chainalysis detailed how it used in-house AI to trace the funds stolen in the Sept. 24 Bitget breach across four blockchains, a breach the firm says pushed North Korea's 2026 crypto haul past $1 billion.</p><p>North Korea's hacking operation isn't new, but AI-versus-AI forensic tracing in a live race against attackers is a genuinely interesting arms race, and one with real stakes: that stolen crypto reportedly funds a weapons program, not a lifestyle.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380005/chainalysis-ai-87m-bitget-hack-north-korea",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/north-korea-missiles-dprk-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Zcash's Speed Upgrade Hits Testnet Early",
+      "body": "<p>Zcash's NU7 upgrade, which introduces 25-second blocks, went live on public testnet ahead of schedule, giving developers several weeks to stress-test the changes before a targeted November mainnet launch.</p><p>Privacy coins have spent much of this cycle fighting for regulatory relevance rather than technical headlines, so a smooth, on-schedule (or early) upgrade is a quietly good look \u2014 the kind of boring competence that actually builds confidence.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/10/05/zcash-s-25-second-blocks-go-live-on-public-testnet-ahead-of-schedule",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/6359a9ff83ee7ba7465c0ff2289cb8ae23e7ac43-1500x1000.jpg?fm=jpg&w=1920&h=1080&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Community Banks Sue to Shut Crypto's 'Side Door' Into Banking",
+      "body": "<p>The Independent Community Bankers of America has sued to block crypto firms from using OCC national trust charters, arguing the charters hand digital asset companies a side-door entry into the banking system without the safeguards that bind traditional banks.</p><p>This is the flip side of every 'crypto finally gets bank-like access' headline: the incumbents who already have that access are not thrilled about sharing the playing field, and they've got lawyers too. Expect this fight to run for a while.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380017/banking-group-sues-block-crypto-side-door-banking",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/02/banks2-gID_7.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "'We Have Identified You, Sir' \u2014 Hacker Returns $3.8 Million After a 48-Hour Ultimatum",
+    "body": "Near Intents said the roughly $3.8 million drained in a Thursday exploit was returned in full after the team told the attacker they had identified them and gave a 48-hour deadline to give the funds back. It's a rare happy ending in crypto hack news, and a blunt reminder that on-chain anonymity is a lot thinner than attackers sometimes assume. Whatever leverage or evidence the team actually had, it apparently worked faster than any lawsuit could.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/380014/near-intents-recovers-3-8-million-after-48-hour-ultimatum"
+  },
+  "excerpt": "Bitcoin flirted with eight-month highs, corporate treasuries kept stacking (and occasionally un-stacking) BTC to prove a point, and Washington's revolving door spun crypto's old antagonist into its new AI czar.",
+  "buttondown_email_id": "em_40vmy2y4pg8d2a85dxtb41kqhh"
+}
