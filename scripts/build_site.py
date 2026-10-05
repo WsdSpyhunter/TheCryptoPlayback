@@ -2313,6 +2313,20 @@ def render_archive(entries):
     return page("", "Archive — The Crypto Playback", body, datetime.now().year)
 
 
+PENDING_DIR = os.path.join(DATA_DIR, "pending")
+
+
+def save_pending_post(post):
+    """Stores a generated issue WITHOUT publishing it: no site page, no index
+    entry, no homepage or archive change. publish_approved.py promotes it
+    (via add_post_and_rebuild) once its Buttondown email has been published."""
+    os.makedirs(PENDING_DIR, exist_ok=True)
+    path = os.path.join(PENDING_DIR, f"{post['slug']}.json")
+    with open(path, "w") as f:
+        json.dump(post, f, indent=2)
+    return path
+
+
 def add_post_and_rebuild(post):
     """post: dict as passed to render_post_html, plus 'excerpt' and 'slug'.
     Writes the post's HTML page, updates the index, and rebuilds index.html + archive.html."""
@@ -2323,7 +2337,9 @@ def add_post_and_rebuild(post):
     with open(os.path.join(POSTS_HTML_DIR, f"{post['slug']}.html"), "w") as f:
         f.write(post_html)
 
-    entries = load_index()
+    # Drop any existing entry for this slug first - re-publishing a slug must
+    # replace its archive entry, never add a second one pointing at the same page.
+    entries = [e for e in load_index() if e["slug"] != post["slug"]]
     entries.insert(0, {
         "slug": post["slug"],
         "title": post["title"],

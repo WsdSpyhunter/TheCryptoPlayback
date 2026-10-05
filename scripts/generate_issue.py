@@ -19,7 +19,7 @@ from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
 from build_site import (
-    add_post_and_rebuild, render_ticker_bar, render_sentiment_combined,
+    save_pending_post, render_ticker_bar, render_sentiment_combined,
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
     load_index, save_gauge_image, format_date_abbrev, load_market_overview,
 )
@@ -196,7 +196,6 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         "missed_story": missed_story,
         "excerpt": result["intro"][:220],
     }
-    add_post_and_rebuild(post)
     print(f"Generated {tag.lower()} post: {slug} ({len(result['stories'])} stories)")
 
     # Newsletter Version 2 (Market Snapshot, Signal Confluence, news section).
@@ -216,6 +215,13 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         )
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
+
+    # The website does NOT get this issue yet. It is saved as "pending", tied to
+    # its Buttondown draft; publish_approved.py (every 10 minutes) puts it on the
+    # homepage and in the archive once the draft has actually been published.
+    post["buttondown_email_id"] = draft["id"]
+    path = save_pending_post(post)
+    print(f"Saved pending post (waits for you to publish the email): {path}")
     # "Ready to review" alert: a preview copy of the draft goes to the
     # reviewer's own inbox (REVIEW_EMAIL, set in the workflow). Best-effort.
     send_draft_to_reviewer(draft.get("id"), os.environ.get("REVIEW_EMAIL", "").strip())

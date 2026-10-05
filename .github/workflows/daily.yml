@@ -58,10 +58,15 @@ jobs:
           REVIEW_EMAIL: scottdrealty@gmail.com
         run: python generate_daily.py
 
-      - name: Open a PR for review
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "Daily post: ${{ github.run_id }}"
-          branch: "daily-post-${{ github.run_number }}"
-          title: "Daily Playback draft — ready for review"
-          body: "Auto-generated daily post. A matching draft was also created in Buttondown. Review this PR, merge to publish it live on the site, then go send the Buttondown draft when you're ready."
+      - name: Save the pending post (the website waits until you publish the email)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pending assets/gauges
+          if git diff --cached --quiet; then echo "No pending post was written."; exit 1; fi
+          git commit -q -m "Pending post: waiting for the Buttondown publish"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            echo "Push rejected (main moved) - retrying ($attempt)"; sleep 4
+          done
+          exit 1

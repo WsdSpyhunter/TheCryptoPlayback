@@ -8,7 +8,21 @@ import requests
 API_URL = "https://api.anthropic.com/v1/messages"
 
 
-def ask_claude_json(model, system_prompt, user_prompt, max_tokens=2000):
+def ask_claude_json(model, system_prompt, user_prompt, max_tokens=2000, attempts=3):
+    """Asks for JSON and parses it. The model occasionally returns slightly
+    malformed JSON (this failed the 2026-10-05 6:45 AM run), so a parse
+    failure is retried with a fresh response before giving up."""
+    last_error = None
+    for attempt in range(1, attempts + 1):
+        try:
+            return _ask_once(model, system_prompt, user_prompt, max_tokens)
+        except json.JSONDecodeError as exc:
+            last_error = exc
+            print(f"Claude returned malformed JSON (attempt {attempt}/{attempts}): {exc}")
+    raise last_error
+
+
+def _ask_once(model, system_prompt, user_prompt, max_tokens):
     headers = {
         "x-api-key": os.environ["ANTHROPIC_API_KEY"],
         "anthropic-version": "2023-06-01",

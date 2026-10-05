@@ -1,0 +1,52 @@
+name: Publish approved issues
+
+# Puts a newsletter issue on the website (homepage + archive) once you have
+# published its email in Buttondown. Checks every 10 minutes; also runnable by
+# hand. Does nothing while an issue's email is still a draft. See
+# scripts/publish_approved.py.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-approved
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Publish any issue whose email has been published
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The live-indicator jobs also rewrite index.html all day, so on a
+          # rejected push start over from the latest main and rebuild, rather
+          # than trying to merge two generated pages.
+          for attempt in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            (cd scripts && python publish_approved.py)
+            if [ -z "$(git status --porcelain)" ]; then echo "Nothing to commit."; exit 0; fi
+            git add -A
+            git commit -q -m "Publish approved issue(s) to the site"
+            git push -q origin HEAD:main && exit 0
+            echo "Push rejected (main moved) - rebuilding from the latest main ($attempt)"; sleep 5
+          done
+          exit 1

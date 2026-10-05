@@ -64,3 +64,21 @@ def send_draft_to_reviewer(draft_id, reviewer_email):
         detail = getattr(getattr(exc, "response", None), "text", "")[:300]
         print(f"WARNING: could not send the review alert ({exc}) {detail}")
         return False
+
+
+# Statuses that mean the email has actually been published to subscribers
+# (the author pressed Publish). "scheduled" is deliberately NOT here - a
+# scheduled email goes to the site only once it really starts sending.
+PUBLISHED_STATUSES = {"about_to_send", "in_flight", "sent", "throttled", "resending", "partially_sent"}
+
+
+def get_email_status(email_id):
+    """Returns the email's status string, or None if Buttondown says it no
+    longer exists (HTTP 404 - i.e. the draft was deleted). Any other problem
+    raises, so a hiccup is never mistaken for a deleted draft."""
+    headers = {"Authorization": f"Token {os.environ['BUTTONDOWN_API_KEY']}"}
+    resp = requests.get(f"{API_URL}/{email_id}", headers=headers, timeout=30)
+    if resp.status_code == 404:
+        return None
+    resp.raise_for_status()
+    return resp.json().get("status", "")
