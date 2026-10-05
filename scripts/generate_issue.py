@@ -18,11 +18,11 @@ from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
-from blocked_terms import BLOCKED_TERMS, filter_headlines, mask_result
+from blocked_terms import BLOCKED_TERMS, contains_blocked, sanitize_headlines, mask_result, neutralize_links
 from build_site import (
     save_pending_post, render_ticker_bar, render_sentiment_combined,
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
-    load_index, save_gauge_image, format_date_abbrev, load_market_overview,
+    load_index, save_gauge_image, format_date_abbrev, load_market_overview, ROOT,
 )
 from email_render import stories_to_plain_email_html, stories_to_plain_email_html_v1, upload_gauge_image
 import os
@@ -32,7 +32,7 @@ from buttondown_client import create_draft, send_draft_to_reviewer
 
 def build_system_prompt(story_min, story_max, cadence_label):
     preferred_floor = min(story_min + 1, story_max)
-    blocked_list = ", ".join(BLOCKED_TERMS)
+    blocked_list = ", ".join(BLOCKED_TERMS)  # the names (dict keys)
     return f"""You are the writer for "The Crypto Playback," a Bitcoin/crypto \
 newsletter. Your voice: informed, a little wry, willing to share an opinion, \
 but you NEVER give financial advice or tell readers what to buy/sell. You are \
@@ -74,9 +74,11 @@ Rules:
   (never invent details), and write it as plain text in 2-3 sentences with \
   NO HTML tags. If nothing in the list is genuinely unusual, set \
   "missed_story" to null rather than forcing a dull pick.
-- NEVER write any of these words, in any form: {blocked_list}. The newsletter \
-  platform rejects emails containing them; describe the thing generically \
-  instead (for example "a major crypto exchange").
+- Some company names can't appear in the newsletter. In the source material \
+  they have already been replaced with a generic description (for example \
+  "a large overseas crypto exchange"). Use that wording and write naturally \
+  around it - still tell the whole story, just never name, guess or hint at \
+  the missing name. Never write any of these words in any form: {blocked_list}.
 - CRITICAL for valid output: never use a literal double-quote character (") \
   inside any string value. If you need quotation marks for HTML attributes, \
   use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
@@ -154,9 +156,9 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     coins = get_top_prices(MOVER_POOL)
     prices = coins[:TICKER_COINS]
     headlines = get_recent_headlines(hours=headlines_hours, max_per_feed=max_per_feed)
-    headlines, dropped = filter_headlines(headlines)
-    if dropped:
-        print(f"Skipped {dropped} headline(s) mentioning a term Buttondown won't publish.")
+    headlines, changed = sanitize_headlines(headlines)
+    if changed:
+        print(f"Replaced a name Buttondown won't publish with a generic description in {changed} headline(s).")
     if len(headlines) < story_min:
         print(f"Only {len(headlines)} headlines found (need at least {story_min}) — "
               f"aborting rather than publishing a thin issue.")
@@ -171,6 +173,11 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         print(f"WARNING: replaced {masked} blocked term(s) the model wrote anyway.")
 
     missed_story = validated_missed_story(result, headlines)
+    # Source links that contain a blocked name (e.g. ".../bitget-hack") go through
+    # a redirect page on our own site; the pending commit publishes those pages.
+    rerouted = neutralize_links({"stories": result["stories"], "missed_story": missed_story}, ROOT)
+    if rerouted:
+        print(f"Routed {rerouted} source link(s) through our own redirect page (their addresses contain a blocked name).")
     fng = get_fear_greed()
     mover = compute_biggest_mover(coins)
     week_mover = compute_weekly_mover(prices)
@@ -225,6 +232,11 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
             result["issue_title"], result["intro"], result["stories"], prices,
             fng, mover, tag, date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
         )
+    # Last gate: never create a draft Buttondown would refuse to publish. Failing
+    # here makes the workflow retry with a fresh write-up instead of leaving a
+    # draft you can't send.
+    if contains_blocked(email_body) or contains_blocked(result["issue_title"]):
+        raise SystemExit("A blocked term is still in the email body/subject - not creating the draft.")
     draft = create_draft(f"The Crypto Playback — {result['issue_title']}", email_body)
     print(f"Created Buttondown draft: {draft.get('id', '(no id returned)')}")
 
