@@ -9,6 +9,11 @@ import requests
 
 STABLECOINS = {"usdt", "usdc", "dai", "fdusd", "usde", "busd", "tusd"}
 
+# The Top 6 Market ticker shows the first 6 coins; the Biggest Mover (24H)
+# indicator looks at the first 10 (same ranking, stablecoins excluded).
+TICKER_COINS = 6
+MOVER_POOL = 10
+
 
 def get_top_prices(count=6):
     api_key = os.environ["COINGECKO_API_KEY"]

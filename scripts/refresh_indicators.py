@@ -23,7 +23,7 @@ import json
 import os
 from datetime import datetime, timezone
 
-from fetch_prices import get_top_prices
+from fetch_prices import get_top_prices, TICKER_COINS, MOVER_POOL
 from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
@@ -43,7 +43,8 @@ from build_site import (
 
 
 def refresh():
-    prices = get_top_prices()
+    coins = get_top_prices(MOVER_POOL)
+    prices = coins[:TICKER_COINS]   # the Top 6 Market ticker (and everything else built on it) is unchanged
     fng = get_fear_greed()
     sectors = get_top_sectors()
     stablecoins = get_stablecoin_liquidity()
@@ -55,7 +56,7 @@ def refresh():
     whale_activity = get_large_transaction_amounts()
     macro = get_macro_data()
     ingest_narrative_momentum(sectors)  # at most one new day of history recorded per calendar day
-    mover = compute_biggest_mover(prices)
+    mover = compute_biggest_mover(coins)   # biggest 24h move among the top 10 coins
     week_mover = compute_weekly_mover(prices)
     # Fixed slug ("live", not a post slug) - this is the one gauge image
     # the live dashboard always points at, overwritten every refresh.

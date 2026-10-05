@@ -12,12 +12,13 @@ Buttondown draft (never sends — see buttondown_client.py).
 import sys
 from datetime import datetime, timezone
 
-from fetch_prices import get_top_prices
+from fetch_prices import get_top_prices, TICKER_COINS, MOVER_POOL
 from fetch_news import get_recent_headlines
 from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
+from blocked_terms import BLOCKED_TERMS, filter_headlines, mask_result
 from build_site import (
     save_pending_post, render_ticker_bar, render_sentiment_combined,
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
@@ -31,6 +32,7 @@ from buttondown_client import create_draft, send_draft_to_reviewer
 
 def build_system_prompt(story_min, story_max, cadence_label):
     preferred_floor = min(story_min + 1, story_max)
+    blocked_list = ", ".join(BLOCKED_TERMS)
     return f"""You are the writer for "The Crypto Playback," a Bitcoin/crypto \
 newsletter. Your voice: informed, a little wry, willing to share an opinion, \
 but you NEVER give financial advice or tell readers what to buy/sell. You are \
@@ -72,6 +74,9 @@ Rules:
   (never invent details), and write it as plain text in 2-3 sentences with \
   NO HTML tags. If nothing in the list is genuinely unusual, set \
   "missed_story" to null rather than forcing a dull pick.
+- NEVER write any of these words, in any form: {blocked_list}. The newsletter \
+  platform rejects emails containing them; describe the thing generically \
+  instead (for example "a major crypto exchange").
 - CRITICAL for valid output: never use a literal double-quote character (") \
   inside any string value. If you need quotation marks for HTML attributes, \
   use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
@@ -146,8 +151,12 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     the matching Buttondown draft. Exits early (code 1) if there isn't
     enough real news to hit the story-count floor, rather than publish a
     thin issue."""
-    prices = get_top_prices()
+    coins = get_top_prices(MOVER_POOL)
+    prices = coins[:TICKER_COINS]
     headlines = get_recent_headlines(hours=headlines_hours, max_per_feed=max_per_feed)
+    headlines, dropped = filter_headlines(headlines)
+    if dropped:
+        print(f"Skipped {dropped} headline(s) mentioning a term Buttondown won't publish.")
     if len(headlines) < story_min:
         print(f"Only {len(headlines)} headlines found (need at least {story_min}) — "
               f"aborting rather than publishing a thin issue.")
@@ -157,10 +166,13 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     user_prompt = build_user_prompt(headlines, cadence_label, max_headlines)
     result = ask_claude_json(model, system_prompt, user_prompt, max_tokens=max_tokens)
     result["issue_title"] = clean_issue_title(result["issue_title"])
+    masked = mask_result(result)
+    if masked:
+        print(f"WARNING: replaced {masked} blocked term(s) the model wrote anyway.")
 
     missed_story = validated_missed_story(result, headlines)
     fng = get_fear_greed()
-    mover = compute_biggest_mover(prices)
+    mover = compute_biggest_mover(coins)
     week_mover = compute_weekly_mover(prices)
     sectors = get_top_sectors()
     stablecoins = get_stablecoin_liquidity()

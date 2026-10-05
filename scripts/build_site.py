@@ -336,7 +336,7 @@ def _live_mover_display(mover):
         "symbol": mover["symbol"],
         "change": mover["change_24h"],
         "label": "BIGGEST MOVER (24H)",
-        "caption": "Ranked by size of the 24-hour move, not direction",
+        "caption": "Top 10 coins by market cap, ranked by size of move",
         "period": "the last 24 hours",
     }
 
@@ -936,22 +936,24 @@ def _build_indicator_registry(dashboard, gauge_src):
             "page": "biggest-mover.html",
             "card_label": resolved_mover["label"].title(),
             "card_main_html": _mover_visual(resolved_mover["symbol"], resolved_mover["change"], "card"),
-            "card_caption": resolved_mover["caption"] or "Ranked by size of move, not direction",
+            "card_caption": resolved_mover["caption"] or "Top 10 coins by market cap, ranked by size of move",
             "confluence_name": resolved_mover["label"].title(),
             "confluence_positive": resolved_mover["change"] >= 0,
             "confluence_display": f"{resolved_mover['symbol']} {resolved_mover['change']:+.1f}%",
             "explainer_icon": "&#128200;",
             "explainer_text": (
-                "Whichever of our top 6 tracked coins moved the most, up or down, over the last 24 hours. "
+                "Whichever of the top 10 coins in the crypto market (by market cap, stablecoins excluded) "
+                "moved the most \u2014 up or down \u2014 over the last 24 hours. "
                 "Ranked purely by the size of the move, not its direction. "
                 "A quick read on where the action is happening right now."),
             "page_title": resolved_mover["label"].title(),
             "page_hero_html": _mover_visual(resolved_mover["symbol"], resolved_mover["change"], "hero"),
             "page_sections": [
-                ("What It Measures", "<p>Whichever of our top 6 tracked coins (by market cap, stablecoins "
-                 "excluded) moved the most &mdash; up or down &mdash; over the last 24 hours.</p>"),
-                ("How It's Calculated", "<p>We rank the 6 tracked coins by the absolute size of their price "
-                 "change over that window and surface the single biggest mover, in either direction.</p>"),
+                ("What It Measures", "<p>Whichever of the top 10 coins in the crypto market (by market cap, "
+                 "stablecoins excluded) moved the most &mdash; up or down &mdash; over the last 24 hours.</p>"),
+                ("How It's Calculated", "<p>We take the 10 largest coins by market cap (stablecoins excluded), "
+                 "rank them by the absolute size of their 24-hour price change, and surface the single biggest "
+                 "mover, in either direction. The Top 6 Market ticker is a separate, smaller list.</p>"),
                 ("Why It Matters", "<p>Highlights where the action is actually concentrated, instead of just "
                  "reporting that \"the market was up.\"</p>"),
                 ("Data Source &amp; Update Frequency", "<p>CoinGecko public markets API. "
