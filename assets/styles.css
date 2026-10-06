@@ -1595,6 +1595,25 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
+/* Each gray section gets its own title-oval color (id selectors beat the shared
+   emerald default above): Start Here and Glossary = bitcoin orange, Institutional
+   = deep plum, Protect & Plan = light sky blue, On This Site = espresso brown. */
+#start .res-kicker, #glossary .res-kicker {
+  background: #F7931A; color: #2A1600; border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+#institutional .res-kicker {
+  background: #4B3A63; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+#protect .res-kicker {
+  background: #9CC7EE; color: #10263D; border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+#signals .res-kicker {
+  background: #4A3426; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
 .res-band--dark .res-kicker {
   background: #FFFFFF;
   color: #000000;
