@@ -1586,10 +1586,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   border-radius: 24px;
   margin-bottom: 16px;
 }
-/* Section-title ovals: slate blue with white text on the gray bands, white with
-   black text on the black bands. */
+/* Section-title ovals: the site's deep emerald (--vip, same as the Subscribe
+   button) with white text on the gray bands, white with black text on the
+   black bands. */
 .res-band--paper .res-kicker, .res-band--sand .res-kicker, .res-band--stone .res-kicker {
-  background: #35506B;
+  background: var(--vip);
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.16);
