@@ -31,9 +31,9 @@
       <img class="indicator-mascot" src="assets/mascot-color-section.png?v=b7063f2c1b" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter, Bitcoin ETF Flow indicator">
       <div class="indicator-hero-content">
         <span class="snapshot-eyebrow">The Crypto Playback</span>
-        <div class="snapshot-meta"><span>Last updated OCT. 5, 2026</span></div>
+        <div class="snapshot-meta"><span>Last updated OCT. 6, 2026</span></div>
         <h1 class="indicator-title">Bitcoin ETF Flow</h1>
-        <div class="indicator-hero-value"><div class="indicator-value" style="color:#E24C4C;">-89.9M<span class="indicator-value-word">Strong Outflow</span></div></div>
+        <div class="indicator-hero-value"><div class="indicator-value" style="color:#8FBF5C;">+118.9M<span class="indicator-value-word">Inflow</span></div></div>
       </div>
     </div>
   </section>
@@ -46,17 +46,20 @@
         <p>Primary data: SoSoValue's aggregate net flow across all US spot BTC ETFs. From the stored daily history we compute the latest confirmed flow, 3D/7D/30D/90D cumulative totals and averages (30D/90D only shown once that much real history has actually accumulated - never a shorter window mislabeled as a longer one), the current consecutive inflow/outflow streak, a Flow Momentum read (7-day average vs. 30-day average, scaled by the size of the 30-day average: &ge;50% relative difference reads Accelerating/Decelerating, &ge;15% reads Strengthening/Weakening, otherwise Neutral), and a 0&ndash;100 Flow Pressure score (40% the percentile rank of today's flow, 60% the percentile rank of the trailing 7-day cumulative, both against all stored history - weighted toward the 7-day figure so one unusually large single day can't dominate the score).</p>
       </div><div class="indicator-section">
         <h2>Independent Validation</h2>
-        <p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering IBIT, BITB, and ARKB) for the same three funds: current status <strong>DIVERGENCE</strong>, difference $85.0M.</p><p>SoSoValue IBIT+BITB+ARKB subset vs XOOMAR's holdings-derived total for the same three funds. Driven mainly by ARKB: SoSoValue $-85.2M vs XOOMAR $+0.0M for that fund alone (the other covered funds were within tolerance) - often a one-day lag in that issuer's own holdings-disclosure file rather than a real data problem.</p><p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check (SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against SoSoValue's full-universe total. Data via <a href="https://xoomar.com">xoomar.com</a>.</p>
+        <p>Cross-checked against XOOMAR (an independent, holdings-file-derived source covering IBIT, BITB, and ARKB) for the same three funds: current status <strong>DIVERGENCE</strong>, difference $206.9M.</p><p>SoSoValue IBIT+BITB+ARKB subset vs XOOMAR's holdings-derived total for the same three funds. Driven mainly by ARKB: SoSoValue $+0.0M vs XOOMAR $-84.9M for that fund alone (the other covered funds were within tolerance) - often a one-day lag in that issuer's own holdings-disclosure file rather than a real data problem.</p><p>XOOMAR doesn't cover every US spot BTC ETF, so this is only ever a same-subset check (SoSoValue's IBIT+BITB+ARKB total vs. XOOMAR's), never treated as an error against SoSoValue's full-universe total. Data via <a href="https://xoomar.com">xoomar.com</a>.</p>
       </div><div class="indicator-section">
         <h2>Why It Matters</h2>
         <p>Distinguishes real, fund-level capital movement from ordinary secondary-market price action. We deliberately don't say things like "institutions are buying" or "this predicts price" &mdash; only what the flow itself was.</p>
       </div><div class="indicator-section">
         <h2>Data Source, Freshness &amp; Update Frequency</h2>
-        <p>Data freshness: <strong>CURRENT</strong> (1 day(s) since the latest confirmed trading day, 2026-10-05).</p><p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute cycle the other live indicators use, since polling a daily number that often would be pointless.</p>
+        <p>Data freshness: <strong>CURRENT</strong> (1 day(s) since the latest confirmed trading day, 2026-10-06).</p><p>Primary: SoSoValue Open API. Validation: XOOMAR. ETF flow is a once-per-US-trading-day figure, so this refreshes a few times a day on its own schedule &mdash; not the 15-minute cycle the other live indicators use, since polling a daily number that often would be pointless.</p>
       </div>
     <div class="indicator-section">
       <h2>Recent Readings</h2>
       <div class="indicator-history"><div class="indicator-history-row">
+            <span class="indicator-history-date">2026-10-06</span>
+            <span class="indicator-history-value">$+118.9M</span>
+          </div><div class="indicator-history-row">
             <span class="indicator-history-date">2026-10-05</span>
             <span class="indicator-history-value">$-89.9M</span>
           </div><div class="indicator-history-row">
@@ -89,9 +92,6 @@
           </div><div class="indicator-history-row">
             <span class="indicator-history-date">2026-09-21</span>
             <span class="indicator-history-value">$+999.0M</span>
-          </div><div class="indicator-history-row">
-            <span class="indicator-history-date">2026-09-18</span>
-            <span class="indicator-history-value">$+433.0M</span>
           </div></div>
       <p class="indicator-history-note">Refreshed a few times a day &mdash; ETF flow is a once-per-US-trading-day figure, not something backfilled or estimated between real updates.</p>
     </div>
