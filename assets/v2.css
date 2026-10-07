@@ -258,8 +258,9 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
   .v2-wrap, .v2-header-inner, .v2-footer-inner, .v2-hero-inner { padding-left: 20px; padding-right: 20px; }
   .v2-header-inner { flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
   .v2-brand-word { width: 180px; }
-  .v2-nav { width: 100%; justify-content: space-between; gap: 10px; font-size: 14px; letter-spacing: .1em; }
-  .v2 .v2-nav .v2-nav-cta { padding: 5px 12px; }
+  .v2-nav { width: 100%; justify-content: space-between; gap: 8px; font-size: 13px; letter-spacing: .08em; }
+  .v2 .v2-nav .v2-nav-cta { padding: 5px 12px; white-space: nowrap; }
+  .v2-header { position: static; }
   .v2-hero-inner { flex-direction: column; text-align: center; gap: 18px; padding-top: 30px; padding-bottom: 34px; }
   .v2-hero-mascot { height: 250px; }
   .v2-hero-title img { width: min(100%, 440px); }

@@ -1974,10 +1974,9 @@ def render_index(entries):
     body = (hero + market_strip + market_snapshot_section + confluence_section + alerts_indicators_section
             + news_section + subscribe_section + explainer_section)
     return page(
-        "", "The Crypto Playback: Daily Bitcoin & Crypto Market Research | Live Indicators", body,
+        "", "Daily Bitcoin & Crypto Market Research | The Crypto Playback", body,
         datetime.now().year, theme="v2",
-        description=("Free daily Bitcoin and crypto market research: 16 live indicators including Fear & Greed, "
-                     "ETF flows, stablecoin liquidity and risk, plus a concise newsletter every morning."),
+        description=("Free daily Bitcoin & crypto market research. 16 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter."),
         path="", jsonld=home_v2.jsonld(indicators),
         extra_head='<link rel="preload" as="image" href="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" type="image/webp" fetchpriority="high">',
         indicator_links=home_v2.indicator_footer_links(indicators),

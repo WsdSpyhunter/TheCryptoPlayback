@@ -105,8 +105,7 @@ V2_FONTS = ("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;
             "family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&"
             "family=Libre+Franklin:wght@600;700&display=swap")
 
-DEFAULT_DESCRIPTION = ("Free daily Bitcoin and crypto market research: 16 live indicators including Fear & Greed, "
-                       "ETF flows, stablecoin liquidity and risk, plus a concise newsletter every morning.")
+DEFAULT_DESCRIPTION = ("Free daily Bitcoin & crypto market research. 16 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter.")
 
 V2_NAV = [("Indicators", "index.html#alerts"), ("Archive", "archive.html"),
           ("Resources", "resources.html"), ("About", "about.html")]
