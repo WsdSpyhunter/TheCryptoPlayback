@@ -1,28 +1,28 @@
 {
-  "updated_at": "2026-10-07T03:17:11.399349+00:00",
+  "updated_at": "2026-10-07T03:48:19.226850+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 83957,
-      "change_24h": -1.82171,
+      "price": 84140,
+      "change_24h": -1.57927,
       "change_7d": 0.5267
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2611.91,
-      "change_24h": -3.26936,
+      "price": 2611.15,
+      "change_24h": -3.20227,
       "change_7d": -2.2163
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 765.26,
-      "change_24h": -2.13257,
+      "price": 767.2,
+      "change_24h": -1.79731,
       "change_7d": 0.6859
     },
     {
@@ -30,23 +30,23 @@
       "symbol": "XRP",
       "name": "XRP",
       "price": 1.46,
-      "change_24h": -2.42924,
+      "change_24h": -2.19173,
       "change_7d": -2.4342
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 118.17,
-      "change_24h": -1.65786,
+      "price": 118.2,
+      "change_24h": -1.44397,
       "change_7d": -0.9613
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.332313,
-      "change_24h": -0.9504,
+      "price": 0.332668,
+      "change_24h": -0.87997,
       "change_7d": -0.7188
     }
   ],
@@ -58,8 +58,8 @@
     "id": "dogecoin",
     "symbol": "DOGE",
     "name": "Dogecoin",
-    "price": 0.09002,
-    "change_24h": -4.80644,
+    "price": 0.090173,
+    "change_24h": -4.61104,
     "change_7d": -4.1505
   },
   "week_mover": {
@@ -67,21 +67,21 @@
     "symbol": "XRP",
     "name": "XRP",
     "price": 1.46,
-    "change_24h": -2.42924,
+    "change_24h": -2.19173,
     "change_7d": -2.4342
   },
   "sectors": [
     {
       "label": "RWA",
-      "change_24h": -0.6165893317152172
+      "change_24h": -0.5445805628807584
     },
     {
       "label": "L1",
-      "change_24h": -1.9558909942416172
+      "change_24h": -1.8093580446175843
     },
     {
-      "label": "NFT",
-      "change_24h": -1.962988242517939
+      "label": "DeFi",
+      "change_24h": -1.9816772414735166
     }
   ],
   "stablecoins": {
@@ -89,48 +89,48 @@
     "change_7d_pct": 0.5139092835668606
   },
   "dominance": {
-    "btc_dominance_pct": 58.73284321374257,
-    "total_market_cap_usd": 2863925463615.978
+    "btc_dominance_pct": 58.7616808050186,
+    "total_market_cap_usd": 2873653943225.651
   },
   "leverage": {
-    "funding_rate_pct": 0.00149496642197,
+    "funding_rate_pct": 0.00195093604325,
     "next_funding_time_ms": 1791388800000,
-    "open_interest_usd": 2533083798.000012
+    "open_interest_usd": 2551565859.881409
   },
   "defi_tvl": {
     "total_usd": 95730281584.0,
     "change_7d_pct": 1.1304293744388187
   },
   "network_health": {
-    "hashrate_eh": 968.3069748037354,
-    "difficulty_change_pct": 5.967702493410987,
+    "hashrate_eh": 972.277052074531,
+    "difficulty_change_pct": 6.094584492898503,
     "fastest_fee_satvb": 1,
-    "pending_tx_count": 74156
+    "pending_tx_count": 72628
   },
   "liquidations": {
-    "long_liq_usd": 1638156.7413800005,
-    "short_liq_usd": 47014.54121000001,
+    "long_liq_usd": 1587506.8730500008,
+    "short_liq_usd": 96883.56835,
     "event_count": 100,
-    "window_minutes": 68.08018333333334
+    "window_minutes": 99.03215
   },
   "whale_activity": {
     "amounts_btc": [
-      137.55077505,
-      49.63110039,
-      22.79742046,
-      17.18881935,
-      14.16853962,
-      13.0666284,
-      9.79999967,
-      8.87732661
+      173.00479345,
+      99.50704297,
+      58.25038106,
+      25.61685329,
+      10.61595996,
+      9.20773764,
+      8.69294534,
+      6.05318035
     ],
     "sample_size": 1000
   },
   "macro": {
     "vix": 15.01,
     "vix_change_pct": -3.286,
-    "dxy": 102.038,
-    "dxy_change_pct": 0.201
+    "dxy": 102.024,
+    "dxy_change_pct": 0.188
   },
   "gauge_path": "assets/gauges/live.png"
 }
