@@ -126,7 +126,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-snapshot-label.pos { color: var(--pos-text); }
 .v2-snapshot-label.neg { color: var(--neg); }
 .v2-snapshot-sub { font-size: 15.5px; color: var(--muted); margin-top: 3px; }
-.v2-snapshot-text { margin: 0; font-size: 19px; line-height: 1.7; color: var(--text); }
+.v2-snapshot-text { margin: 0; font-size: 22.5px; line-height: 1.7; color: var(--text); }
 
 /* ---------- dark panel: confluence + what changed ---------- */
 .v2-dark { background: var(--navy); color: var(--ivory); padding: 60px 0 56px; }
@@ -269,7 +269,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
   .v2-coins { grid-template-columns: repeat(3, 1fr); row-gap: 18px; }
   .v2-section { padding: 44px 0; }
   .v2-snapshot { flex-direction: column; text-align: center; padding: 26px 22px; gap: 22px; }
-  .v2-snapshot-text { font-size: 17px; text-align: left; }
+  .v2-snapshot-text { font-size: 19px; text-align: left; }
   .v2-cards { grid-template-columns: repeat(2, 1fr); }
   .v2-conf-grid { grid-template-columns: repeat(2, 1fr); }
   .v2-conf-score { font-size: 56px; }
