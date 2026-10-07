@@ -18,6 +18,7 @@ from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
+from story_images import fix_story_images
 from blocked_terms import BLOCKED_TERMS, contains_blocked, sanitize_headlines, mask_result, neutralize_links
 from build_site import (
     save_pending_post, render_ticker_bar, render_sentiment_combined,
@@ -172,6 +173,9 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     if masked:
         print(f"WARNING: replaced {masked} blocked term(s) the model wrote anyway.")
 
+    # A story image that 404s shows as a broken-image icon in the email: check each
+    # one, swap in the article's own image when the feed's is dead, else drop it.
+    fix_story_images(result["stories"])
     missed_story = validated_missed_story(result, headlines)
     # Source links that contain a blocked name (e.g. ".../bitget-hack") go through
     # a redirect page on our own site; the pending commit publishes those pages.

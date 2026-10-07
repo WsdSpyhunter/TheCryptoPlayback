@@ -1,0 +1,50 @@
+name: Rebuild a pending draft
+
+# Repairs the EMAIL of an issue that is waiting for you to publish it (for
+# example a broken story image) without rewriting its text: re-checks the
+# images, updates the existing Buttondown draft in place, and emails you a fresh
+# [PREVIEW]. Enter the issue's slug, e.g. 2026-10-07-daily. See
+# scripts/rebuild_draft.py.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Pending issue to rebuild, e.g. 2026-10-07-daily"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Rebuild the draft
+        working-directory: scripts
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          REVIEW_EMAIL: scottdrealty@gmail.com
+        run: python rebuild_draft.py "${{ github.event.inputs.slug }}"
+
+      - name: Save the repaired pending post
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pending go
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git commit -q -m "Repair pending post: ${{ github.event.inputs.slug }}"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            echo "Push rejected (main moved) - retrying ($attempt)"; sleep 4
+          done
+          exit 1

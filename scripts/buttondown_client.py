@@ -82,3 +82,16 @@ def get_email_status(email_id):
         return None
     resp.raise_for_status()
     return resp.json().get("status", "")
+
+
+def update_draft_body(email_id, body_html):
+    """Replaces the body of an existing DRAFT (same plaintext passthrough marker
+    as create_draft) and returns the email as Buttondown now stores it."""
+    body_html = "<!-- buttondown-editor-mode: plaintext -->\n" + body_html
+    headers = {
+        "Authorization": f"Token {os.environ['BUTTONDOWN_API_KEY']}",
+        "Content-Type": "application/json",
+    }
+    resp = requests.patch(f"{API_URL}/{email_id}", headers=headers, json={"body": body_html}, timeout=30)
+    resp.raise_for_status()
+    return resp.json()
