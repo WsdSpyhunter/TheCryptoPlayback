@@ -135,10 +135,10 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-conf-score span { font-size: 36px; color: var(--dark-muted); font-weight: 600; }
 .v2-conf-interp { margin: 0; font-size: 17px; color: var(--dark-text); max-width: 640px; }
 .v2-conf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.v2-conf { border: 1px solid var(--navy-line); background: var(--navy-card); padding: 16px; display: flex; flex-direction: column; align-items: flex-start; }
+.v2-conf { border: 1px solid var(--navy-line); background: var(--navy-card); padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .v2-conf.neg { border-color: var(--neg); background: var(--neg-card); }
 .v2-conf-wide { grid-column: 1 / -1; }
-.v2-conf-name { align-self: center; display: inline-block; text-align: center; background: #C4CDDB; color: var(--navy); box-shadow: 0 2px 8px rgba(0, 0, 0, .35); padding: 4px 12px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; margin-bottom: 12px; }
+.v2-conf-name { align-self: center; display: inline-block; text-align: center; background: #07162B; border: 1px solid var(--navy-line); color: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, .4); padding: 4px 12px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; margin-bottom: 12px; }
 .v2-conf.neg .v2-conf-detail { color: var(--dark-soft); }
 .v2-conf-value { font-family: var(--f-mono); font-weight: 500; font-size: 25px; color: var(--ivory); margin-top: 4px; }
 .v2-conf-detail { font-size: 15.5px; color: var(--dark-muted); margin: 3px 0 10px; min-height: 42px; }
@@ -340,3 +340,11 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 #confluence .v2-titletext { font-size: 19.5px; }
 #confluence .v2-titlebox svg { width: 27px; height: 27px; }
 @media (max-width: 860px) { .v2-hero-actions { margin-top: 30px; } }
+
+/* Centered card content: Signal Confluence data + Alerts & Indicators cards */
+.v2-conf .v2-pill { margin-top: auto; }
+.v2 a.v2-card { align-items: center; text-align: center; }
+.v2-card-main, .v2-card-caption, .v2-card-updated { text-align: center; width: 100%; }
+.v2-card .pulse-sector-list { align-items: center; }
+.v2-card .pulse-sector-row { justify-content: center; gap: 18px; width: 100%; }
+.v2-card-foot { flex-direction: column; justify-content: center; gap: 10px; }
