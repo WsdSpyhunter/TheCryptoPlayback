@@ -138,7 +138,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-conf { border: 1px solid var(--navy-line); background: var(--navy-card); padding: 16px; display: flex; flex-direction: column; align-items: flex-start; }
 .v2-conf.neg { border-color: var(--neg); background: var(--neg-card); }
 .v2-conf-wide { grid-column: 1 / -1; }
-.v2-conf-name { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--dark-muted); min-height: 32px; }
+.v2-conf-name { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--dark-muted); min-height: 36px; }
 .v2-conf.neg .v2-conf-name, .v2-conf.neg .v2-conf-detail { color: var(--dark-soft); }
 .v2-conf-value { font-family: var(--f-mono); font-weight: 500; font-size: 25px; color: var(--ivory); margin-top: 4px; }
 .v2-conf-detail { font-size: 15.5px; color: var(--dark-muted); margin: 3px 0 10px; min-height: 42px; }
@@ -159,26 +159,26 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-alerts-intro { padding: 52px 0 28px; border-bottom: 1px solid var(--line); }
 .v2-alerts-intro .v2-titlebar { margin-bottom: 18px; }
 .v2-alerts-grid-wrap { background: var(--navy); padding: 36px 0 52px; }
-.v2-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.v2 a.v2-card { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--navy-line); background: var(--navy-card); padding: 18px; color: var(--ivory); transition: border-color .15s, transform .15s; }
+.v2-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.v2 a.v2-card { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--navy-line); background: var(--navy-card); padding: 24px; color: var(--ivory); transition: border-color .15s, transform .15s; }
 .v2 a.v2-card:hover { border-color: var(--brass-hi); text-decoration: none; transform: translateY(-2px); color: var(--ivory); }
 .v2-card-head { display: flex; align-items: center; gap: 9px; color: var(--brass-hi); }
-.v2-card-head .v2-pill { margin-left: auto; flex-shrink: 0; }
-.v2-card-title { font-family: var(--f-head); font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--ivory); line-height: 1.25; }
-.v2-card-main { display: block; min-height: 48px; }
-.v2-card-caption { font-size: 13px; line-height: 1.5; color: var(--dark-text); }
-.v2-card-updated { font-size: 11.5px; color: var(--dark-muted); }
-.v2-card-cta { margin-top: auto; padding-top: 4px; font-size: 12.5px; font-weight: 600; color: var(--brass-hi); }
+.v2-card-title { font-family: var(--f-head); font-weight: 700; font-size: 16.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--ivory); line-height: 1.25; }
+.v2-card-main { display: block; min-height: 56px; }
+.v2-card-caption { font-size: 15px; line-height: 1.5; color: var(--dark-text); }
+.v2-card-updated { font-size: 12.5px; color: var(--dark-muted); }
+.v2-card-foot { margin-top: auto; padding-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.v2-card-cta { font-size: 14.5px; font-weight: 600; color: var(--brass-hi); }
 /* markup produced by the indicator registry, restyled for the cards */
 .v2-card .pulse-gauge { display: none; }
-.v2-card .pulse-card-value, .v2-card .indicator-value { display: block; font-family: var(--f-mono); font-weight: 500; font-size: 26px; line-height: 1.2; }
-.v2-card .pulse-card-word { display: block; margin-top: 2px; font-family: var(--f-sans); font-size: 13px; font-weight: 400; color: var(--dark-text); }
-.v2-card .pulse-mover-symbol { font-family: var(--f-mono); font-size: 26px; color: var(--ivory); margin-right: 8px; }
-.v2-card .pulse-mover-change { font-family: var(--f-mono); font-size: 26px; }
+.v2-card .pulse-card-value, .v2-card .indicator-value { display: block; font-family: var(--f-mono); font-weight: 500; font-size: 31px; line-height: 1.2; }
+.v2-card .pulse-card-word { display: block; margin-top: 3px; font-family: var(--f-sans); font-size: 15px; font-weight: 400; color: var(--dark-text); }
+.v2-card .pulse-mover-symbol { font-family: var(--f-mono); font-size: 31px; color: var(--ivory); margin-right: 8px; }
+.v2-card .pulse-mover-change { font-family: var(--f-mono); font-size: 31px; }
 .v2-card .pulse-sector-list { display: flex; flex-direction: column; gap: 4px; }
-.v2-card .pulse-sector-row { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 14px; }
+.v2-card .pulse-sector-row { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 16.5px; }
 .v2-card .pulse-sector-name { color: var(--dark-text); }
-.v2-card .pulse-risk-badge { display: inline-block; font-family: var(--f-mono); font-weight: 500; font-size: 22px; letter-spacing: .04em; padding: 0; background: none; border: 0; color: var(--ivory); }
+.v2-card .pulse-risk-badge { display: inline-block; font-family: var(--f-mono); font-weight: 500; font-size: 27px; letter-spacing: .04em; padding: 0; background: none; border: 0; color: var(--ivory); }
 .v2-card .pulse-risk-low { color: var(--pos-hi); }
 .v2-card .pulse-risk-moderate { color: #F2C94C; }
 .v2-card .pulse-risk-elevated { color: var(--neg-hi); }
@@ -309,11 +309,24 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-changed .v2-titletext { font-size: 16px; }
 .v2-changed .v2-title-meta { font-size: 14px; }
 .v2-changed .v2-change-name { font-size: 19px; }
-.v2-changed .v2-change-detail { font-size: 16.5px; }
+.v2-changed .v2-change-detail { font-size: 19.5px; }
 .v2-changed .v2-fineprint { font-size: 14.5px; }
 .v2-change-empty { font-size: 17px; }
 
 /* Subscribe mascot nudged up and to the left (desktop) */
 @media (min-width: 861px) {
   .v2-subscribe-mascot { transform: translate(-34px, -26px); }
+}
+
+/* Larger alert cards: icon, status tag */
+.v2-card-head svg { width: 24px; height: 24px; flex-shrink: 0; }
+.v2-card .v2-pill { font-size: 12.5px; padding: 3px 11px; }
+
+/* Larger section titles: Alerts & Indicators, Top News Stories, Decode The Dashboard */
+#alerts .v2-titletext, #news .v2-titletext, #decode .v2-titletext { font-size: 18.5px; }
+#alerts .v2-titlebox svg, #news .v2-titlebox svg, #decode .v2-titlebox svg { width: 27px; height: 27px; }
+#alerts .v2-titlebox, #news .v2-titlebox, #decode .v2-titlebox { padding: 13px 24px; }
+@media (max-width: 560px) {
+  #alerts .v2-titletext, #news .v2-titletext, #decode .v2-titletext { font-size: 15.5px; }
+  #alerts .v2-titlebox, #news .v2-titlebox, #decode .v2-titlebox { padding: 10px 16px; }
 }

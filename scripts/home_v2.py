@@ -135,11 +135,11 @@ def alerts(indicators, date_abbrev):
         title = _card_title(ind)
         pos = ind.get("confluence_positive")
         cards += f"""<a class="v2-card" href="{ind['page']}">
-      <span class="v2-card-head">{ui.icon(ind['id'], 20)}<span class="v2-card-title">{title}</span>{ui.pill(pos)}</span>
+      <span class="v2-card-head">{ui.icon(ind['id'], 24)}<span class="v2-card-title">{title}</span></span>
       <span class="v2-card-main">{ind['card_main_html']}</span>
       <span class="v2-card-caption">{ind['card_caption']}</span>
       <span class="v2-card-updated">Updated {ind['last_updated_display']}</span>
-      <span class="v2-card-cta">View full breakdown &rarr;</span>
+      <span class="v2-card-foot">{ui.pill(pos)}<span class="v2-card-cta">View full breakdown &rarr;</span></span>
     </a>"""
     return f"""<section class="v2-alerts" id="alerts" aria-labelledby="alerts-h">
   <div class="v2-alerts-intro">
