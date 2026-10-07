@@ -73,7 +73,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-hero-title { line-height: 0; }
 .v2-hero-title img { width: min(100%, 780px); height: auto; }
 .v2-hero-tagline { margin: 4px 0 0; font-size: 22px; line-height: 1.4; color: var(--dark-soft); }
-.v2-hero-actions { margin-top: 68px; display: flex; flex-wrap: wrap; gap: 14px; }
+.v2-hero-actions { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 14px; }
 .v2-hero-facts { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 10px 34px; font-size: 17px; color: var(--dark-soft); }
 .v2-hero-facts strong { font-family: var(--f-mono); font-weight: 500; color: var(--brass-hi); font-size: 20px; margin-right: 5px; }
 
