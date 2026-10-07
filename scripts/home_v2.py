@@ -24,8 +24,6 @@ def _strip_tags(s):
 
 
 def hero(n_indicators):
-    now = datetime.now(CENTRAL) if CENTRAL else datetime.now()
-    date_line = now.strftime("%A, %B ") + str(now.day) + now.strftime(", %Y")
     return f"""<section class="v2-hero" aria-labelledby="home-title">
   <div class="v2-hero-bg" aria-hidden="true">{ui.candlesticks_svg()}</div>
   <div class="v2-hero-inner">
@@ -33,7 +31,6 @@ def hero(n_indicators):
     <div class="v2-hero-copy">
       <h1 id="home-title" class="v2-hero-title"><img src="assets/v2/the-crypto-playback-logo.webp" width="1600" height="172" alt="The Crypto Playback"><span class="v2-sr">: daily Bitcoin and crypto market research</span></h1>
       <p class="v2-hero-tagline">Daily research and news on Bitcoin and digital assets</p>
-      <p class="v2-hero-date">{date_line}</p>
       <div class="v2-hero-actions">
         <a class="v2-btn v2-btn-brass" href="#subscribe">Subscribe free</a>
         <a class="v2-btn v2-btn-ghost" href="#alerts">See the live indicators</a>
