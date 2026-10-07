@@ -15,6 +15,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from PIL import Image, ImageDraw
 from partials import page, asset_version
+import home_v2
+import seo
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
 SECTION_MASCOT_VERSION = asset_version("mascot-color-section.png")
@@ -1775,20 +1777,10 @@ def load_market_overview():
 
 
 def render_index(entries):
-    # header-web.png: same masthead art as the email (header-a.png), but with
-    # the candlestick chart decoration in the corners painted out for the
-    # website specifically (user request) - the email's own header-a.png is
-    # untouched. The tagline ("YOUR #1 SOURCE FOR BITCOIN & CRYPTO NEWS
-    # HIGHLIGHTS") is baked into the image itself, so there's no separate
-    # script/tagline markup needed here the way the old hero had.
-    hero = f"""<section class="hero">
-    <div class="wrap">
-      <img class="hero-masthead" src="assets/header-web.png?v={HEADER_WEB_VERSION}" alt="The Crypto Playback — your daily and weekly pulse on Bitcoin and the entire crypto market">
-    </div>
-  </section>"""
+    hero = home_v2.hero(16)
 
     if not entries:
-        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year)
+        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year, theme="v2")
 
     # Homepage's live indicator sections (ticker, Market Snapshot, Signal
     # Confluence, What Changed, Alerts & Indicators) are sourced from
@@ -1798,7 +1790,7 @@ def render_index(entries):
     # before that file exists.
     dashboard = _load_dashboard_data(entries)
     if dashboard is None:
-        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year)
+        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year, theme="v2")
     prices = dashboard["prices"]
     fng = dashboard["fng"]
     mover = dashboard["mover"]
@@ -1824,7 +1816,7 @@ def render_index(entries):
     resolved_mover = ctx["resolved_mover"]
     stable_signal = ctx["stable_signal"]
     etf = ctx["etf"]
-    market_strip = render_market_pulse(prices, date_abbrev)
+    market_strip = home_v2.price_strip(prices, date_abbrev)
 
     # ============ Playback Snapshot: Signal Confluence + What Changed? ============
     # Both built only from real per-issue data already computed above - no
@@ -1839,67 +1831,7 @@ def render_index(entries):
     snapshot_text = overview["snapshot_text"]
     market_lean = overview["market_lean"]
 
-    # Labeled rows, not a bare row of dots - a colored dot alone doesn't tell
-    # a visitor which indicator it belongs to or what it's currently reading.
-    confluence_rows = "".join(
-        f'<div class="confluence-row">'
-        f'<span class="confluence-row-dot">{"&#128994;" if pos else "&#128308;"}</span>'
-        f'<span class="confluence-row-name">{name}</span>'
-        f'<span class="confluence-row-value">{val}</span>'
-        f'</div>'
-        for name, pos, val in confluence_items
-    )
-
-    # Bull (left) / bear (right) mascots flanking the card - same "temperature"
-    # read the title oval used to use before it became a fixed green (Fear &
-    # Greed >=55 bullish-leaning, <=45 bearish-leaning, otherwise genuinely
-    # neutral). The losing side gets a red X, same honest "don't force a
-    # direction when it's genuinely neutral" convention Altcoin Rotation's
-    # In Line state already uses elsewhere on this page - neither side is
-    # crossed out when the market isn't clearly leaning either way.
-    bull_x = '<span class="snapshot-side-x">&#10060;</span>' if market_lean == "bearish" else ""
-    bear_x = '<span class="snapshot-side-x">&#10060;</span>' if market_lean == "bullish" else ""
-
-    # Sits directly under the Top 6 Market ticker now, in the spot the old
-    # Fear & Greed/Mover/Risk/Capital Flow/Sectors cards used to occupy -
-    # those are shown once now, in Alerts & Indicators further down. Band
-    # background is the fixed light-gray from assets/styles.css
-    # (.snapshot-banner), matching Top News Stories/Subscribe - no longer a
-    # mood-based color (previously red/green/brass depending on Fear &
-    # Greed) now that the section header itself carries the same green
-    # treatment as Fear & Greed's own "greedy" reading.
-    market_snapshot_section = f"""<section class="snapshot-banner">
-    <div class="snapshot-banner-inner">
-      <div class="snapshot-side-icon snapshot-side-bull" aria-hidden="true">
-        <img class="snapshot-side-img" src="assets/mascots/bull.png?v={SNAPSHOT_BULL_VERSION}" alt="Bull market icon &mdash; Bitcoin and crypto market sentiment, The Crypto Playback newsletter">
-        {bull_x}
-      </div>
-      <div class="snapshot-solo">
-        <h2 class="snapshot-title">Market Snapshot</h2>
-        <div class="snapshot-meta">
-          <span>Updated {date_abbrev}</span>
-          <span class="snapshot-meta-dot">&middot;</span>
-          <span>Based on {total_count} market indicators</span>
-        </div>
-        <p class="snapshot-text">{snapshot_text}</p>
-      </div>
-      <div class="snapshot-side-icon snapshot-side-bear" aria-hidden="true">
-        <img class="snapshot-side-img" src="assets/mascots/bear.png?v={SNAPSHOT_BEAR_VERSION}" alt="Bear market icon &mdash; Bitcoin and crypto market sentiment, The Crypto Playback newsletter">
-        {bear_x}
-      </div>
-    </div>
-  </section>"""
-
-    confluence_section = f"""<section class="confluence-banner">
-    <div class="confluence-solo">
-      <span class="snapshot-eyebrow">Signal Confluence</span>
-      <div class="snapshot-meta"><span>Updated {date_abbrev}</span></div>
-      <div class="confluence-score">{positive_count}<span class="confluence-score-slash">/{total_count}</span></div>
-      <div class="confluence-score-label">signals positive</div>
-      <div class="confluence-list">{confluence_rows}</div>
-      <p class="snapshot-text">{interpretation}</p>
-    </div>
-  </section>"""
+    market_snapshot_section = home_v2.snapshot(fng, snapshot_text, total_count, date_abbrev)
 
     # "What Changed?" compares the latest live reading to the snapshot from
     # about 24 hours ago in data/indicator_history.json (written by
@@ -2031,154 +1963,25 @@ def render_index(entries):
             ("&#128994;", "Biggest mover flipped", "ETH +3.1% &rarr; SOL +18.6%"),
         ]
 
-    if change_items:
-        changed_rows = "".join(
-            f"""<div class="changed-row">
-          <span class="changed-dot">{dot}</span>
-          <div class="changed-body">
-            <span class="changed-headline">{headline}</span>
-            <span class="changed-detail">{detail}</span>
-          </div>
-        </div>"""
-            for dot, headline, detail in change_items
-        )
-    else:
-        changed_rows = '<p class="changed-empty">Check back after the next update to see what\'s changed.</p>'
+    confluence_section = home_v2.confluence_and_changed(
+        confluence_items, positive_count, total_count, interpretation, change_items, date_abbrev)
 
-    what_changed_section = f"""<section class="changed-banner">
-    <div class="changed-inner">
-      <span class="snapshot-eyebrow">Since The Last Update</span>
-      <div class="snapshot-meta"><span>Updated {date_abbrev}</span></div>
-      <h2 class="snapshot-title">What Changed?</h2>
-      <p class="explainer-sub">Compares each indicator's current reading to its own value from about 24 hours ago
-      &mdash; except Bitcoin ETF Flow, which compares to its most recent prior trading day, since it only updates
-      once a day.</p>
-      <div class="changed-list">{changed_rows}</div>
-    </div>
-  </section>"""
+    alerts_indicators_section = home_v2.alerts(indicators, date_abbrev)
+    news_section = home_v2.news(entries, _teaser_image)
+    subscribe_section = home_v2.subscribe()
+    explainer_section = home_v2.decode(indicators)
 
-    # ============ Alerts & Indicators - same visual language as the pulse
-    # cards above, now each one clickable through to its own dedicated page
-    # with the full methodology, real historical readings, and why it
-    # matters. Every card below is one indicator from the shared registry
-    # (see _build_indicator_registry) - adding an 8th indicator later means
-    # appending one more dict there, not adding another card here. ============
-    alerts_cards_html = "".join(
-        f"""<a class="pulse-card indicator-card" href="{ind['page']}">
-        <span class="pulse-card-label">{ind['card_label']}</span>
-        <div class="pulse-card-main">{ind['card_main_html']}</div>
-        <span class="pulse-card-caption">{ind['card_caption']}</span>
-        <span class="pulse-card-updated">Last updated {ind['last_updated_display']}</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a>"""
-        for ind in indicators
+    body = (hero + market_strip + market_snapshot_section + confluence_section + alerts_indicators_section
+            + news_section + subscribe_section + explainer_section)
+    return page(
+        "", "The Crypto Playback: Daily Bitcoin & Crypto Market Research | Live Indicators", body,
+        datetime.now().year, theme="v2",
+        description=("Free daily Bitcoin and crypto market research: 16 live indicators including Fear & Greed, "
+                     "ETF flows, stablecoin liquidity and risk, plus a concise newsletter every morning."),
+        path="", jsonld=home_v2.jsonld(indicators),
+        extra_head='<link rel="preload" as="image" href="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" type="image/webp" fetchpriority="high">',
+        indicator_links=home_v2.indicator_footer_links(indicators),
     )
-    alerts_indicators_section = f"""<section class="alerts-banner">
-    <div class="pulse-wrap">
-      <div class="alerts-head">
-        <span class="snapshot-eyebrow">The Crypto Play<span class="btc-mark" role="img" aria-label="B"></span>ack</span>
-        <h2 class="snapshot-title">Alerts &amp; Indicators</h2>
-        <p class="explainer-sub">Tap any card for the full methodology and history</p>
-      </div>
-      <div class="pulse-columns">{alerts_cards_html}</div>
-    </div>
-  </section>"""
-
-    # De-duplicated (posts_index.json can carry repeat entries from earlier
-    # test runs) top few teasers, newest first, instead of a single excerpt.
-    # Minimum 6 on the homepage, with at least 3 of those 6 showing a real
-    # side image (alternating cards - confirmed/approved treatment).
-    seen = set()
-    teasers_html = ""
-    count = 0
-    for e in entries:
-        if e["slug"] in seen:
-            continue
-        seen.add(e["slug"])
-        image_url = _teaser_image(e["slug"]) if count % 2 == 0 else None
-        card_class = "teaser-card has-image" if image_url else "teaser-card"
-        image_html = (
-            f'<img class="teaser-image" src="{image_url}" alt="" loading="lazy">' if image_url else ""
-        )
-        teasers_html += f"""<a class="{card_class}" href="posts/{e['slug']}.html">
-      {image_html}
-      <div class="teaser-body">
-        <span class="eyebrow-tag">{e['tag']}</span>
-        <h2>{e['title']}</h2>
-        <div class="date">{e['date_display']}</div>
-        <p class="excerpt">{e['excerpt']}</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a>"""
-        count += 1
-        if count == 6:
-            break
-
-    section_banner = f"""<section class="section-banner">
-    <div class="section-banner-inner">
-      <img class="section-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market news newsletter">
-      <div class="section-title-wrap">
-        <h2 class="section-title">Top News Stories</h2>
-        <span class="section-title-rule"></span>
-        <span class="section-title-sub">Refreshed and updated daily</span>
-      </div>
-    </div>
-  </section>"""
-    teaser_section = f'<section class="latest">{teasers_html}</section>'
-
-    # Wired to the newsletter's Buttondown embed-subscribe endpoint (Buttondown's
-    # standard embeddable form: posts the email, then opens their confirmation
-    # popup). First name is saved as subscriber metadata (metadata__first_name).
-    # id="subscribe" is what the nav's Subscribe link and the ticker's
-    # SUBSCRIBE HERE jump to.
-    subscribe_section = f"""<section class="subscribe-banner" id="subscribe">
-    <div class="subscribe-grid">
-      <div class="subscribe-decor">
-        <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
-      </div>
-      <div class="subscribe-inner">
-        <span class="subscribe-eyebrow">Join The Play<span class="btc-mark" role="img" aria-label="B"></span>ack</span>
-        <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
-        <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
-        <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v={SECTION_MASCOT_VERSION}" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
-        <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/cryptoplayback', 'popupwindow')">
-          <input type="text" name="metadata__first_name" placeholder="First name" autocomplete="given-name" required>
-          <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-          <button type="submit" class="subscribe-btn">Subscribe</button>
-        </form>
-        <span class="subscribe-fineprint">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</span>
-      </div>
-    </div>
-  </section>"""
-
-    # Plain-language explainer for each dashboard card above, so a first-time
-    # visitor knows what they're looking at. Icons/images are reused from the
-    # dashboard cards themselves (same gauge image, same emoji) rather than
-    # inventing new art, so the two sections visibly reference each other.
-    # Same registry as the cards above - every indicator gets one explainer
-    # card automatically, in the same order.
-    explainer_html = "".join(
-        f"""<div class="explainer-card">
-        <div class="explainer-icon">{ind['explainer_icon']}</div>
-        <h3 class="explainer-card-title">{ind['page_title']}</h3>
-        <p class="explainer-card-text">{ind['explainer_text']}</p>
-      </div>"""
-        for ind in indicators
-    )
-    explainer_section = f"""<section class="explainer-banner">
-    <div class="explainer-inner">
-      <div class="explainer-head">
-        <span class="explainer-eyebrow">Know Your Signals</span>
-        <h2 class="explainer-title">Decode The Dashboard</h2>
-        <p class="explainer-sub">What each alert above actually measures, and how it's calculated</p>
-      </div>
-      <div class="explainer-grid">{explainer_html}</div>
-    </div>
-  </section>"""
-
-    body = (hero + market_strip + market_snapshot_section + confluence_section + what_changed_section
-            + alerts_indicators_section + section_banner + teaser_section + subscribe_section + explainer_section)
-    return page("", "The Crypto Playback", body, datetime.now().year)
 
 
 def _recent_readings(history, limit=12):
@@ -2315,6 +2118,20 @@ def render_archive(entries):
     return page("", "Archive — The Crypto Playback", body, datetime.now().year)
 
 
+def write_seo(entries, indicator_files):
+    """sitemap.xml, robots.txt, feed.xml, llms.txt, 404.html (see seo.py)."""
+    dashboard = _load_dashboard_data(entries)
+    if dashboard is None:
+        return
+    ctx = _build_indicator_registry(dashboard, dashboard["gauge_path"])
+    updated = None
+    try:
+        updated = datetime.fromisoformat(dashboard["updated_at"].replace("Z", "+00:00"))
+    except (KeyError, ValueError, AttributeError, TypeError):
+        pass
+    seo.write_seo_files(entries, ctx["indicators"], indicator_files, updated)
+
+
 PENDING_DIR = os.path.join(DATA_DIR, "pending")
 
 
@@ -2355,9 +2172,11 @@ def add_post_and_rebuild(post):
         f.write(render_index(entries))
     with open(os.path.join(ROOT, "archive.html"), "w") as f:
         f.write(render_archive(entries))
-    for filename, html in render_indicator_pages(entries).items():
+    pages = render_indicator_pages(entries)
+    for filename, html in pages.items():
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
+    write_seo(entries, pages.keys())
 
 
 if __name__ == "__main__":
@@ -2370,5 +2189,6 @@ if __name__ == "__main__":
     for filename, html in indicator_pages.items():
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
+    write_seo(entries, indicator_pages.keys())
     print(f"Rebuilt index.html and archive.html from {len(entries)} existing post(s), "
           f"plus {len(indicator_pages)} indicator page(s).")

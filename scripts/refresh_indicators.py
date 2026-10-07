@@ -38,7 +38,7 @@ from narrative_momentum_data import ingest_and_store as ingest_narrative_momentu
 from build_site import (
     ROOT, LIVE_DATA_FILE, LIVE_HISTORY_FILE, MAX_HISTORY_ENTRIES,
     compute_biggest_mover, compute_weekly_mover, save_gauge_image,
-    load_index, render_index, render_indicator_pages,
+    load_index, render_index, render_indicator_pages, write_seo,
 )
 
 
@@ -105,11 +105,13 @@ def refresh():
     # every run), which broke `git pull --rebase` in the commit step below
     # since it refuses to rebase over a dirty working tree.
     OTHER_WORKFLOWS_OWN = {"etf-flow.html", "market-breadth.html"}
-    for filename, html in render_indicator_pages(entries).items():
+    indicator_pages = render_indicator_pages(entries)
+    for filename, html in indicator_pages.items():
         if filename in OTHER_WORKFLOWS_OWN:
             continue
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
+    write_seo(entries, indicator_pages.keys())
 
     print(f"Refreshed live indicators at {live['updated_at']} "
           f"(F&G {fng['value']} {fng['classification']}, "

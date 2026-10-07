@@ -1,475 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>The Crypto Playback</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Crypto Playback: Daily Bitcoin & Crypto Market Research | Live Indicators</title>
+<meta name="description" content="Free daily Bitcoin and crypto market research: 16 live indicators including Fear &amp; Greed, ETF flows, stablecoin liquidity and risk, plus a concise newsletter every morning.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cryptoplayback.com/">
+<meta name="theme-color" content="#0B1F3A">
+<meta property="og:site_name" content="The Crypto Playback">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Crypto Playback: Daily Bitcoin &amp; Crypto Market Research | Live Indicators">
+<meta property="og:description" content="Free daily Bitcoin and crypto market research: 16 live indicators including Fear &amp; Greed, ETF flows, stablecoin liquidity and risk, plus a concise newsletter every morning.">
+<meta property="og:url" content="https://cryptoplayback.com/">
+<meta property="og:image" content="https://cryptoplayback.com/assets/v2/the-crypto-playback-share-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Crypto Playback: Daily Bitcoin &amp; Crypto Market Research | Live Indicators">
+<meta name="twitter:description" content="Free daily Bitcoin and crypto market research: 16 live indicators including Fear &amp; Greed, ETF flows, stablecoin liquidity and risk, plus a concise newsletter every morning.">
+<meta name="twitter:image" content="https://cryptoplayback.com/assets/v2/the-crypto-playback-share-card.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@400;600&family=Black+Ops+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=20408e8571">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%82%BF</text></svg>">
-
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Franklin:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/v2.css?v=0618836d14">
+<link rel="icon" type="image/png" href="assets/v2/favicon.png?v=ef227f90c5">
+<link rel="apple-touch-icon" href="assets/v2/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="The Crypto Playback" href="https://cryptoplayback.com/feed.xml">
+<link rel="preload" as="image" href="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" type="image/webp" fetchpriority="high">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://cryptoplayback.com/#org", "name": "The Crypto Playback", "url": "https://cryptoplayback.com/", "logo": "https://cryptoplayback.com/assets/v2/the-crypto-playback-badge.webp", "email": "info@cryptoplayback.com"}, {"@type": "WebSite", "@id": "https://cryptoplayback.com/#site", "url": "https://cryptoplayback.com/", "name": "The Crypto Playback", "description": "Free daily Bitcoin and crypto market research with 16 live indicators.", "publisher": {"@id": "https://cryptoplayback.com/#org"}, "inLanguage": "en-US"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the Fear & Greed Index?", "acceptedAnswer": {"@type": "Answer", "text": "A 0-100 read on overall market mood, from Extreme Fear to Extreme Greed. Calculated daily from real volatility, momentum, and social data, not opinion. Extremes often line up with emotional turning points, not rational ones."}}, {"@type": "Question", "name": "What is the Biggest Mover (24H)?", "acceptedAnswer": {"@type": "Answer", "text": "Whichever of the top 10 coins in the crypto market (by market cap, stablecoins excluded) moved the most — up or down — over the last 24 hours. Ranked purely by the size of the move, not its direction. A quick read on where the action is happening right now."}}, {"@type": "Question", "name": "What is the Risk Radar?", "acceptedAnswer": {"@type": "Answer", "text": "A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, built from volatility and sentiment extremes. It's a temperature check on current conditions, not a forecast of what happens next."}}, {"@type": "Question", "name": "What is the Capital Flow?", "acceptedAnswer": {"@type": "Answer", "text": "A Crypto Playback composite score built from price and sector breadth weighted against sentiment - not institutional transaction data. A higher score leans toward accumulation, a lower score toward distribution."}}, {"@type": "Question", "name": "What is the Top Sectors?", "acceptedAnswer": {"@type": "Answer", "text": "Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a curated list of major sectors so tiny micro-categories can't skew the results. Shows where money is rotating inside the market, not just up or down overall."}}, {"@type": "Question", "name": "What is the Altcoin Rotation / BTC Dominance?", "acceptedAnswer": {"@type": "Answer", "text": "Bitcoin's share of total crypto market cap, plus whether the other tracked coins are outperforming or underperforming BTC over the last 24 hours. Rising alt participation reads as broader breadth, not a price prediction for either side."}}, {"@type": "Question", "name": "What is the Leverage Heat?", "acceptedAnswer": {"@type": "Answer", "text": "BTC perpetual futures funding rate - the periodic payment between long and short leverage positions. Elevated readings in either direction mean one side is more crowded with leverage, which raises liquidation-cascade risk, not a directional price call."}}, {"@type": "Question", "name": "What is the Stablecoin Liquidity?", "acceptedAnswer": {"@type": "Answer", "text": "Tracks total stablecoin supply and its 7-day change - a proxy for how much capital is parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is entering; contracting means it's leaving the space entirely."}}, {"@type": "Question", "name": "What is the DeFi Pulse?", "acceptedAnswer": {"@type": "Answer", "text": "Total value locked (TVL) across DeFi protocols, all chains combined, and its 7-day change. A different read than Stablecoin Liquidity - this is capital actually deployed into DeFi, not just dry powder sitting on the sidelines."}}, {"@type": "Question", "name": "What is the Miner Health / Network Activity?", "acceptedAnswer": {"@type": "Answer", "text": "Bitcoin network hash rate and its trend into the next difficulty adjustment, plus current mempool congestion. Rising hash rate means more mining power is actively securing the network - a security/health read, not a price signal."}}, {"@type": "Question", "name": "What is the Liquidations?", "acceptedAnswer": {"@type": "Answer", "text": "The size and direction of BTC perpetual futures liquidations - forced closeouts of over-leveraged positions - over the most recent ~100 events on OKX. Heavy liquidations in either direction mean forced, cascading action, not a directional price call."}}, {"@type": "Question", "name": "What is the Whale Activity?", "acceptedAnswer": {"@type": "Answer", "text": "The count of $1M+ BTC transactions in a sample of recent network activity. Purely a size read - we can't tell whether a large transfer is accumulation, distribution, or just an exchange moving its own coins, so this deliberately isn't scored positive or negative."}}, {"@type": "Question", "name": "What is the Macro Risk?", "acceptedAnswer": {"@type": "Answer", "text": "A Low/Moderate/Elevated read on traditional-market conditions - equity volatility (VIX) and US dollar strength (DXY) - the only indicator here that looks outside crypto. A temperature check on macro turbulence, not a crypto-specific signal."}}, {"@type": "Question", "name": "What is the Bitcoin ETF Flow?", "acceptedAnswer": {"@type": "Answer", "text": "Net daily flow across US spot Bitcoin ETFs, plus a rolling streak and flow-pressure score. Positive means the funds took in more money than left them that day, not a price call. Cross-checked against a second, independent data source before it's shown."}}, {"@type": "Question", "name": "What is the Market Breadth?", "acceptedAnswer": {"@type": "Answer", "text": "The share of a fixed 40-coin universe currently trading above its own 50-day moving average. A broad measure of how widespread the current trend actually is, not just whether a few large coins are moving."}}, {"@type": "Question", "name": "What is the Narrative Momentum?", "acceptedAnswer": {"@type": "Answer", "text": "Ranks sectors by their trailing 7-day average daily performance, not just today's snapshot - a different cut than Top Sectors, surfacing sustained strength over a single good day."}}]}]}</script>
 </head>
-<body>
-<header class="site-header">
-  <div class="wrap">
-    <a class="logo-link" href="index.html">
-      <img class="logo" src="assets/logo-wordmark.png?v=0cd7520595" alt="The Crypto Playback">
+<body class="v2">
+<a class="v2-skip" href="#main">Skip to content</a>
+<header class="v2-header">
+  <div class="v2-header-inner">
+    <a class="v2-brand" href="index.html" aria-label="The Crypto Playback home">
+      <img src="assets/v2/the-crypto-playback-badge.webp" width="40" height="40" alt="">
+      <img class="v2-brand-word" src="assets/v2/the-crypto-playback-logo-small.webp" width="800" height="86" alt="The Crypto Playback">
     </a>
-    <nav class="site-nav">
-      <a href="about.html">About</a>
-      <a href="index.html#subscribe">Subscribe</a>
-      <a href="archive.html">Archives</a>
-      <a href="resources.html">Resources</a>
-    </nav>
+    <nav class="v2-nav" aria-label="Main"><a href="index.html#alerts">Indicators</a><a href="archive.html">Archive</a><a href="resources.html">Resources</a><a href="about.html">About</a><a class="v2-nav-cta" href="index.html#subscribe">Subscribe free</a></nav>
   </div>
 </header>
-
-<section class="hero">
-    <div class="wrap">
-      <img class="hero-masthead" src="assets/header-web.png?v=8a45639369" alt="The Crypto Playback — your daily and weekly pulse on Bitcoin and the entire crypto market">
-    </div>
-  </section><section class="pulse-ticker-panel">
-    <div class="pulse-wrap">
-      <div class="pulse-ticker-head">
-        <div class="pulse-eyebrow-row">
-          <svg class="pulse-trend-icon" viewBox="0 0 24 24" fill="none" stroke="#8FBF5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,17 8,11 12,14 22,4"/><polyline points="15,4 22,4 22,11"/></svg>
-          <span class="pulse-eyebrow">Top 6 Market</span>
-          <svg class="pulse-trend-icon" viewBox="0 0 24 24" fill="none" stroke="#E8837A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 8,13 12,10 22,20"/><polyline points="15,20 22,20 22,13"/></svg>
-        </div>
-        <span class="pulse-asof" id="pulse-asof">Price data via CoinGecko &middot; OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+<main id="main">
+<section class="v2-hero" aria-labelledby="home-title">
+  <div class="v2-hero-bg" aria-hidden="true"><svg class="v2-hero-candles" viewBox="0 0 580 300" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><line x1="52" y1="16" x2="52" y2="160"/><rect x="40" y="40" width="24" height="90"/><line x1="122" y1="96" x2="122" y2="220"/><rect x="110" y="120" width="24" height="70"/><line x1="192" y1="36" x2="192" y2="200"/><rect x="180" y="60" width="24" height="110"/><line x1="262" y1="126" x2="262" y2="240"/><rect x="250" y="150" width="24" height="60"/><line x1="332" y1="66" x2="332" y2="250"/><rect x="320" y="90" width="24" height="130"/><line x1="402" y1="16" x2="402" y2="160"/><rect x="390" y="40" width="24" height="90"/><line x1="472" y1="46" x2="472" y2="220"/><rect x="460" y="70" width="24" height="120"/><line x1="542" y1="106" x2="542" y2="240"/><rect x="530" y="130" width="24" height="80"/></svg></div>
+  <div class="v2-hero-inner">
+    <img class="v2-hero-mascot" src="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" width="594" height="760" alt="The Crypto Playback mascot: Uncle Sam with Bitcoin glasses pointing at you" fetchpriority="high">
+    <div class="v2-hero-copy">
+      <h1 id="home-title" class="v2-hero-title"><img src="assets/v2/the-crypto-playback-logo.webp" width="1600" height="172" alt="The Crypto Playback"><span class="v2-sr">: daily Bitcoin and crypto market research</span></h1>
+      <p class="v2-hero-tagline">Daily research and news on Bitcoin and digital assets</p>
+      <p class="v2-hero-date">Wednesday, October 7, 2026</p>
+      <div class="v2-hero-actions">
+        <a class="v2-btn v2-btn-brass" href="#subscribe">Subscribe free</a>
+        <a class="v2-btn v2-btn-ghost" href="#alerts">See the live indicators</a>
       </div>
-      <div class="pulse-ticker-grid"><div class="pulse-coin" data-coingecko-id="bitcoin">
-        <span class="pulse-coin-sym">BTC</span>
-        <span class="pulse-coin-price">$83,520.00</span>
-        <span class="pulse-coin-change" style="color:#E8837A;">-2.4%</span>
-      </div><div class="pulse-coin" data-coingecko-id="ethereum">
-        <span class="pulse-coin-sym">ETH</span>
-        <span class="pulse-coin-price">$2,575.03</span>
-        <span class="pulse-coin-change" style="color:#E8837A;">-4.4%</span>
-      </div><div class="pulse-coin" data-coingecko-id="binancecoin">
-        <span class="pulse-coin-sym">BNB</span>
-        <span class="pulse-coin-price">$771.69</span>
-        <span class="pulse-coin-change" style="color:#E8837A;">-1.0%</span>
-      </div><div class="pulse-coin" data-coingecko-id="ripple">
-        <span class="pulse-coin-sym">XRP</span>
-        <span class="pulse-coin-price">$1.42</span>
-        <span class="pulse-coin-change" style="color:#E8837A;">-5.5%</span>
-      </div><div class="pulse-coin" data-coingecko-id="solana">
-        <span class="pulse-coin-sym">SOL</span>
-        <span class="pulse-coin-price">$116.24</span>
-        <span class="pulse-coin-change" style="color:#E8837A;">-4.0%</span>
-      </div><div class="pulse-coin" data-coingecko-id="tron">
-        <span class="pulse-coin-sym">TRX</span>
-        <span class="pulse-coin-price">$0.34</span>
-        <span class="pulse-coin-change" style="color:#E8837A;">-0.1%</span>
-      </div></div>
+      <ul class="v2-hero-facts">
+        <li><strong>16</strong> live indicators</li>
+        <li><strong>15 min</strong> data refresh</li>
+        <li><strong>Mon&ndash;Sat</strong> free briefing</li>
+      </ul>
     </div>
-  </section>
-  <script>
+  </div>
+</section><section class="v2-strip" aria-label="Top 6 cryptocurrency prices">
+  <div class="v2-wrap">
+    <div class="v2-coins"><div class="v2-coin" data-coingecko-id="bitcoin"><span class="v2-coin-sym">BTC</span><span class="v2-coin-price">$83,520.00</span><span class="v2-coin-change down">&#9660; 2.4%</span></div><div class="v2-coin" data-coingecko-id="ethereum"><span class="v2-coin-sym">ETH</span><span class="v2-coin-price">$2,575.03</span><span class="v2-coin-change down">&#9660; 4.4%</span></div><div class="v2-coin" data-coingecko-id="binancecoin"><span class="v2-coin-sym">BNB</span><span class="v2-coin-price">$771.69</span><span class="v2-coin-change down">&#9660; 1.0%</span></div><div class="v2-coin" data-coingecko-id="ripple"><span class="v2-coin-sym">XRP</span><span class="v2-coin-price">$1.42</span><span class="v2-coin-change down">&#9660; 5.5%</span></div><div class="v2-coin" data-coingecko-id="solana"><span class="v2-coin-sym">SOL</span><span class="v2-coin-price">$116.24</span><span class="v2-coin-change down">&#9660; 4.0%</span></div><div class="v2-coin" data-coingecko-id="tron"><span class="v2-coin-sym">TRX</span><span class="v2-coin-price">$0.34</span><span class="v2-coin-change down">&#9660; 0.1%</span></div></div>
+    <p class="v2-strip-note" id="pulse-asof">Top 6 by market cap &middot; Prices via CoinGecko &middot; OCT. 7, 2026 &middot; 8:23 PM UTC</p>
+  </div>
+</section>
+<script>
 (function () {
-  var coins = Array.prototype.slice.call(document.querySelectorAll('.pulse-coin[data-coingecko-id]'))
+  var coins = Array.prototype.slice.call(document.querySelectorAll('.v2-coin[data-coingecko-id]'))
     .filter(function (el) { return el.getAttribute('data-coingecko-id'); });
   if (!coins.length) return;
   var ids = coins.map(function (el) { return el.getAttribute('data-coingecko-id'); }).join(',');
   var asof = document.getElementById('pulse-asof');
-
   function poll() {
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + encodeURIComponent(ids) +
           '&vs_currencies=usd&include_24hr_change=true')
       .then(function (r) { if (!r.ok) throw new Error('CoinGecko ' + r.status); return r.json(); })
       .then(function (data) {
         coins.forEach(function (el) {
-          var id = el.getAttribute('data-coingecko-id');
-          var quote = data[id];
+          var quote = data[el.getAttribute('data-coingecko-id')];
           if (!quote || typeof quote.usd !== 'number') return;
-          var priceEl = el.querySelector('.pulse-coin-price');
-          var changeEl = el.querySelector('.pulse-coin-change');
+          var priceEl = el.querySelector('.v2-coin-price');
+          var changeEl = el.querySelector('.v2-coin-change');
           if (priceEl) priceEl.textContent = '$' + quote.usd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           if (changeEl && typeof quote.usd_24h_change === 'number') {
-            var change = quote.usd_24h_change;
-            changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(1) + '%';
-            changeEl.style.color = change >= 0 ? '#8FBF5C' : '#E8837A';
+            var c = quote.usd_24h_change;
+            changeEl.textContent = (c > 0.05 ? '\u25B2 ' : c < -0.05 ? '\u25BC ' : '\u25AC ') + Math.abs(c).toFixed(1) + '%';
+            changeEl.className = 'v2-coin-change ' + (c > 0.05 ? 'up' : c < -0.05 ? 'down' : 'flat');
           }
         });
         if (asof) {
-          var now = new Date();
-          asof.textContent = 'Live price updates via CoinGecko \u00b7 last updated ' +
-            now.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', second: '2-digit'});
+          asof.textContent = 'Live prices via CoinGecko \u00b7 last updated ' +
+            new Date().toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', second: '2-digit'});
         }
       })
       .catch(function (err) { console.warn('Live ticker update skipped:', err); });
   }
-
   poll();
   setInterval(poll, 60000);
 })();
-</script><section class="snapshot-banner">
-    <div class="snapshot-banner-inner">
-      <div class="snapshot-side-icon snapshot-side-bull" aria-hidden="true">
-        <img class="snapshot-side-img" src="assets/mascots/bull.png?v=d61e6e5624" alt="Bull market icon &mdash; Bitcoin and crypto market sentiment, The Crypto Playback newsletter">
-        
+</script><section class="v2-section" id="snapshot" aria-labelledby="snapshot-h">
+  <div class="v2-wrap">
+    <div class="v2-titlebar"><div class="v2-titlebox"><svg class="v2-icon" width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 34a18 18 0 0 1 36 0"/><path d="M24 34l9-12"/><circle cx="24" cy="34" r="2"/></svg><h2 class="v2-titletext"><span id="snapshot-h">Market Snapshot</span></h2></div><span class="v2-title-meta">Updated OCT. 7, 2026 &middot; 8:23 PM UTC &middot; 13 indicators</span></div>
+    <div class="v2-snapshot">
+      <div class="v2-snapshot-gauge">
+        <svg class="v2-gauge" viewBox="0 0 200 122" role="img" aria-label="Sentiment gauge showing 71, Greed"><path d="M20.0 100.0 A80 80 0 0 1 35.3 53.0" fill="none" stroke="#8E2B25" stroke-width="12"/><path d="M35.3 53.0 A80 80 0 0 1 75.3 23.9" fill="none" stroke="#C98079" stroke-width="12"/><path d="M75.3 23.9 A80 80 0 0 1 124.7 23.9" fill="none" stroke="#C9C2B0" stroke-width="12"/><path d="M124.7 23.9 A80 80 0 0 1 164.7 53.0" fill="none" stroke="#6FA98A" stroke-width="12"/><path d="M164.7 53.0 A80 80 0 0 1 180.0 100.0" fill="none" stroke="#1E7A4C" stroke-width="12"/><line x1="100" y1="100" x2="138.0" y2="51.0" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="100" r="6" fill="#0B1F3A"/><text x="20" y="118" text-anchor="middle" font-size="10" fill="#5B6472">0</text><text x="180" y="118" text-anchor="middle" font-size="10" fill="#5B6472">100</text></svg>
+        <div class="v2-snapshot-score">71</div>
+        <div class="v2-snapshot-label pos">Greed</div>
+        <div class="v2-snapshot-sub">Fear &amp; Greed Index</div>
       </div>
-      <div class="snapshot-solo">
-        <h2 class="snapshot-title">Market Snapshot</h2>
-        <div class="snapshot-meta">
-          <span>Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-          <span class="snapshot-meta-dot">&middot;</span>
-          <span>Based on 13 market indicators</span>
-        </div>
-        <p class="snapshot-text">The market is currently showing a greed-leaning profile, with low volatility risk and distribution capital flow. Gaming is leading sector rotation, and participation across tracked assets looks narrow.</p>
-      </div>
-      <div class="snapshot-side-icon snapshot-side-bear" aria-hidden="true">
-        <img class="snapshot-side-img" src="assets/mascots/bear.png?v=09c297704d" alt="Bear market icon &mdash; Bitcoin and crypto market sentiment, The Crypto Playback newsletter">
-        <span class="snapshot-side-x">&#10060;</span>
-      </div>
+      <p class="v2-snapshot-text">The market is currently showing a greed-leaning profile, with low volatility risk and distribution capital flow. Gaming is leading sector rotation, and participation across tracked assets looks narrow.</p>
     </div>
-  </section><section class="confluence-banner">
-    <div class="confluence-solo">
-      <span class="snapshot-eyebrow">Signal Confluence</span>
-      <div class="snapshot-meta"><span>Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span></div>
-      <div class="confluence-score">9<span class="confluence-score-slash">/13</span></div>
-      <div class="confluence-score-label">signals positive</div>
-      <div class="confluence-list"><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Fear &amp; Greed</span><span class="confluence-row-value">71 Greed</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128308;</span><span class="confluence-row-name">Biggest Mover (24H)</span><span class="confluence-row-value">DOGE -5.5%</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Risk Radar</span><span class="confluence-row-value">LOW</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128308;</span><span class="confluence-row-name">Capital Flow</span><span class="confluence-row-value">28 Distribution</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128308;</span><span class="confluence-row-name">Top Sectors</span><span class="confluence-row-value">0/3 positive</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Leverage Heat</span><span class="confluence-row-value">+0.005% (Balanced)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Stablecoin Liquidity</span><span class="confluence-row-value">$312.6B (+0.5%)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128308;</span><span class="confluence-row-name">DeFi Pulse</span><span class="confluence-row-value">$93.3B (-1.4%)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Miner Health</span><span class="confluence-row-value">984 EH/s (Hash Rate Rising)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Liquidations</span><span class="confluence-row-value">$0.88M (Balanced)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Macro Risk</span><span class="confluence-row-value">LOW (VIX 15.1)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">ETF Flow</span><span class="confluence-row-value">$+118.9M (1d inflow)</span></div><div class="confluence-row"><span class="confluence-row-dot">&#128994;</span><span class="confluence-row-name">Narrative Momentum</span><span class="confluence-row-value">RWA +14.8%</span></div></div>
-      <p class="snapshot-text">Signals are mixed, split between bullish and cautious readings.</p>
-    </div>
-  </section><section class="changed-banner">
-    <div class="changed-inner">
-      <span class="snapshot-eyebrow">Since The Last Update</span>
-      <div class="snapshot-meta"><span>Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span></div>
-      <h2 class="snapshot-title">What Changed?</h2>
-      <p class="explainer-sub">Compares each indicator's current reading to its own value from about 24 hours ago
-      &mdash; except Bitcoin ETF Flow, which compares to its most recent prior trading day, since it only updates
-      once a day.</p>
-      <div class="changed-list"><div class="changed-row">
-          <span class="changed-dot">&#128308;</span>
-          <div class="changed-body">
-            <span class="changed-headline">Fear &amp; Greed shifted</span>
-            <span class="changed-detail">73 &rarr; 71 (-2)</span>
-          </div>
-        </div><div class="changed-row">
-          <span class="changed-dot">&#128308;</span>
-          <div class="changed-body">
-            <span class="changed-headline">Capital Flow moved</span>
-            <span class="changed-detail">43 &rarr; 28 (-15)</span>
-          </div>
-        </div><div class="changed-row">
-          <span class="changed-dot">&#128993;</span>
-          <div class="changed-body">
-            <span class="changed-headline">Sector leadership rotated</span>
-            <span class="changed-detail">RWA &rarr; Gaming</span>
-          </div>
-        </div><div class="changed-row">
-          <span class="changed-dot">&#128993;</span>
-          <div class="changed-body">
-            <span class="changed-headline">Biggest mover changed</span>
-            <span class="changed-detail">HYPE &rarr; DOGE</span>
-          </div>
-        </div><div class="changed-row">
-          <span class="changed-dot">&#128308;</span>
-          <div class="changed-body">
-            <span class="changed-headline">DeFi TVL moved</span>
-            <span class="changed-detail">$96.3B &rarr; $93.3B (-3.0B)</span>
-          </div>
-        </div><div class="changed-row">
-          <span class="changed-dot">&#128994;</span>
-          <div class="changed-body">
-            <span class="changed-headline">Liquidations shifted</span>
-            <span class="changed-detail">Long Liquidations Dominant &rarr; Balanced</span>
-          </div>
-        </div><div class="changed-row">
-          <span class="changed-dot">&#128994;</span>
-          <div class="changed-body">
-            <span class="changed-headline">ETF flow flipped direction</span>
-            <span class="changed-detail">$-89.9M &rarr; $+118.9M</span>
-          </div>
-        </div></div>
-    </div>
-  </section><section class="alerts-banner">
-    <div class="pulse-wrap">
-      <div class="alerts-head">
-        <span class="snapshot-eyebrow">The Crypto Play<span class="btc-mark" role="img" aria-label="B"></span>ack</span>
-        <h2 class="snapshot-title">Alerts &amp; Indicators</h2>
-        <p class="explainer-sub">Tap any card for the full methodology and history</p>
-      </div>
-      <div class="pulse-columns"><a class="pulse-card indicator-card" href="fear-greed-index.html">
-        <span class="pulse-card-label">Fear &amp; Greed Index</span>
-        <div class="pulse-card-main"><img class="pulse-gauge" src="assets/gauges/live.png" alt="Fear and Greed gauge"><div class="pulse-card-value" style="color:#8FBF5C;">71<span class="pulse-card-word">Greed</span></div></div>
-        <span class="pulse-card-caption">Daily fear and greed sentiment indicator</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="biggest-mover.html">
-        <span class="pulse-card-label">Biggest Mover (24H)</span>
-        <div class="pulse-card-main"><span class="pulse-mover-symbol">DOGE</span><span class="pulse-mover-change" style="color:#E24C4C;">-5.5%</span></div>
-        <span class="pulse-card-caption">Top 10 coins by market cap, ranked by size of move</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="risk-radar.html">
-        <span class="pulse-card-label">&#9888;&#65039; Risk Radar</span>
-        <div class="pulse-card-main"><span class="pulse-risk-badge pulse-risk-low">LOW</span></div>
-        <span class="pulse-card-caption">Overall crypto market risk indicator</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="capital-flow.html">
-        <span class="pulse-card-label">&#128176; Capital Flow</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#E24C4C;">28<span class="pulse-card-word">Distribution</span></div></div>
-        <span class="pulse-card-caption">Price &amp; sector breadth vs. sentiment</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="top-sectors.html">
-        <span class="pulse-card-label">&#128202; Top Sectors</span>
-        <div class="pulse-card-main"><div class="pulse-sector-list"><div class="pulse-sector-row"><span class="pulse-sector-name">Gaming</span><span class="pulse-sector-change" style="color:#E24C4C;">-1.8%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">AI</span><span class="pulse-sector-change" style="color:#E24C4C;">-2.1%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">RWA</span><span class="pulse-sector-change" style="color:#E24C4C;">-2.4%</span></div></div></div>
-        <span class="pulse-card-caption">Best-performing sectors, 24H</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="btc-dominance.html">
-        <span class="pulse-card-label">&#129517; Altcoin Rotation</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#F2C94C;">58.8%<span class="pulse-card-word">In Line</span></div></div>
-        <span class="pulse-card-caption">BTC leading by 0.5pp over 24h</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="leverage-heat.html">
-        <span class="pulse-card-label">&#128293; Leverage Heat</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">+0.005%<span class="pulse-card-word">Balanced</span></div></div>
-        <span class="pulse-card-caption">$2.53B BTC perp open interest</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="stablecoin-liquidity.html">
-        <span class="pulse-card-label">&#128181; Stablecoin Liquidity</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">$312.6B<span class="pulse-card-word">Expanding</span></div></div>
-        <span class="pulse-card-caption">+0.5% over 7 days</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="defi-pulse.html">
-        <span class="pulse-card-label">&#9889; DeFi Pulse</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#E24C4C;">$93.3B<span class="pulse-card-word">Shrinking</span></div></div>
-        <span class="pulse-card-caption">-1.4% over 7 days</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="network-health.html">
-        <span class="pulse-card-label">&#9889;&#65039; Miner Health</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">984 EH/s<span class="pulse-card-word">Hash Rate Rising</span></div></div>
-        <span class="pulse-card-caption">3 sat/vB &middot; 79,979 pending</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="liquidations.html">
-        <span class="pulse-card-label">&#128165; Liquidations</span>
-        <div class="pulse-card-main"><div class="pulse-card-value stacked-value" style="color:#8FBF5C;">$0.88M<span class="pulse-card-word">Balanced</span></div></div>
-        <span class="pulse-card-caption">$0.4M long &middot; $0.4M short</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="whale-activity.html">
-        <span class="pulse-card-label">&#128040; Whale Activity</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#8A7F5C;">13<span class="pulse-card-word">Elevated</span></div></div>
-        <span class="pulse-card-caption">$63.5M across whale-sized transfers</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="macro-risk.html">
-        <span class="pulse-card-label">&#127758; Macro Risk</span>
-        <div class="pulse-card-main"><span class="pulse-risk-badge pulse-risk-low">LOW</span></div>
-        <span class="pulse-card-caption">VIX 15.1 &middot; DXY 102.3</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="etf-flow.html">
-        <span class="pulse-card-label">&#127974; ETF Flow</span>
-        <div class="pulse-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">+118.9M<span class="pulse-card-word">Inflow</span></div></div>
-        <span class="pulse-card-caption">1D Inflow Streak &middot; 2026-10-06</span>
-        <span class="pulse-card-updated">Last updated OCT. 6, 2026</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="market-breadth.html">
-        <span class="pulse-card-label">&#128200; Market Breadth</span>
-        <div class="pulse-card-main"><span class="pulse-risk-badge ">BUILDING (8/50 DAYS)</span></div>
-        <span class="pulse-card-caption">Share of tracked coins above their moving average</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a><a class="pulse-card indicator-card" href="narrative-momentum.html">
-        <span class="pulse-card-label">&#128161; Narrative Momentum</span>
-        <div class="pulse-card-main"><div class="pulse-sector-list"><div class="pulse-sector-row"><span class="pulse-sector-name">RWA</span><span class="pulse-sector-change" style="color:#8FBF5C;">+14.8%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">Gaming</span><span class="pulse-sector-change" style="color:#8FBF5C;">+4.4%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">Memecoins</span><span class="pulse-sector-change" style="color:#8FBF5C;">+2.6%</span></div></div></div>
-        <span class="pulse-card-caption">7-day average &middot; 2026-10-07</span>
-        <span class="pulse-card-updated">Last updated OCT. 7, 2026</span>
-        <span class="indicator-card-cta">View full breakdown &rarr;</span>
-      </a></div>
-    </div>
-  </section><section class="section-banner">
-    <div class="section-banner-inner">
-      <img class="section-mascot" src="assets/mascot-color-section.png?v=b7063f2c1b" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market news newsletter">
-      <div class="section-title-wrap">
-        <h2 class="section-title">Top News Stories</h2>
-        <span class="section-title-rule"></span>
-        <span class="section-title-sub">Refreshed and updated daily</span>
-      </div>
-    </div>
-  </section><section class="latest"><a class="teaser-card has-image" href="posts/2026-10-06-daily.html">
-      <img class="teaser-image" src="https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2020/06/20200626_CFTC_-Daily.jpg" alt="" loading="lazy">
-      <div class="teaser-body">
-        <span class="eyebrow-tag">Daily</span>
-        <h2>Regulators Retreat, Wall Street Wades In</h2>
-        <div class="date">October 06, 2026</div>
-        <p class="excerpt">Washington is quietly dismantling crypto surveillance rules just as traditional finance giants start plugging into the chain, even while bitcoin itself can't seem to clear $87,000.</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a><a class="teaser-card" href="posts/2026-10-05-weekly.html">
-      
-      <div class="teaser-body">
-        <span class="eyebrow-tag">Weekly</span>
-        <h2>Golden Crosses, Golden Handcuffs</h2>
-        <div class="date">October 05, 2026</div>
-        <p class="excerpt">Bitcoin keeps flashing bullish signals while regulators, treasuries, and hackers all scramble to keep up with the same rally.</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a><a class="teaser-card has-image" href="posts/2026-10-05-daily.html">
-      <img class="teaser-image" src="https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/strategy.png" alt="" loading="lazy">
-      <div class="teaser-body">
-        <span class="eyebrow-tag">Daily</span>
-        <h2>Uptober Opens Green While an Old Foe Gets a New Job</h2>
-        <div class="date">October 05, 2026</div>
-        <p class="excerpt">Bitcoin is holding its ground against a surging dollar and a parade of corporate treasury theatrics, while Washington quietly rearranges the deck chairs on crypto oversight.</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a><a class="teaser-card" href="posts/2026-09-21-weekly.html">
-      
-      <div class="teaser-body">
-        <span class="eyebrow-tag">Weekly</span>
-        <h2>Shorts Get Squeezed, Congress Gets Skipped</h2>
-        <div class="date">September 21, 2026</div>
-        <p class="excerpt">Bitcoin ripped back above $85K on the back of a brutal short squeeze this week, while Washington's crypto bill died (again) and everyone from Visa to the ECB quietly kept building anyway.</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a><a class="teaser-card has-image" href="posts/2026-09-21-daily.html">
-      <img class="teaser-image" src="https://s3-images.ctmedia.io/media/article-covers/2026/09/01M30SCR3TXMTSM58MCQ6E0A8X/north-korea-it.jpg" alt="" loading="lazy">
-      <div class="teaser-body">
-        <span class="eyebrow-tag">Daily</span>
-        <h2>North Korean Hackers Pose as Recruiters, Infect 30K Devices and Steal $10.7M in Crypto</h2>
-        <div class="date">September 21, 2026</div>
-        <p class="excerpt">The WaterPlum cyber group has been running what amounts to a catfish operation at scale, impersonating recruiters for crypto, AI, and NFT companies to lure developers into downloading malicious software. According to Coi...</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a><a class="teaser-card" href="posts/2026-09-20-daily.html">
-      
-      <div class="teaser-body">
-        <span class="eyebrow-tag">Daily</span>
-        <h2>Polymarket's Growth-Over-Governance Problem Exposes the Cracks</h2>
-        <div class="date">September 20, 2026</div>
-        <p class="excerpt">Polymarket—one of crypto's hottest prediction markets—faced a $10 million fraud attempt while its CEO was allegedly deprioritizing compliance concerns in favor of rapid growth. That's already bad. Worse: hackers compromi...</p>
-        <span class="read-more">Read the full playback &rarr;</span>
-      </div>
-    </a></section><section class="subscribe-banner" id="subscribe">
-    <div class="subscribe-grid">
-      <div class="subscribe-decor">
-        <img class="subscribe-decor-mascot" src="assets/mascot-color-section.png?v=b7063f2c1b" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
-      </div>
-      <div class="subscribe-inner">
-        <span class="subscribe-eyebrow">Join The Play<span class="btc-mark" role="img" aria-label="B"></span>ack</span>
-        <h2 class="subscribe-title">Subscribe for free and don't miss any more top stories</h2>
-        <p class="subscribe-sub">Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
-        <img class="subscribe-mobile-mascot" src="assets/mascot-color-section.png?v=b7063f2c1b" alt="The Crypto Playback mascot &mdash; subscribe to our Bitcoin and crypto newsletter">
-        <form class="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/cryptoplayback', 'popupwindow')">
-          <input type="text" name="metadata__first_name" placeholder="First name" autocomplete="given-name" required>
-          <input type="email" name="email" placeholder="Email address" autocomplete="email" required>
-          <button type="submit" class="subscribe-btn">Subscribe</button>
-        </form>
-        <span class="subscribe-fineprint">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</span>
-      </div>
-    </div>
-  </section><section class="explainer-banner">
-    <div class="explainer-inner">
-      <div class="explainer-head">
-        <span class="explainer-eyebrow">Know Your Signals</span>
-        <h2 class="explainer-title">Decode The Dashboard</h2>
-        <p class="explainer-sub">What each alert above actually measures, and how it's calculated</p>
-      </div>
-      <div class="explainer-grid"><div class="explainer-card">
-        <div class="explainer-icon"><img class="explainer-icon-img" src="assets/gauges/live.png" alt=""></div>
-        <h3 class="explainer-card-title">Fear &amp; Greed Index</h3>
-        <p class="explainer-card-text">A 0&ndash;100 read on overall market mood, from Extreme Fear to Extreme Greed. Calculated daily from real volatility, momentum, and social data, not opinion. Extremes often line up with emotional turning points, not rational ones.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128200;</div>
-        <h3 class="explainer-card-title">Biggest Mover (24H)</h3>
-        <p class="explainer-card-text">Whichever of the top 10 coins in the crypto market (by market cap, stablecoins excluded) moved the most — up or down — over the last 24 hours. Ranked purely by the size of the move, not its direction. A quick read on where the action is happening right now.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#9888;&#65039;</div>
-        <h3 class="explainer-card-title">Risk Radar</h3>
-        <p class="explainer-card-text">A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, built from volatility and sentiment extremes. It's a temperature check on current conditions, not a forecast of what happens next.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128176;</div>
-        <h3 class="explainer-card-title">Capital Flow</h3>
-        <p class="explainer-card-text">A Crypto Playback composite score built from price and sector breadth weighted against sentiment &mdash; not institutional transaction data. A higher score leans toward accumulation, a lower score toward distribution.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128202;</div>
-        <h3 class="explainer-card-title">Top Sectors</h3>
-        <p class="explainer-card-text">Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a curated list of major sectors so tiny micro-categories can't skew the results. Shows where money is rotating inside the market, not just up or down overall.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#129517;</div>
-        <h3 class="explainer-card-title">Altcoin Rotation / BTC Dominance</h3>
-        <p class="explainer-card-text">Bitcoin's share of total crypto market cap, plus whether the other tracked coins are outperforming or underperforming BTC over the last 24 hours. Rising alt participation reads as broader breadth, not a price prediction for either side.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128293;</div>
-        <h3 class="explainer-card-title">Leverage Heat</h3>
-        <p class="explainer-card-text">BTC perpetual futures funding rate - the periodic payment between long and short leverage positions. Elevated readings in either direction mean one side is more crowded with leverage, which raises liquidation-cascade risk, not a directional price call.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128181;</div>
-        <h3 class="explainer-card-title">Stablecoin Liquidity</h3>
-        <p class="explainer-card-text">Tracks total stablecoin supply and its 7-day change &mdash; a proxy for how much capital is parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is entering; contracting means it's leaving the space entirely.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#9889;</div>
-        <h3 class="explainer-card-title">DeFi Pulse</h3>
-        <p class="explainer-card-text">Total value locked (TVL) across DeFi protocols, all chains combined, and its 7-day change. A different read than Stablecoin Liquidity - this is capital actually deployed into DeFi, not just dry powder sitting on the sidelines.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#9889;&#65039;</div>
-        <h3 class="explainer-card-title">Miner Health / Network Activity</h3>
-        <p class="explainer-card-text">Bitcoin network hash rate and its trend into the next difficulty adjustment, plus current mempool congestion. Rising hash rate means more mining power is actively securing the network - a security/health read, not a price signal.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128165;</div>
-        <h3 class="explainer-card-title">Liquidations</h3>
-        <p class="explainer-card-text">The size and direction of BTC perpetual futures liquidations - forced closeouts of over-leveraged positions - over the most recent ~100 events on OKX. Heavy liquidations in either direction mean forced, cascading action, not a directional price call.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128040;</div>
-        <h3 class="explainer-card-title">Whale Activity</h3>
-        <p class="explainer-card-text">The count of $1M+ BTC transactions in a sample of recent network activity. Purely a size read - we can't tell whether a large transfer is accumulation, distribution, or just an exchange moving its own coins, so this deliberately isn't scored positive or negative.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#127758;</div>
-        <h3 class="explainer-card-title">Macro Risk</h3>
-        <p class="explainer-card-text">A Low/Moderate/Elevated read on traditional-market conditions - equity volatility (VIX) and US dollar strength (DXY) - the only indicator here that looks outside crypto. A temperature check on macro turbulence, not a crypto-specific signal.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#127974;</div>
-        <h3 class="explainer-card-title">Bitcoin ETF Flow</h3>
-        <p class="explainer-card-text">Net daily flow across US spot Bitcoin ETFs, plus a rolling streak and flow-pressure score. Positive means the funds took in more money than left them that day, not a price call. Cross-checked against a second, independent data source before it's shown.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128200;</div>
-        <h3 class="explainer-card-title">Market Breadth</h3>
-        <p class="explainer-card-text">The share of a fixed 40-coin universe currently trading above its own 50-day moving average. A broad measure of how widespread the current trend actually is, not just whether a few large coins are moving.</p>
-      </div><div class="explainer-card">
-        <div class="explainer-icon">&#128161;</div>
-        <h3 class="explainer-card-title">Narrative Momentum</h3>
-        <p class="explainer-card-text">Ranks sectors by their trailing 7-day average daily performance, not just today's snapshot - a different cut than Top Sectors, surfacing sustained strength over a single good day.</p>
-      </div></div>
-    </div>
-  </section>
-<div class="disclaimer">
-  <div class="wrap">
-    <span class="disclaimer-label">Disclaimer</span>
-    <strong>THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong>
-    The material in this newsletter has no regard to any specific investment objectives, financial situation,
-    or particular needs of any reader. It is published solely for informational purposes and is not to be
-    construed as a solicitation nor does it constitute advice, investment or otherwise. References made to
-    third parties are based on information obtained from sources believed to be reliable but not guaranteed
-    as being accurate. Readers should not regard it as a substitute for the exercise of their own judgment.
-    Our comments are an expression of opinion. While we believe our statements to be true, they always depend
-    on the reliability of our own credible sources. We recommend that you consult with a licensed, qualified
-    investment advisor before making any investment decisions.
   </div>
-</div>
-
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-copy">&copy; 2026 The Crypto Playback &middot; <a href="about.html">Contact</a></div>
-    <div class="footer-brand">
-      <img class="footer-mascot" src="assets/footer-mascot-web.png?v=00608b1198" alt="The Crypto Playback mascot &mdash; Bitcoin and crypto market newsletter">
-      <img class="footer-logo" src="assets/logo-wordmark.png?v=0cd7520595" alt="The Crypto Playback">
+</section><section class="v2-dark" id="confluence" aria-labelledby="confluence-h">
+  <div class="v2-wrap">
+    <div class="v2-titlebar v2-titlebar-dark"><div class="v2-titlebox"><svg class="v2-icon" width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="27" y="8" width="13" height="13" rx="2"/><rect x="8" y="27" width="13" height="13" rx="2"/><rect x="27" y="27" width="13" height="13" rx="2"/></svg><h2 class="v2-titletext"><span id="confluence-h">Signal Confluence</span></h2></div><span class="v2-title-meta">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span></div>
+    <div class="v2-conf-head">
+      <div class="v2-conf-score">9<span>/13</span></div>
+      <p class="v2-conf-interp"><strong>signals positive.</strong> Signals are mixed, split between bullish and cautious readings.</p>
+    </div>
+    <div class="v2-conf-grid"><div class="v2-conf"><div class="v2-conf-name">Fear &amp; Greed</div><div class="v2-conf-value">71</div><div class="v2-conf-detail">Greed</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf neg"><div class="v2-conf-name">Biggest Mover (24H)</div><div class="v2-conf-value">DOGE -5.5%</div><div class="v2-conf-detail"></div><span class="v2-pill v2-pill-neg">Negative</span></div><div class="v2-conf"><div class="v2-conf-name">Risk Radar</div><div class="v2-conf-value">LOW</div><div class="v2-conf-detail"></div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf neg"><div class="v2-conf-name">Capital Flow</div><div class="v2-conf-value">28</div><div class="v2-conf-detail">Distribution</div><span class="v2-pill v2-pill-neg">Negative</span></div><div class="v2-conf neg"><div class="v2-conf-name">Top Sectors</div><div class="v2-conf-value">0/3</div><div class="v2-conf-detail">positive</div><span class="v2-pill v2-pill-neg">Negative</span></div><div class="v2-conf"><div class="v2-conf-name">Leverage Heat</div><div class="v2-conf-value">+0.005%</div><div class="v2-conf-detail">Balanced</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf"><div class="v2-conf-name">Stablecoin Liquidity</div><div class="v2-conf-value">$312.6B</div><div class="v2-conf-detail">+0.5%</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf neg"><div class="v2-conf-name">DeFi Pulse</div><div class="v2-conf-value">$93.3B</div><div class="v2-conf-detail">-1.4%</div><span class="v2-pill v2-pill-neg">Negative</span></div><div class="v2-conf"><div class="v2-conf-name">Miner Health</div><div class="v2-conf-value">984 EH/s</div><div class="v2-conf-detail">Hash Rate Rising</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf"><div class="v2-conf-name">Liquidations</div><div class="v2-conf-value">$0.88M</div><div class="v2-conf-detail">Balanced</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf"><div class="v2-conf-name">Macro Risk</div><div class="v2-conf-value">LOW</div><div class="v2-conf-detail">VIX 15.1</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf"><div class="v2-conf-name">ETF Flow</div><div class="v2-conf-value">$+118.9M</div><div class="v2-conf-detail">1d inflow</div><span class="v2-pill v2-pill-pos">Positive</span></div><div class="v2-conf v2-conf-wide"><div class="v2-conf-name">Narrative Momentum</div><div class="v2-conf-value">RWA +14.8%</div><div class="v2-conf-detail"></div><span class="v2-pill v2-pill-pos">Positive</span></div></div>
+    <p class="v2-fineprint">Each signal is a Crypto Playback reading of live market data. The Capital Flow score is a composite of
+    price and sector breadth weighted against sentiment; it is not institutional transaction data.
+    <a href="resources.html#signals">How we read the signals</a></p>
+    <div class="v2-changed">
+      <div class="v2-titlebar v2-titlebar-dark"><div class="v2-titlebox"><svg class="v2-icon" width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 18h30l-7-7M40 30H10l7 7"/></svg><h2 class="v2-titletext">What Changed</h2></div><span class="v2-title-meta">vs. about 24 hours ago</span></div>
+      <div class="v2-change-list"><div class="v2-change"><div class="v2-change-name">Fear &amp; Greed shifted</div><div class="v2-change-detail down">73 &rarr; 71 (-2)</div></div><div class="v2-change"><div class="v2-change-name">Capital Flow moved</div><div class="v2-change-detail down">43 &rarr; 28 (-15)</div></div><div class="v2-change"><div class="v2-change-name">Sector leadership rotated</div><div class="v2-change-detail flat">RWA &rarr; Gaming</div></div><div class="v2-change"><div class="v2-change-name">Biggest mover changed</div><div class="v2-change-detail flat">HYPE &rarr; DOGE</div></div><div class="v2-change"><div class="v2-change-name">DeFi TVL moved</div><div class="v2-change-detail down">$96.3B &rarr; $93.3B (-3.0B)</div></div><div class="v2-change"><div class="v2-change-name">Liquidations shifted</div><div class="v2-change-detail up">Long Liquidations Dominant &rarr; Balanced</div></div><div class="v2-change"><div class="v2-change-name">ETF flow flipped direction</div><div class="v2-change-detail up">$-89.9M &rarr; $+118.9M</div></div></div>
+      <p class="v2-fineprint">Each indicator is compared with its own reading from about 24 hours earlier. Bitcoin ETF flow
+      compares with the prior trading day because it only updates once a day.</p>
+    </div>
+  </div>
+</section><section class="v2-alerts" id="alerts" aria-labelledby="alerts-h">
+  <div class="v2-alerts-intro">
+    <div class="v2-wrap">
+      <div class="v2-titlebar"><div class="v2-titlebox"><svg class="v2-icon" width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 34V22a14 14 0 0 1 28 0v12l3 4H7z"/><path d="M20 43h8"/></svg><h2 class="v2-titletext"><span id="alerts-h">Alerts &amp; Indicators</span></h2></div><span class="v2-title-meta">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span></div>
+      <p class="v2-lead">Sixteen live readings of crypto market mood, risk, flows and structure. Each card links to its full
+      methodology, data source and recent history.</p>
+    </div>
+  </div>
+  <div class="v2-alerts-grid-wrap"><div class="v2-wrap"><div class="v2-cards"><a class="v2-card" href="fear-greed-index.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 34a18 18 0 0 1 36 0"/><path d="M24 34l9-12"/></svg><span class="v2-card-title">Fear &amp; Greed Index</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><img class="pulse-gauge" src="assets/gauges/live.png" alt="Fear and Greed gauge"><div class="pulse-card-value" style="color:#8FBF5C;">71<span class="pulse-card-word">Greed</span></div></span>
+      <span class="v2-card-caption">Daily fear and greed sentiment indicator</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="biggest-mover.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 36l10-12 8 6 14-18"/><path d="M30 12h10v10"/></svg><span class="v2-card-title">Biggest Mover (24H)</span><span class="v2-pill v2-pill-neg">Negative</span></span>
+      <span class="v2-card-main"><span class="pulse-mover-symbol">DOGE</span><span class="pulse-mover-change" style="color:#E24C4C;">-5.5%</span></span>
+      <span class="v2-card-caption">Top 10 coins by market cap, ranked by size of move</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="risk-radar.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 8L42 40H6z"/><path d="M24 20v10M24 35v1"/></svg><span class="v2-card-title">Risk Radar</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><span class="pulse-risk-badge pulse-risk-low">LOW</span></span>
+      <span class="v2-card-caption">Overall crypto market risk indicator</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="capital-flow.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 24h32"/><path d="M30 14l10 10-10 10"/></svg><span class="v2-card-title">Capital Flow</span><span class="v2-pill v2-pill-neg">Negative</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#E24C4C;">28<span class="pulse-card-word">Distribution</span></div></span>
+      <span class="v2-card-caption">Price &amp; sector breadth vs. sentiment</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="top-sectors.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="27" y="8" width="13" height="13" rx="2"/><rect x="8" y="27" width="13" height="13" rx="2"/><rect x="27" y="27" width="13" height="13" rx="2"/></svg><span class="v2-card-title">Top Sectors</span><span class="v2-pill v2-pill-neg">Negative</span></span>
+      <span class="v2-card-main"><div class="pulse-sector-list"><div class="pulse-sector-row"><span class="pulse-sector-name">Gaming</span><span class="pulse-sector-change" style="color:#E24C4C;">-1.8%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">AI</span><span class="pulse-sector-change" style="color:#E24C4C;">-2.1%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">RWA</span><span class="pulse-sector-change" style="color:#E24C4C;">-2.4%</span></div></div></span>
+      <span class="v2-card-caption">Best-performing sectors, 24H</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="btc-dominance.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M38 20a14 14 0 0 0-26-4"/><path d="M10 28a14 14 0 0 0 26 4"/><path d="M12 8v8h8M36 40v-8h-8"/></svg><span class="v2-card-title">Altcoin Rotation</span><span class="v2-pill v2-pill-neu">Neutral</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#F2C94C;">58.8%<span class="pulse-card-word">In Line</span></div></span>
+      <span class="v2-card-caption">BTC leading by 0.5pp over 24h</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="leverage-heat.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 6c2 8 10 12 10 22a10 10 0 0 1-20 0c0-6 4-8 4-14 4 2 6 6 6 10"/></svg><span class="v2-card-title">Leverage Heat</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">+0.005%<span class="pulse-card-word">Balanced</span></div></span>
+      <span class="v2-card-caption">$2.53B BTC perp open interest</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="stablecoin-liquidity.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="16"/><path d="M24 15v18"/><path d="M29 20h-7a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-8"/></svg><span class="v2-card-title">Stablecoin Liquidity</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">$312.6B<span class="pulse-card-word">Expanding</span></div></span>
+      <span class="v2-card-caption">+0.5% over 7 days</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="defi-pulse.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 8l16 8-16 8-16-8z"/><path d="M8 24l16 8 16-8"/><path d="M8 32l16 8 16-8"/></svg><span class="v2-card-title">DeFi Pulse</span><span class="v2-pill v2-pill-neg">Negative</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#E24C4C;">$93.3B<span class="pulse-card-word">Shrinking</span></div></span>
+      <span class="v2-card-caption">-1.4% over 7 days</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="network-health.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="14" width="20" height="20" rx="2"/><path d="M20 8v6M28 8v6M20 34v6M28 34v6M8 20h6M8 28h6M34 20h6M34 28h6"/></svg><span class="v2-card-title">Miner Health</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">984 EH/s<span class="pulse-card-word">Hash Rate Rising</span></div></span>
+      <span class="v2-card-caption">3 sat/vB &middot; 79,979 pending</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="liquidations.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M26 6L12 26h10l-2 16 16-22H26z"/></svg><span class="v2-card-title">Liquidations</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value stacked-value" style="color:#8FBF5C;">$0.88M<span class="pulse-card-word">Balanced</span></div></span>
+      <span class="v2-card-caption">$0.4M long &middot; $0.4M short</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="whale-activity.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 26c6-8 12-8 18 0s12 8 18 0"/><path d="M6 36c6-8 12-8 18 0s12 8 18 0"/><path d="M6 16c6-8 12-8 18 0s12 8 18 0"/></svg><span class="v2-card-title">Whale Activity</span><span class="v2-pill v2-pill-neu">Neutral</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#8A7F5C;">13<span class="pulse-card-word">Elevated</span></div></span>
+      <span class="v2-card-caption">$63.5M across whale-sized transfers</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="macro-risk.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="16"/><path d="M8 24h32"/><path d="M24 8c-8 9-8 23 0 32M24 8c8 9 8 23 0 32"/></svg><span class="v2-card-title">Macro Risk</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><span class="pulse-risk-badge pulse-risk-low">LOW</span></span>
+      <span class="v2-card-caption">VIX 15.1 &middot; DXY 102.3</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026 &middot; 8:23 PM UTC</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="etf-flow.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="26" width="6" height="12"/><rect x="19" y="18" width="6" height="20"/><rect x="29" y="10" width="6" height="28"/><path d="M6 41h36"/></svg><span class="v2-card-title">ETF Flow</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><div class="pulse-card-value" style="color:#8FBF5C;">+118.9M<span class="pulse-card-word">Inflow</span></div></span>
+      <span class="v2-card-caption">1D Inflow Streak &middot; 2026-10-06</span>
+      <span class="v2-card-updated">Updated OCT. 6, 2026</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="market-breadth.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 12h32M8 24h24M8 36h14"/></svg><span class="v2-card-title">Market Breadth</span><span class="v2-pill v2-pill-neu">Neutral</span></span>
+      <span class="v2-card-main"><span class="pulse-risk-badge ">BUILDING (8/50 DAYS)</span></span>
+      <span class="v2-card-caption">Share of tracked coins above their moving average</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a><a class="v2-card" href="narrative-momentum.html">
+      <span class="v2-card-head"><svg class="v2-icon" width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 10h32v22H20l-8 8v-8H8z"/></svg><span class="v2-card-title">Narrative Momentum</span><span class="v2-pill v2-pill-pos">Positive</span></span>
+      <span class="v2-card-main"><div class="pulse-sector-list"><div class="pulse-sector-row"><span class="pulse-sector-name">RWA</span><span class="pulse-sector-change" style="color:#8FBF5C;">+14.8%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">Gaming</span><span class="pulse-sector-change" style="color:#8FBF5C;">+4.4%</span></div><div class="pulse-sector-row"><span class="pulse-sector-name">Memecoins</span><span class="pulse-sector-change" style="color:#8FBF5C;">+2.6%</span></div></div></span>
+      <span class="v2-card-caption">7-day average &middot; 2026-10-07</span>
+      <span class="v2-card-updated">Updated OCT. 7, 2026</span>
+      <span class="v2-card-cta">View full breakdown &rarr;</span>
+    </a></div></div></div>
+</section><section class="v2-section v2-section-white" id="news" aria-labelledby="news-h">
+  <div class="v2-wrap">
+    <div class="v2-titlebar"><div class="v2-titlebox"><svg class="v2-icon" width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M14 16h12M14 22h20M14 28h20M14 34h12"/></svg><h2 class="v2-titletext"><span id="news-h">The Top News Stories</span></h2></div><span class="v2-title-meta">Refreshed and updated daily</span></div>
+    <div class="v2-lede">
+      <div class="v2-lede-kicker">Latest playback &middot; October 06, 2026</div>
+      <p class="v2-lede-title"><a href="posts/2026-10-06-daily.html">Regulators Retreat, Wall Street Wades In</a></p>
+      <p class="v2-lede-text">Washington is quietly dismantling crypto surveillance rules just as traditional finance giants start plugging into the chain, even while bitcoin itself can't seem to clear $87,000.</p>
+    </div>
+    <div class="v2-stories"><article class="v2-story has-img">
+      <div class="v2-story-tile" aria-hidden="true"><svg class="v2-icon" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="7" y="10" width="34" height="30" rx="2"/><path d="M7 19h34M16 6v8M32 6v8"/></svg></div>
+      <div class="v2-story-body">
+        <div class="v2-kicker">Weekly playback &middot; October 05, 2026</div>
+        <h3 class="v2-story-title"><a href="posts/2026-10-05-weekly.html">Golden Crosses, Golden Handcuffs</a></h3>
+        <p>Bitcoin keeps flashing bullish signals while regulators, treasuries, and hackers all scramble to keep up with the same rally.</p>
+        <a class="v2-story-link" href="posts/2026-10-05-weekly.html">Read the full playback &rarr;</a>
+      </div>
+      <img class="v2-story-img" src="https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2020/06/20200626_CFTC_-Daily.jpg" alt="" loading="lazy" width="320" height="200">
+    </article><article class="v2-story">
+      <div class="v2-story-tile" aria-hidden="true"><svg class="v2-icon" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M14 16h12M14 22h20M14 28h20M14 34h12"/></svg></div>
+      <div class="v2-story-body">
+        <div class="v2-kicker">Daily playback &middot; October 05, 2026</div>
+        <h3 class="v2-story-title"><a href="posts/2026-10-05-daily.html">Uptober Opens Green While an Old Foe Gets a New Job</a></h3>
+        <p>Bitcoin is holding its ground against a surging dollar and a parade of corporate treasury theatrics, while Washington quietly rearranges the deck chairs on crypto oversight.</p>
+        <a class="v2-story-link" href="posts/2026-10-05-daily.html">Read the full playback &rarr;</a>
+      </div>
+      
+    </article><article class="v2-story has-img">
+      <div class="v2-story-tile" aria-hidden="true"><svg class="v2-icon" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="7" y="10" width="34" height="30" rx="2"/><path d="M7 19h34M16 6v8M32 6v8"/></svg></div>
+      <div class="v2-story-body">
+        <div class="v2-kicker">Weekly playback &middot; September 21, 2026</div>
+        <h3 class="v2-story-title"><a href="posts/2026-09-21-weekly.html">Shorts Get Squeezed, Congress Gets Skipped</a></h3>
+        <p>Bitcoin ripped back above $85K on the back of a brutal short squeeze this week, while Washington's crypto bill died (again) and everyone from Visa to the ECB quietly kept building anyway.</p>
+        <a class="v2-story-link" href="posts/2026-09-21-weekly.html">Read the full playback &rarr;</a>
+      </div>
+      <img class="v2-story-img" src="https://s3-images.ctmedia.io/media/article-covers/2026/09/01M32CF788SWBBCQ9G0KVD8FQK/article-covers-253627-bitcoin-bull-trap-bear-market-phase-middle-willy-woo-analyst-960x640.webp" alt="" loading="lazy" width="320" height="200">
+    </article><article class="v2-story">
+      <div class="v2-story-tile" aria-hidden="true"><svg class="v2-icon" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M14 16h12M14 22h20M14 28h20M14 34h12"/></svg></div>
+      <div class="v2-story-body">
+        <div class="v2-kicker">Daily playback &middot; September 21, 2026</div>
+        <h3 class="v2-story-title"><a href="posts/2026-09-21-daily.html">North Korean Hackers Pose as Recruiters, Infect 30K Devices and Steal $10.7M in Crypto</a></h3>
+        <p>The WaterPlum cyber group has been running what amounts to a catfish operation at scale, impersonating recruiters for crypto, AI, and NFT companies to lure developers into downloading malicious software. According to Coi...</p>
+        <a class="v2-story-link" href="posts/2026-09-21-daily.html">Read the full playback &rarr;</a>
+      </div>
+      
+    </article><article class="v2-story has-img">
+      <div class="v2-story-tile" aria-hidden="true"><svg class="v2-icon" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M14 16h12M14 22h20M14 28h20M14 34h12"/></svg></div>
+      <div class="v2-story-body">
+        <div class="v2-kicker">Daily playback &middot; September 20, 2026</div>
+        <h3 class="v2-story-title"><a href="posts/2026-09-20-daily.html">Polymarket's Growth-Over-Governance Problem Exposes the Cracks</a></h3>
+        <p>Polymarket—one of crypto's hottest prediction markets—faced a $10 million fraud attempt while its CEO was allegedly deprioritizing compliance concerns in favor of rapid growth. That's already bad. Worse: hackers compromi...</p>
+        <a class="v2-story-link" href="posts/2026-09-20-daily.html">Read the full playback &rarr;</a>
+      </div>
+      <img class="v2-story-img" src="https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2020/10/20201007_Polymarket-Daily.png" alt="" loading="lazy" width="320" height="200">
+    </article><article class="v2-story">
+      <div class="v2-story-tile" aria-hidden="true"><svg class="v2-icon" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="7" y="10" width="34" height="30" rx="2"/><path d="M7 19h34M16 6v8M32 6v8"/></svg></div>
+      <div class="v2-story-body">
+        <div class="v2-kicker">Weekly playback &middot; September 20, 2026</div>
+        <h3 class="v2-story-title"><a href="posts/2026-09-20-weekly.html">Congress Punts, Regulators Sprint, Bitcoin Rips</a></h3>
+        <p>This week, Washington's crypto bill died so the regulators could finally get to work, Bitcoin tore back toward its highs on a short squeeze, and Wall Street kept quietly building the plumbing for a very different kind of</p>
+        <a class="v2-story-link" href="posts/2026-09-20-weekly.html">Read the full playback &rarr;</a>
+      </div>
+      
+    </article></div>
+    <p class="v2-more"><a class="v2-btn v2-btn-navy" href="archive.html">Browse the full archive</a></p>
+  </div>
+</section><section class="v2-subscribe" id="subscribe" aria-labelledby="subscribe-h">
+  <div class="v2-subscribe-inner">
+    <img class="v2-subscribe-mascot" src="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" width="594" height="760" alt="The Crypto Playback mascot inviting you to subscribe" loading="lazy">
+    <div class="v2-subscribe-copy">
+      <div class="v2-kicker v2-kicker-brass">Join The Playback</div>
+      <h2 id="subscribe-h">Subscribe for free and don't miss another top story</h2>
+      <p>One concise briefing every morning: live market signals, what changed overnight, and the stories that matter
+      for Bitcoin and digital assets. Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
+      <form class="v2-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/cryptoplayback', 'popupwindow')">
+        <label class="v2-sr" for="sub-name">First name</label>
+        <input id="sub-name" type="text" name="metadata__first_name" placeholder="First name" autocomplete="given-name" required>
+        <label class="v2-sr" for="sub-email">Email address</label>
+        <input id="sub-email" type="email" name="email" placeholder="Email address" autocomplete="email" required>
+        <button type="submit" class="v2-btn v2-btn-brass">Subscribe</button>
+      </form>
+      <p class="v2-fine-light">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</p>
+    </div>
+  </div>
+</section><section class="v2-section" id="decode" aria-labelledby="decode-h">
+  <div class="v2-wrap">
+    <div class="v2-titlebar"><div class="v2-titlebox"><svg class="v2-icon" width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 10h14a4 4 0 0 1 4 4v26a3 3 0 0 0-3-3H8z"/><path d="M40 10H26"/><path d="M40 10v27H27"/></svg><h2 class="v2-titletext"><span id="decode-h">Decode The Dashboard</span></h2></div><span class="v2-title-meta">What every signal measures</span></div>
+    <p class="v2-lead">What each alert above actually measures, and how it is calculated. Tap any signal name for the full
+    methodology, data sources and history.</p>
+    <div class="v2-decode-grid"><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 34a18 18 0 0 1 36 0"/><path d="M24 34l9-12"/></svg></div>
+      <div>
+        <h3><a href="fear-greed-index.html">Fear &amp; Greed Index</a></h3>
+        <p>A 0&ndash;100 read on overall market mood, from Extreme Fear to Extreme Greed. Calculated daily from real volatility, momentum, and social data, not opinion. Extremes often line up with emotional turning points, not rational ones.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 36l10-12 8 6 14-18"/><path d="M30 12h10v10"/></svg></div>
+      <div>
+        <h3><a href="biggest-mover.html">Biggest Mover (24H)</a></h3>
+        <p>Whichever of the top 10 coins in the crypto market (by market cap, stablecoins excluded) moved the most — up or down — over the last 24 hours. Ranked purely by the size of the move, not its direction. A quick read on where the action is happening right now.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 8L42 40H6z"/><path d="M24 20v10M24 35v1"/></svg></div>
+      <div>
+        <h3><a href="risk-radar.html">Risk Radar</a></h3>
+        <p>A simple Low, Moderate, or Elevated snapshot of how turbulent the market is right now, built from volatility and sentiment extremes. It's a temperature check on current conditions, not a forecast of what happens next.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 24h32"/><path d="M30 14l10 10-10 10"/></svg></div>
+      <div>
+        <h3><a href="capital-flow.html">Capital Flow</a></h3>
+        <p>A Crypto Playback composite score built from price and sector breadth weighted against sentiment &mdash; not institutional transaction data. A higher score leans toward accumulation, a lower score toward distribution.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="27" y="8" width="13" height="13" rx="2"/><rect x="8" y="27" width="13" height="13" rx="2"/><rect x="27" y="27" width="13" height="13" rx="2"/></svg></div>
+      <div>
+        <h3><a href="top-sectors.html">Top Sectors</a></h3>
+        <p>Ranks major crypto narratives, like AI, RWA, and DeFi, by 24-hour performance. Pulled from a curated list of major sectors so tiny micro-categories can't skew the results. Shows where money is rotating inside the market, not just up or down overall.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M38 20a14 14 0 0 0-26-4"/><path d="M10 28a14 14 0 0 0 26 4"/><path d="M12 8v8h8M36 40v-8h-8"/></svg></div>
+      <div>
+        <h3><a href="btc-dominance.html">Altcoin Rotation / BTC Dominance</a></h3>
+        <p>Bitcoin's share of total crypto market cap, plus whether the other tracked coins are outperforming or underperforming BTC over the last 24 hours. Rising alt participation reads as broader breadth, not a price prediction for either side.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 6c2 8 10 12 10 22a10 10 0 0 1-20 0c0-6 4-8 4-14 4 2 6 6 6 10"/></svg></div>
+      <div>
+        <h3><a href="leverage-heat.html">Leverage Heat</a></h3>
+        <p>BTC perpetual futures funding rate - the periodic payment between long and short leverage positions. Elevated readings in either direction mean one side is more crowded with leverage, which raises liquidation-cascade risk, not a directional price call.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="16"/><path d="M24 15v18"/><path d="M29 20h-7a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-8"/></svg></div>
+      <div>
+        <h3><a href="stablecoin-liquidity.html">Stablecoin Liquidity</a></h3>
+        <p>Tracks total stablecoin supply and its 7-day change &mdash; a proxy for how much capital is parked in the crypto ecosystem, ready to deploy. Expanding supply means fresh capital is entering; contracting means it's leaving the space entirely.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 8l16 8-16 8-16-8z"/><path d="M8 24l16 8 16-8"/><path d="M8 32l16 8 16-8"/></svg></div>
+      <div>
+        <h3><a href="defi-pulse.html">DeFi Pulse</a></h3>
+        <p>Total value locked (TVL) across DeFi protocols, all chains combined, and its 7-day change. A different read than Stablecoin Liquidity - this is capital actually deployed into DeFi, not just dry powder sitting on the sidelines.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="14" width="20" height="20" rx="2"/><path d="M20 8v6M28 8v6M20 34v6M28 34v6M8 20h6M8 28h6M34 20h6M34 28h6"/></svg></div>
+      <div>
+        <h3><a href="network-health.html">Miner Health / Network Activity</a></h3>
+        <p>Bitcoin network hash rate and its trend into the next difficulty adjustment, plus current mempool congestion. Rising hash rate means more mining power is actively securing the network - a security/health read, not a price signal.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M26 6L12 26h10l-2 16 16-22H26z"/></svg></div>
+      <div>
+        <h3><a href="liquidations.html">Liquidations</a></h3>
+        <p>The size and direction of BTC perpetual futures liquidations - forced closeouts of over-leveraged positions - over the most recent ~100 events on OKX. Heavy liquidations in either direction mean forced, cascading action, not a directional price call.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 26c6-8 12-8 18 0s12 8 18 0"/><path d="M6 36c6-8 12-8 18 0s12 8 18 0"/><path d="M6 16c6-8 12-8 18 0s12 8 18 0"/></svg></div>
+      <div>
+        <h3><a href="whale-activity.html">Whale Activity</a></h3>
+        <p>The count of $1M+ BTC transactions in a sample of recent network activity. Purely a size read - we can't tell whether a large transfer is accumulation, distribution, or just an exchange moving its own coins, so this deliberately isn't scored positive or negative.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="16"/><path d="M8 24h32"/><path d="M24 8c-8 9-8 23 0 32M24 8c8 9 8 23 0 32"/></svg></div>
+      <div>
+        <h3><a href="macro-risk.html">Macro Risk</a></h3>
+        <p>A Low/Moderate/Elevated read on traditional-market conditions - equity volatility (VIX) and US dollar strength (DXY) - the only indicator here that looks outside crypto. A temperature check on macro turbulence, not a crypto-specific signal.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="26" width="6" height="12"/><rect x="19" y="18" width="6" height="20"/><rect x="29" y="10" width="6" height="28"/><path d="M6 41h36"/></svg></div>
+      <div>
+        <h3><a href="etf-flow.html">Bitcoin ETF Flow</a></h3>
+        <p>Net daily flow across US spot Bitcoin ETFs, plus a rolling streak and flow-pressure score. Positive means the funds took in more money than left them that day, not a price call. Cross-checked against a second, independent data source before it's shown.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 12h32M8 24h24M8 36h14"/></svg></div>
+      <div>
+        <h3><a href="market-breadth.html">Market Breadth</a></h3>
+        <p>The share of a fixed 40-coin universe currently trading above its own 50-day moving average. A broad measure of how widespread the current trend actually is, not just whether a few large coins are moving.</p>
+      </div>
+    </article><article class="v2-decode">
+      <div class="v2-decode-tile" aria-hidden="true"><svg class="v2-icon" width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 10h32v22H20l-8 8v-8H8z"/></svg></div>
+      <div>
+        <h3><a href="narrative-momentum.html">Narrative Momentum</a></h3>
+        <p>Ranks sectors by their trailing 7-day average daily performance, not just today's snapshot - a different cut than Top Sectors, surfacing sustained strength over a single good day.</p>
+      </div>
+    </article></div>
+  </div>
+</section>
+</main>
+<footer class="v2-footer">
+  <div class="v2-footer-inner">
+    <div class="v2-footer-brand">
+      <img class="v2-footer-badge" src="assets/v2/the-crypto-playback-badge.webp" width="64" height="64" alt="The Crypto Playback mascot badge" loading="lazy">
+      <img class="v2-footer-word" src="assets/v2/the-crypto-playback-logo-small.webp" width="800" height="86" alt="The Crypto Playback" loading="lazy">
+    </div>
+    <div class="v2-footer-cols">
+      <div>
+        <h2 class="v2-footer-h">Explore</h2>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="archive.html">Newsletter archive</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="index.html#subscribe">Subscribe free</a></li>
+        </ul>
+      </div>
+      <div class="v2-footer-ind">
+        <h2 class="v2-footer-h">Live indicators</h2>
+        <ul><li><a href="fear-greed-index.html">Fear &amp; Greed Index</a></li><li><a href="biggest-mover.html">Biggest Mover (24H)</a></li><li><a href="risk-radar.html">Risk Radar</a></li><li><a href="capital-flow.html">Capital Flow</a></li><li><a href="top-sectors.html">Top Sectors</a></li><li><a href="btc-dominance.html">Altcoin Rotation / BTC Dominance</a></li><li><a href="leverage-heat.html">Leverage Heat</a></li><li><a href="stablecoin-liquidity.html">Stablecoin Liquidity</a></li><li><a href="defi-pulse.html">DeFi Pulse</a></li><li><a href="network-health.html">Miner Health / Network Activity</a></li><li><a href="liquidations.html">Liquidations</a></li><li><a href="whale-activity.html">Whale Activity</a></li><li><a href="macro-risk.html">Macro Risk</a></li><li><a href="etf-flow.html">Bitcoin ETF Flow</a></li><li><a href="market-breadth.html">Market Breadth</a></li><li><a href="narrative-momentum.html">Narrative Momentum</a></li></ul>
+      </div>
+    </div>
+    <p class="v2-footer-sources"><strong>Sources and timestamps.</strong> Prices: CoinGecko. Indicators: Crypto Playback composite
+    methodology, refreshed automatically every 15 minutes. News: Decrypt, The Block, CoinDesk.</p>
+    <hr class="v2-footer-rule">
+    <p class="v2-footer-disclaimer"><strong>THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong> The material in this newsletter
+    has no regard to any specific investment objectives, financial situation, or particular needs of any reader. It is published
+    solely for informational purposes and is not to be construed as a solicitation, nor does it constitute advice, investment or
+    otherwise. References to third parties are based on information obtained from sources believed to be reliable but are not
+    guaranteed as being accurate. Readers should not regard it as a substitute for the exercise of their own judgment. Our comments
+    are an expression of opinion. While we believe our statements to be true, they always depend on the reliability of our own
+    credible sources. We recommend that you consult a licensed, qualified investment advisor before making any investment decisions.</p>
+    <div class="v2-footer-base">
+      <span>&copy; 2026 The Crypto Playback &middot; <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></span>
+      <span><a href="index.html#subscribe">Subscribe</a> &middot; <a href="https://cryptoplayback.com/feed.xml">RSS</a></span>
     </div>
   </div>
 </footer>
-
 </body>
 </html>
