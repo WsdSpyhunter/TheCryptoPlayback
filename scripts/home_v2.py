@@ -64,8 +64,25 @@ def price_strip(prices, date_abbrev):
 {ui.LIVE_TICKER_SCRIPT}"""
 
 
+def _fng_context(value, cls):
+    """One extra, plain-English sentence for the website's Market Snapshot
+    (the newsletter keeps its shorter wording). Hedged the same way the
+    Fear & Greed indicator page is: extremes often, not always, mark turns."""
+    meaning = {
+        "extreme fear": "sellers are dominating, and readings this low have often appeared near market lows, though fear can persist",
+        "fear": "investors are cautious and sentiment is leaning defensive, which can create opportunity or signal further weakness",
+        "neutral": "neither buyers nor sellers are clearly in control, so the market is waiting for a catalyst",
+        "greed": "buyers are in control, though stretched optimism has often come before pullbacks",
+        "extreme greed": "optimism is stretched, and readings this high have often appeared near local tops",
+    }.get(cls.lower())
+    if not meaning:
+        return ""
+    return f" At {value} out of 100, the Fear &amp; Greed Index sits in {escape(cls)} territory, meaning {meaning}."
+
+
 def snapshot(fng, snapshot_text, total_count, date_abbrev):
     cls = fng["classification"]
+    snapshot_text = snapshot_text + _fng_context(fng["value"], cls)
     tone = "pos" if fng["value"] >= 55 else ("neg" if fng["value"] <= 45 else "neu")
     return f"""<section class="v2-section" id="snapshot" aria-labelledby="snapshot-h">
   <div class="v2-wrap">
