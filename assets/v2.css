@@ -715,3 +715,22 @@ body.v2 { overflow-x: clip; }
   .v2-section .pro-lead, .v2-dark .pro-lead, .pro-lead { text-align: center; margin-left: auto; margin-right: auto; }
   .pro-method summary { text-align: center; list-style-position: inside; }
 }
+
+/* Narrow phones (320px): nothing may be wider than the screen */
+@media (max-width: 560px) {
+  .v2-conf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v2-conf, .v2-conf > * { min-width: 0; overflow-wrap: anywhere; }
+  .v2-change { flex-wrap: wrap; gap: 6px 12px; }
+  .v2-changed .v2-change-name { white-space: normal; flex-shrink: 1; max-width: 100%; }
+  .v2-changed .v2-change-detail { min-width: 0; overflow-wrap: anywhere; }
+}
+@media (max-width: 400px) {
+  .pro-brandtitle-lg { font-size: 27px; }
+  .pro-brandtitle-lg .pro-brandword { height: 36px; margin-top: 3px; }
+}
+@media (max-width: 400px) {
+  .pro-brandtitle { font-size: 17px; gap: .15em; }
+  .pro-brandword { height: 23px; margin-top: 2px; }
+  .pro-ov-band .v2-titlebox, #read .v2-titlebox { padding: 10px 14px; gap: 9px; }
+  .pro-ov-band .v2-titlebox svg, #read .v2-titlebox svg { width: 24px; height: 24px; }
+}
