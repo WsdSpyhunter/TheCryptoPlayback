@@ -782,3 +782,6 @@ body.v2 { overflow-x: clip; }
 .pro-ov-band { padding-top: 40px; }
 /* About: Contact box centered on every screen size */
 #contact, #contact h2, #contact p { text-align: center; }
+/* Issue pages: Top Story box text and story headlines centered on every screen size */
+.v2-post-lede, .v2-post-lede span, .v2-post-lede p { text-align: center; }
+.v2-post-story h2 { text-align: center; }
