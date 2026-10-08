@@ -2189,5 +2189,10 @@ if __name__ == "__main__":
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
     write_seo(entries, indicator_pages.keys())
+    try:
+        import pro_page
+        pro_page.write_institutional_page()
+    except Exception as exc:     # noqa: BLE001 - the Pro page must never break the main build
+        print(f"Institutional page skipped: {exc}")
     print(f"Rebuilt index.html and archive.html from {len(entries)} existing post(s), "
           f"plus {len(indicator_pages)} indicator page(s).")
