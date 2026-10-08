@@ -164,7 +164,7 @@ def alerts(indicators, date_abbrev):
       <span class="v2-card-caption">{ind['card_caption']}</span>
       <span class="v2-card-updated">Updated {ind['last_updated_display']}</span>
       <span class="v2-card-foot">{ui.pill(pos)}<span class="v2-card-cta">View full breakdown &rarr;</span></span>
-      <a class="v2-card-lab-link" href="playback-lab.html#{lab}">Also in the Playback Lab &rarr;</a>
+      <a class="v2-card-lab-link" href="playback-lab.html#{lab}">View in the Playback Lab &rarr;</a>
     </div>"""
             continue
         cards += f"""<a class="v2-card" href="{ind['page']}">
