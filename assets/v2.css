@@ -491,3 +491,9 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
   .v2-nav { font-size: 12.5px; letter-spacing: .03em; gap: 4px 8px; }
 }
 @media (max-width: 340px) { .v2-nav { justify-content: center; } }
+
+/* Playback Lab hero headline: "The [PlayBack] Lab" in the hero (ivory serif + bright gold brand word) */
+.pro-hero h1.pro-h1 { line-height: 1; margin-top: 10px; }
+.pro-brandtitle-lg { font-size: 50px; color: var(--ivory); gap: .35em; }
+.pro-brandtitle-lg .pro-brandword { height: 66px; filter: none; margin-top: 6px; }
+@media (max-width: 560px) { .pro-brandtitle-lg { font-size: 34px; } .pro-brandtitle-lg .pro-brandword { height: 45px; margin-top: 4px; } }

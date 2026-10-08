@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_LASTMOD = datetime(2026, 10, 7, tzinfo=timezone.utc)  # bump when about/resources copy changes
 STATIC_PAGES = [  # (path, changefreq, priority)
     ("", "hourly", "1.0"),
-    ("institutional.html", "hourly", "0.9"),
+    ("playback-lab.html", "hourly", "0.9"),
     ("archive.html", "daily", "0.8"),
     ("resources.html", "monthly", "0.7"),
     ("about.html", "monthly", "0.5"),
@@ -40,7 +40,7 @@ def sitemap_xml(entries, indicator_files, updated=None):
     urls = []
     latest_post = next((_slug_date(e["slug"]) for e in entries if _slug_date(e["slug"])), now)
     for path, freq, prio in STATIC_PAGES:
-        lm = now if path in ("", "institutional.html") else (latest_post if path == "archive.html" else STATIC_LASTMOD)
+        lm = now if path in ("", "playback-lab.html") else (latest_post if path == "archive.html" else STATIC_LASTMOD)
         urls.append((f"{SITE_URL}/{path}", _iso(lm), freq, prio))
     for fn in sorted(indicator_files):
         urls.append((f"{SITE_URL}/{fn}", _iso(now), "hourly", "0.9"))
@@ -103,7 +103,7 @@ def llms_txt(indicators):
 
 ## Main pages
 - [Home and live dashboard]({SITE_URL}/)
-- [Institutional indicators (pressure index, crowded unwind risk, protocol revenue/TVL quality, stablecoin flows)]({SITE_URL}/institutional.html)
+- [The Crypto Playback Lab: market-structure indicators (institutional pressure, crowded unwind risk, protocol revenue/TVL quality, stablecoin flows)]({SITE_URL}/playback-lab.html)
 - [Newsletter archive]({SITE_URL}/archive.html)
 - [Resources and glossary]({SITE_URL}/resources.html)
 - [About]({SITE_URL}/about.html)

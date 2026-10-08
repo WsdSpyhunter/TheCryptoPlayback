@@ -1,4 +1,4 @@
-"""Renders institutional.html (the "Institutional / Pro Indicators" page) in the
+"""Renders playback-lab.html (the "Playback Lab" page) in the
 Version 2 look from the JSON files written by `pro.refresh_pro`.
 
 Markup only: nothing here fetches data. Charts are inline SVG generated at
@@ -22,7 +22,7 @@ except Exception:  # pragma: no cover
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "pro")
-PAGE_FILE = "institutional.html"
+PAGE_FILE = "playback-lab.html"
 
 
 # ------------------------------ helpers ------------------------------------
@@ -381,13 +381,15 @@ def _wrap(inner):
 
 
 def hero(meta):
-    return f"""<section class="pro-hero">
+    return """<section class="pro-hero">
   <div class="v2-wrap">
-    <div class="v2-kicker v2-kicker-brass">Institutional indicators · transparent methodology</div>
-    <h1>Institutional Indicators</h1>
-    <p>Four institutional-style readings of Bitcoin and crypto market structure: who is pressing, who is crowded, which protocols earn their keep,
+    <div class="v2-kicker v2-kicker-brass">Playback Lab · transparent methodology</div>
+    <h1 class="pro-h1"><span aria-hidden="true" class="pro-brandtitle pro-brandtitle-lg">The
+      <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
+      <span class="v2-sr">The Crypto Playback Lab</span></h1>
+    <p>Four live readings of crypto market structure: who is pressing, who is crowded, which protocols earn their keep,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Indicators"><a href="#pressure">Pressure Index</a><a href="#unwind">Unwind Risk</a><a href="#quality">Revenue / TVL</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Pressure Index</a><a href="#unwind">Unwind Risk</a><a href="#quality">Revenue / TVL</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -417,9 +419,9 @@ def render_institutional():
         "All four readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
             + sec_pressure(p) + sec_unwind(u) + sec_quality(q) + sec_stables(s) + sec_sources())
-    return page("", "Institutional Indicators | The Crypto Playback", body, datetime.now().year, theme="v2",
+    return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="Four institutional-style crypto indicators updated every 2 hours: Institutional Pressure Index, Crowded Unwind Risk Map, Protocol Revenue/TVL Quality and Stablecoin Flows.",
+                description="The Crypto Playback Lab: four live crypto market-structure indicators, updated every 2 hours. Pressure index, crowded unwind risk, protocol revenue/TVL quality and stablecoin flows.",
                 path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 

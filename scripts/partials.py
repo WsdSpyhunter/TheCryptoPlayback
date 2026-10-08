@@ -107,7 +107,7 @@ V2_FONTS = ("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;
 
 DEFAULT_DESCRIPTION = ("Free daily Bitcoin & crypto market research. 16 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter.")
 
-V2_NAV = [("Indicators", "index.html#alerts"), ("Institutional", "institutional.html"), ("Archive", "archive.html"),
+V2_NAV = [("Indicators", "index.html#alerts"), ("Playback Lab", "playback-lab.html"), ("Archive", "archive.html"),
           ("Resources", "resources.html"), ("About", "about.html")]
 
 
@@ -179,7 +179,7 @@ def footer_v2(root, year, indicator_links=""):
         <h2 class="v2-footer-h">Explore</h2>
         <ul>
           <li><a href="{root}index.html">Home</a></li>
-          <li><a href="{root}institutional.html">Institutional indicators</a></li>
+          <li><a href="{root}playback-lab.html">Playback Lab</a></li>
           <li><a href="{root}archive.html">Newsletter archive</a></li>
           <li><a href="{root}resources.html">Resources</a></li>
           <li><a href="{root}about.html">About</a></li>
