@@ -703,3 +703,15 @@ body.v2 { overflow-x: clip; }
   .v2-story-body { width: 100%; min-width: 0; }
   .v2-story.has-img .v2-story-img { grid-column: 1; width: 100%; max-width: 420px; }
 }
+
+/* Playback Lab on mobile: grid cards may not widen the page (tables scroll inside their card) */
+.pro-two > *, .pro-hero-grid > *, .pro-comps > *, .pro-kpis > *, .pro-chart-card { min-width: 0; }
+@media (max-width: 1100px) { .pro-hero-grid, .pro-two, .pro-sources { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 700px) {
+  .pro-ov-band .v2-titlebar, #read .v2-titlebar, #pressure .v2-titlebar, #basis .v2-titlebar, #reg .v2-titlebar, #miners .v2-titlebar,
+  #liquidity .v2-titlebar, #unwind .v2-titlebar, #stables .v2-titlebar, #sources .v2-titlebar { justify-content: center; text-align: center; }
+  .pro-ov-band .v2-title-meta, #read .v2-title-meta, #pressure .v2-title-meta, #basis .v2-title-meta, #reg .v2-title-meta, #miners .v2-title-meta,
+  #liquidity .v2-title-meta, #unwind .v2-title-meta, #stables .v2-title-meta, #sources .v2-title-meta { text-align: center; }
+  .v2-section .pro-lead, .v2-dark .pro-lead, .pro-lead { text-align: center; margin-left: auto; margin-right: auto; }
+  .pro-method summary { text-align: center; list-style-position: inside; }
+}
