@@ -2195,6 +2195,11 @@ if __name__ == "__main__":
     n_posts = rebuild_post_pages()
     write_seo(entries, indicator_pages.keys())
     try:
+        import build_static_pages      # About + Resources: regenerated every build so their stylesheet version never goes stale
+        build_static_pages.build()
+    except Exception as exc:     # noqa: BLE001 - never break the main build
+        print(f"Static pages skipped: {exc}")
+    try:
         import pro_page
         pro_page.write_institutional_page()
     except Exception as exc:     # noqa: BLE001 - the Pro page must never break the main build
