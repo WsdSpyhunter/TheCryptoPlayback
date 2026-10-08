@@ -43,7 +43,7 @@ def render(post, root, market, entries, footer_links=""):
     if fng and fng.get("value"):
         mood = f'<span class="v2-post-chip v2-post-mood"><b>Fear &amp; Greed</b><span>{fng["value"]}</span><i>{escape(str(fng["classification"]))}</i></span>'
     strip = (f'<section class="v2-post-strip" aria-label="Market at the open"><div class="v2-wrap"><div class="v2-post-chips">{chips}{mood}</div>'
-             f'<p>Prices as of 6 AM CT on the issue date. <a href="index.html#alerts">See live indicators</a></p></div></section>') if chips else ""
+             f'<p>Prices as of 6 AM CT on the issue date. <a href="{root}index.html#alerts">See live indicators</a></p></div></section>') if chips else ""
 
     stories = ""
     for s in post["stories"]:
