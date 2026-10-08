@@ -14,3 +14,7 @@ Build from the locked baseline (tag `version-2-homepage-baseline`, branch `versi
 ## Open optional items
 - Shrink / re-host very large story images; choose a better thumbnail for the Oct 5 Weekly teaser.
 - Fifth oval color on Resources (v1 only); "Biggest Mover of the Week" from top 10.
+
+## Pinned questions to ask the owner again (once the four Playback Lab indicators are built and working well)
+- Add small "See the full picture in the Playback Lab" links to the five homepage cards that have deeper Lab counterparts (ETF Flow, Leverage Heat, Liquidations, Stablecoin Liquidity, DeFi Pulse)? (Touches the locked homepage; owner said they probably want to, but later.)
+- Whether to add Whale Activity and/or Macro Risk (net liquidity) as extra Lab sections.
