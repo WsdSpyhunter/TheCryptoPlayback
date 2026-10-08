@@ -1,0 +1,166 @@
+{
+  "slug": "2026-10-08-daily",
+  "title": "Bitcoin Dips, Banks Dive In",
+  "date_display": "October 08, 2026",
+  "tag": "Daily",
+  "issue_number": 5,
+  "gauge_path": "assets/gauges/2026-10-08-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 82557,
+      "change_24h": -1.25743,
+      "change_7d": -1.2771
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2540.57,
+      "change_24h": -1.30225,
+      "change_7d": -5.1946
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 762.85,
+      "change_24h": -0.44615,
+      "change_7d": -0.4185
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.4,
+      "change_24h": -2.98345,
+      "change_7d": -5.8974
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 113.5,
+      "change_24h": -3.22429,
+      "change_7d": -2.7931
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.335486,
+      "change_24h": 0.62006,
+      "change_7d": -0.1015
+    }
+  ],
+  "fng": {
+    "value": 64,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "zcash",
+    "symbol": "ZEC",
+    "name": "Zcash",
+    "price": 1209.28,
+    "change_24h": -6.68369,
+    "change_7d": -13.6807
+  },
+  "week_mover": {
+    "id": "ripple",
+    "symbol": "XRP",
+    "name": "XRP",
+    "price": 1.4,
+    "change_24h": -2.98345,
+    "change_7d": -5.8974
+  },
+  "sectors": [
+    {
+      "label": "NFT",
+      "change_24h": 1.243758885359435
+    },
+    {
+      "label": "AI",
+      "change_24h": -0.19418325694309
+    },
+    {
+      "label": "Gaming",
+      "change_24h": -0.43460623495491524
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 312076026454.42,
+    "change_7d_pct": 0.5350434507435808
+  },
+  "date_abbrev": "OCT. 8, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $82,557.00 <span style=\"color:#E8837A;\">(-1.3%)</span></span><span class=\"price-chip\">ETH $2,540.57 <span style=\"color:#E8837A;\">(-1.3%)</span></span><span class=\"price-chip\">BNB $762.85 <span style=\"color:#E8837A;\">(-0.4%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.40 <span style=\"color:#E8837A;\">(-3.0%)</span></span><span class=\"price-chip\">SOL $113.50 <span style=\"color:#E8837A;\">(-3.2%)</span></span><span class=\"price-chip\">TRX $0.34 <span style=\"color:#8FBF5C;\">(+0.6%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 8, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">64</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">ZEC</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-6.7%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin slid under $83,000 and ETF investors bolted for the exits, even as banks, phone makers, and governments quietly doubled down on crypto infrastructure.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin ETFs See Their Worst Day Since June",
+      "body": "<p>US Bitcoin ETFs shed $485 million in a single day, the biggest daily outflow since June, wiping out October's net inflows. Ether funds notched their seventh straight outflow session as risk appetite soured broadly.</p><p>ETF flows were supposed to be the steady institutional hand under this market, so seeing them reverse this hard is notable. It doesn't mean conviction is gone, but it's a reminder that 'institutional adoption' doesn't mean institutions don't also get nervous and hit sell.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-etfs-outflow-largest-june-october?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4D50JPZN9J6RZ7XKC5FMJCE/485.png"
+    },
+    {
+      "headline": "Uncle Sam Moves Nearly a Billion in Bitcoin to Coinbase",
+      "body": "<p>The US government shifted 9,261 Bitcoin, worth roughly $770 million, to Coinbase Prime, including 2,456 BTC that was newly identified in government-linked wallets. No sale has been confirmed, but the movement is big enough to draw attention on-chain.</p><p>Government bitcoin transfers always spark the same guessing game: is this liquidation, custody housekeeping, or something else entirely? Until there's an official explanation, it's worth watching rather than reacting to.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/us-government-moves-770m-seized-bitcoin-coinbase?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4DJ3V1RSDPDYAETXYR8NEK1/hi-us-government-has-shut-down-bitcoin-crypto.jpg"
+    },
+    {
+      "headline": "Crypto Splits Over 'Bunker Mode' AI Warning",
+      "body": "<p>Ethereum researchers, including Justin Drake, are urging an orderly migration of funds to fresh addresses, warning that AI-accelerated math could break wallet security before quantum computers ever do. The crypto industry is divided, with some dismissing the warning and others treating it as a serious call to action.</p><p>This is the kind of warning that's easy to wave off until it isn't. Whether or not AI cracks cryptography on this timeline, the fact that serious researchers are debating it publicly says something about how fast the ground is shifting under assumptions people built entire security models on.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/defi/2026-10-08-crypto-industry-split-over-justin-drakes-ai-warning-418021",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/05/20260511_Quantum_News_3.jpg"
+    },
+    {
+      "headline": "Samsung Puts USDC in 82 Million Pockets",
+      "body": "<p>Samsung Wallet will let US Galaxy users send USDC across borders starting late October, running on Solana, three months after Samsung first teased stablecoin support without naming the chain. The feature is built directly into Samsung Wallet with fiat on- and off-ramps rather than requiring a separate crypto app.</p><p>This is the kind of integration that matters more for stablecoin adoption than another exchange listing ever could, because it puts the rails in front of people who've never heard the word 'blockchain' and don't need to. Quietly, this is how crypto infrastructure actually spreads.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380377/samsung-wallet-taps-solana-for-usdc-transfers-on-82m-us-galaxy-devices",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/02/decrypt-style-samsung-galaxy-s26-gID_7.jpg"
+    },
+    {
+      "headline": "Greece Softens Its Crypto Tax Bite",
+      "body": "<p>Greece's draft bill would set a 10% capital gains tax on crypto, down from the 15% floated back in June, with the first \u20ac500 of annual gains exempt. That puts Greece in the middle of Europe's patchwork, between Cyprus's 8% and Italy's 33%.</p><p>Watching European crypto tax rates settle is a bit like watching countries compete on corporate tax rates: nobody wants to be the most punitive, but nobody wants to be first to zero either. Greece landing in the middle looks like a calculated bet to stay competitive without looking like a handout.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380385/greece-plans-10-crypto-capital-gains-tax-down-from-15-floated-in-june",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/10/athens-greece-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Standard Chartered Extends Crypto Custody to Singapore",
+      "body": "<p>Standard Chartered is expanding institutional crypto and real-world-asset custody services to Singapore, building on its existing footprint in the UAE, Luxembourg, and Hong Kong.</p><p>A global bank methodically rolling out crypto custody market by market is a far less flashy story than a price swing, but it's arguably more durable. Infrastructure like this doesn't make headlines for long, but it's what institutional crypto adoption actually looks like in practice.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-10-08-standard-chartered-crypto-custody-singapore-418017",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2024/06/standard_chartered_news_editorial.jpg"
+    },
+    {
+      "headline": "EU Regulator Sets a Three-Month Clock on Unauthorized Stablecoins",
+      "body": "<p>ESMA has told EU crypto firms to halt services involving stablecoins that don't comply with MiCA rules, giving them a three-month window to exit non-compliant tokens.</p><p>MiCA enforcement moving from paper to actual deadlines is the real test of whether Europe's framework has teeth. Firms that treated compliance as a someday problem now have a calendar reminder.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/esma-unauthorised-stablecoins-three-month-deadline?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4DDYJS1PK890DM0QY77B65J/hi-how-to-read-a-stablecoin-attestation-report-eu-mica-1.jpg"
+    },
+    {
+      "headline": "A Crypto News Giant Looks for a Buyer",
+      "body": "<p>Cointelegraph is reportedly seeking a buyer after web traffic plunged, according to a report from CoinDesk.</p><p>There's something fitting and a little unsettling about a crypto news outlet becoming a crypto news story. It's a reminder that media economics are brutal everywhere, even in an industry built on constant headlines.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/10/07/crypto-news-site-cointelegraph-seeks-buyer-after-web-traffic-plunges",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/69ed00cb4ec4e063082ec14eff25a2ceaf999315-1500x901.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    }
+  ],
+  "missed_story": {
+    "headline": "Hacker Spent Stolen Millions on Pok\u00e9mon Cards and a Caesar Assassination Coin",
+    "body": "The man behind the $50 million Uranium Finance hack, Jonathan Spalletta, was convicted after using the stolen crypto to buy Pok\u00e9mon and Magic cards, a Roman coin commemorating Julius Caesar's assassination, and even fabric that had flown to the moon with the Wright brothers' plane. It's one of the more eclectic crypto-crime shopping lists on record, turning stolen DeFi funds into a strange little museum of historical curiosities. Proof, if any were needed, that laundering ill-gotten crypto gains doesn't always go toward yachts and sports cars.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/380401/uranium-finance-hacker-who-bought-pokemon-and-magic-cards-convicted-over-50m-theft"
+  },
+  "excerpt": "Bitcoin slid under $83,000 and ETF investors bolted for the exits, even as banks, phone makers, and governments quietly doubled down on crypto infrastructure."
+}
