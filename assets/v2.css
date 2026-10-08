@@ -777,3 +777,6 @@ body.v2 { overflow-x: clip; }
 
 /* Playback Lab: brass rule between The Playback Read and The Playback Summary */
 #read { border-bottom: 3px solid var(--brass); }
+/* equal space above and below the brass rule between The Playback Read and The Playback Summary */
+#read { padding-bottom: 40px; }
+.pro-ov-band { padding-top: 40px; }
