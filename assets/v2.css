@@ -449,3 +449,16 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-unwind th, .pro-unwind td { padding: 9px 7px; font-size: 13.5px; }
 .pro-unwind thead th { font-size: 13px; letter-spacing: .06em; }
 .pro-unwind .pro-scoreval { margin-right: 6px; }
+
+/* The Playback Summary: Bitcoin-B title mark, centered cards */
+.btc-b { display: inline-block; height: 1.1em; width: .68em; vertical-align: -.12em; margin: 0 .06em; background-color: currentColor;
+  -webkit-mask: url("email-notable-b.png") center / contain no-repeat; mask: url("email-notable-b.png") center / contain no-repeat; }
+.pro-ov-band .v2-titlebar { margin-bottom: 24px; }
+.pro-ov-band .v2-titletext { font-size: 18.5px; }
+.pro-ov-band .v2-titlebox svg { width: 27px; height: 27px; }
+.pro-ov-band .v2-titlebox { padding: 13px 24px; }
+.v2 a.pro-ov { align-items: center; text-align: center; }
+.pro-ov .pro-spark { margin: 4px auto 0; }
+.pro-kpi { align-items: center; text-align: center; }
+
+.pro-ov-upd { margin-top: auto !important; padding-top: 6px; }

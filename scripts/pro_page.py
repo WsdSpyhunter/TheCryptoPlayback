@@ -371,7 +371,7 @@ def sec_sources():
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
       <div><h3>DeFi and stablecoins</h3><p>DefiLlama's free public API: protocols, TVL, fees and revenue, stablecoin supply by coin and chain, and DEX volume.</p></div>
     </div>
-    <div class="pro-disclaimer"><strong>Experimental research tools, not financial advice.</strong> These indicators describe market positioning and data
+    <div class="pro-disclaimer"><strong>Independent market research, not financial advice.</strong> These indicators describe market positioning and data
     reported by third parties; they are not forecasts, and sources can be delayed, revised or wrong. Do not trade on any single number here.</div>"""
     return f'<section class="v2-section v2-section-white" id="sources" aria-labelledby="sources-h">{_wrap(head + body)}</section>'
 
@@ -383,7 +383,7 @@ def _wrap(inner):
 def hero(meta):
     return f"""<section class="pro-hero">
   <div class="v2-wrap">
-    <div class="v2-kicker v2-kicker-brass">Institutional indicators · experimental</div>
+    <div class="v2-kicker v2-kicker-brass">Institutional indicators · transparent methodology</div>
     <h1>Institutional Indicators</h1>
     <p>Four institutional-style readings of Bitcoin and crypto market structure: who is pressing, who is crowded, which protocols earn their keep,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
@@ -409,7 +409,12 @@ def render_institutional():
     p, u, q, s = _load("pressure"), _load("unwind"), _load("quality"), _load("stables")
     meta = _load("meta") or {}
     ov = overview_cards(p, u, q, s)
-    body = (hero(meta) + f'<section class="pro-ov-band"><div class="v2-wrap">{ov}</div></section>'
+    summary_title = ui.title_box(
+        "snapshot",
+        '<span id="summary-h"><span aria-hidden="true">The Play<span class="btc-b"></span>ack Summary</span>'
+        '<span class="v2-sr">The Playback Summary</span></span>',
+        "All four readings at a glance")
+    body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
             + sec_pressure(p) + sec_unwind(u) + sec_quality(q) + sec_stables(s) + sec_sources())
     return page("", "Institutional Indicators | The Crypto Playback", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
