@@ -419,8 +419,8 @@ def render_institutional():
             + sec_pressure(p) + sec_unwind(u) + sec_quality(q) + sec_stables(s) + sec_sources())
     return page("", "Institutional Indicators | The Crypto Playback", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="Four free institutional-style crypto indicators: pressure index, crowded unwind risk, protocol revenue/TVL quality and stablecoin flows.",
-                path=PAGE_FILE, noindex=True,
+                description="Four institutional-style crypto indicators updated every 2 hours: Institutional Pressure Index, Crowded Unwind Risk Map, Protocol Revenue/TVL Quality and Stablecoin Flows.",
+                path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 
 

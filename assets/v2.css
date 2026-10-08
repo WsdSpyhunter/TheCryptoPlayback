@@ -55,11 +55,11 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-brand:hover { text-decoration: none; }
 .v2-brand img:first-child { width: 40px; height: 40px; }
 .v2-brand-word { width: 230px; height: auto; }
-.v2-nav { display: flex; align-items: center; gap: 28px; font-family: var(--f-cond); font-weight: 500; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; }
+.v2-nav { display: flex; align-items: center; gap: 28px; margin-left: auto; font-family: var(--f-cond); font-weight: 500; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; }
 .v2 .v2-nav a { color: var(--dark-soft); }
 .v2 .v2-nav a:hover { color: var(--brass-hi); text-decoration: none; }
-.v2 .v2-nav .v2-nav-cta { background: var(--brass-hi); color: var(--navy); padding: 7px 16px; font-weight: 600; border-bottom: 3px solid var(--brass); }
-.v2 .v2-nav .v2-nav-cta:hover { background: #fff; color: var(--navy); }
+.v2 .v2-nav-cta { font-family: var(--f-cond); font-size: 16px; letter-spacing: .14em; text-transform: uppercase; background: var(--brass-hi); color: var(--navy); padding: 7px 16px; font-weight: 600; border-bottom: 3px solid var(--brass); white-space: nowrap; }
+.v2 .v2-nav-cta:hover { background: #fff; color: var(--navy); text-decoration: none; }
 
 /* ---------- hero ---------- */
 .v2-hero { position: relative; background: var(--navy); border-bottom: 4px solid var(--brass); overflow: hidden;
@@ -255,10 +255,6 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 }
 @media (max-width: 860px) {
   .v2-wrap, .v2-header-inner, .v2-footer-inner, .v2-hero-inner { padding-left: 20px; padding-right: 20px; }
-  .v2-header-inner { flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
-  .v2-brand-word { width: 180px; }
-  .v2-nav { width: 100%; justify-content: space-between; gap: 8px; font-size: 13px; letter-spacing: .08em; }
-  .v2 .v2-nav .v2-nav-cta { padding: 5px 12px; white-space: nowrap; }
   .v2-header { position: static; }
   .v2-hero-inner { flex-direction: column; text-align: center; gap: 18px; padding-top: 30px; padding-bottom: 34px; }
   .v2-hero-mascot { height: 250px; }
@@ -478,3 +474,20 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 /* Institutional page: the small "Updated ..." notes at the top right of every section match the summary's note */
 #pressure .v2-title-meta, #quality .v2-title-meta, #sources .v2-title-meta { font-size: 13px; color: #374151; }
 #unwind .v2-title-meta, #stables .v2-title-meta { font-size: 13px; color: #D5DCE8; }
+
+/* Header: compact two-row layout (logo + Subscribe, then menu) whenever five menu links cannot sit beside the logo */
+@media (max-width: 1040px) {
+  .v2-header-inner { flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
+  .v2-brand-word { width: 190px; }
+  .v2-brand { order: 1; }
+  .v2 .v2-nav-cta { order: 2; margin-left: auto; padding: 5px 12px; font-size: 14px; letter-spacing: .1em; }
+  .v2-nav { order: 3; width: 100%; margin-left: 0; justify-content: space-between; flex-wrap: wrap; gap: 4px 10px; font-size: 14px; letter-spacing: .08em; }
+  .v2-header { position: static; }
+}
+@media (max-width: 560px) {
+  .v2-brand img:first-child { width: 34px; height: 34px; }
+  .v2-brand-word { width: 150px; }
+  .v2-brand { gap: 8px; }
+  .v2-nav { font-size: 12.5px; letter-spacing: .03em; gap: 4px 8px; }
+}
+@media (max-width: 340px) { .v2-nav { justify-content: center; } }
