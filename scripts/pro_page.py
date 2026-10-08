@@ -91,7 +91,7 @@ def heat(v):
 
 # ------------------------------ SVG charts ---------------------------------
 
-def line_chart(ts, ys, color="#8A6A1F", w=760, h=230, zero=False, fmt="{:.2f}", band=None, area=True, label=""):
+def line_chart(ts, ys, color="#8A6A1F", w=760, h=230, zero=False, fmt="{:.2f}", band=None, area=True, label="", floor=None):
     pts = [(t, y) for t, y in zip(ts, ys) if y is not None]
     if len(pts) < 2:
         return '<p class="pro-empty">Chart builds as history accumulates.</p>'
@@ -107,6 +107,8 @@ def line_chart(ts, ys, color="#8A6A1F", w=760, h=230, zero=False, fmt="{:.2f}", 
         hi, lo = hi + 1, lo - 1
     span = hi - lo
     lo, hi = lo - span * 0.08, hi + span * 0.08
+    if floor is not None:
+        lo = max(lo, floor)
     X = lambda t: pad_l + (t - xs[0]) / (xs[-1] - xs[0]) * (w - pad_l - pad_r)      # noqa: E731
     Y = lambda v: pad_t + (hi - v) / (hi - lo) * (h - pad_t - pad_b)                  # noqa: E731
     path = "M" + " L".join(f"{X(t):.1f} {Y(v):.1f}" for t, v in pts)
@@ -166,7 +168,7 @@ def _empty(title):
 
 # ------------------------------ sections -----------------------------------
 
-def overview_cards(p, u, q, s, b=None):
+def overview_cards(p, u, q, s, b=None, rg=None):
     cards = []
     if p:
         z = p["score_z"]
@@ -175,6 +177,10 @@ def overview_cards(p, u, q, s, b=None):
     if b:
         cards.append(("basis", "Basis-Trade Crowding", f"{b['score']:.0f}", f"{b['label']} · {b['phase'].lower()}",
                       "down" if b["score"] >= 55 else "flat", sparkline([x for x in b["history"]["score"][-52:]]), b["updated_at"]))
+    if rg:
+        ra = rg["activity"]
+        cards.append(("reg", "Regulatory Heat", str(ra["last_4_weeks"]), f"{ra['trend']} · docs in 4 weeks", "down" if ra["trend"] == "Rising" else "flat",
+                      sparkline(ra["weekly"]["count"][-26:]), rg["updated_at"]))
     if u:
         top = u["assets"][0]
         cards.append(("unwind", "Crowded Unwind Risk", f"{top['score']:.0f}", f"Highest: {top['symbol']} ({top['label']})",
@@ -342,6 +348,78 @@ def sec_basis(b):
     return f'<section class="v2-section" id="basis" aria-labelledby="basis-h">{_wrap(head + body)}</section>'
 
 
+def sec_reg(r):
+    head = ui.title_box("news", '<span id="reg-h">Regulatory &amp; ETF-Pipeline Tracker</span>',
+                        f"Updated {updated(r['updated_at'])}" if r else "", dark=True)
+    if not r:
+        return f'<section class="v2-dark" id="reg">{_wrap(head + _empty("The Regulatory & ETF-Pipeline Tracker"))}</section>'
+    a, pl = r["activity"], r["pipeline"]
+    sm = pl["summary"]
+    tone = "down" if a["trend"] == "Rising" else "flat"
+    ch = a["change_pct"]
+    ch_txt = "building baseline" if ch is None else f"{ch:+.0f}% vs the prior 12-week pace"
+    ts = a["weekly"]["t"]
+    chart1 = line_chart(ts, a["weekly"]["count"], color="#D4B063", fmt="{:.0f}", floor=0, label="Crypto-related Federal Register documents per week, last 52 weeks")
+    chart2 = line_chart(pl["weekly_filings"]["t"], pl["weekly_filings"]["count"], color="#8FD0AC", fmt="{:.0f}", floor=0, label="Crypto-linked SEC registration filings per week, last 16 weeks")
+    ag_max = max([x["count"] for x in a["by_agency_90d"]] or [1])
+    agencies = "".join(f'<div class="pro-barrow"><span>{escape(x["agency"])}</span><span class="pro-bar"><span style="width:{x["count"] / ag_max * 100:.0f}%"></span></span><b>{x["count"]}</b></div>'
+                       for x in a["by_agency_90d"])
+    ty_max = max(a["by_type_90d"].values() or [1])
+    types = "".join(f'<div class="pro-barrow"><span>{escape(k)}</span><span class="pro-bar"><span style="width:{v / ty_max * 100:.0f}%"></span></span><b>{v}</b></div>'
+                    for k, v in sorted(a["by_type_90d"].items(), key=lambda kv: -kv[1]))
+    rules = "".join(
+        f'<tr><td class="pro-nowrap">{x["d"]}</td><td>{escape(_agency_label(x["agency"]))}</td><td>{escape(x["type"])}</td>'
+        f'<td class="pro-wrap"><a href="{escape(x["url"] or "#")}" rel="noopener">{escape(x["title"])}</a></td></tr>' for x in a["latest_rules"])
+    stage_cls = {"Listing registered": "high", "Prospectus filed (launching)": "moderate", "Registration amended": "moderate",
+                 "Registration filed": "low", "Established, updating": "neu"}
+    prods = "".join(
+        f'<tr><th scope="row" class="pro-wrap">{escape(x["name"])}<span class="pro-pcat">{escape(x["kind"])}</span></th><td>{escape(x["underlying"])}</td>'
+        f'<td><span class="pro-lab {stage_cls.get(x["stage"], "neu")}">{escape(x["stage"])}</span></td><td class="pro-nowrap">{x["last_form"]} · {x["last_date"]}</td>'
+        f'<td><a href="{escape(x["url"])}" rel="noopener">View filing</a></td></tr>'
+        for x in pl["products"][:16])
+    kpis = (f'<div class="pro-kpis dark"><div class="pro-kpi"><span>Crypto ETPs tracked</span><strong>{sm["etp_count"]}</strong><small>with SEC filings in the last 120 days</small></div>'
+            f'<div class="pro-kpi"><span>Recently exchange-registered</span><strong>{sm["listing_registered"]}</strong><small>8-A12B filed (listing step)</small></div>'
+            f'<div class="pro-kpi"><span>New products, last 90 days</span><strong>{sm["new_etps_90d"]}</strong><small>first-ever SEC filing</small></div>'
+            f'<div class="pro-kpi"><span>Treasury companies &amp; SPACs</span><strong>{sm["treasury_and_spac"]}</strong><small>crypto-linked filers</small></div></div>')
+    method = """<details class="pro-method dark"><summary>How these readings are calculated</summary>
+      <p><strong>Regulatory activity:</strong> every Federal Register document (rules, proposed rules, notices) whose text mentions digital assets, crypto assets, cryptocurrency, bitcoin or stablecoins, from the Federal Register's free public API,
+      counted by week. <em>Regulatory heat</em> compares the last four weeks with the average four-week pace of the prior twelve (Rising above +25%, Cooling below −25%, otherwise Steady). The latest-actions list shows rules, proposed rules and notices whose titles are crypto-focused.</p>
+      <p><strong>ETF pipeline:</strong> from the SEC's daily EDGAR filing indexes, crypto-linked S-1, S-1/A, 8-A12B and 424B filings. Because the SEC adopted generic listing standards, most new crypto ETPs no longer need an individual exchange rule filing, so their registration paperwork is the early signal.
+      An 8-A12B is the step that registers the product on an exchange. A filer whose first-ever EDGAR filing is under 90 days old counts as a new product; older filers that file routine prospectus updates are shown as &ldquo;Established, updating&rdquo;.</p>
+      <p class="pro-caveat">The Federal Register search is a text match, so some documents mention crypto only in passing (counts are mentions, not rulemakings). Filer names are classified by keyword, which is a heuristic. A registration is an intention, not an approval, and nothing here predicts SEC decisions. Both sources are US government public data.</p></details>"""
+    body = f"""{_stale(r)}
+    <p class="pro-lead dark">How much is Washington writing about crypto, and which crypto investment products are moving through the SEC? Public filings, tracked automatically.</p>
+    <div class="pro-hero-grid">
+      <div class="pro-score-card">
+        <div class="pro-score-label">Regulatory heat</div>
+        <div class="pro-score-big {tone}">{a['last_4_weeks']}</div>
+        <div class="pro-score-regime {tone}">{escape(a['trend'])}</div>
+        <div class="pro-score-pct" style="font-size:18px">documents, last 4 weeks<small style="display:block;margin:6px 0 0">{ch_txt}</small></div>
+      </div>
+      <div class="pro-chart-card dark"><div class="pro-chart-title">Crypto-related Federal Register documents per week (52 weeks)</div>{chart1}</div>
+    </div>
+    <div class="pro-two">
+      <div><div class="pro-chart-title" style="margin-top:26px">Who is publishing (last 90 days, all agencies)</div><div class="pro-bars">{agencies}</div>
+        <div class="pro-chart-title" style="margin-top:22px">By document type (last 90 days)</div><div class="pro-bars">{types}</div></div>
+      <div class="pro-table-wrap"><div class="pro-chart-title" style="margin-top:26px">Latest crypto-focused rules and proposals</div>
+        <table class="pro-table pro-reg"><thead><tr><th>Date</th><th>Agency</th><th>Type</th><th>Title</th></tr></thead><tbody>{rules}</tbody></table></div>
+    </div>
+    <div class="pro-chart-title" style="margin-top:34px">ETF and crypto-product pipeline (SEC EDGAR, last 120 days)</div>
+    {kpis}
+    <div class="pro-two">
+      <div class="pro-table-wrap"><table class="pro-table pro-reg"><thead><tr><th>Product</th><th>Asset</th><th>Stage</th><th>Latest filing</th><th></th></tr></thead><tbody>{prods}</tbody></table></div>
+      <div class="pro-chart-card dark"><div class="pro-chart-title">Crypto-linked SEC registration filings per week (16 weeks)</div>{chart2}</div>
+    </div>
+    {method}"""
+    return f'<section class="v2-dark" id="reg" aria-labelledby="reg-h">{_wrap(head + body)}</section>'
+
+
+def _agency_label(names):
+    first = (names or "").split("; ")[0]
+    return {"Securities and Exchange Commission": "SEC", "Commodity Futures Trading Commission": "CFTC", "Treasury Department": "Treasury",
+            "Federal Reserve System": "Fed", "Federal Deposit Insurance Corporation": "FDIC", "Comptroller of the Currency": "OCC"}.get(first, first or "Other")
+
+
 def sec_unwind(u):
     head = ui.title_box("liquidations", '<span id="unwind-h">Crowded Unwind Risk Map</span>',
                         f"Updated {updated(u['updated_at'])}" if u else "", dark=True)
@@ -496,6 +574,7 @@ def sec_sources():
     published beside each indicator and in the open source code (<code>scripts/pro/</code>).</p>
     <div class="pro-sources">
       <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
+      <div><h3>Regulation and the ETF pipeline</h3><p>The Federal Register's free public API and the SEC's EDGAR daily filing indexes (US government public data).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
       <div><h3>Stablecoins</h3><p>Token supply read directly from public blockchain nodes (Ethereum and other EVM chains, Tron via TronGrid, Solana), plus Tether's own published transparency figures.</p></div>
     </div>
@@ -515,9 +594,9 @@ def hero(meta):
     <h1 class="pro-h1"><span aria-hidden="true" class="pro-brandtitle pro-brandtitle-lg">The
       <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
-    <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, which on-chain markets are fragile,
+    <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, what regulators and the SEC pipeline are doing, which on-chain markets are fragile,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -536,10 +615,10 @@ def _footer_links():
 
 
 def render_institutional():
-    p, u, s, b = _load("pressure"), _load("unwind"), _load("stables"), _load("basis")
+    p, u, s, b, rg = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory")
     q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
-    ov = overview_cards(p, u, q, s, b)
+    ov = overview_cards(p, u, q, s, b, rg)
     summary_title = ui.title_box(
         "pulse",
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
@@ -547,10 +626,10 @@ def render_institutional():
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
-            + sec_pressure(p) + sec_basis(b) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
+            + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, on-chain crowded unwind risk and stablecoin flows.",
+                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, regulatory and ETF-pipeline tracking, on-chain crowded unwind risk and stablecoin flows.",
                 path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 

@@ -7,6 +7,7 @@ shown on `institutional.html` in the Version 2 site style.
 |---|-----------|------|--------|
 | 1 | Institutional Positioning Index | `scripts/pro/positioning.py` | `data/pro/pressure.json` |
 | 1b | Basis-Trade Crowding (new) | `scripts/pro/basis.py` | `data/pro/basis.json` |
+| 1c | Regulatory & ETF-Pipeline Tracker (new) | `scripts/pro/regulatory.py` | `data/pro/regulatory.json`, `reg_cache.json` |
 | 2 | Crowded Unwind Risk Map (Hyperliquid) | `scripts/pro/unwind_chain.py` | `data/pro/unwind.json` |
 | 3 | Protocol Revenue / TVL Quality Score (offline) | `scripts/pro/quality.py` | none while offline |
 | 4 | Basic Stablecoin Velocity & Flows (on-chain) | `scripts/pro/stables_chain.py` | `data/pro/stables.json` |
@@ -72,6 +73,15 @@ leveraged funds' long/short, open interest, and the number of leveraged-fund tra
 **net short as % of open interest 40%**, **net short in contracts 30%**, **number of funds short 30%**. Also reports net short in BTC and USD (latest Hyperliquid BTC price), net short as a share of cumulative ETF net inflows (hedge-ratio proxy),
 4-week phase (Building > +5%, Unwinding < -5%, else Stable) and the matching asset-manager long. **Limits:** the CFTC does not label basis trades, so the leveraged-fund short is a proxy; ETFs may be hedged elsewhere; weekly data.
 First reading (2026-10-08): score 8 (Low), phase Unwinding: net short is about 6,900 contracts (about 34,000 BTC, about $2.8B), down from about 20,000 contracts in late 2024.
+
+### 1c. Regulatory & ETF-Pipeline Tracker (new)
+Module `scripts/pro/regulatory.py`; both sources are US government public data. (1) **Federal Register API**: every rule, proposed rule and notice whose text mentions digital assets, crypto assets, cryptocurrency, bitcoin or stablecoins
+(a text match, so some are incidental mentions), counted weekly since 2024, by agency and type. *Regulatory heat* = documents in the last 4 weeks vs the average 4-week pace of the prior 12 weeks (Rising > +25%, Cooling < -25%).
+The latest-actions list is limited to crypto-focused titles. (2) **SEC EDGAR daily filing indexes** (`sec.gov/Archives/edgar/daily-index`, declared User-Agent, polite request rate): crypto-linked S-1, S-1/A, 8-A12B and 424B filings over the last 125 days.
+Because the SEC adopted generic listing standards, new spot crypto ETPs mostly no longer need an individual exchange rule filing, so registration paperwork is the early signal; an 8-A12B registers the product on an exchange.
+Each filer's first-ever EDGAR filing date (submissions API) separates new products (< 90 days) from established funds filing routine prospectus updates. Stages: Listing registered / Prospectus filed (launching) / Registration amended / Registration filed / Established, updating.
+Cache: `data/pro/reg_cache.json` (only new days are fetched). **Limits:** filer names are classified by keyword (heuristic); a registration is an intention, not an approval; nothing predicts SEC decisions.
+First reading (2026-10-08): 25 crypto-related Federal Register documents in 4 weeks (Rising, +39%); 41 crypto ETP filers tracked, 6 recently exchange-registered, 0 first-time filers in 90 days.
 
 ### 3. Protocol Revenue / TVL Quality Score (OFFLINE since 2026-10-08)
 _Taken off the page and out of the refresh job because DefiLlama is the only free source and its terms do not clearly allow republishing (see DATA-LICENSE-REVIEW.md). The code (`scripts/pro/quality.py`), the page section (`sec_quality` in `scripts/pro_page.py`) and its styling are kept. To bring it back: add it to `JOBS` in `scripts/pro/refresh_pro.py` and set `SHOW_QUALITY = True` in `scripts/pro_page.py`._
