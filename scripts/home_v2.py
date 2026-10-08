@@ -142,6 +142,10 @@ def confluence_and_changed(items, positive_count, total_count, interpretation, c
 </section>"""
 
 
+# Homepage cards with a deeper counterpart in the Playback Lab: indicator id -> Lab section anchor.
+LAB_LINKS = {"etf_flow": "pressure", "leverage_heat": "unwind", "liquidations": "unwind", "stablecoin_liquidity": "stables"}
+
+
 def _card_title(ind):
     return ui.strip_emoji(ind["card_label"])
 
@@ -151,6 +155,18 @@ def alerts(indicators, date_abbrev):
     for ind in indicators:
         title = _card_title(ind)
         pos = ind.get("confluence_positive")
+        lab = LAB_LINKS.get(ind["id"])
+        if lab:
+            cards += f"""<div class="v2-card v2-card-lab">
+      <a class="v2-card-stretch" href="{ind['page']}" aria-label="{title}: view full breakdown"></a>
+      <span class="v2-card-head">{ui.icon(ind['id'], 24)}<span class="v2-card-title">{title}</span></span>
+      <span class="v2-card-main">{ind['card_main_html']}</span>
+      <span class="v2-card-caption">{ind['card_caption']}</span>
+      <span class="v2-card-updated">Updated {ind['last_updated_display']}</span>
+      <span class="v2-card-foot">{ui.pill(pos)}<span class="v2-card-cta">View full breakdown &rarr;</span></span>
+      <a class="v2-card-lab-link" href="playback-lab.html#{lab}">Also in the Playback Lab &rarr;</a>
+    </div>"""
+            continue
         cards += f"""<a class="v2-card" href="{ind['page']}">
       <span class="v2-card-head">{ui.icon(ind['id'], 24)}<span class="v2-card-title">{title}</span></span>
       <span class="v2-card-main">{ind['card_main_html']}</span>
