@@ -16,6 +16,7 @@ from datetime import datetime, timedelta, timezone
 from PIL import Image, ImageDraw
 from partials import page, asset_version
 import home_v2
+import indicator_v2
 import seo
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
@@ -2073,13 +2074,8 @@ def render_indicator_pages(entries):
     pages = {}
     for ind in ctx["indicators"]:
         history_rows = ind.get("_own_history_rows", shared_history)
-        shell_kwargs = {"refresh_note": ind["refresh_note"]} if "refresh_note" in ind else {}
-        pages[ind["page"]] = _indicator_page_shell(
-            "The Crypto Playback", ind["page_title"], ind["page_hero_html"],
-            ind["page_sections"], history_rows, ind["history_formatter"],
-            ind["last_updated_display"],
-            **shell_kwargs,
-        )
+        note = ind.get("refresh_note", "Refreshed automatically every 15 minutes: nothing here is backfilled or estimated.")
+        pages[ind["page"]] = indicator_v2.render(ind, history_rows, note, ctx["indicators"])
     return pages
 
 
