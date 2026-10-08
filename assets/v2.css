@@ -685,8 +685,8 @@ body.v2 { overflow-x: clip; }
 .v2-footer-brand { min-width: 0; }
 .v2-footer-word { flex: 0 1 300px; min-width: 0; max-width: 100%; }
 @media (max-width: 700px) {
-  #confluence .v2-titlebar, #alerts .v2-titlebar, #news .v2-titlebar { justify-content: center; text-align: center; }
-  #confluence .v2-title-meta, #alerts .v2-title-meta, #news .v2-title-meta, .v2-changed .v2-title-meta { text-align: center; }
+  #snapshot .v2-titlebar, #confluence .v2-titlebar, #alerts .v2-titlebar, #news .v2-titlebar { justify-content: center; text-align: center; }
+  #snapshot .v2-title-meta, #confluence .v2-title-meta, #alerts .v2-title-meta, #news .v2-title-meta, .v2-changed .v2-title-meta { text-align: center; }
   .v2-changed .v2-titlebar { justify-content: center; text-align: center; }
   .v2-conf-head { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
   .v2-conf-interp { text-align: center; }
