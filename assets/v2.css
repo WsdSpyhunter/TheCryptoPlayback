@@ -694,3 +694,12 @@ body.v2 { overflow-x: clip; }
   .v2-lede { text-align: center; border-left-width: 1px; border-top: 5px solid var(--brass); }
   .v2-lede-text { margin-left: auto; margin-right: auto; }
 }
+
+/* Mobile: story icon moves above the text and every story is centered */
+@media (max-width: 700px) {
+  .v2-story, .v2-story.has-img { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 14px; }
+  .v2-story-tile { width: 56px; height: 56px; }
+  .v2-story-tile svg { width: 30px; height: 30px; }
+  .v2-story-body { width: 100%; min-width: 0; }
+  .v2-story.has-img .v2-story-img { grid-column: 1; width: 100%; max-width: 420px; }
+}
