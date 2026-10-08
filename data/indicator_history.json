@@ -53307,5 +53307,176 @@
       "dxy_change_pct": -0.062
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-10-08T19:17:21.300197+00:00",
+    "prices": [
+      {
+        "id": "bitcoin",
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 81426,
+        "change_24h": -2.35775,
+        "change_7d": -3.905
+      },
+      {
+        "id": "ethereum",
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2446.85,
+        "change_24h": -4.50926,
+        "change_7d": -9.2568
+      },
+      {
+        "id": "binancecoin",
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 726.81,
+        "change_24h": -5.81837,
+        "change_7d": -5.7615
+      },
+      {
+        "id": "ripple",
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.36,
+        "change_24h": -4.47693,
+        "change_7d": -9.1702
+      },
+      {
+        "id": "solana",
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 108.46,
+        "change_24h": -6.56442,
+        "change_7d": -8.5749
+      },
+      {
+        "id": "tron",
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.332952,
+        "change_24h": -0.74769,
+        "change_7d": -0.6659
+      }
+    ],
+    "fng": {
+      "value": 64,
+      "classification": "Greed"
+    },
+    "mover": {
+      "id": "zcash",
+      "symbol": "ZEC",
+      "name": "Zcash",
+      "price": 1141.52,
+      "change_24h": -14.44175,
+      "change_7d": -15.0044
+    },
+    "week_mover": {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2446.85,
+      "change_24h": -4.50926,
+      "change_7d": -9.2568
+    },
+    "sectors": [
+      {
+        "label": "RWA",
+        "change_24h": -1.5837368054203202
+      },
+      {
+        "label": "L1",
+        "change_24h": -3.149345114263745
+      },
+      {
+        "label": "L2",
+        "change_24h": -3.26801608809556
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 312076026454.42,
+      "change_7d_pct": 0.5350434507435808
+    },
+    "dominance": {
+      "btc_dominance_pct": 59.16450866991041,
+      "total_market_cap_usd": 2760617789939.451
+    },
+    "leverage": {
+      "funding_rate_pct": 0.00372572617091,
+      "next_funding_time_ms": 1791532800000,
+      "open_interest_usd": 2462747483.473882
+    },
+    "defi_tvl": {
+      "total_usd": 91940918816.0,
+      "change_7d_pct": -3.0031471159146386
+    },
+    "network_health": {
+      "hashrate_eh": 984.3831815087067,
+      "difficulty_change_pct": 4.1576799981483115,
+      "fastest_fee_satvb": 4,
+      "pending_tx_count": 89271
+    },
+    "liquidations": {
+      "long_liq_usd": 6114.47678,
+      "short_liq_usd": 749470.8855300001,
+      "event_count": 100,
+      "window_minutes": 43.44623333333333
+    },
+    "whale_activity": {
+      "amounts_btc": [
+        1320.2922379,
+        219.35984823,
+        146.23179581,
+        137.49786788,
+        113.0189866,
+        59.55655441,
+        56.83702849,
+        50.47033868,
+        45.95342058,
+        37.81186559,
+        29.39883736,
+        26.0020526,
+        26.00185287,
+        26.00149532,
+        26.00137599,
+        25.99897076,
+        25.99894476,
+        25.99843883,
+        25.55680937,
+        22.47835583,
+        21.97836753,
+        21.9766391,
+        21.97660524,
+        15.76784086,
+        14.89735155,
+        14.46140984,
+        13.55350655,
+        13.28956841,
+        12.19504442,
+        11.83644806,
+        9.79999127,
+        9.62106738,
+        6.99370412,
+        6.08306914,
+        5.74938736,
+        5.59377377,
+        5.5578523,
+        5.55729533,
+        5.55692733,
+        5.55261207,
+        5.55048968,
+        5.23690194,
+        5.09998575
+      ],
+      "sample_size": 1000
+    },
+    "macro": {
+      "vix": 15.62,
+      "vix_change_pct": 3.583,
+      "dxy": 102.116,
+      "dxy_change_pct": -0.123
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
