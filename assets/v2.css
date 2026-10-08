@@ -474,3 +474,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 #stables .v2-titlebox svg { width: 27px; height: 27px; }
 
 .pro-ov-band .v2-title-meta { font-size: 13px; color: #374151; }
+
+/* Institutional page: the small "Updated ..." notes at the top right of every section match the summary's note */
+#pressure .v2-title-meta, #quality .v2-title-meta, #sources .v2-title-meta { font-size: 13px; color: #374151; }
+#unwind .v2-title-meta, #stables .v2-title-meta { font-size: 13px; color: #D5DCE8; }
