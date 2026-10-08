@@ -2079,7 +2079,7 @@ def render_archive(entries):
     <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Archive</span></nav>
     <div class="v2-kicker v2-kicker-brass v2-ind-kicker">Every issue, free to read</div>
     <h1 class="v2-ind-title" id="arch-h">The Playback Archive</h1>
-    <p class="v2-arch-sub">Every daily and weekly briefing on Bitcoin and digital assets, newest first.</p>
+    <p class="v2-arch-sub">On this page you will find every daily and weekly newsletter we&rsquo;ve ever released.</p>
   </div>
 </section>
 <section class="v2-section v2-ind-body">
