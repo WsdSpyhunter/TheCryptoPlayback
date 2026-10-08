@@ -91,7 +91,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-strip { background: var(--ivory); border-bottom: 2px solid #B9B09A; padding: 28px 0 20px; }
 .v2-coins { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: center; }
 .v2-coin { display: flex; flex-direction: column; gap: 2px; font-family: var(--f-mono); font-weight: 500; }
-.v2-coin-sym { font-size: 17px; color: var(--muted); }
+.v2-coin-sym { font-size: 21px; color: var(--muted); }
 .v2-coin-price { font-size: 20px; color: var(--navy); }
 .v2-coin-change { font-size: 13px; color: var(--muted); }
 .v2-coin-change.up { color: var(--pos); }
