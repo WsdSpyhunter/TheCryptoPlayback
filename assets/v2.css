@@ -679,3 +679,21 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-post-nav-a span { font-family: var(--f-cond); letter-spacing: .1em; text-transform: uppercase; font-size: 13px; color: var(--brass-text); }
 .v2-post-nav-r { text-align: right; }
 @media (max-width: 700px) { .v2-post-title { font-size: 30px; } .v2-post-nav { grid-template-columns: 1fr; } .v2-post-story { padding: 20px 18px; } }
+
+/* ---- Mobile: stop sideways scrolling; center homepage section headers ---- */
+body.v2 { overflow-x: clip; }
+.v2-footer-brand { min-width: 0; }
+.v2-footer-word { flex: 0 1 300px; min-width: 0; max-width: 100%; }
+@media (max-width: 700px) {
+  #confluence .v2-titlebar, #alerts .v2-titlebar, #news .v2-titlebar { justify-content: center; text-align: center; }
+  #confluence .v2-title-meta, #alerts .v2-title-meta, #news .v2-title-meta, .v2-changed .v2-title-meta { text-align: center; }
+  .v2-changed .v2-titlebar { justify-content: center; text-align: center; }
+  .v2-conf-head { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .v2-conf-interp { text-align: center; }
+  #confluence .v2-fineprint { text-align: center; }
+  .v2-change { justify-content: center; text-align: center; flex-wrap: wrap; }
+  .v2-change-list { text-align: center; }
+  .v2-alerts-intro .v2-lead, #news .v2-lead { text-align: center; margin-left: auto; margin-right: auto; }
+  .v2-lede { text-align: center; border-left-width: 1px; border-top: 5px solid var(--brass); }
+  .v2-lede-text { margin-left: auto; margin-right: auto; }
+}
