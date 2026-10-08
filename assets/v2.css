@@ -753,3 +753,9 @@ body.v2 { overflow-x: clip; }
   .pro-rd-tile span { font-size: 12.5px; letter-spacing: .08em; }
 }
 @media (max-width: 700px) { .v2-wrap > .pro-chart-title { text-align: center; } }
+
+/* Issue pages on mobile: centered Top Story box and story headlines */
+@media (max-width: 700px) {
+  .v2-post-lede { text-align: center; border-left-width: 1px; border-top: 5px solid var(--brass); }
+  .v2-post-story h2 { text-align: center; }
+}
