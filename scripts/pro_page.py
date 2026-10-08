@@ -410,7 +410,7 @@ def render_institutional():
     meta = _load("meta") or {}
     ov = overview_cards(p, u, q, s)
     summary_title = ui.title_box(
-        "snapshot",
+        "pulse",
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
         '<img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Summary</span>'
         '<span class="v2-sr">The Playback Summary</span></span>',

@@ -40,6 +40,7 @@ ICON_PATHS = {
     "calendar": '<rect x="7" y="10" width="34" height="30" rx="2"/><path d="M7 19h34M16 6v8M32 6v8"/>',
     "book": '<path d="M8 10h14a4 4 0 0 1 4 4v26a3 3 0 0 0-3-3H8z"/><path d="M40 10H26"/><path d="M40 10v27H27"/>',
     "mail": '<rect x="6" y="10" width="36" height="28" rx="2"/><path d="M6 14l18 14 18-14"/>',
+    "pulse": '<path d="M4 26h9l5-13 9 24 6-15 3 4h8"/>',
     "arrow": '<path d="M8 24h32"/><path d="M30 14l10 10-10 10"/>',
 }
 
