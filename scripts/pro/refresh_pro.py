@@ -12,11 +12,11 @@ import time
 import traceback
 from datetime import datetime, timezone
 
-from . import positioning, unwind, quality, stables_chain
+from . import positioning, unwind_chain, quality, stables_chain
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(ROOT, "data", "pro")
-JOBS = {"pressure": positioning.compute, "unwind": unwind.compute, "quality": quality.compute, "stables": stables_chain.compute}
+JOBS = {"pressure": positioning.compute, "unwind": unwind_chain.compute, "quality": quality.compute, "stables": stables_chain.compute}
 
 
 def _write(name, payload):

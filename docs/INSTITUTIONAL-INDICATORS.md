@@ -57,11 +57,13 @@ Tuesday it describes), **Spot ETF flows 30%** (half 1-day, half 5-day sum; the s
 weekly change, two-year chart). Leveraged funds are usually net short because many run the ETF-vs-futures basis trade, so their short is shown but not scored as bearish. The earlier version (`scripts/pro/pressure.py`)
 used Coinbase Premium and centralised-exchange funding/OI; those were removed (no clean free source). `pressure.py` is kept because the ETF helper is reused.
 
-### 2. Crowded Unwind Risk Map
-Ten assets (BTC, ETH, SOL, XRP, DOGE, BNB, ADA, AVAX, LINK, SUI). Score 0–100 from five percentiles of the asset's own trailing 30 days of Gate.io hourly stats:
-OI crowding 30%, Funding 30% (60% extremity + 40% persistence), Long/short skew 20% (deviation from own median), Liquidation heat 10% (24h liquidations ÷ OI),
-Adverse move 10% (24h move against the crowded side). Bands: Low <35, Moderate 35–55, High 55–75, Extreme ≥75. Cross-venue OI/funding table is context only.
-**Not modelled (no free data):** liquidation-price clusters, order-book depth.
+### 2. Crowded Unwind Risk Map (Open Edition: on-chain perpetuals)
+Module `scripts/pro/unwind_chain.py`. Ten assets (BTC, ETH, SOL, XRP, DOGE, BNB, ADA, AVAX, LINK, SUI) on Hyperliquid, the largest on-chain perp exchange. Score 0-100 from four percentiles of the coin's own trailing 30 days:
+**Premium 45%** (|perp price vs oracle price|, from Hyperliquid's hourly funding-history premium), **Funding excess 25%** (funding above or below Hyperliquid's fixed 0.01%-per-8h interest floor: raw funding sits on that
+floor whenever the market is balanced and would falsely look elevated; 60% extremity + 40% persistence), **Open interest 15%** (current OI vs its own range, built from our own hourly snapshots in
+`data/pro/hl_snapshots.json` because Hyperliquid has no OI history; shows "building" for about two days and the other components are re-weighted meanwhile), **Adverse move 15%** (24h move against the crowded side).
+Bands: Low <35, Moderate 35-55, High 55-75, Extreme >=75. Direction = vote of premium sign (beyond 1 bp) and funding-excess sign; Low scores read "Balanced". dYdX was evaluated and dropped (100-500x smaller than Hyperliquid, so
+noise). **Not modelled (no free data):** long/short account ratios, liquidation-price clusters, order-book depth, centralised-exchange crowding. The earlier Gate.io-based version (`scripts/pro/unwind.py`) is kept but unused.
 
 ### 3. Protocol Revenue / TVL Quality Score
 Universe: TVL ≥ $100M, 30-day fees ≥ $250k, top 60 by fees. Percentile ranks: Fee yield 35%, Stability 25% (low CV of 90-day daily fees), Growth 20%, Scale 20%.

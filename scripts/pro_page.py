@@ -291,44 +291,40 @@ def sec_unwind(u):
                         f"Updated {updated(u['updated_at'])}" if u else "", dark=True)
     if not u:
         return f'<section class="v2-dark" id="unwind">{_wrap(head + _empty("The Crowded Unwind Risk Map"))}</section>'
-    cols = [("oi", "OI"), ("funding", "Funding"), ("lsr", "L/S skew"), ("liq", "Liq. heat"), ("adverse", "Adverse")]
+    cols = [("premium", "Premium"), ("funding", "Funding"), ("oi", "Open int."), ("adverse", "Adverse")]
     rows = ""
     for a in u["assets"]:
         cells = "".join(
             f'<td class="pro-hm" style="background:{heat(a["components"].get(k))}" title="{lab} percentile: {a["components"].get(k)}">'
             f'{"–" if a["components"].get(k) is None else a["components"][k]}</td>' for k, lab in cols)
         dir_cls = "long" if a["direction"] == "Crowded long" else "short" if a["direction"] == "Crowded short" else "bal"
-        fund = a.get("funding_8h_agg")
-        venues = ""
-        for v in a.get("venues", []):
-            venues += (f'<tr><td>{v["venue"]}</td><td>{money(v["oi_usd"])}</td>'
-                       f'<td>{v["funding_8h"] * 100:+.4f}%</td></tr>')
-        detail = (f'<details class="pro-venues"><summary>Cross-venue</summary><table><thead><tr><th>Venue</th><th>Open interest</th><th>Funding / 8h</th></tr></thead>'
-                  f'<tbody>{venues}</tbody></table></details>') if venues else ""
+        fund = a.get("funding_8h")
+        prem = a.get("premium_bps")
         rows += (f'<tr><th scope="row"><span class="pro-sym">{a["symbol"]}</span></th>'
                  f'<td><span class="pro-scorebar"><span style="width:{a["score"]:.0f}%;background:{heat(a["score"])}"></span></span>'
                  f'<span class="pro-scoreval">{a["score"]:.0f}</span><span class="pro-lab {a["label"].lower()}">{a["label"]}</span></td>'
                  f'<td><span class="pro-dir {dir_cls}">{a["direction"]}</span></td>{cells}'
-                 f'<td class="pro-num">{money(a.get("oi_all_venues_usd"))}</td>'
+                 f'<td class="pro-num">{"n/a" if prem is None else f"{prem:+.1f} bp"}</td>'
                  f'<td class="pro-num">{"n/a" if fund is None else f"{fund * 100:+.4f}%"}</td>'
-                 f'<td class="pro-num">{"n/a" if a.get("lsr_gate") is None else f"{a['lsr_gate']:.2f}"}</td>'
-                 f'<td>{sparkline([h["score"] for h in a["history"]], w=90, h=26)}{detail}</td></tr>')
+                 f'<td class="pro-num">{money(a.get("oi_usd"))}</td>'
+                 f'<td>{sparkline([h["score"] for h in a["history"]], w=90, h=26)}</td></tr>')
     th = "".join(f"<th>{lab}</th>" for _, lab in cols)
+    building = ('<p class="pro-note">Open interest is still building: Hyperliquid publishes no open-interest history, so we record our own snapshots. '
+                'Until about two days have accumulated, the score uses the other three components.</p>') if u.get("oi_building") else ""
     method = """<details class="pro-method dark"><summary>How this score is calculated</summary>
-      <p>Each asset gets a 0–100 score from five components, each a percentile of that asset's own trailing 30 days (so a coin is compared with itself):
-      <strong>OI crowding 30%</strong> (open interest versus its own range), <strong>Funding 30%</strong> (60% size of |funding| versus its history + 40%
-      persistence: how much of the last 24 hours had the same sign and at least median size), <strong>Long/short skew 20%</strong> (how far the long/short
-      account ratio sits from its own median), <strong>Liquidation heat 10%</strong> (24-hour liquidations as a share of open interest) and
-      <strong>Adverse move 10%</strong> (a 24-hour price move against the crowded side). Bands: Low under 35, Moderate 35–55, High 55–75, Extreme 75+.</p>
-      <p>Direction is a vote between the sign of funding and the sign of the long/short ratio's deviation from its median. The score and its history are computed on
-      Gate.io hourly contract statistics; the cross-venue table (OKX, Gate, Hyperliquid, Bitget, Deribit, Kraken) is shown for context and does not change the score.</p>
-      <p class="pro-caveat">Not modelled because free data does not exist: liquidation-price cluster maps and order-book depth. Liquidation volumes are those observed on Gate.io
-      (a sample of the market). Binance and Bybit block US servers and are not used.</p></details>"""
+      <p>Each coin gets a 0–100 score from four components, each a percentile of that coin's own trailing 30 days (so a coin is compared with itself):
+      <strong>Premium 45%</strong> (how far the perpetual trades from its oracle price, a persistent premium or discount means traders are paying up to hold leveraged positions),
+      <strong>Funding excess 25%</strong> (funding above or below Hyperliquid's fixed 0.01%-per-8-hours floor, with persistence: raw funding would look falsely elevated because it sits exactly on that floor when the market is balanced),
+      <strong>Open interest 15%</strong> (current open interest versus its own range, built from our own snapshots) and <strong>Adverse move 15%</strong> (a 24-hour price move against the crowded side, the stress that forces unwinds).
+      Bands: Low under 35, Moderate 35–55, High 55–75, Extreme 75+. Direction is a vote between the sign of the premium and of the funding excess; a Low score is shown as Balanced.</p>
+      <p class="pro-caveat">This map describes traders on Hyperliquid, the largest on-chain perpetuals exchange: a big and fast-moving group, but not the whole market. dYdX, the other on-chain venue checked, is 100–500 times smaller and was left out as noise.
+      Not modelled because free data does not exist: long/short account ratios, liquidation-price clusters, order-book depth, and centralised-exchange crowding.</p></details>"""
     body = f"""{_stale(u)}
-    <p class="pro-lead dark">Which large perpetual-futures markets look most crowded and fragile? Higher scores mean positioning is more stretched and a leveraged unwind
-    would be more violent. Cells show each component's percentile (0–100).</p>
+    <p class="pro-lead dark">Which large perpetual-futures markets look most crowded and fragile on-chain? Higher scores mean positioning is more stretched and a leveraged unwind would hit harder.
+    Cells show each component's percentile (0–100) against the coin's own last 30 days.</p>
     <div class="pro-table-wrap"><table class="pro-table pro-unwind"><thead><tr><th>Asset</th><th>Risk score</th><th>Direction</th>{th}
-      <th>Total OI</th><th>Funding/8h</th><th>L/S</th><th>14d</th></tr></thead><tbody>{rows}</tbody></table></div>
+      <th>Perp vs index</th><th>Funding/8h</th><th>On-chain OI</th><th>14d</th></tr></thead><tbody>{rows}</tbody></table></div>
+    {building}
     {method}"""
     return f'<section class="v2-dark" id="unwind" aria-labelledby="unwind-h">{_wrap(head + body)}</section>'
 
@@ -443,9 +439,7 @@ def sec_sources():
     body = """<p class="pro-lead">Every number on this page is computed from free public data with no paid vendor and no API key. The formulas are
     published beside each indicator and in the open source code (<code>scripts/pro/</code>).</p>
     <div class="pro-sources">
-      <div><h3>Derivatives</h3><p>OKX, Gate.io, Hyperliquid, Bitget, Deribit and Kraken Futures public market-data endpoints: open interest, funding, long/short ratios and liquidations.
-      Binance and Bybit refuse US-based servers, so they are not used.</p></div>
-      <div><h3>Prices</h3><p>Coinbase Exchange, OKX and Kraken public prices for the Coinbase Premium (Coinbase versus OKX, dollar-adjusted with Kraken USDT/USD).</p></div>
+      <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
       <div><h3>Stablecoins</h3><p>Token supply read directly from public blockchain nodes (Ethereum and other EVM chains, Tron via TronGrid, Solana), plus Tether's own published transparency figures.</p></div>
       <div><h3>DeFi protocols</h3><p>DefiLlama's free public API: protocol TVL, fees and revenue (used only for the Revenue / TVL Quality score).</p></div>
