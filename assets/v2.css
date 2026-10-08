@@ -759,3 +759,11 @@ body.v2 { overflow-x: clip; }
   .v2-post-lede { text-align: center; border-left-width: 1px; border-top: 5px solid var(--brass); }
   .v2-post-story h2 { text-align: center; }
 }
+
+/* Resources on mobile: centered section titles, subtext and descriptions */
+@media (max-width: 700px) {
+  #start .v2-titlebar, #tools .v2-titlebar, #institutional .v2-titlebar, #protect .v2-titlebar, #reading .v2-titlebar, #signals .v2-titlebar, #glossary .v2-titlebar { justify-content: center; text-align: center; }
+  #start .v2-title-meta, #tools .v2-title-meta, #institutional .v2-title-meta, #protect .v2-title-meta, #reading .v2-title-meta, #signals .v2-title-meta, #glossary .v2-title-meta { text-align: center; }
+  #start .v2-lead, #tools .v2-lead, #institutional .v2-lead, #protect .v2-lead, #reading .v2-lead, #signals .v2-lead, #glossary .v2-lead { text-align: center; margin-left: auto; margin-right: auto; }
+  #reading .v2-res-more, #glossary .v2-res-more { text-align: center; }
+}
