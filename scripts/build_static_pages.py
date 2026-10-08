@@ -3,20 +3,39 @@ the two static pages. Unlike index/archive/posts, these are NOT touched by
 the daily/weekly automation — edit this file and rerun it by hand."""
 import os
 from datetime import datetime
-from partials import page
+from partials import page, SITE_URL
+import v2_ui as ui
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ABOUT_BODY = """<div class="page-content">
-  <h1>About The Crypto Playback</h1>
-  <p>The Crypto Playback is your trusted source for efficient Bitcoin and crypto news and data.</p>
-  <p>The website and newsletter both offer a quick scan of the top headlines plus deep, high-value data. All in one place, on a single page, free for subscribers.</p>
-  <p>No more spending your day scrolling Crypto Twitter or hunting across multiple sites for the information you need.</p>
-  <p>One stop. One look. A quick Crypto Playback and you&rsquo;re fully informed on the fastest-moving industry on the planet.</p>
-  <p>Nothing here is financial advice. See the note at the bottom of every page for the full disclosure.</p>
-  <h1 style="margin-top:2em;">Contact</h1>
-  <p>Questions, tips, or feedback: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></p>
-</div>"""
+ABOUT_BODY = """<section class="v2-ind-hero" aria-labelledby="about-h">
+  <div class="v2-wrap">
+    <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">About</span></nav>
+    <div class="v2-kicker v2-kicker-brass v2-ind-kicker">One stop. One look.</div>
+    <h1 class="v2-ind-title" id="about-h">About The Crypto Playback</h1>
+    <p class="v2-arch-sub">Your trusted source for efficient Bitcoin and crypto news and data.</p>
+  </div>
+</section>
+<section class="v2-section v2-ind-body">
+  <div class="v2-wrap v2-about">
+    <article class="v2-ind-card v2-about-card">
+      <p>The website and newsletter both offer a quick scan of the top headlines plus deep, high-value data. All in one place, on a single page, free for subscribers.</p>
+      <p>No more spending your day scrolling Crypto Twitter or hunting across multiple sites for the information you need.</p>
+      <p>One stop. One look. A quick Crypto Playback and you&rsquo;re fully informed on the fastest-moving industry on the planet.</p>
+      <p class="v2-about-note">Nothing here is financial advice. See the note at the bottom of every page for the full disclosure.</p>
+    </article>
+    <div class="v2-about-tiles">
+      <a class="v2-about-tile" href="archive.html"><span>The briefing</span><strong>Daily and weekly issues</strong><em>Browse the archive &rarr;</em></a>
+      <a class="v2-about-tile" href="index.html#alerts"><span>The data</span><strong>16 live indicators</strong><em>See the dashboard &rarr;</em></a>
+      <a class="v2-about-tile" href="playback-lab.html"><span>The research</span><strong>The Playback Lab</strong><em>Open the Lab &rarr;</em></a>
+    </div>
+    <article class="v2-ind-card v2-about-card" id="contact">
+      <h2>Contact</h2>
+      <p>Questions, tips, or feedback: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></p>
+    </article>
+    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the daily playback free</a></p>
+  </div>
+</section>"""
 
 # ---------------------------------------------------------------------------
 # Resources page: full-bleed banded sections of shadowed link cards. All
@@ -31,24 +50,29 @@ TAGS = {
 }
 
 
+TAG_CLS = {"R": "retail", "I": "inst", "A": "all"}
+SEC_ICONS = {"start": "book", "tools": "network_health", "institutional": "structure", "protect": "risk_radar",
+             "reading": "news", "signals": "alerts", "glossary": "book"}
+
+
 def _card(source, title, desc, url, tag):
-    cls, label = TAGS[tag]
+    cls, label = TAG_CLS[tag], TAGS[tag][1]
     # External links open in a new tab; links to our own pages stay put.
     target = ' target="_blank" rel="noopener noreferrer"' if url.startswith("http") else ""
     return (
-        f'<a class="res-card" href="{url}"{target}>'
-        f'<div class="res-card-top"><span class="res-source">{source}</span>'
-        f'<span class="res-tag {cls}">{label}</span></div>'
-        f'<h3>{title}</h3><p>{desc}</p><span class="res-go">Visit &rarr;</span></a>'
+        f'<a class="v2-res-card" href="{url}"{target}>'
+        f'<span class="v2-res-top"><span class="v2-res-source">{source}</span><span class="v2-res-tag v2-res-{cls}">{label}</span></span>'
+        f'<h3>{title}</h3><p>{desc}</p><span class="v2-res-go">Visit &rarr;</span></a>'
     )
 
 
 def _section(sec_id, band, kicker, title, sub, cards, extra=""):
+    white = " v2-section-white" if band in ("white", "paper") else ""
     return (
-        f'<section class="res-band res-band--{band}" id="{sec_id}"><div class="res-inner">'
-        f'<div class="res-head"><span class="res-kicker">{kicker}</span>'
-        f'<h2 class="res-title">{title}</h2><p class="res-sub">{sub}</p></div>'
-        f'<div class="res-grid">{"".join(_card(*c) for c in cards)}</div>{extra}</div></section>'
+        f'<section class="v2-section{white}" id="{sec_id}" aria-labelledby="{sec_id}-h"><div class="v2-wrap">'
+        f'{ui.title_box(SEC_ICONS[sec_id], f"<span id=\'{sec_id}-h\'>{title}</span>", kicker)}'
+        f'<p class="v2-lead">{sub}</p>'
+        f'<div class="v2-res-grid">{"".join(_card(*c) for c in cards)}</div>{extra}</div></section>'
     )
 
 
@@ -146,66 +170,60 @@ GLOSSARY = [
 
 def _build_resources():
     hero = (
-        '<section class="res-band res-band--black res-hero"><div class="res-inner">'
-        '<span class="res-eyebrow">The Play<img class="res-btc" src="assets/email-notable-b.png" alt="B">ack Library</span>'
-        '<h1 class="res-hero-title">Resources</h1>'
-        '<p class="res-hero-sub">Hand-picked tools, research and reading for retail and institutional investors. Quality over quantity.</p>'
-        '<div class="res-legend">'
-        '<span class="res-tag res-tag--retail">Retail</span>'
-        '<span class="res-tag res-tag--inst">Institutional</span>'
-        '<span class="res-tag res-tag--all">All levels</span></div>'
-        '<nav class="res-jump" aria-label="Resource sections">'
-        '<a href="#start">Start Here</a><a href="#tools">Tools</a><a href="#institutional">Institutional</a>'
-        '<a href="#protect">Protect &amp; Plan</a><a href="#reading">Essential Reading</a>'
-        '<a href="#signals">Our Signals</a><a href="#glossary">Glossary</a></nav>'
+        '<section class="v2-ind-hero" aria-labelledby="res-h"><div class="v2-wrap">'
+        '<nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Resources</span></nav>'
+        '<div class="v2-kicker v2-kicker-brass v2-ind-kicker">Hand-picked. Quality over quantity.</div>'
+        '<h1 class="v2-ind-title" id="res-h">Resources</h1>'
+        '<p class="v2-arch-sub">Tools, research and reading for retail and institutional investors.</p>'
+        '<div class="v2-res-legend"><span class="v2-res-tag v2-res-retail">Retail</span><span class="v2-res-tag v2-res-inst">Institutional</span><span class="v2-res-tag v2-res-all">All levels</span></div>'
+        '<nav class="pro-jump" aria-label="Resource sections"><a href="#start">Start Here</a><a href="#tools">Tools</a><a href="#institutional">Institutional</a>'
+        '<a href="#protect">Protect &amp; Plan</a><a href="#reading">Essential Reading</a><a href="#signals">Our Signals</a><a href="#glossary">Glossary</a></nav>'
         '</div></section>'
     )
-    start = _section("start", "paper", "New to Crypto", "Start Here",
+    start = _section("start", "ivory", "New to Crypto", "Start Here",
                      "Clear, trustworthy primers from established educators. Read these first.", START_HERE)
-    tools = _section("tools", "dark", "Calculators &amp; Data", "Tools &amp; Analytics",
+    tools = _section("tools", "white", "Calculators &amp; Data", "Tools &amp; Analytics",
                      "Run the numbers yourself and track the network with live data.", TOOLS)
-    inst = _section("institutional", "sand", "Advanced", "Institutional &amp; Advanced",
+    inst = _section("institutional", "ivory", "Advanced", "Institutional &amp; Advanced",
                     "Market structure, regulation and investment research for professional allocators and serious investors.",
                     INSTITUTIONAL)
-    protect = _section("protect", "stone", "Safeguard Your Assets", "Protect &amp; Plan",
+    protect = _section("protect", "white", "Safeguard Your Assets", "Protect &amp; Plan",
                        "Custody, security, taxes and estate planning &mdash; the unglamorous parts that matter most.", PROTECT)
 
     read_items = "".join(
-        f'<a class="res-read-item" href="{url}" target="_blank" rel="noopener noreferrer">'
-        f'<span class="res-tag res-tag--topic">{topic}</span>'
-        f'<span class="res-read-title">{title}</span><span class="res-read-by">by {author}</span></a>'
+        f'<a class="v2-res-read" href="{url}" target="_blank" rel="noopener noreferrer">'
+        f'<span class="v2-res-tag v2-res-topic">{topic}</span>'
+        f'<span class="v2-res-read-title">{title}</span><span class="v2-res-read-by">by {author}</span></a>'
         for title, author, topic, url in READING
     )
     reading = (
-        '<section class="res-band res-band--dark" id="reading"><div class="res-inner">'
-        '<div class="res-head"><span class="res-kicker">The Canon</span>'
-        '<h2 class="res-title">Essential Bitcoin Reading</h2>'
-        '<p class="res-sub">The long reads Bitcoin investors keep coming back to &mdash; on money, energy, investing and law.</p></div>'
-        f'<div class="res-read">{read_items}</div>'
-        '<p class="res-more">Curated from <a href="https://bitcoin-resources.com/" target="_blank" rel="noopener noreferrer">bitcoin-resources.com</a>.</p>'
+        '<section class="v2-section" id="reading" aria-labelledby="reading-h"><div class="v2-wrap">'
+        f'{ui.title_box(SEC_ICONS["reading"], "<span id=\'reading-h\'>Essential Bitcoin Reading</span>", "The Canon")}'
+        '<p class="v2-lead">The long reads Bitcoin investors keep coming back to &mdash; on money, energy, investing and law.</p>'
+        f'<div class="v2-res-readlist">{read_items}</div>'
+        '<p class="v2-res-more">Curated from <a href="https://bitcoin-resources.com/" target="_blank" rel="noopener noreferrer">bitcoin-resources.com</a>.</p>'
         '</div></section>'
     )
 
-    chips = "".join(f'<a class="res-signal" href="{href}">{label}</a>' for href, label in SIGNALS)
+    chips = "".join(f'<a href="{href}">{label}</a>' for href, label in SIGNALS)
     signals = (
-        '<section class="res-band res-band--stone" id="signals"><div class="res-inner">'
-        '<div class="res-head"><span class="res-kicker">On This Site</span>'
-        '<h2 class="res-title">Know Your Signals</h2>'
-        '<p class="res-sub">Every indicator on our dashboard has its own page explaining what it measures and how it is scored.</p></div>'
-        f'<div class="res-signals">{chips}</div></div></section>'
+        '<section class="v2-section v2-section-white" id="signals" aria-labelledby="signals-h"><div class="v2-wrap">'
+        f'{ui.title_box(SEC_ICONS["signals"], "<span id=\'signals-h\'>Know Your Signals</span>", "On This Site")}'
+        '<p class="v2-lead">Every indicator on our dashboard has its own page explaining what it measures and how it is scored. '
+        'For deeper market-structure research, see the <a href="playback-lab.html">Playback Lab</a>.</p>'
+        f'<div class="v2-ind-chips v2-res-chips">{chips}</div></div></section>'
     )
 
-    terms = "".join(f'<div class="res-term"><dt>{t}</dt><dd>{d}</dd></div>' for t, d in GLOSSARY)
+    terms = "".join(f'<div class="v2-res-term"><dt>{t}</dt><dd>{d}</dd></div>' for t, d in GLOSSARY)
     glossary = (
-        '<section class="res-band res-band--paper" id="glossary"><div class="res-inner">'
-        '<div class="res-head"><span class="res-kicker">Plain English</span>'
-        '<h2 class="res-title">Glossary</h2>'
-        '<p class="res-sub">The terms you will run into most often here and in the newsletter.</p></div>'
-        f'<dl class="res-gloss">{terms}</dl>'
-        '<p class="res-links">Want more? '
-        '<a href="https://bitcoinmagazine.com/bitcoin-glossary" target="_blank" rel="noopener noreferrer">Bitcoin Magazine glossary</a>'
+        '<section class="v2-section" id="glossary" aria-labelledby="glossary-h"><div class="v2-wrap">'
+        f'{ui.title_box(SEC_ICONS["glossary"], "<span id=\'glossary-h\'>Glossary</span>", "Plain English")}'
+        '<p class="v2-lead">The terms you will run into most often here and in the newsletter.</p>'
+        f'<dl class="v2-res-gloss">{terms}</dl>'
+        '<p class="v2-res-more">Want more? '
+        '<a href="https://bitcoinmagazine.com/bitcoin-glossary" target="_blank" rel="noopener noreferrer">Bitcoin Magazine glossary</a> &middot; '
         '<a href="https://www.fidelity.com/learning-center/trading-investing/crypto-definitions" target="_blank" rel="noopener noreferrer">Fidelity crypto definitions</a></p>'
-        '<p class="res-note">Links on this page lead to third-party websites and are shared for educational purposes only. '
+        '<p class="v2-ind-note">Links on this page lead to third-party websites and are shared for educational purposes only. '
         'Inclusion is not an endorsement, and some tools require a paid subscription. '
         'Nothing here is financial advice &mdash; see the note at the bottom of every page for the full disclosure.</p>'
         '</div></section>'
@@ -216,12 +234,25 @@ def _build_resources():
 RESOURCES_BODY = _build_resources()
 
 
+def _crumbs_ld(*items):
+    import json
+    return json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": f"{SITE_URL}/{u}"} for i, (n, u) in enumerate(items)]},
+        separators=(",", ":"))
+
+
 def build():
+    import build_site
     year = datetime.now().year
+    links = build_site._footer_indicator_links()
     with open(os.path.join(ROOT, "about.html"), "w") as f:
-        f.write(page("", "About — The Crypto Playback", ABOUT_BODY, year))
+        f.write(page("", "About The Crypto Playback | Bitcoin & Crypto Research", ABOUT_BODY, year, theme="v2", indicator_links=links,
+                     description="The Crypto Playback is a free daily and weekly briefing on Bitcoin and crypto: top headlines, 16 live indicators and the Playback Lab.",
+                     path="about.html", jsonld=_crumbs_ld(("Home", ""), ("About", "about.html"))))
     with open(os.path.join(ROOT, "resources.html"), "w") as f:
-        f.write(page("", "Resources — The Crypto Playback", RESOURCES_BODY, year))
+        f.write(page("", "Crypto Resources & Glossary | The Crypto Playback", RESOURCES_BODY, year, theme="v2", indicator_links=links,
+                     description="Hand-picked crypto tools, research, essential Bitcoin reading and a plain-English glossary for retail and institutional investors.",
+                     path="resources.html", jsonld=_crumbs_ld(("Home", ""), ("Resources", "resources.html"))))
     print("Built about.html and resources.html")
 
 
