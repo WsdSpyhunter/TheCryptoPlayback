@@ -497,3 +497,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-brandtitle-lg { font-size: 50px; color: var(--ivory); gap: .35em; }
 .pro-brandtitle-lg .pro-brandword { height: 66px; filter: none; margin-top: 6px; }
 @media (max-width: 560px) { .pro-brandtitle-lg { font-size: 34px; } .pro-brandtitle-lg .pro-brandword { height: 45px; margin-top: 4px; } }
+
+/* Positioning section: CME table + note */
+.pro-note.light { color: var(--muted); }
+.pro-cme .pro-table th, .pro-cme .pro-table td { padding: 9px 8px; font-size: 14px; }

@@ -48,12 +48,14 @@ Gate.io and Hyperliquid before charging for a product built on them, and add att
 
 ## Methodology
 
-### 1. Basic Institutional Pressure Index
-Four components, each a trailing z-score against its own past (no look-ahead, clipped to ±3), blended with configurable weights
-(`DEFAULT_WEIGHTS` in `pressure.py`): **ETF net flow 30%** (half 1-day, half 5-day sum; a day counts from the next 00:00 UTC), **Coinbase Premium 20%**
-(Coinbase BTC-USD ÷ (OKX BTC-USDT × Kraken USDT/USD) − 1, in bps; half 6-hour mean, half 24-hour mean), **Funding 25%** (OI-weighted funding across OKX, Gate,
-Hyperliquid), **OI × price 25%** (24-hour change in aggregate BTC OI (Gate + OKX) signed by the 24-hour price direction). Output: z-score, 0–100 percentile
-(normal CDF of z), regime (z ≥ +1 Strong Buy Pressure, z ≤ −1 Strong Sell Pressure, else Neutral), component breakdown and ~30 days of history.
+### 1. Institutional Positioning Index (Open Edition; replaces the first "Pressure Index")
+Module `scripts/pro/positioning.py`. Four components, each a trailing z-score (past data only, clipped ±3), blended with configurable weights: **CME futures positioning 30%**
+(asset managers' net position as % of open interest from the CFTC Traders in Financial Futures report, weekly since 2018, z over the trailing 104 weeks; a report counts from the Saturday after the
+Tuesday it describes), **Spot ETF flows 30%** (half 1-day, half 5-day sum; the site's ETF dataset), **On-chain perp funding 20%** (Hyperliquid BTC funding per 8h, z over 30 days), **Perp OI x price 20%**
+(24h change in Hyperliquid BTC open interest signed by 24h price direction; builds from our own hourly snapshots in `data/pro/hl_btc_snapshots.json` because Hyperliquid has no OI history). Output: z-score,
+0-100 percentile, regime (z >= +1 Bullish Positioning, z <= -1 Bearish Positioning, else Neutral), components, ~30 days of history, and a CME block (asset managers / leveraged funds / dealers: long, short, net, % of OI,
+weekly change, two-year chart). Leveraged funds are usually net short because many run the ETF-vs-futures basis trade, so their short is shown but not scored as bearish. The earlier version (`scripts/pro/pressure.py`)
+used Coinbase Premium and centralised-exchange funding/OI; those were removed (no clean free source). `pressure.py` is kept because the ETF helper is reused.
 
 ### 2. Crowded Unwind Risk Map
 Ten assets (BTC, ETH, SOL, XRP, DOGE, BNB, ADA, AVAX, LINK, SUI). Score 0–100 from five percentiles of the asset's own trailing 30 days of Gate.io hourly stats:

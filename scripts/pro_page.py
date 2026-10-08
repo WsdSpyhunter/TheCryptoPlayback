@@ -167,7 +167,7 @@ def overview_cards(p, u, q, s):
     cards = []
     if p:
         z = p["score_z"]
-        cards.append(("pressure", "Institutional Pressure", f"{z:+.2f}", p["regime"], _tone(z) if abs(z) >= 1 else "flat",
+        cards.append(("pressure", "Institutional Positioning", f"{z:+.2f}", p["regime"], _tone(z) if abs(z) >= 1 else "flat",
                       sparkline([h["z"] for h in p["history"]]), p["updated_at"]))
     if u:
         top = u["assets"][0]
@@ -188,31 +188,88 @@ def overview_cards(p, u, q, s):
     return f'<div class="pro-overview">{html}</div>' if html else ""
 
 
+def multi_chart(ts, series, w=760, h=230, fmt="{:+,.0f}", zero=True, label=""):
+    """series: [(name, ys, color)] drawn on one time axis, with a legend."""
+    allv = [y for _, ys, _ in series for y in ys if y is not None]
+    if len(ts) < 2 or not allv:
+        return '<p class="pro-empty">Chart builds as history accumulates.</p>'
+    pad_l, pad_r, pad_t, pad_b = 56, 14, 30, 26
+    lo, hi = min(allv + ([0] if zero else [])), max(allv + ([0] if zero else []))
+    span = (hi - lo) or 1
+    lo, hi = lo - span * 0.08, hi + span * 0.08
+    X = lambda t: pad_l + (t - ts[0]) / (ts[-1] - ts[0]) * (w - pad_l - pad_r)      # noqa: E731
+    Y = lambda v: pad_t + (hi - v) / (hi - lo) * (h - pad_t - pad_b)                  # noqa: E731
+    out = [f'<svg class="pro-chart" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet">']
+    for k in range(5):
+        v = lo + (hi - lo) * k / 4
+        y = Y(v)
+        out.append(f'<line x1="{pad_l}" x2="{w - pad_r}" y1="{y:.1f}" y2="{y:.1f}" class="pro-grid"/>'
+                   f'<text x="{pad_l - 8}" y="{y + 4:.1f}" text-anchor="end" class="pro-axis">{fmt.format(v)}</text>')
+    if zero and lo < 0 < hi:
+        out.append(f'<line x1="{pad_l}" x2="{w - pad_r}" y1="{Y(0):.1f}" y2="{Y(0):.1f}" class="pro-zero"/>')
+    lx = pad_l
+    for name, ys, color in series:
+        pts = [(t, y) for t, y in zip(ts, ys) if y is not None]
+        if len(pts) >= 2:
+            path = "M" + " L".join(f"{X(t):.1f} {Y(y):.1f}" for t, y in pts)
+            out.append(f'<path d="{path}" fill="none" stroke="{color}" stroke-width="2.2" stroke-linejoin="round"/>')
+        out.append(f'<rect x="{lx}" y="9" width="12" height="4" fill="{color}"/><text x="{lx + 17}" y="15" class="pro-axis">{escape(name)}</text>')
+        lx += 22 + len(name) * 6.3
+    for t in (ts[0], ts[len(ts) // 2], ts[-1]):
+        d = datetime.fromtimestamp(t, timezone.utc).strftime("%b %-d, %Y")
+        anchor = "start" if t == ts[0] else "end" if t == ts[-1] else "middle"
+        out.append(f'<text x="{X(t):.1f}" y="{h - 6}" text-anchor="{anchor}" class="pro-axis">{d}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
 def sec_pressure(p):
-    head = ui.title_box("capital_flow", '<span id="pressure-h">Basic Institutional Pressure Index</span>',
+    head = ui.title_box("capital_flow", '<span id="pressure-h">Institutional Positioning Index</span>',
                         f"Updated {updated(p['updated_at'])}" if p else "")
     if not p:
-        return f'<section class="v2-section" id="pressure">{_wrap(head + _empty("The Institutional Pressure Index"))}</section>'
+        return f'<section class="v2-section" id="pressure">{_wrap(head + _empty("The Institutional Positioning Index"))}</section>'
     z = p["score_z"]
     tone = "up" if z >= 1 else "down" if z <= -1 else "flat"
     comps = ""
     for c in p["components"]:
+        z_txt = "n/a" if c["z"] is None else f"{c['z']:+.2f}"
         comps += (f'<div class="pro-comp"><div class="pro-comp-top"><span class="pro-comp-name">{escape(c["label"])}</span>'
                   f'<span class="pro-comp-w">{c["weight"] * 100:.0f}% weight</span></div>'
-                  f'<div class="pro-comp-z {_tone(c["z"])}">{"n/a" if c["z"] is None else f"{c["z"]:+.2f}"}<small> z</small></div>'
+                  f'<div class="pro-comp-z {_tone(c["z"])}">{z_txt}<small> z</small></div>'
                   f'{zbar(c["z"])}<div class="pro-comp-read">{escape(c["readout"])}</div></div>')
     chart = line_chart([h["t"] for h in p["history"]], [h["z"] for h in p["history"]], zero=True,
-                       band=(-1, 1), fmt="{:+.1f}", label="Institutional Pressure Index, z-score, last 30 days")
+                       band=(-1, 1), fmt="{:+.1f}", label="Institutional Positioning Index, z-score, last 30 days")
+    cme_html = ""
+    cme = p.get("cme")
+    if cme:
+        rows = ""
+        for g in cme["groups"]:
+            chg = g["change_net_w"]
+            rows += (f'<tr><th scope="row">{g["name"]}</th><td class="pro-num">{g["long"]:,}</td><td class="pro-num">{g["short"]:,}</td>'
+                     f'<td class="pro-num {_tone(g["net"])}">{g["net"]:+,}</td><td class="pro-num">{g["net_pct_oi"]:+.1f}%</td>'
+                     f'<td class="pro-num {_tone(chg)}">{"n/a" if chg is None else f"{chg:+,}"}</td></tr>')
+        hs = cme["history"]
+        mc = multi_chart(hs["t"], [("Asset managers", hs["asset_managers_net"], "#8A6A1F"),
+                                   ("Leveraged funds", hs["leveraged_funds_net"], "#B3372F"),
+                                   ("Dealers", hs["dealers_net"], "#4A5F82")],
+                         label="Net positions in CME Bitcoin futures by trader type, last two years")
+        cme_html = f"""<div class="pro-cme">
+      <div class="pro-chart-title" style="margin-top:30px">What the big players hold: CME Bitcoin futures (CFTC report of {cme['report_date']}, contracts of {cme['contract_size_btc']} BTC)</div>
+      <div class="pro-two">
+        <div class="pro-table-wrap"><table class="pro-table"><thead><tr><th>Trader type</th><th>Long</th><th>Short</th><th>Net</th><th>Net % of OI</th><th>Net chg w/w</th></tr></thead><tbody>{rows}</tbody></table>
+          <p class="pro-note light">Open interest {cme['open_interest_contracts']:,} contracts. Leveraged funds are usually net short because many run the ETF-versus-futures &ldquo;basis trade&rdquo;, so that short is not a bearish bet by itself.</p></div>
+        <div class="pro-chart-card"><div class="pro-chart-title">Net positions, last two years (weekly)</div>{mc}</div>
+      </div></div>"""
     method = """<details class="pro-method"><summary>How this score is calculated</summary>
-      <p>Each component is converted to a trailing z-score (how unusual today's reading is versus its own recent past, with no look-ahead),
-      clipped to ±3, and blended with the weights shown. The blend is the score (z, roughly −2 to +2); the percentile is the normal-curve
-      position of that z (0–100). Regimes: z ≥ +1.0 Strong Buy Pressure, z ≤ −1.0 Strong Sell Pressure, otherwise Neutral.</p>
-      <ul><li><strong>ETF net flow (30%):</strong> US spot Bitcoin ETF daily net flow; half 1-day flow, half rolling 5-day sum. A day counts from the next 00:00 UTC.</li>
-      <li><strong>Coinbase Premium (20%):</strong> Coinbase BTC-USD versus OKX BTC-USDT converted to dollars with the Kraken USDT/USD rate; half 6-hour mean, half 24-hour mean.</li>
-      <li><strong>Funding pressure (25%):</strong> open-interest-weighted perpetual funding (per 8 hours) across OKX, Gate and Hyperliquid. Positive means longs are paying shorts.</li>
-      <li><strong>Open interest × price (25%):</strong> 24-hour change in aggregate BTC open interest (Gate + OKX), signed by the 24-hour price direction.</li></ul>
-      <p class="pro-caveat">A descriptive gauge of positioning, not a forecast. Weights are configurable (scripts/pro/pressure.py). ETF history is short
-      (the dataset began in late September), so the ETF z-score is based on fewer observations than the other components.</p></details>"""
+      <p>Each component is converted to a trailing z-score (how unusual today's reading is versus its own past, never using future data), clipped to ±3, and blended with the weights shown. The blend is the
+      score (z, roughly −2 to +2); the percentile is the normal-curve position of that z (0–100). Regimes: z ≥ +1.0 Bullish Positioning, z ≤ −1.0 Bearish Positioning, otherwise Neutral.</p>
+      <ul><li><strong>CME futures positioning (30%):</strong> asset managers' net position in CME Bitcoin futures as a share of open interest, from the CFTC's weekly Traders in Financial Futures report (US government data, 2018 onward),
+      z-scored against the trailing two years. A report counts from the Saturday after the Tuesday it describes.</li>
+      <li><strong>Spot ETF flows (30%):</strong> US spot Bitcoin ETF daily net flow; half 1-day flow, half rolling 5-day sum.</li>
+      <li><strong>On-chain perp funding (20%):</strong> Hyperliquid BTC perpetual funding per 8 hours (positive means longs pay shorts), z-scored over the past 30 days.</li>
+      <li><strong>Perp open interest × price (20%):</strong> 24-hour change in Hyperliquid BTC open interest, signed by the 24-hour price direction. Hyperliquid publishes no open-interest history, so this builds from our own hourly snapshots and shows &ldquo;building&rdquo; for the first days.</li></ul>
+      <p class="pro-caveat">A descriptive gauge of positioning, not a forecast. When a component is still building, the others are re-weighted. CFTC data is weekly, so that component changes once a week; ETF history in the site dataset is short.
+      Coinbase Premium and centralised-exchange funding from the earlier version were removed because there is no clean free source for them. Weights are configurable in scripts/pro/positioning.py.</p></details>"""
     body = f"""{_stale(p)}
     <div class="pro-hero-grid">
       <div class="pro-score-card">
@@ -224,6 +281,7 @@ def sec_pressure(p):
       <div class="pro-chart-card"><div class="pro-chart-title">Score history, last 30 days (shaded band = Neutral)</div>{chart}</div>
     </div>
     <div class="pro-comps">{comps}</div>
+    {cme_html}
     {method}"""
     return f'<section class="v2-section" id="pressure" aria-labelledby="pressure-h">{_wrap(head + body)}</section>'
 
@@ -410,7 +468,7 @@ def hero(meta):
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
     <p>Four live readings of crypto market structure: who is pressing, who is crowded, which protocols earn their keep,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Pressure Index</a><a href="#unwind">Unwind Risk</a><a href="#quality">Revenue / TVL</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#unwind">Unwind Risk</a><a href="#quality">Revenue / TVL</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
