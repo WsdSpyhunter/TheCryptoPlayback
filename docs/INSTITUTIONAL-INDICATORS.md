@@ -40,7 +40,7 @@ Note: GitHub only runs scheduled workflows from the default branch, so this star
 | Coinbase Premium | Coinbase Exchange, OKX, Kraken public prices | computed here; see below |
 | ETF flows | the site's own `data/etf_flows.json` (SoSoValue, validated against XOOMAR) | Farside blocks automation (Cloudflare 403) |
 | Protocol TVL / fees / revenue | DefiLlama `/protocols`, `/overview/fees`, `/summary/fees/{slug}` | no key |
-| Stablecoins, DEX volume | DefiLlama `stablecoins.llama.fi`, `/overview/dexs` | no key |
+| Stablecoin supply | Token contracts on public nodes (blastapi, drpc, mevblocker, mainnet.base.org, api.avax.network), TronGrid, Solana public RPC; Tether transparency feed | no key; archive-capable keyless nodes verified 2026-10-08 |
 
 **Not used:** Binance and Bybit (both refuse US IP addresses, which includes GitHub Actions), Farside (blocks scraping).
 **Licensing before any paywall:** DefiLlama's API is free; exchange market-data endpoints are public but each venue's terms apply. Re-read the terms of DefiLlama, OKX,
@@ -65,10 +65,14 @@ Adverse move 10% (24h move against the crowded side). Bands: Low <35, Moderate 3
 Universe: TVL ≥ $100M, 30-day fees ≥ $250k, top 60 by fees. Percentile ranks: Fee yield 35%, Stability 25% (low CV of 90-day daily fees), Growth 20%, Scale 20%.
 Also fee concentration (top-5/top-10 share, HHI). Score history accumulates daily in `data/pro/quality_history.json`.
 
-### 4. Basic Stablecoin Velocity & Flows
-USD-pegged stablecoins only. Supply, 1/7/30-day change and net issuance (mint-minus-burn proxy), major coins with peg deviation (coins >3% from $1 are shown as
-non-par), chain deployment (7/30-day net change), velocity proxy = 7-day average daily DEX volume ÷ supply, flow signal and velocity signal as 365-day z-scores.
-**Not modelled (no free data):** exchange balances / netflows, perp-DEX volume.
+### 4. Basic Stablecoin Velocity & Flows (Open Edition: on-chain)
+Module `scripts/pro/stables_chain.py`. No aggregator: supply is read from each token's contract (`totalSupply()`) on free public nodes (Ethereum, Base, Arbitrum, Polygon,
+Optimism, Avalanche, BSC), Tron through TronGrid, Solana through the public RPC; Tether's own transparency feed supplies its reserve figures. Nine USD coins are tracked.
+USDT is counted only on Ethereum and Tron (about 97% of Tether's liabilities); bridged or Binance-Peg copies are excluded to avoid double counting, and USDT circulating supply
+= total supply minus the Tether treasury wallet's balance (reconciles to Tether's published liabilities). History: EVM chains from archive-node reads at each midnight UTC; Tron from the
+treasury wallet's on-chain transfers; Solana accumulates from the first run (`data/pro/stable_chain_history.json`, 60 days). Net issuance = change in supply (supply only changes
+by mint or burn). Flow velocity = average daily net issuance, last 7 days versus the 7 days before. Flow signal = z-score of the 7-day change versus the last two months.
+**Not modelled (no free source):** exchange balances / netflows, on-chain transfer volume, smaller chains, non-USD stablecoins. (The earlier DefiLlama-based version, `scripts/pro/stables.py`, is kept in the repo but no longer used.)
 
 ## Data-quality caveats
 * Fees, TVL and stablecoin supply are third-party reported and can be revised. Percentiles depend on the universe at the time.
