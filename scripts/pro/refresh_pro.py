@@ -12,7 +12,7 @@ import time
 import traceback
 from datetime import datetime, timezone
 
-from . import positioning, basis, regulatory, miners, liquidity, unwind_chain, quality, stables_chain
+from . import positioning, basis, regulatory, miners, liquidity, read, unwind_chain, quality, stables_chain
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(ROOT, "data", "pro")
@@ -59,6 +59,10 @@ def main(names=None):
             except (OSError, ValueError):
                 pass
             print(f"[{n}] FAILED: {exc}")
+    try:                                   # the Playback Read summarises whatever data files now exist
+        _write("read", read.compute())
+    except Exception as exc:               # noqa: BLE001
+        print(f"[read] FAILED: {exc}")
     _write("meta", meta)
     return 0 if ok else 1
 

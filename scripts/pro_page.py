@@ -242,6 +242,41 @@ def multi_chart(ts, series, w=760, h=230, fmt="{:+,.0f}", zero=True, label=""):
     return "".join(out)
 
 
+def sec_read(r):
+    head = ui.title_box("bottom_line", '<span id="read-h">The Playback Read</span>', f"Updated {updated(r['updated_at'])}" if r else "")
+    if not r:
+        return ""
+    cls = {"Supportive": "up", "Neutral": "flat", "Caution": "down"}
+    c = r["counts"]
+    tiles = "".join(f'<div class="pro-rd-tile {cls[k]}"><b>{c[k]}</b><span>{k}</span></div>' for k in ("Supportive", "Neutral", "Caution"))
+    chips = "".join(f'<a class="pro-rd-chip {cls[i["label"]]}" href="#{i["key"]}"><span class="pro-rd-name">{escape(i["name"])}</span>'
+                    f'<span class="pro-rd-label">{i["label"]}</span><span class="pro-rd-detail">{escape(i["detail"])}</span></a>' for i in r["indicators"])
+    if r["changes"]:
+        ch = "<ul>" + "".join(f'<li><b>{escape(x["name"])}</b>: {x["from"]} to {x["to"]}</li>' for x in r["changes"]) + "</ul>"
+        changed = f'<div class="pro-chart-card"><div class="pro-chart-title">What changed since {datetime.strptime(r["since"], "%Y-%m-%d").strftime("%b %-d")}</div>{ch}</div>'
+    elif r["since"]:
+        changed = f'<div class="pro-chart-card"><div class="pro-chart-title">What changed since {datetime.strptime(r["since"], "%Y-%m-%d").strftime("%b %-d")}</div><p class="pro-note light">No indicator has changed its label.</p></div>'
+    else:
+        changed = '<div class="pro-chart-card"><div class="pro-chart-title">What changed</div><p class="pro-note light">The record starts today. Changes will appear here as the readings move.</p></div>'
+    hist = r["history"]
+    if len(hist) >= 2:
+        bw = max(2, min(18, int(640 / len(hist)) - 2))
+        bars = "".join(f'<span title="{h["d"]}: {h["s"]} supportive, {h["n"]} neutral, {h["c"]} caution" class="pro-rd-bar">'
+                       f'<i class="up" style="height:{h["s"] / r["total"] * 100:.0f}%"></i><i class="flat" style="height:{h["n"] / r["total"] * 100:.0f}%"></i><i class="down" style="height:{h["c"] / r["total"] * 100:.0f}%"></i></span>' for h in hist)
+        rec = f'<div class="pro-rd-bars">{bars}</div><p class="pro-note light">One bar per day: green supportive, grey neutral, red caution. Record began {datetime.strptime(r["tracking_since"], "%Y-%m-%d").strftime("%b %-d, %Y")}.</p>'
+    else:
+        rec = f'<p class="pro-note light">Public record begins {datetime.strptime(r["tracking_since"], "%Y-%m-%d").strftime("%b %-d, %Y")}. One bar per day will build here, so you can see how the overall picture has shifted over time.</p>'
+    method = """<details class="pro-method"><summary>How the Read is built</summary>
+      <p>There is no blended score and no weights. Each indicator with a clear direction is sorted by a fixed threshold: <strong>positioning</strong> z of +1 or more is Supportive and -1 or less is Caution; <strong>basis-trade crowding</strong> 55+ is Caution and 20 or less is Supportive; <strong>miner stress</strong> 70+ is Caution and under 30 is Supportive; <strong>macro backdrop</strong> 62+ is Supportive and 38 or less is Caution; <strong>unwind risk</strong> (median of ten markets) 55+ is Caution and under 35 is Supportive; <strong>stablecoin supply</strong> up 0.5% in a week is Supportive and down 0.5% is Caution. The Regulatory Tracker has no good or bad direction, so it does not vote.</p>
+      <p class="pro-caveat">"Caution" means stretched or stressed, not "bearish": miner capitulation, for example, has often clustered near market lows. This summarises the sections below and is not a forecast or financial advice.</p></details>"""
+    body = f"""<p class="pro-lead">One look at the whole Lab: how many readings are supportive, neutral or cautionary, where they disagree, and what has changed. It is a simple count, not a blended score.</p>
+    <div class="pro-rd-top"><div class="pro-rd-tiles">{tiles}</div><p class="pro-read" style="margin:0"><strong>The read:</strong> {escape(r['summary'])}</p></div>
+    <div class="pro-rd-chips">{chips}</div>
+    <div class="pro-two" style="margin-top:22px">{changed}<div class="pro-chart-card"><div class="pro-chart-title">Track record</div>{rec}</div></div>
+    {method}"""
+    return f'<section class="v2-section" id="read" aria-labelledby="read-h">{_wrap(head + body)}</section>'
+
+
 def sec_pressure(p):
     head = ui.title_box("capital_flow", '<span id="pressure-h">Institutional Positioning Index</span>',
                         f"Updated {updated(p['updated_at'])}" if p else "")
@@ -812,6 +847,7 @@ def _footer_links():
 
 
 def render_institutional():
+    rd = _load("read")
     p, u, s, b, rg, mi, lq = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory"), _load("miners"), _load("liquidity")
     q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
@@ -822,7 +858,7 @@ def render_institutional():
         '<img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Summary</span>'
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All readings at a glance")
-    body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
+    body = (hero(meta) + sec_read(rd) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
             + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_liquidity(lq) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),

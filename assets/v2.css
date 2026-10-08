@@ -531,3 +531,23 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 
 .pro-comps + .pro-kpis { margin-top: 22px; }
 .pro-hero .v2-kicker-brass { display: table; margin-left: auto; margin-right: auto; background: #F7F4EC; color: #1F3A63; border: 1px solid #E3DCC8; box-shadow: var(--shadow); padding: 9px 18px; margin-bottom: 64px; }
+
+/* Playback Read */
+.pro-rd-top { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; margin-bottom: 20px; }
+.pro-rd-tiles { display: flex; gap: 12px; }
+.pro-rd-tile { background: var(--navy); color: var(--ivory); text-align: center; padding: 14px 22px; border-bottom: 3px solid var(--brass); box-shadow: var(--shadow); min-width: 110px; }
+.pro-rd-tile b { display: block; font-family: var(--f-mono); font-size: 44px; line-height: 1.1; }
+.pro-rd-tile span { color: var(--ivory); font-family: var(--f-cond); letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
+.pro-rd-tile.up b { color: #7FD1A4; } .pro-rd-tile.down b { color: #F0A39C; } .pro-rd-tile.flat b { color: #D5CFBF; }
+.pro-rd-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.v2 a.pro-rd-chip { display: flex; flex-direction: column; gap: 3px; background: #fff; border: 1px solid var(--line); border-left: 5px solid #B9B2A0; padding: 12px 16px; color: var(--navy); box-shadow: var(--shadow); }
+.pro-rd-chip.up { border-left-color: #2E8B57; } .pro-rd-chip.down { border-left-color: #B3372F; }
+.pro-rd-name { font-family: var(--f-cond); letter-spacing: .1em; text-transform: uppercase; font-size: 13px; color: #5B6577; }
+.pro-rd-label { font-weight: 700; font-size: 19px; }
+.pro-rd-chip.up .pro-rd-label { color: #1F7A47; } .pro-rd-chip.down .pro-rd-label { color: #B3372F; }
+.pro-rd-detail { font-size: 13.5px; color: #5B6577; }
+.pro-rd-bars { display: flex; align-items: flex-end; gap: 2px; height: 70px; }
+.pro-rd-bar { flex: 1; max-width: 18px; height: 100%; display: flex; flex-direction: column-reverse; }
+.pro-rd-bar i { display: block; } .pro-rd-bar i.up { background: #2E8B57; } .pro-rd-bar i.flat { background: #C9C3B1; } .pro-rd-bar i.down { background: #B3372F; }
+.pro-chart-card ul { margin: 6px 0 0; padding-left: 18px; }
+@media (max-width: 900px) { .pro-rd-top { grid-template-columns: 1fr; } .pro-rd-tiles { flex-wrap: wrap; } }
