@@ -472,7 +472,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-ov-band .v2-title-meta { font-size: 13px; color: #374151; }
 
 /* Institutional page: the small "Updated ..." notes at the top right of every section match the summary's note */
-#pressure .v2-title-meta, #quality .v2-title-meta, #sources .v2-title-meta { font-size: 13px; color: #374151; }
+#read .v2-title-meta, #pressure .v2-title-meta, #basis .v2-title-meta, #reg .v2-title-meta, #miners .v2-title-meta, #liquidity .v2-title-meta, #quality .v2-title-meta, #sources .v2-title-meta { font-size: 13px; color: #374151; }
 #unwind .v2-title-meta, #stables .v2-title-meta { font-size: 13px; color: #D5DCE8; }
 
 /* Header: compact two-row layout (logo + Subscribe, then menu) whenever five menu links cannot sit beside the logo */
