@@ -734,3 +734,21 @@ body.v2 { overflow-x: clip; }
   .pro-ov-band .v2-titlebox, #read .v2-titlebox { padding: 10px 14px; gap: 9px; }
   .pro-ov-band .v2-titlebox svg, #read .v2-titlebox svg { width: 24px; height: 24px; }
 }
+
+/* Playback Lab on mobile: centered hero, tiles, wrapped titles with the icon above, stablecoin captions, source blocks */
+@media (max-width: 700px) {
+  .pro-hero { text-align: center; }
+  .pro-hero p { margin-left: auto; margin-right: auto; }
+  .pro-hero .pro-jump { justify-content: center; }
+  .pro-hero .v2-kicker-brass { text-align: center; }
+  .pro-rd-tiles { justify-content: center; }
+  #pressure .v2-titlebox, #reg .v2-titlebox, #liquidity .v2-titlebox, #stables .v2-titlebox, #sources .v2-titlebox { flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+  #stables .pro-chart-title, #stables .pro-table caption { text-align: center; }
+  .pro-sources > div { text-align: center; }
+}
+@media (max-width: 700px) {
+  .pro-rd-tiles { width: 100%; gap: 10px; flex-wrap: nowrap; }
+  .pro-rd-tile { flex: 1 1 0; min-width: 0; padding: 12px 6px; }
+  .pro-rd-tile b { font-size: 38px; }
+  .pro-rd-tile span { font-size: 12.5px; letter-spacing: .08em; }
+}
