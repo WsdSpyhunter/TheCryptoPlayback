@@ -767,3 +767,9 @@ body.v2 { overflow-x: clip; }
   #start .v2-lead, #tools .v2-lead, #institutional .v2-lead, #protect .v2-lead, #reading .v2-lead, #signals .v2-lead, #glossary .v2-lead { text-align: center; margin-left: auto; margin-right: auto; }
   #reading .v2-res-more, #glossary .v2-res-more { text-align: center; }
 }
+
+/* About on mobile: centered tiles and contact card */
+@media (max-width: 700px) {
+  .v2-about-tile { align-items: center; text-align: center; }
+  #contact, #contact h2, #contact p { text-align: center; }
+}
