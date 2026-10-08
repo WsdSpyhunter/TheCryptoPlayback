@@ -17,6 +17,7 @@ from PIL import Image, ImageDraw
 from partials import page, asset_version
 import home_v2
 import indicator_v2
+import post_v2
 import seo
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
@@ -264,39 +265,24 @@ def render_top_story_box(intro):
 
 
 def render_post_html(post, root_prefix):
-    """post: dict with title, date, tag, ticker_html, sentiment_html, issue_pill_html,
-    top_story_html, stories (list of {headline, body, source_title, source_url, image_url})"""
-    stories_html = ""
-    for s in post["stories"]:
-        img_html = ""
-        if s.get("image_url"):
-            img_html = f'<img class="story-image" src="{s["image_url"]}" alt="" loading="lazy">'
-        stories_html += f"""<div class="story">
-      <h3>{s['headline']}</h3>
-      {img_html}
-      {s['body']}
-      <a class="source-link" href="{s['source_url']}" target="_blank" rel="noopener">Read more at {s['source_title']} &rarr;</a>
-    </div>"""
+    """The Version 2 issue page for one saved post (see post_v2.py)."""
+    return post_v2.render(post, root_prefix, _market_data_from_post(post), load_index(), _footer_indicator_links())
 
-    masthead_html = render_masthead().replace("{root}", root_prefix)
-    sentiment_html = post.get('sentiment_html', '').replace("{gauge_src}", f"{root_prefix}{post.get('gauge_path', '')}")
 
-    body = f"""<article class="post">
-    {masthead_html}
-    {post.get('ticker_html', '')}
-    {sentiment_html}
-    <div class="release-row">
-      <span class="release-date">{post['date_display']}</span>
-      <span class="release-issue">Issue #{post.get('issue_number', 1)}</span>
-    </div>
-    <div class="title-block">
-      {post.get('issue_pill_html', '')}
-      <h1>{post['title']}</h1>
-    </div>
-    {post.get('top_story_html', '')}
-    {stories_html}
-  </article>"""
-    return page(root_prefix, f"{post['title']} — The Crypto Playback", body, datetime.now().year)
+def rebuild_post_pages():
+    """Re-render every issue page from data/posts/*.json so prev/next links and the stylesheet
+    version stay current. Entries without a saved JSON file are left alone."""
+    n = 0
+    for e in load_index():
+        path = os.path.join(POSTS_DATA_DIR, f"{e['slug']}.json")
+        try:
+            post = json.load(open(path))
+        except (OSError, ValueError):
+            continue
+        with open(os.path.join(POSTS_HTML_DIR, f"{e['slug']}.html"), "w") as f:
+            f.write(render_post_html(post, "../"))
+        n += 1
+    return n
 
 
 def _market_data_from_post(post):
@@ -2192,6 +2178,7 @@ def add_post_and_rebuild(post):
     for filename, html in pages.items():
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
+    rebuild_post_pages()
     write_seo(entries, pages.keys())
 
 
@@ -2205,6 +2192,7 @@ if __name__ == "__main__":
     for filename, html in indicator_pages.items():
         with open(os.path.join(ROOT, filename), "w") as f:
             f.write(html)
+    n_posts = rebuild_post_pages()
     write_seo(entries, indicator_pages.keys())
     try:
         import pro_page
@@ -2212,4 +2200,4 @@ if __name__ == "__main__":
     except Exception as exc:     # noqa: BLE001 - the Pro page must never break the main build
         print(f"Institutional page skipped: {exc}")
     print(f"Rebuilt index.html and archive.html from {len(entries)} existing post(s), "
-          f"plus {len(indicator_pages)} indicator page(s).")
+          f"plus {len(indicator_pages)} indicator page(s) and {n_posts} issue page(s).")
