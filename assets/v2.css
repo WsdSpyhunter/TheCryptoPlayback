@@ -455,7 +455,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
   -webkit-mask: url("email-notable-b.png") center / contain no-repeat; mask: url("email-notable-b.png") center / contain no-repeat; }
 .pro-ov-band .v2-titlebar { margin-bottom: 24px; }
 .pro-ov-band .v2-titletext { font-size: 18.5px; }
-.pro-ov-band .v2-titlebox svg { width: 34px; height: 34px; }
+.pro-ov-band .v2-titlebox svg { width: 30px; height: 30px; }
 .pro-ov-band .v2-titlebox { padding: 13px 24px; }
 .v2 a.pro-ov { align-items: center; text-align: center; }
 .pro-ov .pro-spark { margin: 4px auto 0; }
@@ -465,9 +465,9 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 
 /* Branded "Playback" word inside the Playback Summary title (gold italic from the logo) */
 .pro-brandtitle { display: inline-flex; align-items: center; gap: .45em; font-family: 'Fraunces', 'Libre Franklin', Georgia, serif; font-weight: 700;
-  font-size: 28px; letter-spacing: 0; text-transform: none; line-height: 1; }
-.pro-brandword { height: 35px; width: auto; display: block; margin-top: 2px; filter: brightness(.68) saturate(1.2); }
-@media (max-width: 560px) { .pro-brandtitle { font-size: 22px; } .pro-brandword { height: 28px; margin-top: 3px; } }
+  font-size: 25px; letter-spacing: 0; text-transform: none; line-height: 1; }
+.pro-brandword { height: 31px; width: auto; display: block; margin-top: 2px; filter: brightness(.68) saturate(1.2); }
+@media (max-width: 560px) { .pro-brandtitle { font-size: 20px; } .pro-brandword { height: 25px; margin-top: 2px; } }
 
 /* Basic Stablecoin Velocity & Flows title a little larger */
 #stables .v2-titletext { font-size: 19.5px; }
