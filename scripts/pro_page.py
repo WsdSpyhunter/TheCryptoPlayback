@@ -420,7 +420,8 @@ def render_institutional():
     return page("", "Institutional Indicators | The Crypto Playback", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
                 description="Four free institutional-style crypto indicators: pressure index, crowded unwind risk, protocol revenue/TVL quality and stablecoin flows.",
-                path=PAGE_FILE, noindex=True)
+                path=PAGE_FILE, noindex=True,
+                extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 
 
 def write_institutional_page():

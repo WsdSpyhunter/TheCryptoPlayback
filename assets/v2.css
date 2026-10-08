@@ -464,5 +464,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-ov-upd { margin-top: auto !important; padding-top: 6px; }
 
 /* Branded "Playback" word inside the Playback Summary title (gold italic from the logo) */
-.pro-brandtitle { display: inline-flex; align-items: center; gap: .55em; }
-.pro-brandword { height: 2.05em; width: auto; display: block; margin-top: -.15em; }
+.pro-brandtitle { display: inline-flex; align-items: center; gap: .45em; font-family: 'Fraunces', 'Libre Franklin', Georgia, serif; font-weight: 700;
+  font-size: 27px; letter-spacing: 0; text-transform: none; line-height: 1; }
+.pro-brandword { height: 2.0em; width: auto; display: block; margin-top: -.12em; }
+@media (max-width: 560px) { .pro-brandtitle { font-size: 20px; } }
