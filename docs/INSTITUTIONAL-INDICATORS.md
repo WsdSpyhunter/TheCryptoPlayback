@@ -5,10 +5,11 @@ shown on `institutional.html` in the Version 2 site style.
 
 | # | Indicator | File | Output |
 |---|-----------|------|--------|
-| 1 | Basic Institutional Pressure Index | `scripts/pro/pressure.py` | `data/pro/pressure.json` |
-| 2 | Crowded Unwind Risk Map | `scripts/pro/unwind.py` | `data/pro/unwind.json` |
+| 1 | Institutional Positioning Index | `scripts/pro/positioning.py` | `data/pro/pressure.json` |
+| 1b | Basis-Trade Crowding (new) | `scripts/pro/basis.py` | `data/pro/basis.json` |
+| 2 | Crowded Unwind Risk Map (Hyperliquid) | `scripts/pro/unwind_chain.py` | `data/pro/unwind.json` |
 | 3 | Protocol Revenue / TVL Quality Score (offline) | `scripts/pro/quality.py` | none while offline |
-| 4 | Basic Stablecoin Velocity & Flows | `scripts/pro/stables.py` | `data/pro/stables.json` |
+| 4 | Basic Stablecoin Velocity & Flows (on-chain) | `scripts/pro/stables_chain.py` | `data/pro/stables.json` |
 
 ## How it differs from the original brief (and why)
 The brief suggested a FastAPI server, SQLite and a React front end. This site is static (GitHub Pages) and updates through scheduled GitHub Actions, which is
@@ -64,6 +65,13 @@ floor whenever the market is balanced and would falsely look elevated; 60% extre
 `data/pro/hl_snapshots.json` because Hyperliquid has no OI history; shows "building" for about two days and the other components are re-weighted meanwhile), **Adverse move 15%** (24h move against the crowded side).
 Bands: Low <35, Moderate 35-55, High 55-75, Extreme >=75. Direction = vote of premium sign (beyond 1 bp) and funding-excess sign; Low scores read "Balanced". dYdX was evaluated and dropped (100-500x smaller than Hyperliquid, so
 noise). **Not modelled (no free data):** long/short account ratios, liquidation-price clusters, order-book depth, centralised-exchange crowding. The earlier Gate.io-based version (`scripts/pro/unwind.py`) is kept but unused.
+
+### 1b. Basis-Trade Crowding (new)
+Module `scripts/pro/basis.py`. Estimates how big and how crowded the "ETF basis trade" (buy the spot ETF, short CME Bitcoin futures against it) is. Source: CFTC Traders in Financial Futures for CME Bitcoin futures (weekly since 2018):
+leveraged funds' long/short, open interest, and the number of leveraged-fund traders on each side; ETF capital from the site's ETF dataset (cumulative net inflows). Crowding score 0-100 = weighted percentile (trailing 156 weeks) of
+**net short as % of open interest 40%**, **net short in contracts 30%**, **number of funds short 30%**. Also reports net short in BTC and USD (latest Hyperliquid BTC price), net short as a share of cumulative ETF net inflows (hedge-ratio proxy),
+4-week phase (Building > +5%, Unwinding < -5%, else Stable) and the matching asset-manager long. **Limits:** the CFTC does not label basis trades, so the leveraged-fund short is a proxy; ETFs may be hedged elsewhere; weekly data.
+First reading (2026-10-08): score 8 (Low), phase Unwinding: net short is about 6,900 contracts (about 34,000 BTC, about $2.8B), down from about 20,000 contracts in late 2024.
 
 ### 3. Protocol Revenue / TVL Quality Score (OFFLINE since 2026-10-08)
 _Taken off the page and out of the refresh job because DefiLlama is the only free source and its terms do not clearly allow republishing (see DATA-LICENSE-REVIEW.md). The code (`scripts/pro/quality.py`), the page section (`sec_quality` in `scripts/pro_page.py`) and its styling are kept. To bring it back: add it to `JOBS` in `scripts/pro/refresh_pro.py` and set `SHOW_QUALITY = True` in `scripts/pro_page.py`._

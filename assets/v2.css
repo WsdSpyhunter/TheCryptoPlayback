@@ -501,3 +501,8 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 /* Positioning section: CME table + note */
 .pro-note.light { color: var(--muted); }
 .pro-cme .pro-table th, .pro-cme .pro-table td { padding: 9px 8px; font-size: 14px; }
+
+/* Basis-Trade Crowding: three component cards */
+.pro-comps.pro-comps-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 22px; }
+@media (max-width: 1100px) { .pro-comps.pro-comps-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .pro-comps.pro-comps-3 { grid-template-columns: 1fr; } }

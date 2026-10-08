@@ -166,12 +166,15 @@ def _empty(title):
 
 # ------------------------------ sections -----------------------------------
 
-def overview_cards(p, u, q, s):
+def overview_cards(p, u, q, s, b=None):
     cards = []
     if p:
         z = p["score_z"]
         cards.append(("pressure", "Institutional Positioning", f"{z:+.2f}", p["regime"], _tone(z) if abs(z) >= 1 else "flat",
                       sparkline([h["z"] for h in p["history"]]), p["updated_at"]))
+    if b:
+        cards.append(("basis", "Basis-Trade Crowding", f"{b['score']:.0f}", f"{b['label']} · {b['phase'].lower()}",
+                      "down" if b["score"] >= 55 else "flat", sparkline([x for x in b["history"]["score"][-52:]]), b["updated_at"]))
     if u:
         top = u["assets"][0]
         cards.append(("unwind", "Crowded Unwind Risk", f"{top['score']:.0f}", f"Highest: {top['symbol']} ({top['label']})",
@@ -287,6 +290,56 @@ def sec_pressure(p):
     {cme_html}
     {method}"""
     return f'<section class="v2-section" id="pressure" aria-labelledby="pressure-h">{_wrap(head + body)}</section>'
+
+
+def sec_basis(b):
+    head = ui.title_box("changed", '<span id="basis-h">Basis-Trade Crowding</span>',
+                        f"Updated {updated(b['updated_at'])}" if b else "")
+    if not b:
+        return f'<section class="v2-section" id="basis">{_wrap(head + _empty("Basis-Trade Crowding"))}</section>'
+    c = b["current"]
+    tone = "down" if b["score"] >= 55 else "flat"
+    comps = ""
+    for k in b["components"]:
+        pctv = k["percentile"]
+        comps += (f'<div class="pro-comp"><div class="pro-comp-top"><span class="pro-comp-name">{escape(k["label"])}</span>'
+                  f'<span class="pro-comp-w">{k["weight"] * 100:.0f}% weight</span></div>'
+                  f'<div class="pro-comp-z">{"n/a" if pctv is None else pctv}<small> percentile</small></div>'
+                  f'<span class="pro-scorebar light" style="width:100%;display:block"><span style="width:{pctv or 0}%;background:{heat(pctv)}"></span></span>'
+                  f'<div class="pro-comp-read">{escape(k["readout"])}</div></div>')
+    hs = b["history"]
+    ts = [int(t) for t in hs["t"]]
+    chart = line_chart(ts, hs["lf_net_short_pct_oi"], color="#B3372F", fmt="{:.0f}%", label="Leveraged funds' net short in CME Bitcoin futures as a percent of open interest, last three years")
+    hr = c.get("hedge_ratio_pct")
+    usd = c.get("lf_net_short_usd")
+    kpis = (f'<div class="pro-kpis"><div class="pro-kpi"><span>Hedge-fund net short</span><strong>{c["lf_net_short_btc"]:,.0f} BTC</strong><small>{"about " + money(usd) if usd else "n/a"} at today&#39;s price</small></div>'
+            f'<div class="pro-kpi"><span>Share of ETF capital</span><strong>{"n/a" if hr is None else f"{hr:.1f}%"}</strong><small>net short ÷ cumulative ETF net inflows</small></div>'
+            f'<div class="pro-kpi"><span>Trade phase</span><strong>{escape(b["phase"])}</strong><small>{c["change_4w_contracts"]:+,} contracts over 4 weeks</small></div>'
+            f'<div class="pro-kpi"><span>Asset managers long</span><strong>{c["asset_manager_long_btc"]:,.0f} BTC</strong><small>the other side of the trade</small></div></div>')
+    explain = ("<p class=\"pro-lead\">Since spot Bitcoin ETFs launched, many hedge funds have run the &ldquo;basis trade&rdquo;: buy the ETF, short CME Bitcoin futures against it, and collect the gap between the two. "
+               "It looks like free money, and that is why it can get crowded: if the gap closes, ETF flows turn or margin tightens, every fund heads for the same exit, forcing ETF selling and futures buying at the same time. "
+               "This reading shows how big and how crowded the futures leg is right now, compared with its own last three years.</p>")
+    method = """<details class="pro-method"><summary>How this score is calculated</summary>
+      <p>Data: the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data, published Fridays for the prior Tuesday). The crowding score (0–100) is the weighted average of three percentiles against the trailing 156 weeks:
+      <strong>Size 40%</strong> (leveraged funds' net short as a share of open interest), <strong>Absolute size 30%</strong> (their net short in contracts, 5 BTC each) and <strong>Breadth 30%</strong> (how many leveraged-fund traders are short; more funds in the trade is harder to exit).
+      Bands: Low under 35, Moderate 35–55, High 55–75, Extreme 75+. Phase compares the net short with four weeks ago (Building above +5%, Unwinding below −5%). The ETF-capital share divides the dollar net short (at the latest Hyperliquid BTC price) by the cumulative net inflows into US spot Bitcoin ETFs from the site's ETF dataset.</p>
+      <p class="pro-caveat">Important limits: the CFTC does not label basis trades. A leveraged-fund short is a proxy, since those funds can short for other reasons; ETFs can also be hedged on other venues or not at all; and the data is weekly. This is a gauge of crowding in the regulated futures leg, not a measurement of the whole trade, and not a forecast.</p></details>"""
+    body = f"""{_stale(b)}
+    {explain}
+    <div class="pro-hero-grid">
+      <div class="pro-score-card">
+        <div class="pro-score-label">Crowding score</div>
+        <div class="pro-score-big {tone}">{b['score']:.0f}</div>
+        <div class="pro-score-regime {tone}">{escape(b['label'])}</div>
+        <div class="pro-score-pct" style="font-size:22px">{escape(b['phase'])}</div>
+        <div class="pro-score-label" style="margin-top:8px;font-size:13px">CFTC report of {b['report_date']}</div>
+      </div>
+      <div class="pro-chart-card"><div class="pro-chart-title">Hedge funds' net short, % of CME Bitcoin futures open interest (3 years, weekly)</div>{chart}</div>
+    </div>
+    <div class="pro-comps pro-comps-3">{comps}</div>
+    {kpis}
+    {method}"""
+    return f'<section class="v2-section" id="basis" aria-labelledby="basis-h">{_wrap(head + body)}</section>'
 
 
 def sec_unwind(u):
@@ -462,9 +515,9 @@ def hero(meta):
     <h1 class="pro-h1"><span aria-hidden="true" class="pro-brandtitle pro-brandtitle-lg">The
       <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
-    <p>Live readings of crypto market structure: how the big regulated players are positioned, which on-chain markets are crowded,
+    <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, which on-chain markets are fragile,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -483,10 +536,10 @@ def _footer_links():
 
 
 def render_institutional():
-    p, u, s = _load("pressure"), _load("unwind"), _load("stables")
+    p, u, s, b = _load("pressure"), _load("unwind"), _load("stables"), _load("basis")
     q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
-    ov = overview_cards(p, u, q, s)
+    ov = overview_cards(p, u, q, s, b)
     summary_title = ui.title_box(
         "pulse",
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
@@ -494,10 +547,10 @@ def render_institutional():
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
-            + sec_pressure(p) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
+            + sec_pressure(p) + sec_basis(b) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, on-chain crowded unwind risk and stablecoin flows.",
+                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, on-chain crowded unwind risk and stablecoin flows.",
                 path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 

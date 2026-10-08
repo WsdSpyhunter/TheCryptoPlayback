@@ -61,6 +61,7 @@ def fetch_cot():
                 "am_l": int(r["asset_mgr_positions_long"]), "am_s": int(r["asset_mgr_positions_short"]),
                 "lf_l": int(r["lev_money_positions_long"]), "lf_s": int(r["lev_money_positions_short"]),
                 "dl_l": int(r["dealer_positions_long_all"]), "dl_s": int(r["dealer_positions_short_all"]),
+                "lf_traders_s": int(r.get("traders_lev_money_short_all") or 0), "lf_traders_l": int(r.get("traders_lev_money_long_all") or 0),
             })
         except (KeyError, ValueError, TypeError):
             continue
