@@ -7,7 +7,7 @@ shown on `institutional.html` in the Version 2 site style.
 |---|-----------|------|--------|
 | 1 | Basic Institutional Pressure Index | `scripts/pro/pressure.py` | `data/pro/pressure.json` |
 | 2 | Crowded Unwind Risk Map | `scripts/pro/unwind.py` | `data/pro/unwind.json` |
-| 3 | Protocol Revenue / TVL Quality Score | `scripts/pro/quality.py` | `data/pro/quality.json`, `quality_history.json` |
+| 3 | Protocol Revenue / TVL Quality Score (offline) | `scripts/pro/quality.py` | none while offline |
 | 4 | Basic Stablecoin Velocity & Flows | `scripts/pro/stables.py` | `data/pro/stables.json` |
 
 ## How it differs from the original brief (and why)
@@ -65,7 +65,9 @@ floor whenever the market is balanced and would falsely look elevated; 60% extre
 Bands: Low <35, Moderate 35-55, High 55-75, Extreme >=75. Direction = vote of premium sign (beyond 1 bp) and funding-excess sign; Low scores read "Balanced". dYdX was evaluated and dropped (100-500x smaller than Hyperliquid, so
 noise). **Not modelled (no free data):** long/short account ratios, liquidation-price clusters, order-book depth, centralised-exchange crowding. The earlier Gate.io-based version (`scripts/pro/unwind.py`) is kept but unused.
 
-### 3. Protocol Revenue / TVL Quality Score
+### 3. Protocol Revenue / TVL Quality Score (OFFLINE since 2026-10-08)
+_Taken off the page and out of the refresh job because DefiLlama is the only free source and its terms do not clearly allow republishing (see DATA-LICENSE-REVIEW.md). The code (`scripts/pro/quality.py`), the page section (`sec_quality` in `scripts/pro_page.py`) and its styling are kept. To bring it back: add it to `JOBS` in `scripts/pro/refresh_pro.py` and set `SHOW_QUALITY = True` in `scripts/pro_page.py`._
+
 Universe: TVL ≥ $100M, 30-day fees ≥ $250k, top 60 by fees. Percentile ranks: Fee yield 35%, Stability 25% (low CV of 90-day daily fees), Growth 20%, Scale 20%.
 Also fee concentration (top-5/top-10 share, HHI). Score history accumulates daily in `data/pro/quality_history.json`.
 

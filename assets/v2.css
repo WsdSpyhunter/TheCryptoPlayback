@@ -356,7 +356,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2 .pro-jump a { font-family: var(--f-cond); font-weight: 600; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; color: var(--dark-soft); border: 1px solid var(--navy-line); border-bottom: 3px solid var(--navy-line); padding: 8px 16px; }
 .v2 .pro-jump a:hover { color: var(--brass-hi); border-color: var(--brass-hi); text-decoration: none; }
 .pro-ov-band { background: var(--ivory); border-bottom: 3px solid var(--brass); padding: 30px 0; }
-.pro-overview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.pro-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .v2 a.pro-ov { display: flex; flex-direction: column; gap: 4px; background: var(--navy); color: var(--ivory); padding: 18px 20px; border-bottom: 3px solid var(--brass); box-shadow: var(--shadow); }
 .v2 a.pro-ov:hover { text-decoration: none; transform: translateY(-2px); color: var(--ivory); }
 .pro-ov-name { font-family: var(--f-head); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--brass-hi); }

@@ -103,7 +103,7 @@ def llms_txt(indicators):
 
 ## Main pages
 - [Home and live dashboard]({SITE_URL}/)
-- [The Crypto Playback Lab: market-structure indicators (institutional pressure, crowded unwind risk, protocol revenue/TVL quality, stablecoin flows)]({SITE_URL}/playback-lab.html)
+- [The Crypto Playback Lab: market-structure indicators (institutional positioning, on-chain crowded unwind risk, stablecoin flows)]({SITE_URL}/playback-lab.html)
 - [Newsletter archive]({SITE_URL}/archive.html)
 - [Resources and glossary]({SITE_URL}/resources.html)
 - [About]({SITE_URL}/about.html)

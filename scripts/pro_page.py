@@ -23,6 +23,9 @@ except Exception:  # pragma: no cover
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "pro")
 PAGE_FILE = "playback-lab.html"
+# The Revenue / TVL Quality section (DefiLlama-based) is built and styled but taken offline: no clean free source.
+# Set True (and re-enable the "quality" job in scripts/pro/refresh_pro.py) to publish it again.
+SHOW_QUALITY = False
 
 
 # ------------------------------ helpers ------------------------------------
@@ -442,7 +445,6 @@ def sec_sources():
       <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
       <div><h3>Stablecoins</h3><p>Token supply read directly from public blockchain nodes (Ethereum and other EVM chains, Tron via TronGrid, Solana), plus Tether's own published transparency figures.</p></div>
-      <div><h3>DeFi protocols</h3><p>DefiLlama's free public API: protocol TVL, fees and revenue (used only for the Revenue / TVL Quality score).</p></div>
     </div>
     <div class="pro-disclaimer"><strong>Independent market research, not financial advice.</strong> These indicators describe market positioning and data
     reported by third parties; they are not forecasts, and sources can be delayed, revised or wrong. Do not trade on any single number here.</div>"""
@@ -460,9 +462,9 @@ def hero(meta):
     <h1 class="pro-h1"><span aria-hidden="true" class="pro-brandtitle pro-brandtitle-lg">The
       <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
-    <p>Four live readings of crypto market structure: who is pressing, who is crowded, which protocols earn their keep,
+    <p>Live readings of crypto market structure: how the big regulated players are positioned, which on-chain markets are crowded,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#unwind">Unwind Risk</a><a href="#quality">Revenue / TVL</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -481,7 +483,8 @@ def _footer_links():
 
 
 def render_institutional():
-    p, u, q, s = _load("pressure"), _load("unwind"), _load("quality"), _load("stables")
+    p, u, s = _load("pressure"), _load("unwind"), _load("stables")
+    q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
     ov = overview_cards(p, u, q, s)
     summary_title = ui.title_box(
@@ -489,12 +492,12 @@ def render_institutional():
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
         '<img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Summary</span>'
         '<span class="v2-sr">The Playback Summary</span></span>',
-        "All four readings at a glance")
+        "All readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
-            + sec_pressure(p) + sec_unwind(u) + sec_quality(q) + sec_stables(s) + sec_sources())
+            + sec_pressure(p) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="The Crypto Playback Lab: four live crypto market-structure indicators, updated every 2 hours. Pressure index, crowded unwind risk, protocol revenue/TVL quality and stablecoin flows.",
+                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, on-chain crowded unwind risk and stablecoin flows.",
                 path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 

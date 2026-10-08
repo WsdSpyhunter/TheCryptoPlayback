@@ -2,7 +2,7 @@
 
 Each indicator runs independently: if one source is down the others still
 update, and the failed indicator keeps its last good file, marked stale.
-Run:  python -m pro.refresh_pro [pressure unwind quality stables]
+Run:  python -m pro.refresh_pro [pressure unwind stables]
 Exit code is 0 as long as at least one indicator refreshed.
 """
 import json
@@ -16,7 +16,10 @@ from . import positioning, unwind_chain, quality, stables_chain
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(ROOT, "data", "pro")
-JOBS = {"pressure": positioning.compute, "unwind": unwind_chain.compute, "quality": quality.compute, "stables": stables_chain.compute}
+JOBS = {"pressure": positioning.compute, "unwind": unwind_chain.compute, "stables": stables_chain.compute}
+# Offline (kept for later): DefiLlama-based Revenue / TVL Quality score. Move it back into JOBS and set
+# SHOW_QUALITY = True in scripts/pro_page.py to publish it again (see docs/DATA-LICENSE-REVIEW.md first).
+OFFLINE_JOBS = {"quality": quality.compute}
 
 
 def _write(name, payload):
