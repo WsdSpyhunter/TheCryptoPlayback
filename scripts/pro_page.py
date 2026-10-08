@@ -322,40 +322,60 @@ def sec_stables(s):
         return f'<section class="v2-dark" id="stables">{_wrap(head + _empty("Stablecoin Flows"))}</section>'
     t = s["totals"]
     f, v = s["flow"], s["velocity"]
-    kpis = (f'<div class="pro-kpis dark"><div class="pro-kpi"><span>Stablecoin supply</span><strong>{money(t["supply_usd"])}</strong><small>{pct(t["change_7d_pct"], 2)} 7d · {pct(t["change_30d_pct"], 2)} 30d</small></div>'
+    rate = v.get("net_per_day_7d_usd")
+    z_txt = "n/a" if f["z"] is None else f"{f['z']:+.2f}"
+    rate_txt = "n/a" if rate is None else signed_money(rate) + " per day (7d avg)"
+    kpis = (f'<div class="pro-kpis dark"><div class="pro-kpi"><span>Tracked stablecoin supply</span><strong>{money(t["supply_usd"])}</strong><small>{pct(t["change_7d_pct"], 2)} 7d · {pct(t["change_30d_pct"], 2)} 30d</small></div>'
             f'<div class="pro-kpi"><span>Net issuance, 7 days</span><strong class="{_tone(t["net_issuance_7d_usd"])}">{signed_money(t["net_issuance_7d_usd"])}</strong><small>{signed_money(t["net_issuance_30d_usd"])} over 30 days</small></div>'
-            f'<div class="pro-kpi"><span>Flow signal</span><strong>{escape(f["label"])}</strong><small>z {"n/a" if f["z"] is None else f"{f["z"]:+.2f}"} vs trailing year</small></div>'
-            f'<div class="pro-kpi"><span>Velocity (DEX turnover)</span><strong>{v["turnover_pct"]:.2f}%/day</strong><small>{escape(v["label"])} · z {"n/a" if v["z"] is None else f"{v["z"]:+.2f}"}</small></div></div>')
+            f'<div class="pro-kpi"><span>Flow signal</span><strong>{escape(f["label"])}</strong><small>z {z_txt} vs the last two months</small></div>'
+            f'<div class="pro-kpi"><span>Flow velocity</span><strong>{escape(v["label"])}</strong><small>{rate_txt}</small></div></div>')
     h = s["history"]
-    ch1 = line_chart(h["t"], [x / 1e9 for x in h["supply_usd"]], color="#D4B063", fmt="${:.0f}B", label="Stablecoin supply, last 180 days")
-    ch2 = line_chart(h["t"], h["turnover_pct"], color="#8FD0AC", fmt="{:.1f}%", label="DEX turnover as a percent of stablecoin supply, last 180 days")
+    ts = [int(datetime.strptime(d, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp()) for d in h["d"]]
+    ch1 = line_chart(ts, [None if x is None else x / 1e9 for x in h["supply_usd"]], color="#D4B063", fmt="${:.0f}B", label="Tracked stablecoin supply, last 60 days")
+    ch2 = line_chart(ts, [None if x is None else x / 1e6 for x in h["net_usd"]], color="#8FD0AC", fmt="{:+.0f}M", zero=True, label="Daily net stablecoin issuance in millions of dollars, last 60 days")
     coins = "".join(
-        f'<tr><th scope="row">{c["symbol"]}</th><td class="pro-num">{money(c["supply_usd"])}</td><td class="pro-num">{c["share_pct"]:.1f}%</td>'
+        f'<tr><th scope="row">{c["symbol"]}<span class="pro-pcat">{escape(c["name"])}</span></th><td class="pro-num">{money(c["supply_usd"])}</td><td class="pro-num">{c["share_pct"]:.1f}%</td>'
         f'<td class="pro-num {_tone(c["change_7d_pct"])}">{pct(c["change_7d_pct"], 2)}</td><td class="pro-num {_tone(c["change_30d_pct"])}">{pct(c["change_30d_pct"], 2)}</td>'
-        f'<td class="pro-num">{"non-par" if c.get("non_par") else ("n/a" if c["peg_deviation_bps"] is None else f"{c["peg_deviation_bps"]:+.1f} bps")}</td></tr>'
+        f'<td class="pro-num {_tone(c["net_7d_usd"])}">{signed_money(c["net_7d_usd"])}</td></tr>'
         for c in s["coins"])
-    chains = "".join(
-        f'<tr><th scope="row">{c["chain"]}</th><td class="pro-num">{money(c["supply_usd"])}</td><td class="pro-num">{c["share_pct"]:.1f}%</td>'
-        f'<td class="pro-num {_tone(c["net_7d_usd"])}">{signed_money(c["net_7d_usd"])}</td><td class="pro-num {_tone(c["net_30d_usd"])}">{signed_money(c["net_30d_usd"])}</td></tr>'
-        for c in s["chains"])
+    chain_rows = ""
+    for c in s["chains"]:
+        if c.get("net_7d_usd") is not None:
+            tail = (f'<td class="pro-num {_tone(c["net_7d_usd"])}">{signed_money(c["net_7d_usd"])}</td>'
+                    f'<td class="pro-num {_tone(c["net_30d_usd"])}">{signed_money(c["net_30d_usd"])}</td>')
+        else:
+            tail = '<td class="pro-num pro-muted" colspan="2">history building</td>'
+        chain_rows += (f'<tr><th scope="row">{c["chain"]}</th><td class="pro-num">{money(c["supply_usd"])}</td>'
+                       f'<td class="pro-num">{c["share_pct"]:.1f}%</td>{tail}</tr>')
     movers = ", ".join(f'{m["chain"]} ({signed_money(m["net_7d_usd"])})' for m in s["chain_movers"][:4])
+    tt = s.get("tether")
+    tether = ""
+    if tt:
+        track = tt["our_tracked_usdt_usd"] / tt["liabilities_usd"] * 100
+        tether = (f'<div class="pro-tether"><div class="pro-chart-title" style="margin-top:26px">Tether reserve cushion (Tether\'s own published figures)</div>'
+                  f'<div class="pro-kpis dark"><div class="pro-kpi"><span>Reserves (assets)</span><strong>{money(tt["assets_usd"])}</strong><small>published by Tether</small></div>'
+                  f'<div class="pro-kpi"><span>Liabilities (USDT issued)</span><strong>{money(tt["liabilities_usd"])}</strong><small>our chain read covers {track:.1f}% of it</small></div>'
+                  f'<div class="pro-kpi"><span>Excess reserves</span><strong>{money(tt["excess_reserves_usd"])}</strong><small>equity above liabilities</small></div>'
+                  f'<div class="pro-kpi"><span>Coverage ratio</span><strong>{tt["coverage_ratio"] * 100:.1f}%</strong><small>assets ÷ liabilities</small></div></div></div>')
     method = """<details class="pro-method dark"><summary>How these readings are calculated</summary>
-      <p><strong>Supply and net issuance:</strong> total circulating USD-pegged stablecoins; the dollar change in supply over 1, 7 and 30 days is a net mint-minus-burn proxy.
-      <strong>Chain deployment:</strong> supply per chain and its 7- and 30-day net change, showing where new dollars land. <strong>Velocity proxy:</strong> 7-day average daily DEX volume ÷ stablecoin supply ("DEX turnover").
-      <strong>Flow signal:</strong> z-score of the latest 7-day supply change against the last 365 days of 7-day changes. <strong>Velocity signal:</strong> z-score of turnover against its trailing 365 days.
-      Coins priced more than 3% from $1.00 are yield-bearing or tokenised-fund products and are shown as non-par, not as depegs.</p>
-      <p class="pro-caveat">Free exchange-reserve and exchange-netflow data does not exist, so those are not modelled. DEX turnover is an on-chain activity proxy, not payments velocity,
-      and perpetual-DEX volume is not included.</p></details>"""
+      <p><strong>Source:</strong> supply is read directly from each token's contract on free public blockchain nodes (Ethereum, Base, Arbitrum, Polygon, Optimism, Avalanche, BSC), TronGrid (Tron)
+      and Solana's public RPC. History is rebuilt from archive-node reads (EVM chains) and from the Tether treasury's on-chain transfers (Tron); Solana accumulates from the first run.
+      <strong>Net issuance:</strong> supply only changes when an issuer mints or burns, so the change in supply is net mint minus burn. For USDT, circulating supply is total supply minus the balance of
+      Tether's treasury wallet (Tether mints unissued tokens to itself), which reconciles to Tether's published liabilities. Bridged or Binance-Peg copies are excluded to avoid double counting.
+      <strong>Flow velocity:</strong> average daily net issuance over the last 7 days versus the 7 days before. <strong>Flow signal:</strong> z-score of the latest 7-day change versus the last two months of 7-day changes.</p>
+      <p class="pro-caveat">Coverage: the nine largest USD stablecoins on the chains listed (USDT counted on Ethereum and Tron, about 97% of Tether's liabilities). Not covered: smaller chains, non-USD stablecoins,
+      exchange balances and on-chain transfer volume (no free source). "Velocity" here means the speed of net issuance, not payments velocity.</p></details>"""
     body = f"""{_stale(s)}
-    <p class="pro-lead dark">Is dollar liquidity being created, and is it being used? Net issuance, where new supply is landing, and how actively it trades on-chain.</p>
+    <p class="pro-lead dark">Is dollar liquidity being created or destroyed, how fast, and where? Net issuance read straight from the blockchains, and where new supply is landing.</p>
     {kpis}
-    <div class="pro-two"><div class="pro-chart-card dark"><div class="pro-chart-title">Total stablecoin supply</div>{ch1}</div>
-      <div class="pro-chart-card dark"><div class="pro-chart-title">DEX turnover (7-day avg DEX volume ÷ supply)</div>{ch2}</div></div>
+    <div class="pro-two"><div class="pro-chart-card dark"><div class="pro-chart-title">Tracked stablecoin supply, daily</div>{ch1}</div>
+      <div class="pro-chart-card dark"><div class="pro-chart-title">Daily net issuance</div>{ch2}</div></div>
     <div class="pro-two">
-      <div class="pro-table-wrap"><table class="pro-table"><caption>Major stablecoins</caption><thead><tr><th>Coin</th><th>Supply</th><th>Share</th><th>7d</th><th>30d</th><th>Peg</th></tr></thead><tbody>{coins}</tbody></table></div>
-      <div class="pro-table-wrap"><table class="pro-table"><caption>Where stablecoins are deployed</caption><thead><tr><th>Chain</th><th>Supply</th><th>Share</th><th>7d net</th><th>30d net</th></tr></thead><tbody>{chains}</tbody></table>
+      <div class="pro-table-wrap"><table class="pro-table"><caption>Major stablecoins</caption><thead><tr><th>Coin</th><th>Supply</th><th>Share</th><th>7d</th><th>30d</th><th>7d net</th></tr></thead><tbody>{coins}</tbody></table></div>
+      <div class="pro-table-wrap"><table class="pro-table"><caption>Where stablecoins are deployed</caption><thead><tr><th>Chain</th><th>Supply</th><th>Share</th><th>7d net</th><th>30d net</th></tr></thead><tbody>{chain_rows}</tbody></table>
       <p class="pro-note">Biggest 7-day movers: {movers}.</p></div>
     </div>
+    {tether}
     {method}"""
     return f'<section class="v2-dark" id="stables" aria-labelledby="stables-h">{_wrap(head + body)}</section>'
 
@@ -369,7 +389,8 @@ def sec_sources():
       Binance and Bybit refuse US-based servers, so they are not used.</p></div>
       <div><h3>Prices</h3><p>Coinbase Exchange, OKX and Kraken public prices for the Coinbase Premium (Coinbase versus OKX, dollar-adjusted with Kraken USDT/USD).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
-      <div><h3>DeFi and stablecoins</h3><p>DefiLlama's free public API: protocols, TVL, fees and revenue, stablecoin supply by coin and chain, and DEX volume.</p></div>
+      <div><h3>Stablecoins</h3><p>Token supply read directly from public blockchain nodes (Ethereum and other EVM chains, Tron via TronGrid, Solana), plus Tether's own published transparency figures.</p></div>
+      <div><h3>DeFi protocols</h3><p>DefiLlama's free public API: protocol TVL, fees and revenue (used only for the Revenue / TVL Quality score).</p></div>
     </div>
     <div class="pro-disclaimer"><strong>Independent market research, not financial advice.</strong> These indicators describe market positioning and data
     reported by third parties; they are not forecasts, and sources can be delayed, revised or wrong. Do not trade on any single number here.</div>"""
