@@ -530,4 +530,4 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-chart-card .pro-table-wrap { margin-top: 12px; }
 
 .pro-comps + .pro-kpis { margin-top: 22px; }
-.pro-hero .v2-kicker-brass { display: inline-block; background: #F7F4EC; color: #1F3A63; border: 1px solid #E3DCC8; box-shadow: var(--shadow); padding: 9px 18px; margin-bottom: 14px; }
+.pro-hero .v2-kicker-brass { display: table; margin-left: auto; margin-right: auto; background: #F7F4EC; color: #1F3A63; border: 1px solid #E3DCC8; box-shadow: var(--shadow); padding: 9px 18px; margin-bottom: 38px; }
