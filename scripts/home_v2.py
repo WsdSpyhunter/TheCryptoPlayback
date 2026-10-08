@@ -190,8 +190,8 @@ def missed_card(m, root="", extra_class=""):
     """'Here's a story you missed': the odd, unusual crypto story picked for an issue (same text as the email)."""
     body = m["body"]
     return f"""<aside class="v2-missed{' ' + extra_class if extra_class else ''}" aria-labelledby="missed-h">
-      <img class="v2-missed-badge" src="{root}assets/v2/story-you-missed-badge.webp" width="220" height="220" alt="" loading="lazy">
-      <div class="v2-kicker v2-kicker-brass" id="missed-h">Here&rsquo;s a story you missed</div>
+      <svg class="v2-missed-arrow" viewBox="0 0 64 48" aria-hidden="true" focusable="false"><path d="M3 18h31V4l27 20-27 20V30H3z" fill="#E5382D"/></svg>
+      <div class="v2-kicker v2-missed-kicker" id="missed-h">Here&rsquo;s a story you missed</div>
       <h3 class="v2-missed-title">{m['headline']}</h3>
       <div class="v2-missed-body">{body}</div>
       <a class="v2-missed-link" href="{m['source_url']}" target="_blank" rel="noopener">Read more at {m['source_title']} &rarr;</a>

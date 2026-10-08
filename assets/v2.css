@@ -803,3 +803,11 @@ body.v2 { overflow-x: clip; }
   .v2 .v2-missed .v2-missed-title { text-align: center; font-size: 18px; }
   .v2 .v2-missed .v2-missed-body { text-align: center; font-size: 15px; }
 }
+
+/* story-you-missed: big red arrow instead of the badge, and a standout title */
+.v2-missed-arrow { grid-row: 1 / span 4; width: 60px; height: 45px; margin: 6px 0 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,.45)); }
+.v2 .v2-missed .v2-missed-kicker { font-family: var(--f-cond); font-weight: 700; font-size: 17px; letter-spacing: .16em; text-transform: uppercase; color: #FF6F61; }
+@media (max-width: 700px) { .v2-missed-arrow { grid-row: auto; width: 48px; height: 36px; margin: 0 0 8px; transform: rotate(90deg); } .v2 .v2-missed .v2-missed-kicker { font-size: 16px; } }
+.v2 .v2-missed { grid-template-columns: 78px 1fr; }
+.v2-missed-arrow { width: 68px; height: 51px; }
+@media (max-width: 700px) { .v2 .v2-missed { grid-template-columns: minmax(0, 1fr); } .v2-missed-arrow { width: 52px; height: 39px; } }
