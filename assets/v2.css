@@ -460,7 +460,7 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-ov-upd { margin-top: auto !important; padding-top: 6px; }
 
 /* Branded "Playback" word inside the Playback Summary title (gold italic from the logo) */
-.pro-brandtitle { display: inline-flex; align-items: center; gap: .45em; font-family: 'Fraunces', 'Libre Franklin', Georgia, serif; font-weight: 700;
+.pro-brandtitle { display: inline-flex; align-items: center; gap: .2em; font-family: 'Fraunces', 'Libre Franklin', Georgia, serif; font-weight: 700;
   font-size: 25px; letter-spacing: 0; text-transform: none; line-height: 1; }
 .pro-brandword { height: 31px; width: auto; display: block; margin-top: 2px; filter: brightness(.68) saturate(1.2); }
 @media (max-width: 560px) { .pro-brandtitle { font-size: 20px; } .pro-brandword { height: 25px; margin-top: 2px; } }
@@ -551,3 +551,6 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .pro-rd-bar i { display: block; } .pro-rd-bar i.up { background: #2E8B57; } .pro-rd-bar i.flat { background: #C9C3B1; } .pro-rd-bar i.down { background: #B3372F; }
 .pro-chart-card ul { margin: 6px 0 0; padding-left: 18px; }
 @media (max-width: 900px) { .pro-rd-top { grid-template-columns: 1fr; } .pro-rd-tiles { flex-wrap: wrap; } }
+#read .v2-titletext { font-size: 18.5px; }
+#read .v2-titlebox svg { width: 30px; height: 30px; }
+#read .v2-titlebox { padding: 13px 24px; }

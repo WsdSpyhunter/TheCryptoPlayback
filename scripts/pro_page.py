@@ -243,7 +243,10 @@ def multi_chart(ts, series, w=760, h=230, fmt="{:+,.0f}", zero=True, label=""):
 
 
 def sec_read(r):
-    head = ui.title_box("bottom_line", '<span id="read-h">The Playback Read</span>', f"Updated {updated(r['updated_at'])}" if r else "")
+    head = ui.title_box("bottom_line",
+        '<span id="read-h"><span aria-hidden="true" class="pro-brandtitle">The '
+        '<img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Read</span>'
+        '<span class="v2-sr">The Playback Read</span></span>', f"Updated {updated(r['updated_at'])}" if r else "")
     if not r:
         return ""
     cls = {"Supportive": "up", "Neutral": "flat", "Caution": "down"}
