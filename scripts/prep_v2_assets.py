@@ -122,3 +122,8 @@ def share_card():
 
 
 share_card()
+
+# the gold italic "PlayBack" word on its own (right-hand part of the wordmark, after the gap following "Crypto")
+_wm = Image.open(os.path.join(SRC, "TCP Title transparent.png")).convert("RGBA")
+_word = trim(_wm.crop((2771, 0, _wm.width, _wm.height)), pad=4)
+save(_word.resize((900, round(_word.height * 900 / _word.width)), Image.LANCZOS), "the-crypto-playback-word-playback-gold.webp")

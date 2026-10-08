@@ -411,7 +411,8 @@ def render_institutional():
     ov = overview_cards(p, u, q, s)
     summary_title = ui.title_box(
         "snapshot",
-        '<span id="summary-h"><span aria-hidden="true">The Play<span class="btc-b"></span>ack Summary</span>'
+        '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
+        '<img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Summary</span>'
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All four readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
