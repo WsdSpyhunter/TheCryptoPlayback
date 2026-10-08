@@ -1,28 +1,28 @@
 {
-  "updated_at": "2026-10-08T00:29:59.806343+00:00",
+  "updated_at": "2026-10-08T00:58:44.876873+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 83223,
-      "change_24h": -2.60067,
+      "price": 83387,
+      "change_24h": -2.50409,
       "change_7d": -0.434
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2571.32,
-      "change_24h": -4.57302,
+      "price": 2575.97,
+      "change_24h": -4.48313,
       "change_7d": -4.1928
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 772.93,
-      "change_24h": -0.62427,
+      "price": 773.66,
+      "change_24h": -0.66454,
       "change_7d": 0.4172
     },
     {
@@ -30,23 +30,23 @@
       "symbol": "XRP",
       "name": "XRP",
       "price": 1.42,
-      "change_24h": -4.99536,
+      "change_24h": -4.98331,
       "change_7d": -4.5286
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 116.26,
-      "change_24h": -3.43491,
+      "price": 116.4,
+      "change_24h": -3.45942,
       "change_7d": -1.6014
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.335652,
-      "change_24h": 0.11967,
+      "price": 0.335764,
+      "change_24h": 0.1279,
       "change_7d": -0.7086
     }
   ],
@@ -59,7 +59,7 @@
     "symbol": "XRP",
     "name": "XRP",
     "price": 1.42,
-    "change_24h": -4.99536,
+    "change_24h": -4.98331,
     "change_7d": -4.5286
   },
   "week_mover": {
@@ -67,21 +67,21 @@
     "symbol": "XRP",
     "name": "XRP",
     "price": 1.42,
-    "change_24h": -4.99536,
+    "change_24h": -4.98331,
     "change_7d": -4.5286
   },
   "sectors": [
     {
       "label": "Gaming",
-      "change_24h": -0.6954853197295209
+      "change_24h": -1.2461697222880403
     },
     {
       "label": "AI",
-      "change_24h": -1.7150539616508687
+      "change_24h": -2.1554973576791627
     },
     {
       "label": "RWA",
-      "change_24h": -2.2969240332620977
+      "change_24h": -2.4626846690792275
     }
   ],
   "stablecoins": {
@@ -89,23 +89,23 @@
     "change_7d_pct": 0.5139092835668606
   },
   "dominance": {
-    "btc_dominance_pct": 58.73158948026232,
-    "total_market_cap_usd": 2841988865617.0356
+    "btc_dominance_pct": 58.74985960734098,
+    "total_market_cap_usd": 2848404426114.527
   },
   "leverage": {
-    "funding_rate_pct": 0.007075640169380001,
+    "funding_rate_pct": 0.0074463300162599996,
     "next_funding_time_ms": 1791475200000,
-    "open_interest_usd": 2557104447.3196697
+    "open_interest_usd": 2558171329.05059
   },
   "defi_tvl": {
     "total_usd": 93143544880.0,
     "change_7d_pct": -1.5992455701616421
   },
   "network_health": {
-    "hashrate_eh": 983.5029242694948,
-    "difficulty_change_pct": 5.544651619234564,
+    "hashrate_eh": 982.9636571918519,
+    "difficulty_change_pct": 5.392767622872707,
     "fastest_fee_satvb": 1,
-    "pending_tx_count": 70024
+    "pending_tx_count": 73848
   },
   "liquidations": {
     "long_liq_usd": 458399.01866999996,
@@ -114,14 +114,43 @@
     "window_minutes": 347.1722
   },
   "whale_activity": {
-    "amounts_btc": [],
+    "amounts_btc": [
+      381.67002322,
+      127.1599571,
+      109.4223239,
+      95.62949337,
+      75.29424758,
+      73.24030056,
+      64.90353836,
+      56.8085188,
+      52.76040695,
+      28.15058689,
+      17.82425503,
+      16.88523262,
+      16.16826608,
+      15.06677568,
+      14.9308877,
+      13.56356754,
+      10.56135786,
+      10.4169695,
+      9.79999967,
+      9.79999967,
+      9.79999967,
+      9.79999967,
+      8.80317697,
+      8.05080842,
+      7.71530837,
+      6.58877821,
+      6.58872621,
+      5.1361813
+    ],
     "sample_size": 1000
   },
   "macro": {
     "vix": 15.08,
     "vix_change_pct": 0.466,
-    "dxy": 102.265,
-    "dxy_change_pct": 0.022
+    "dxy": 102.214,
+    "dxy_change_pct": -0.027
   },
   "gauge_path": "assets/gauges/live.png"
 }
