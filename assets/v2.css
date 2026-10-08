@@ -774,3 +774,6 @@ body.v2 { overflow-x: clip; }
   #contact, #contact h2, #contact p { text-align: center; }
 }
 @media (max-width: 700px) { .v2-res-chips { justify-content: center; } .v2-res-chips a { text-align: center; } }
+
+/* Playback Lab: brass rule between The Playback Read and The Playback Summary */
+#read { border-bottom: 3px solid var(--brass); }
