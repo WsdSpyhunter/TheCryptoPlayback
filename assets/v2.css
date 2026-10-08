@@ -780,3 +780,5 @@ body.v2 { overflow-x: clip; }
 /* equal space above and below the brass rule between The Playback Read and The Playback Summary */
 #read { padding-bottom: 40px; }
 .pro-ov-band { padding-top: 40px; }
+/* About: Contact box centered on every screen size */
+#contact, #contact h2, #contact p { text-align: center; }
