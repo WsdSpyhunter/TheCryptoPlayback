@@ -7,6 +7,7 @@ shown on `institutional.html` in the Version 2 site style.
 |---|-----------|------|--------|
 | 1 | Institutional Positioning Index | `scripts/pro/positioning.py` | `data/pro/pressure.json` |
 | 1b | Basis-Trade Crowding (new) | `scripts/pro/basis.py` | `data/pro/basis.json` |
+| 1d | Miner Stress (new) | `scripts/pro/miners.py` | `data/pro/miners.json` |
 | 1c | Regulatory & ETF-Pipeline Tracker (new) | `scripts/pro/regulatory.py` | `data/pro/regulatory.json`, `reg_cache.json` |
 | 2 | Crowded Unwind Risk Map (Hyperliquid) | `scripts/pro/unwind_chain.py` | `data/pro/unwind.json` |
 | 3 | Protocol Revenue / TVL Quality Score (offline) | `scripts/pro/quality.py` | none while offline |
@@ -82,6 +83,15 @@ Because the SEC adopted generic listing standards, new spot crypto ETPs mostly n
 Each filer's first-ever EDGAR filing date (submissions API) separates new products (< 90 days) from established funds filing routine prospectus updates. Stages: Listing registered / Prospectus filed (launching) / Registration amended / Registration filed / Established, updating.
 Cache: `data/pro/reg_cache.json` (only new days are fetched). **Limits:** filer names are classified by keyword (heuristic); a registration is an intention, not an approval; nothing predicts SEC decisions.
 First reading (2026-10-08): 25 crypto-related Federal Register documents in 4 weeks (Rising, +39%); 41 crypto ETP filers tracked, 6 recently exchange-registered, 0 first-time filers in 90 days.
+
+### 1d. Miner Stress (new)
+Module `scripts/pro/miners.py`; source: mempool.space's open public API (hashrate since 2009, price since 2010, difficulty adjustments, block rewards and fees, pool shares) plus the site's ETF dataset. Measures: **Hashprice**
+(rewards in USD per PH/s per day, percentile vs 3 years) and break-even power price for 15/25/35 J/TH machines (margin shown against a $0.07/kWh reference assumption); **Hash Ribbons** (30d vs 60d average hashrate; capitulation / recovery;
+confirmed buy signal also needs price 10d avg > 20d avg, Capriole's rule); **Puell multiple** (daily subsidy value / its 365-day average); **difficulty** (progress, projected change, last 12 adjustments); **fee share**; **pool control**
+(top-1/top-3 share, HHI, empty blocks); **supply absorption** (ETF net inflows / value of coins mined, 7d and 30d). **Miner Stress** 0-100 (higher = more stress): hashprice 35% + ribbon spread 30% + Puell 20% + difficulty trend 15%,
+each an inverted percentile. A plain-English "read" is generated from the numbers. **Event studies:** BTC price after every hash-ribbon recovery since 2012 and after each Puell band, shown with sample sizes and a since-2025 check.
+**Limits:** descriptive history, small overlapping samples, halvings/ETFs changed miner economics; fees before 2023 not in hashprice history; hashrate and price are third-party estimates.
+First reading (2026-10-08): stress 60 (Under pressure): hashprice at the 15th percentile of 3 years, hash ribbons in Recovery (42 days), next difficulty +5.6%, ETF inflows covering miner supply 2.0x over 30 days.
 
 ### 3. Protocol Revenue / TVL Quality Score (OFFLINE since 2026-10-08)
 _Taken off the page and out of the refresh job because DefiLlama is the only free source and its terms do not clearly allow republishing (see DATA-LICENSE-REVIEW.md). The code (`scripts/pro/quality.py`), the page section (`sec_quality` in `scripts/pro_page.py`) and its styling are kept. To bring it back: add it to `JOBS` in `scripts/pro/refresh_pro.py` and set `SHOW_QUALITY = True` in `scripts/pro_page.py`._

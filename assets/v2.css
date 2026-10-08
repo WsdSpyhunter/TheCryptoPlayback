@@ -519,3 +519,14 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2 .pro-reg a:hover { color: #fff; }
 .pro-wrap { max-width: 320px; }
 .pro-table th .pro-pcat { display: block; margin-top: 2px; }
+
+/* Miner Stress */
+.pro-read { margin: 18px 0 0; padding: 14px 18px; background: #fff; border-left: 5px solid var(--brass); font-size: 16.5px; line-height: 1.65; }
+.pro-diff-big { font-family: var(--f-mono); font-weight: 500; font-size: 40px; line-height: 1.1; color: var(--navy); }
+.pro-diff-big.up { color: var(--pos-text); } .pro-diff-big.down { color: var(--neg); }
+.pro-diff-sub { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-top: 2px; }
+.pro-bars-svg { width: 100%; height: auto; display: block; margin-top: 6px; }
+.pro-barrow.light { color: var(--text); } .pro-bar.light { background: #E2DDD0; } .pro-bar.light span { background: var(--navy); }
+.pro-chart-card .pro-table-wrap { margin-top: 12px; }
+
+.pro-comps + .pro-kpis { margin-top: 22px; }

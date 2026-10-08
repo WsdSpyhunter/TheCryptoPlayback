@@ -168,7 +168,7 @@ def _empty(title):
 
 # ------------------------------ sections -----------------------------------
 
-def overview_cards(p, u, q, s, b=None, rg=None):
+def overview_cards(p, u, q, s, b=None, rg=None, mi=None):
     cards = []
     if p:
         z = p["score_z"]
@@ -177,6 +177,9 @@ def overview_cards(p, u, q, s, b=None, rg=None):
     if b:
         cards.append(("basis", "Basis-Trade Crowding", f"{b['score']:.0f}", f"{b['label']} · {b['phase'].lower()}",
                       "down" if b["score"] >= 55 else "flat", sparkline([x for x in b["history"]["score"][-52:]]), b["updated_at"]))
+    if mi:
+        cards.append(("miners", "Miner Stress", f"{mi['stress']['score']:.0f}", f"{mi['stress']['label']} · ribbons {mi['ribbon']['state'].lower()}",
+                      "down" if mi["stress"]["score"] >= 70 else "flat", sparkline(mi["hashprice_history"]["hashprice"][-180:]), mi["updated_at"]))
     if rg:
         ra = rg["activity"]
         cards.append(("reg", "Regulatory Heat", str(ra["last_4_weeks"]), f"{ra['trend']} · docs in 4 weeks", "down" if ra["trend"] == "Rising" else "flat",
@@ -420,6 +423,128 @@ def _agency_label(names):
             "Federal Reserve System": "Fed", "Federal Deposit Insurance Corporation": "FDIC", "Comptroller of the Currency": "OCC"}.get(first, first or "Other")
 
 
+def bars_svg(vals, w=300, h=70):
+    """Tiny positive/negative bar chart for difficulty adjustments (percent)."""
+    if not vals:
+        return ""
+    m = max(abs(v) for v in vals) or 1
+    mid = h / 2
+    bw = w / len(vals)
+    out = [f'<svg class="pro-bars-svg" viewBox="0 0 {w} {h}" role="img" aria-label="Last {len(vals)} difficulty adjustments">'
+           f'<line x1="0" x2="{w}" y1="{mid}" y2="{mid}" stroke="#2C4263" stroke-width="1"/>']
+    for i, v in enumerate(vals):
+        bh = abs(v) / m * (mid - 4)
+        y = mid - bh if v >= 0 else mid
+        col = "#1E7A4C" if v >= 0 else "#B3372F"
+        out.append(f'<rect x="{i * bw + 2:.1f}" y="{y:.1f}" width="{bw - 4:.1f}" height="{max(bh, 1):.1f}" fill="{col}"/>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def sec_miners(m):
+    head = ui.title_box("network_health", '<span id="miners-h">Miner Stress</span>',
+                        f"Updated {updated(m['updated_at'])}" if m else "")
+    if not m:
+        return f'<section class="v2-section" id="miners">{_wrap(head + _empty("Miner Stress"))}</section>'
+    st, rb, hp, pu, df, fe, po, ab = m["stress"], m["ribbon"], m["hashprice"], m["puell"], m["difficulty"], m["fees"], m["pools"], m.get("absorption")
+    tone = "down" if st["score"] >= 70 else "flat"
+    h = m["history"]
+    chart1 = multi_chart(h["t"], [("Daily", h["hashrate_eh"], "#D5CFBF"), ("60-day average", h["ma60_eh"], "#4A5F82"), ("30-day average", h["ma30_eh"], "#8A6A1F")],
+                         fmt="{:,.0f}", zero=False, label="Network hashrate in exabashes per second with 30- and 60-day averages, last two years")
+    hp_h = m["hashprice_history"]
+    chart2 = line_chart(hp_h["t"], hp_h["hashprice"], color="#B3372F", fmt="${:,.0f}", floor=0, label="Hashprice in dollars per petahash per day, last three years")
+    comps = ""
+    for c in st["components"]:
+        comps += (f'<div class="pro-comp"><div class="pro-comp-top"><span class="pro-comp-name">{escape(c["label"])}</span>'
+                  f'<span class="pro-comp-w">{c["weight"] * 100:.0f}% weight</span></div>'
+                  f'<div class="pro-comp-z">{c["stress"]}<small> stress</small></div>'
+                  f'<span class="pro-scorebar light" style="width:100%;display:block"><span style="width:{c["stress"]}%;background:{heat(c["stress"])}"></span></span>'
+                  f'<div class="pro-comp-read">{escape(c["readout"])}</div></div>')
+    be = {b["joules_per_th"]: b for b in hp["breakeven"]}
+    avg = be[25.0]
+    kpis = (f'<div class="pro-kpis"><div class="pro-kpi"><span>Hashprice</span><strong>${hp["usd_per_ph_day"]:,.0f}</strong><small>per PH/s per day · {hp["percentile_3y"]:.0f}th percentile of 3 years</small></div>'
+            f'<div class="pro-kpi"><span>Break-even power price</span><strong>${avg["breakeven_usd_per_kwh"]:.3f}/kWh</strong><small>average fleet (25 J/TH) · {avg["margin_pct_at_reference"]:+.0f}% margin at $0.07</small></div>'
+            f'<div class="pro-kpi"><span>Puell multiple</span><strong>{pu["value"]:.2f}</strong><small>{pu["percentile_all"]:.0f}th percentile since 2013</small></div>'
+            f'<div class="pro-kpi"><span>Fee share of rewards</span><strong>{fe["share_30d_pct"]:.1f}%</strong><small>30-day average · subsidy is {100 - fe["share_30d_pct"]:.1f}%</small></div></div>')
+    be_rows = "".join(f'<tr><th scope="row">{b["label"]} ({b["joules_per_th"]:.0f} J/TH)</th><td class="pro-num">${b["breakeven_usd_per_kwh"]:.3f}</td>'
+                      f'<td class="pro-num {_tone(b["margin_pct_at_reference"])}">{b["margin_pct_at_reference"]:+.0f}%</td></tr>' for b in hp["breakeven"])
+    from datetime import datetime as _dt
+    eta = _dt.fromtimestamp(df["estimated_retarget"], timezone.utc).strftime("%b %-d, %Y")
+    diff_card = (f'<div class="pro-chart-card"><div class="pro-chart-title">Next difficulty adjustment</div>'
+                 f'<div class="pro-diff"><div class="pro-diff-big {_tone(df["estimated_change_pct"])}">{df["estimated_change_pct"]:+.1f}%</div>'
+                 f'<div class="pro-diff-sub">projected around {eta} · {df["remaining_blocks"]:,} blocks to go · average block time this epoch {df["avg_block_time_s"] / 60:.1f} min</div>'
+                 f'<span class="pro-scorebar light" style="width:100%;display:block;margin-top:10px"><span style="width:{df["progress_pct"]:.0f}%"></span></span>'
+                 f'<div class="pro-diff-sub">{df["progress_pct"]:.0f}% of the way through the two-week period</div>'
+                 f'<div class="pro-chart-title" style="margin-top:14px">Last 12 adjustments (green = harder, red = easier)</div>{bars_svg(df["last_adjustments_pct"])}</div></div>')
+    pool_rows = "".join(
+        f'<div class="pro-barrow light"><span>{escape(p["name"])}</span><span class="pro-bar light"><span style="width:{p["share_pct"] / po["pools"][0]["share_pct"] * 100:.0f}%"></span></span><b>{p["share_pct"]:.1f}%</b></div>'
+        for p in po["pools"])
+    pool_card = (f'<div class="pro-chart-card"><div class="pro-chart-title">Who finds the blocks (last week, {po["total_blocks"]:,} blocks)</div><div class="pro-bars">{pool_rows}</div>'
+                 f'<p class="pro-note light">Top pool {po["top1_pct"]:.0f}% · top three {po["top3_pct"]:.0f}% · concentration index (HHI) {po["hhi"]:,} · empty blocks {po["empty_block_pct"]:.1f}%</p></div>')
+    if ab:
+        r30 = ab.get("ratio_30d")
+        absorb_card = (f'<div class="pro-chart-card"><div class="pro-chart-title">Supply absorption: ETF demand vs new miner supply</div>'
+                       f'<div class="pro-diff"><div class="pro-diff-big">{"n/a" if r30 is None else f"{r30:.1f}x"}</div>'
+                       f'<div class="pro-diff-sub">30 days: ETF net inflows {signed_money(ab["etf_window_30d_usd"])} vs {money(ab["issuance_30d_usd"])} of newly mined coin</div>'
+                       f'<div class="pro-diff-big" style="margin-top:14px">{ab["ratio_7d"]:.1f}x</div>'
+                       f'<div class="pro-diff-sub">7 days: {signed_money(ab["etf_7d_usd"])} vs {money(ab["issuance_7d_usd"])}</div>'
+                       f'<p class="pro-note light">Above 1x means fresh ETF demand more than covers fresh supply. Subsidy only (about {m["subsidy_btc"] * 144:,.0f} BTC a day); ETF data to {ab["as_of"]}.</p></div></div>')
+    else:
+        absorb_card = ""
+    ev = m["events"]["ribbon"]
+    sm = ev["summary"]
+    ep_rows = ""
+    for e in ev["episodes"]:
+        def f(x):
+            return "…" if x is None else f'<span class="{_tone(x)}">{x:+.0f}%</span>'
+        ep_rows += (f'<tr><td class="pro-nowrap">{e["capitulation_start"]}</td><td class="pro-nowrap">{e["confirmed"] or e["recovery"]}</td>'
+                    f'<td class="pro-num">{e["days_in_capitulation"]}</td><td class="pro-num">{f(e["fwd_30d"])}</td><td class="pro-num">{f(e["fwd_90d"])}</td><td class="pro-num">{f(e["fwd_180d"])}</td></tr>')
+    pb_rows = "".join(f'<tr><th scope="row">{b["band"]}</th><td class="pro-num">{b["days"]:,}</td>'
+                      f'<td class="pro-num {_tone(b["median_90d"])}">{"n/a" if b["median_90d"] is None else f"{b["median_90d"]:+.1f}%"}</td>'
+                      f'<td class="pro-num">{"n/a" if b["positive_pct"] is None else f"{b["positive_pct"]:.0f}%"}</td></tr>' for b in pu["buckets"])
+    study = f"""<div class="pro-chart-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
+      <div class="pro-two">
+        <div class="pro-table-wrap"><table class="pro-table"><caption>After every hash-ribbon recovery since 2012 (BTC price change afterwards)</caption>
+          <thead><tr><th>Capitulation began</th><th>Signal</th><th>Days squeezed</th><th>+30d</th><th>+90d</th><th>+180d</th></tr></thead><tbody>{ep_rows}</tbody></table>
+          <p class="pro-note light">{sm["episodes"]} signals since 2012. After the signal, the median 90-day change was <b>{sm["median_90d"]:+.0f}%</b> with a {sm["hit_rate_90d_pct"]:.0f}% hit rate, versus
+          <b>{sm["baseline_median_90d_all_days"]:+.0f}%</b> and {sm["baseline_hit_rate_90d_pct"]:.0f}% for an average day: a modest tilt, not a trading edge on its own. <b>Since 2025</b> ({sm["recent_since_2025"]["n"]} signals with a 90-day result) the median was <b>{sm["recent_since_2025"]["median_90d"] if sm["recent_since_2025"]["median_90d"] is None else format(sm["recent_since_2025"]["median_90d"], "+.0f")}%</b>: a weaker showing than the full history. The newest rows are still too young to have 90- or 180-day results.</p></div>
+        <div class="pro-table-wrap"><table class="pro-table"><caption>By Puell-multiple band, all days since 2013</caption>
+          <thead><tr><th>Puell band</th><th>Days</th><th>Median 90d change</th><th>Positive</th></tr></thead><tbody>{pb_rows}</tbody></table>
+          <p class="pro-note light">The classic idea is that a very low Puell multiple marks bottoms. In this data the pattern is weak and uneven: bands overlap in time, and halvings changed the baseline. Useful context, not a signal.</p></div>
+      </div>"""
+    method = """<details class="pro-method"><summary>How these readings are calculated</summary>
+      <p><strong>Data:</strong> mempool.space's open public API (hashrate since 2009, price since 2010, difficulty adjustments, block rewards and fees, mining-pool shares) and the site's ETF dataset. Hashrate and price are third-party estimates.</p>
+      <p><strong>Hashprice</strong> = block rewards (subsidy + fees, USD) per day ÷ network hashrate in petahashes. <strong>Break-even power price</strong> = hashprice per terahash ÷ (the machine's joules per terahash × 24 hours ÷ 1,000), for 15, 25 and 35 J/TH;
+      the margin column compares that with a $0.07/kWh reference rate (an assumption, real miners pay anywhere from near zero to well above it). <strong>Hash ribbons</strong> compare the 30-day and 60-day averages of hashrate: 30 below 60 is capitulation, the cross back up is recovery, and
+      a confirmed signal also needs the 10-day price average above the 20-day. <strong>Puell multiple</strong> = daily issuance value (subsidy × price) ÷ its 365-day average. <strong>Supply absorption</strong> = ETF net inflows ÷ the value of coins mined in the same window.</p>
+      <p><strong>Miner Stress (0–100, higher = more stress)</strong> is a percentile blend: hashprice vs its last three years, inverted (35%); the hash-ribbon spread vs three years, inverted (30%); the Puell multiple vs all history, inverted (20%); and the mean of the last three difficulty adjustments vs history, inverted (15%).
+      Bands: Comfortable under 30, Normal 30–50, Under pressure 50–70, Capitulation risk 70+.</p>
+      <p class="pro-caveat">The event tables show what happened after past signals; samples are small, windows overlap and the economics of mining have changed (halvings, ETFs, more efficient machines), so treat them as context. Fees before 2023 are not in the hashprice history. Not financial advice.</p></details>"""
+    body = f"""{_stale(m)}
+    <p class="pro-lead">Miners are the network's natural sellers. When margins collapse they switch machines off, and past squeezes have clustered near cycle lows. This tracks how stretched miners are, using open data and 14 years of history.</p>
+    <div class="pro-hero-grid">
+      <div class="pro-score-card">
+        <div class="pro-score-label">Miner stress</div>
+        <div class="pro-score-big {tone}">{st['score']:.0f}</div>
+        <div class="pro-score-regime {tone}">{escape(st['label'])}</div>
+        <div class="pro-score-pct" style="font-size:20px">Hash ribbons: {escape(rb['state'])}<small style="display:block;margin:6px 0 0">{rb.get('days_since_recovery', rb.get('days_in_capitulation', ''))} days {'since recovery' if rb['state'] == 'Recovery' else 'in' if rb['state'] == 'Capitulation' else ''}</small></div>
+      </div>
+      <div class="pro-chart-card"><div class="pro-chart-title">Network hashrate (EH/s) with 30- and 60-day averages, 2 years</div>{chart1}</div>
+    </div>
+    <p class="pro-read"><strong>The read:</strong> {escape(m['read'])}</p>
+    <div class="pro-comps">{comps}</div>
+    {kpis}
+    <div class="pro-two">
+      <div class="pro-chart-card"><div class="pro-chart-title">Hashprice, $ per PH/s per day (3 years)</div>{chart2}
+        <div class="pro-table-wrap"><table class="pro-table"><thead><tr><th>Machine</th><th>Break-even power</th><th>Margin at $0.07/kWh</th></tr></thead><tbody>{be_rows}</tbody></table></div></div>
+      {diff_card}
+    </div>
+    <div class="pro-two" style="margin-top:22px">{pool_card}{absorb_card}</div>
+    {study}
+    {method}"""
+    return f'<section class="v2-section" id="miners" aria-labelledby="miners-h">{_wrap(head + body)}</section>'
+
+
 def sec_unwind(u):
     head = ui.title_box("liquidations", '<span id="unwind-h">Crowded Unwind Risk Map</span>',
                         f"Updated {updated(u['updated_at'])}" if u else "", dark=True)
@@ -574,6 +699,7 @@ def sec_sources():
     published beside each indicator and in the open source code (<code>scripts/pro/</code>).</p>
     <div class="pro-sources">
       <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
+      <div><h3>Miners and the Bitcoin network</h3><p>mempool.space's open public API: hashrate and price history, difficulty adjustments, block rewards and fees, and mining-pool shares.</p></div>
       <div><h3>Regulation and the ETF pipeline</h3><p>The Federal Register's free public API and the SEC's EDGAR daily filing indexes (US government public data).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
       <div><h3>Stablecoins</h3><p>Token supply read directly from public blockchain nodes (Ethereum and other EVM chains, Tron via TronGrid, Solana), plus Tether's own published transparency figures.</p></div>
@@ -594,9 +720,9 @@ def hero(meta):
     <h1 class="pro-h1"><span aria-hidden="true" class="pro-brandtitle pro-brandtitle-lg">The
       <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
-    <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, what regulators and the SEC pipeline are doing, which on-chain markets are fragile,
+    <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, what regulators and the SEC pipeline are doing, how stretched miners are, which on-chain markets are fragile,
     and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#miners">Miner Stress</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -615,10 +741,10 @@ def _footer_links():
 
 
 def render_institutional():
-    p, u, s, b, rg = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory")
+    p, u, s, b, rg, mi = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory"), _load("miners")
     q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
-    ov = overview_cards(p, u, q, s, b, rg)
+    ov = overview_cards(p, u, q, s, b, rg, mi)
     summary_title = ui.title_box(
         "pulse",
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
@@ -626,10 +752,10 @@ def render_institutional():
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
-            + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
+            + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, regulatory and ETF-pipeline tracking, on-chain crowded unwind risk and stablecoin flows.",
+                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, regulatory and ETF-pipeline tracking, miner stress, on-chain crowded unwind risk and stablecoin flows.",
                 path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 
