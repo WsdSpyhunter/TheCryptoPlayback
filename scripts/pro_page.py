@@ -168,7 +168,7 @@ def _empty(title):
 
 # ------------------------------ sections -----------------------------------
 
-def overview_cards(p, u, q, s, b=None, rg=None, mi=None):
+def overview_cards(p, u, q, s, b=None, rg=None, mi=None, lq=None):
     cards = []
     if p:
         z = p["score_z"]
@@ -180,6 +180,10 @@ def overview_cards(p, u, q, s, b=None, rg=None, mi=None):
     if mi:
         cards.append(("miners", "Miner Stress", f"{mi['stress']['score']:.0f}", f"{mi['stress']['label']} · ribbons {mi['ribbon']['state'].lower()}",
                       "down" if mi["stress"]["score"] >= 70 else "flat", sparkline(mi["hashprice_history"]["hashprice"][-180:]), mi["updated_at"]))
+    if lq:
+        bd = lq["backdrop"]
+        cards.append(("liquidity", "Net Liquidity & Macro", f"{bd['score']:.0f}", f"{bd['label']} · liquidity {lq['net_liquidity']['chg_13w_pct']:+.1f}% in 13 wks",
+                      "up" if bd["score"] >= 62 else "down" if bd["score"] <= 38 else "flat", sparkline(lq["chart"]["nl_t"][-104:]), lq["updated_at"]))
     if rg:
         ra = rg["activity"]
         cards.append(("reg", "Regulatory Heat", str(ra["last_4_weeks"]), f"{ra['trend']} · docs in 4 weeks", "down" if ra["trend"] == "Rising" else "flat",
@@ -545,6 +549,72 @@ def sec_miners(m):
     return f'<section class="v2-section" id="miners" aria-labelledby="miners-h">{_wrap(head + body)}</section>'
 
 
+def sec_liquidity(l):
+    head = ui.title_box("macro_risk", '<span id="liquidity-h">Net Liquidity &amp; Macro Sensitivity</span>',
+                        f"Updated {updated(l['updated_at'])}" if l else "")
+    if not l:
+        return f'<section class="v2-section v2-section-white" id="liquidity">{_wrap(head + _empty("Net Liquidity"))}</section>'
+    bd, nl, mc, se, rg = l["backdrop"], l["net_liquidity"], l["macro"], l["sensitivity"], l["regimes"]
+    tone = "up" if bd["score"] >= 62 else "down" if bd["score"] <= 38 else "flat"
+    ch = l["chart"]
+    chart1 = line_chart(l["chart"]["nl_t_ts"], l["chart"]["nl_t"], color="#0B1F3A", fmt="${:.2f}T", label="US net liquidity in trillions of dollars, last three years")
+    comps = ""
+    for c in bd["components"]:
+        comps += (f'<div class="pro-comp"><div class="pro-comp-top"><span class="pro-comp-name">{escape(c["label"])}</span>'
+                  f'<span class="pro-comp-w">{c["weight"] * 100:.0f}% weight</span></div>'
+                  f'<div class="pro-comp-z">{c["score"]}<small> / 100</small></div>'
+                  f'<span class="pro-scorebar light" style="width:100%;display:block"><span style="width:{c["score"]}%;background:{heat(100 - c["score"])}"></span></span>'
+                  f'<div class="pro-comp-read">{escape(c["readout"])}</div></div>')
+
+    def cf(v):
+        return "n/a" if v is None else f"{v:+.2f}"
+    kpis = (f'<div class="pro-kpis"><div class="pro-kpi"><span>Net liquidity</span><strong>${nl["level_b"] / 1000:.2f}T</strong><small>{nl["percentile_10y"]:.0f}th percentile of 10 years · week of {nl["asof"]}</small></div>'
+            f'<div class="pro-kpi"><span>13-week change</span><strong class="{_tone(nl["chg_13w_b"])}">{nl["chg_13w_b"]:+,.0f}B</strong><small>{nl["chg_13w_pct"]:+.1f}% · 4-week {nl["chg_4w_b"]:+,.0f}B</small></div>'
+            f'<div class="pro-kpi"><span>10-year real yield</span><strong>{mc["real_yield"]:.2f}%</strong><small>{mc["real_yield_chg_3m"]:+.2f} pts over ~3 months</small></div>'
+            f'<div class="pro-kpi"><span>Broad dollar index</span><strong>{mc["dollar"]:.1f}</strong><small>{mc["dollar_chg_3m_pct"]:+.1f}% over ~3 months</small></div></div>')
+    comp_rows = "".join(f'<tr><th scope="row">{escape(c["label"])}</th><td class="pro-num">${c["level_b"]:,.0f}B</td><td class="pro-num">{c["chg_13w_b"]:+,.0f}B</td><td class="pro-num {_tone(c["effect_13w_b"])}">{c["effect_13w_b"]:+,.0f}B</td></tr>' for c in nl["components"])
+    comp_tbl = (f'<div class="pro-chart-card"><div class="pro-chart-title">What moved net liquidity</div><div class="pro-table-wrap"><table class="pro-table">'
+                f'<thead><tr><th>Piece</th><th>Level</th><th>13-wk change</th><th>Effect</th></tr></thead><tbody>{comp_rows}</tbody></table></div>'
+                f'<p class="pro-note light">Net liquidity = Fed balance sheet minus the Treasury General Account minus the overnight reverse-repo facility. When the Treasury builds its cash balance, it drains liquidity from markets; when it spends, it adds it.</p></div>')
+    sens_rows = (
+        f'<tr><th scope="row">US dollar index, daily (90d / 1y)</th><td class="pro-num">{cf(se["dollar"]["corr_90d"])}</td><td class="pro-num">{cf(se["dollar"]["corr_1y"])}</td></tr>'
+        f'<tr><th scope="row">10-year real yield, daily (90d / 1y)</th><td class="pro-num">{cf(se["real_yield"]["corr_90d"])}</td><td class="pro-num">{cf(se["real_yield"]["corr_1y"])}</td></tr>'
+        f'<tr><th scope="row">Net liquidity, weekly (1y / 3y)</th><td class="pro-num">{cf(se["liquidity_weekly"]["1y"])}</td><td class="pro-num">{cf(se["liquidity_weekly"]["3y"])}</td></tr>')
+    sens_card = (f'<div class="pro-chart-card"><div class="pro-chart-title">How Bitcoin has reacted: correlation of returns (-1 to +1)</div><div class="pro-table-wrap"><table class="pro-table">'
+                 f'<thead><tr><th>Driver</th><th>Recent</th><th>Longer</th></tr></thead><tbody>{sens_rows}</tbody></table></div>'
+                 f'<p class="pro-note light">A negative number means Bitcoin has tended to fall when the driver rises. The windows are in brackets: first column is the shorter one. Correlations drift and say nothing about cause.</p></div>')
+    rg_rows = "".join(f'<tr class="{"pro-now" if r["regime"] == rg["current"] else ""}"><th scope="row">{escape(r["regime"])}{" (now)" if r["regime"] == rg["current"] else ""}</th><td class="pro-num">{r["weeks"]:,}</td>'
+                      f'<td class="pro-num {_tone(r["median_13w"])}">{"n/a" if r["median_13w"] is None else f"{r['median_13w']:+.1f}%"}</td>'
+                      f'<td class="pro-num">{"n/a" if r["positive_pct"] is None else f"{r['positive_pct']:.0f}%"}</td></tr>' for r in rg["table"])
+    study = f"""<div class="pro-chart-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
+      <div class="pro-table-wrap"><table class="pro-table"><caption>Bitcoin's next 13 weeks, by the liquidity regime at the start (weekly, since {rg["since"]})</caption>
+        <thead><tr><th>Liquidity regime</th><th>Weeks</th><th>Median 13-week return</th><th>Positive</th></tr></thead><tbody>{rg_rows}</tbody></table></div>
+      <p class="pro-note light">The pattern leans the expected way: Bitcoin did better after weeks of expanding liquidity. But the windows overlap, there are only a few market cycles, and Bitcoin's own trend dominates, so this is a modest tilt, not a trading edge. The week-to-week correlation above is close to zero: liquidity matters more as a slow backdrop than as a timing tool.</p>"""
+    method = """<details class="pro-method"><summary>How these readings are calculated</summary>
+      <p><strong>Data:</strong> the Federal Reserve and Treasury series republished by FRED (St. Louis Fed): total Fed assets (WALCL), Treasury General Account (WTREGEN), overnight reverse repo (RRPONTSYD), the 10-year TIPS real yield (DFII10) and the broad trade-weighted dollar index (DTWEXBGS); Bitcoin's price from mempool.space. No equity-index series are used.</p>
+      <p><strong>Net liquidity</strong> = Fed assets - Treasury cash account - reverse repo, in billions, on the Fed's weekly (Wednesday) dates. It is a widely used approximation, not an official statistic.</p>
+      <p><strong>Macro backdrop (0-100, higher = more supportive of risk assets)</strong> averages three percentiles against the last ten years: the 13-week change in net liquidity (40%); the 63-trading-day change in the 10-year real yield, inverted (30%); the 63-trading-day change in the dollar index, inverted (30%). Tailwind 62+, Headwind 38 or below, otherwise Mixed.</p>
+      <p class="pro-caveat">Fed and Treasury data arrive with a lag, so the newest liquidity week can be several days old. Correlations and the regime table describe the past; they are not forecasts. Not financial advice.</p></details>"""
+    body = f"""{_stale(l)}
+    <p class="pro-lead">Bitcoin trades inside a bigger story: how much dollar liquidity the US system is supplying, what real yields are doing, and whether the dollar is firming. This pulls those pieces from Federal Reserve and Treasury data into one backdrop reading.</p>
+    <div class="pro-hero-grid">
+      <div class="pro-score-card">
+        <div class="pro-score-label">Macro backdrop</div>
+        <div class="pro-score-big {tone}">{bd['score']:.0f}</div>
+        <div class="pro-score-regime {tone}">{escape(bd['label'])}</div>
+        <div class="pro-score-pct" style="font-size:15px;line-height:1.4">0 = headwind<br>100 = tailwind for risk assets</div>
+      </div>
+      <div class="pro-chart-card"><div class="pro-chart-title">US net liquidity, $ trillions (3 years, weekly)</div>{chart1}</div>
+    </div>
+    <p class="pro-read"><strong>The read:</strong> {escape(l['read'])}</p>
+    <div class="pro-comps">{comps}</div>
+    {kpis}
+    <div class="pro-two">{comp_tbl}{sens_card}</div>
+    {study}
+    {method}"""
+    return f'<section class="v2-section v2-section-white" id="liquidity" aria-labelledby="liquidity-h">{_wrap(head + body)}</section>'
+
+
 def sec_unwind(u):
     head = ui.title_box("liquidations", '<span id="unwind-h">Crowded Unwind Risk Map</span>',
                         f"Updated {updated(u['updated_at'])}" if u else "", dark=True)
@@ -700,6 +770,7 @@ def sec_sources():
     <div class="pro-sources">
       <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
       <div><h3>Miners and the Bitcoin network</h3><p>mempool.space's open public API: hashrate and price history, difficulty adjustments, block rewards and fees, and mining-pool shares.</p></div>
+      <div><h3>Liquidity and macro</h3><p>Federal Reserve and Treasury series via FRED (St. Louis Fed): Fed assets, the Treasury General Account, reverse repo, the 10-year real yield and the broad dollar index.</p></div>
       <div><h3>Regulation and the ETF pipeline</h3><p>The Federal Register's free public API and the SEC's EDGAR daily filing indexes (US government public data).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
       <div><h3>Stablecoins</h3><p>Token supply read directly from public blockchain nodes (Ethereum and other EVM chains, Tron via TronGrid, Solana), plus Tether's own published transparency figures.</p></div>
@@ -721,8 +792,8 @@ def hero(meta):
       <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
     <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, what regulators and the SEC pipeline are doing, how stretched miners are, which on-chain markets are fragile,
-    and where dollar liquidity is flowing. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#miners">Miner Stress</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    where dollar liquidity is flowing, and what the macro backdrop looks like. Built only from free public data and fully documented.</p>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#miners">Miner Stress</a><a href="#liquidity">Net Liquidity</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -741,10 +812,10 @@ def _footer_links():
 
 
 def render_institutional():
-    p, u, s, b, rg, mi = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory"), _load("miners")
+    p, u, s, b, rg, mi, lq = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory"), _load("miners"), _load("liquidity")
     q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
-    ov = overview_cards(p, u, q, s, b, rg, mi)
+    ov = overview_cards(p, u, q, s, b, rg, mi, lq)
     summary_title = ui.title_box(
         "pulse",
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
@@ -752,7 +823,7 @@ def render_institutional():
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All readings at a glance")
     body = (hero(meta) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
-            + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
+            + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_liquidity(lq) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
                 description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, regulatory and ETF-pipeline tracking, miner stress, on-chain crowded unwind risk and stablecoin flows.",

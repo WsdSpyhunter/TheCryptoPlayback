@@ -118,3 +118,13 @@ by mint or burn). Flow velocity = average daily net issuance, last 7 days versus
 Add a venue: write a `snapshot_<venue>()` in `derivs.py` and register it in `VENUES`. Add an asset: append to `ASSETS` (it needs a `<SYM>_USDT` contract on Gate).
 Change weights: edit the constants at the top of each module. New indicator: add `scripts/pro/<name>.py` with `compute()` returning a dict with `updated_at`, register it in
 `refresh_pro.JOBS`, and add a section function in `scripts/pro_page.py`.
+
+## 1e. Net Liquidity & Macro Sensitivity (`scripts/pro/liquidity.py`)
+
+Sources: FRED CSV (no key) for WALCL, WTREGEN, RRPONTSYD, DFII10, DTWEXBGS (Federal Reserve / Treasury series; no equity-index series); BTC price from mempool.space.
+
+- **Net liquidity** = Fed assets − Treasury General Account − overnight reverse repo ($B, weekly Wednesdays). A popular approximation, not an official statistic.
+- **Macro backdrop 0–100** (higher = more supportive of risk assets): percentile (vs 2016+) of 13-week net-liquidity change (40%), inverted 63-day change in the 10-year real yield (30%), inverted 63-day change in the broad dollar index (30%). Tailwind ≥ 62, Headwind ≤ 38.
+- **Sensitivity**: correlation of BTC returns with daily dollar and real-yield changes (90d, 1y) and weekly liquidity changes (1y, 3y); dollar beta.
+- **Regime study**: BTC median 13-week forward return after contracting / mildly expanding / strongly expanding liquidity since 2016, with sample sizes. Overlapping windows, few cycles: descriptive only. Week-to-week correlation with liquidity is ~0, so liquidity is a slow backdrop, not a timing tool.
+- Refresh: `python -m pro.refresh_pro liquidity` (also part of the 2-hourly job). Fed/Treasury data lag by days.
