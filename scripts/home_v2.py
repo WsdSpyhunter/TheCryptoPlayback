@@ -186,7 +186,19 @@ def alerts(indicators, date_abbrev):
 </section>"""
 
 
-def news(entries, teaser_image):
+def missed_card(m, root=""):
+    """'Here's a story you missed': the odd, unusual crypto story picked for an issue (same text as the email)."""
+    body = m["body"]
+    return f"""<aside class="v2-missed" aria-labelledby="missed-h">
+      <img class="v2-missed-badge" src="{root}assets/v2/story-you-missed-badge.webp" width="220" height="220" alt="" loading="lazy">
+      <div class="v2-kicker v2-kicker-brass" id="missed-h">Here&rsquo;s a story you missed</div>
+      <h3 class="v2-missed-title">{m['headline']}</h3>
+      <div class="v2-missed-body">{body}</div>
+      <a class="v2-missed-link" href="{m['source_url']}" target="_blank" rel="noopener">Read more at {m['source_title']} &rarr;</a>
+    </aside>"""
+
+
+def news(entries, teaser_image, missed=None):
     seen, cards, count = set(), "", 0
     latest = None
     for e in entries:
@@ -224,6 +236,7 @@ def news(entries, teaser_image):
   <div class="v2-wrap">
     {ui.title_box("news", '<span id="news-h">The Top News Stories</span>', "Refreshed and updated daily")}
     {lede}
+    {missed_card(missed) if missed else ""}
     <div class="v2-stories">{cards}</div>
     <p class="v2-more"><a class="v2-btn v2-btn-navy" href="archive.html">Browse the full archive</a></p>
   </div>

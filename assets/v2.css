@@ -785,3 +785,16 @@ body.v2 { overflow-x: clip; }
 /* Issue pages: Top Story box text and story headlines centered on every screen size */
 .v2-post-lede, .v2-post-lede span, .v2-post-lede p { text-align: center; }
 .v2-post-story h2 { text-align: center; }
+
+/* ===== "Here's a story you missed" (homepage + issue pages) ===== */
+.v2-missed { text-align: center; background: var(--navy); color: var(--ivory); border-top: 5px solid var(--brass); box-shadow: var(--shadow); padding: 28px 34px 30px; margin: 0 0 36px; }
+.v2-post-wrap .v2-missed { margin: 26px 0 0; }
+.v2-missed-badge { display: block; width: 84px; height: 84px; margin: 0 auto 10px; }
+.v2-missed .v2-kicker { font-size: 16px; }
+.v2-missed-title { margin: 10px auto 0; max-width: 820px; font-family: var(--f-head); font-weight: 700; font-size: 26px; line-height: 1.25; color: var(--ivory); }
+.v2-missed-body { margin: 12px auto 0; max-width: 780px; font-size: 17px; line-height: 1.65; color: var(--dark-text); }
+.v2-missed-body p { margin: 0 0 10px; }
+.v2 a.v2-missed-link { display: inline-block; margin-top: 8px; font-weight: 600; color: var(--brass-hi); }
+@media (max-width: 700px) { .v2-missed { padding: 22px 20px 24px; } .v2-missed-title { font-size: 21px; } .v2-missed-body { font-size: 16px; } .v2-missed-badge { width: 72px; height: 72px; } }
+.v2 .v2-missed .v2-missed-title { margin: 10px auto 0; text-align: center; }
+.v2 .v2-missed .v2-missed-body { margin: 12px auto 0; }

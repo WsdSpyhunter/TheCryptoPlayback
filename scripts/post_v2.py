@@ -9,6 +9,7 @@ from datetime import datetime
 from html import escape
 
 from partials import page, SITE_URL
+from home_v2 import missed_card
 
 
 def _plain(s):
@@ -75,6 +76,7 @@ def render(post, root, market, entries, footer_links=""):
   <div class="v2-wrap v2-post-wrap">
     <div class="v2-post-lede"><span>Top story</span><p>{lede}</p></div>
     {stories}
+    {missed_card(post["missed_story"], root) if isinstance(post.get("missed_story"), dict) and post["missed_story"].get("headline") else ""}
     <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="{root}index.html#subscribe">Get the daily playback free</a></p>
     {nav}
   </div>

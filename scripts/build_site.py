@@ -1674,6 +1674,18 @@ def render_market_pulse(prices, date_abbrev):
   {LIVE_TICKER_SCRIPT}"""
 
 
+def _latest_missed_story(entries):
+    """The odd-story-of-the-day from the newest issue that has one (older issues predate the feature)."""
+    for e in entries:
+        try:
+            m = json.load(open(os.path.join(POSTS_DATA_DIR, f"{e['slug']}.json"))).get("missed_story")
+        except (OSError, ValueError):
+            continue
+        if isinstance(m, dict) and m.get("headline") and m.get("body") and m.get("source_url"):
+            return m
+    return None
+
+
 def _teaser_image(slug):
     """Best-effort: a real image from this issue's stories, used as the
     homepage teaser card's side image. Checks every story in the issue
@@ -1954,7 +1966,7 @@ def render_index(entries):
         confluence_items, positive_count, total_count, interpretation, change_items, date_abbrev)
 
     alerts_indicators_section = home_v2.alerts(indicators, date_abbrev)
-    news_section = home_v2.news(entries, _teaser_image)
+    news_section = home_v2.news(entries, _teaser_image, _latest_missed_story(entries))
     subscribe_section = home_v2.subscribe()
     explainer_section = home_v2.decode(indicators)
 
