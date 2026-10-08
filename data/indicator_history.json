@@ -52142,5 +52142,175 @@
       "dxy_change_pct": 0.043
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-10-08T16:20:10.349371+00:00",
+    "prices": [
+      {
+        "id": "bitcoin",
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 81017,
+        "change_24h": -3.03599,
+        "change_7d": -3.5804
+      },
+      {
+        "id": "ethereum",
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2424.68,
+        "change_24h": -5.79485,
+        "change_7d": -9.4984
+      },
+      {
+        "id": "binancecoin",
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 730.4,
+        "change_24h": -5.3053,
+        "change_7d": -4.562
+      },
+      {
+        "id": "ripple",
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.35,
+        "change_24h": -6.22251,
+        "change_7d": -9.211
+      },
+      {
+        "id": "solana",
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 108.19,
+        "change_24h": -7.51852,
+        "change_7d": -7.4336
+      },
+      {
+        "id": "tron",
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.33287,
+        "change_24h": -0.85268,
+        "change_7d": -0.1304
+      }
+    ],
+    "fng": {
+      "value": 64,
+      "classification": "Greed"
+    },
+    "mover": {
+      "id": "zcash",
+      "symbol": "ZEC",
+      "name": "Zcash",
+      "price": 1141.24,
+      "change_24h": -14.47055,
+      "change_7d": -19.1295
+    },
+    "week_mover": {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2424.68,
+      "change_24h": -5.79485,
+      "change_7d": -9.4984
+    },
+    "sectors": [
+      {
+        "label": "RWA",
+        "change_24h": -2.8429662759496916
+      },
+      {
+        "label": "L1",
+        "change_24h": -3.9565912896391895
+      },
+      {
+        "label": "L2",
+        "change_24h": -4.7991658342984795
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 312076026454.42,
+      "change_7d_pct": 0.5350434507435808
+    },
+    "dominance": {
+      "btc_dominance_pct": 59.13443058080373,
+      "total_market_cap_usd": 2744291545240.6924
+    },
+    "leverage": {
+      "funding_rate_pct": 0.00590116800704,
+      "next_funding_time_ms": 1791532800000,
+      "open_interest_usd": 2494883549.7030025
+    },
+    "defi_tvl": {
+      "total_usd": 91949821404.0,
+      "change_7d_pct": -2.9287176566505964
+    },
+    "network_health": {
+      "hashrate_eh": 992.9149628190968,
+      "difficulty_change_pct": 5.249564150577912,
+      "fastest_fee_satvb": 4,
+      "pending_tx_count": 85333
+    },
+    "liquidations": {
+      "long_liq_usd": 617250.03949,
+      "short_liq_usd": 79612.87238999999,
+      "event_count": 100,
+      "window_minutes": 17.000083333333333
+    },
+    "whale_activity": {
+      "amounts_btc": [
+        263.62072322,
+        137.67178595,
+        134.46428224,
+        114.73580423,
+        114.72479035,
+        98.89996305,
+        69.150932,
+        50.10950152,
+        49.75395337,
+        49.50321728,
+        36.97886985,
+        32.66675322,
+        28.14194863,
+        19.59998699,
+        17.41842736,
+        16.74999323,
+        16.52520516,
+        16.52460279,
+        16.52425161,
+        16.52381192,
+        16.52350782,
+        16.52345919,
+        16.52335249,
+        16.5229397,
+        16.52289707,
+        16.21956362,
+        14.50463582,
+        14.28790248,
+        12.83937734,
+        9.99944587,
+        9.92411059,
+        9.79998999,
+        9.79998999,
+        9.79998875,
+        9.79998811,
+        9.79998623,
+        9.7999862,
+        9.22721853,
+        7.31204704,
+        6.87945117,
+        6.64584703,
+        5.25778039
+      ],
+      "sample_size": 1000
+    },
+    "macro": {
+      "vix": 15.49,
+      "vix_change_pct": 2.719,
+      "dxy": 102.365,
+      "dxy_change_pct": 0.12
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
