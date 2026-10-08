@@ -752,3 +752,4 @@ body.v2 { overflow-x: clip; }
   .pro-rd-tile b { font-size: 38px; }
   .pro-rd-tile span { font-size: 12.5px; letter-spacing: .08em; }
 }
+@media (max-width: 700px) { .v2-wrap > .pro-chart-title { text-align: center; } }
