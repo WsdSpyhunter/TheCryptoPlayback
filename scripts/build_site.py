@@ -2083,34 +2083,55 @@ def render_indicator_pages(entries):
 def render_archive(entries):
     items = ""
     for e in entries:
-        items += f"""<a class="archive-item" href="posts/{e['slug']}.html" data-tag="{e['tag']}">
-      <span class="tag">{e['tag']}</span>
-      <h3>{e['title']}</h3>
-      <span class="date">{e['date_display']}</span>
+        items += f"""<a class="v2-arch-item" href="posts/{e['slug']}.html" data-tag="{e['tag']}">
+      <span class="v2-arch-meta"><span class="v2-arch-tag v2-arch-{e['tag'].lower()}">{e['tag']}</span><span class="v2-arch-date">{e['date_display']}</span></span>
+      <span class="v2-arch-title">{e['title']}</span>
+      <span class="v2-arch-go" aria-hidden="true">&rarr;</span>
     </a>"""
-
-    body = f"""<div class="archive-list">
-    <h1>Archive</h1>
-    <div class="archive-filters">
-      <button class="active" data-filter="all">All</button>
-      <button data-filter="Daily">Daily</button>
-      <button data-filter="Weekly">Weekly</button>
-    </div>
-    <div id="archive-items">{items}</div>
+    body = f"""<section class="v2-ind-hero v2-arch-hero" aria-labelledby="arch-h">
+  <div class="v2-wrap">
+    <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Archive</span></nav>
+    <div class="v2-kicker v2-kicker-brass v2-ind-kicker">Every issue, free to read</div>
+    <h1 class="v2-ind-title" id="arch-h">The Playback Archive</h1>
+    <p class="v2-arch-sub">Every daily and weekly briefing on Bitcoin and digital assets, newest first.</p>
   </div>
-  <script>
-    document.querySelectorAll('.archive-filters button').forEach(btn => {{
-      btn.addEventListener('click', () => {{
-        document.querySelectorAll('.archive-filters button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.dataset.filter;
-        document.querySelectorAll('.archive-item').forEach(item => {{
-          item.style.display = (f === 'all' || item.dataset.tag === f) ? 'block' : 'none';
-        }});
+</section>
+<section class="v2-section v2-ind-body">
+  <div class="v2-wrap">
+    <div class="v2-arch-filters" role="group" aria-label="Filter issues">
+      <button class="active" data-filter="all">All</button><button data-filter="Daily">Daily</button><button data-filter="Weekly">Weekly</button>
+    </div>
+    <div class="v2-arch-list" id="archive-items">{items}</div>
+    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the daily playback free</a></p>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('.v2-arch-filters button').forEach(btn => {{
+    btn.addEventListener('click', () => {{
+      document.querySelectorAll('.v2-arch-filters button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.v2-arch-item').forEach(item => {{
+        item.style.display = (f === 'all' || item.dataset.tag === f) ? '' : 'none';
       }});
     }});
-  </script>"""
-    return page("", "Archive — The Crypto Playback", body, datetime.now().year)
+  }});
+</script>"""
+    import json as _json
+    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoplayback.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Archive", "item": "https://cryptoplayback.com/archive.html"}]}
+    return page("", "Archive: Daily & Weekly Crypto Briefings | The Crypto Playback", body, datetime.now().year, theme="v2",
+                description="Every daily and weekly Bitcoin and crypto market briefing from The Crypto Playback, newest first.",
+                path="archive.html", jsonld=_json.dumps(crumbs, separators=(",", ":")),
+                indicator_links=_footer_indicator_links())
+
+
+def _footer_indicator_links():
+    dash = _load_dashboard_data(load_index())
+    if dash is None:
+        return ""
+    return home_v2.indicator_footer_links(_build_indicator_registry(dash, dash["gauge_path"])["indicators"])
 
 
 def write_seo(entries, indicator_files):

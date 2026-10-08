@@ -603,3 +603,21 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2 .v2-ind-chips a:hover { border-color: var(--brass); color: var(--brass-text); }
 .v2-ind-sub { margin: 36px 0 0; text-align: center; }
 @media (max-width: 760px) { .v2-ind-grid { grid-template-columns: 1fr; } .v2-ind-title { font-size: 32px; flex-direction: column; gap: 8px; } .v2-ind-value .indicator-value { font-size: 46px; } .v2-ind-lab { flex-direction: column; align-items: flex-start; } }
+
+/* ===== Version 2 archive ===== */
+.v2-arch-sub { margin: 0 auto; max-width: 620px; font-size: 18px; line-height: 1.6; color: var(--dark-text); }
+.v2-arch-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 26px; }
+.v2-arch-filters button { font-family: var(--f-cond); letter-spacing: .12em; text-transform: uppercase; font-size: 15px; font-weight: 600; padding: 9px 22px; background: #fff; color: var(--navy); border: 1px solid var(--line); box-shadow: var(--shadow); cursor: pointer; }
+.v2-arch-filters button.active { background: var(--navy); color: var(--brass-hi); border-color: var(--navy); }
+.v2-arch-list { display: grid; gap: 12px; }
+.v2 a.v2-arch-item { display: grid; grid-template-columns: 170px 1fr auto; align-items: center; gap: 18px; background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--brass); box-shadow: var(--shadow); padding: 16px 22px; color: var(--navy); text-decoration: none; transition: transform .15s; }
+.v2 a.v2-arch-item:hover { transform: translateY(-2px); border-left-color: var(--navy); }
+.v2-arch-meta { display: flex; flex-direction: column; gap: 4px; }
+.v2-arch-tag { font-family: var(--f-cond); letter-spacing: .12em; text-transform: uppercase; font-size: 13px; font-weight: 600; color: var(--brass-text); }
+.v2-arch-weekly { color: var(--navy); }
+.v2-arch-date { font-size: 13px; color: #374151; }
+.v2-arch-title { font-family: var(--f-head); font-weight: 700; font-size: 18px; line-height: 1.35; }
+.v2-arch-go { font-size: 22px; color: var(--brass-text); }
+@media (max-width: 700px) { .v2 a.v2-arch-item { grid-template-columns: 1fr auto; } .v2-arch-meta { grid-column: 1 / -1; flex-direction: row; gap: 12px; align-items: baseline; } }
+@media (prefers-reduced-motion: reduce) { .v2 a.v2-arch-item { transition: none; } }
+.v2-arch-hero .v2-ind-title { margin-bottom: 14px; }
