@@ -178,7 +178,7 @@ def bottom_line(live, intro):
     b3 = f"<strong style=\"color:{NAVY};\">Top story:</strong> {_plain(intro)}"
     rows = ""
     for i, txt in enumerate((b1, b2, b3), 1):
-        rows += (f'<tr><td width="46" valign="top" style="width:46px;padding:0 14px 18px 0;font-family:{FRANK};font-weight:700;font-size:30px;white-space:nowrap;'
+        rows += (f'<tr><td width="46" valign="top" style="width:46px;padding:4px 14px 18px 0;font-family:{FRANK};font-weight:700;font-size:30px;white-space:nowrap;'
                  f'line-height:1;color:{BRASS};">0{i}</td>'
                  f'<td valign="top" style="padding:0 0 18px 0;font-family:{SANS};font-size:15.5px;line-height:1.6;color:{TEXT};">{txt}</td></tr>')
     return rows
@@ -266,24 +266,29 @@ def _clip(text, limit=200):
 
 
 def notable_section(missed, base):
-    """'Here's a story you may have missed!': the website's card (navy, brass frame, big red arrow, coral title)."""
+    """'Here's a story you may have missed!': the website's card (navy, brass frame, red arrow, coral title).
+    Desktop: arrow on the left. Phones: coral title, the arrow under it, then the story, all centered."""
     if not missed:
         return ""
     body = re.sub(r"</p>\s*<p[^>]*>", " ", missed["body"])
     body = _clip(re.sub(r"</?p[^>]*>", "", body))
-    return (f'<tr><td style="padding:0 40px 34px;" class="v3-pad">'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
-            f'style="background:{NAVY};border:2px solid {BRASS};box-shadow:0 6px 18px rgba(11,31,58,0.28);"><tr>'
-            f'<td class="v3-missed-arrow" width="104" align="center" valign="middle" style="width:104px;padding:16px 0 16px 20px;">'
-            f'<img class="v3-arrow-r" src="{base}/email-v3/arrow-red.png" width="68" height="51" alt="" style="display:block;width:68px;height:51px;border:0;margin:0 auto;">'
-            f'<img class="v3-arrow-d" src="{base}/email-v3/arrow-red-down.png" width="45" height="60" alt="" style="display:none;width:45px;height:60px;border:0;margin:0 auto;"></td>'
-            f'<td class="v3-missed-text" valign="middle" style="padding:16px 26px 16px 10px;">'
-            f'<div style="font-family:{COND};font-weight:700;font-size:17px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6F61;margin-bottom:10px;">Here&rsquo;s A Story You May Have Missed!</div>'
-            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{IVORY};margin:0 0 8px;">{missed["headline"]}</div>'
-            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{DK_TEXT};margin-bottom:6px;">{body}</div>'
+    kicker = (f'<div style="font-family:{COND};font-weight:700;font-size:17px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6F61;">'
+              f'Here&rsquo;s A Story You May Have Missed!</div>')
+    headline = f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{IVORY};margin:0 0 8px;">{missed["headline"]}</div>'
+    text = (f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{DK_TEXT};margin-bottom:6px;">{body}</div>'
             f'<a href="{missed["source_url"]}" style="font-family:{SANS};font-size:14px;font-weight:600;color:{BRASS_HI} !important;text-decoration:none;">'
-            f'<span style="color:{BRASS_HI} !important;">Read more at {escape(missed["source_title"])} &rarr;</span></a>'
-            f'</td></tr></table></td></tr>')
+            f'<span style="color:{BRASS_HI} !important;">Read more at {escape(missed["source_title"])} &rarr;</span></a>')
+    frame = f'background:{NAVY};border:2px solid {BRASS};box-shadow:0 6px 18px rgba(11,31,58,0.28);'
+    desk = (f'<table role="presentation" class="v3-desk" width="100%" cellpadding="0" cellspacing="0" border="0" style="{frame}"><tr>'
+            f'<td width="104" align="center" valign="middle" style="width:104px;padding:16px 0 16px 20px;">'
+            f'<img src="{base}/email-v3/arrow-red.png" width="68" height="51" alt="" style="display:block;width:68px;height:51px;border:0;margin:0 auto;"></td>'
+            f'<td valign="middle" style="padding:16px 26px 16px 10px;">'
+            f'{kicker.replace("</div>", "").replace("text-transform:uppercase;", "text-transform:uppercase;margin-bottom:10px;") + "</div>"}{headline}{text}</td></tr></table>')
+    mob = (f'<table role="presentation" class="v3-mob" width="100%" cellpadding="0" cellspacing="0" border="0" style="display:none;{frame}"><tr>'
+           f'<td align="center" style="padding:20px 18px 22px;text-align:center;">{kicker}'
+           f'<img src="{base}/email-v3/arrow-red-down.png" width="40" height="53" alt="" style="display:block;width:40px;height:53px;border:0;margin:14px auto 14px;">'
+           f'{headline}{text}</td></tr></table>')
+    return f'<tr><td style="padding:0 40px 34px;" class="v3-pad">{desk}{mob}</td></tr>'
 
 
 def confluence_card(name, positive, value_html, detail, kind_override=None):
@@ -399,11 +404,47 @@ def news_intro(intro, base):
             f'box-shadow:0 6px 18px rgba(11,31,58,0.28);">{_plain(intro)}</div></td></tr>')
 
 
-def story_list(stories, base):
-    """The rest of the issue's stories."""
-    rows = "".join(story_row(s["headline"], s["body"], s["source_title"], s["source_url"], base) for s in stories)
-    return (f'<tr><td style="padding:12px 40px 12px;" class="v3-pad">'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></td></tr>')
+def load_sponsor():
+    """data/sponsor.json: set "active": true plus logo_url / message / cta_text / cta_url to run a real sponsor."""
+    try:
+        d = json.load(open(os.path.join(ROOT, "data", "sponsor.json")))
+    except (OSError, ValueError):
+        d = {}
+    return d if d.get("active") and d.get("message") else None
+
+
+def sponsor_band(sponsor):
+    """The design's sponsor slot (ivory band, dashed brass frame). With no sponsor booked it is an open-slot house ad."""
+    if sponsor:
+        label = escape(sponsor.get("label") or "Sponsored")
+        logo = (f'<img src="{sponsor["logo_url"]}" alt="" style="display:block;max-width:150px;max-height:60px;width:auto;height:auto;margin:0 auto 12px;border:0;">'
+                if sponsor.get("logo_url") else "")
+        message = escape(sponsor["message"])
+        cta = (f' <a href="{sponsor["cta_url"]}" style="font-weight:600;color:{BRASS_TX} !important;text-decoration:none;"><span style="color:{BRASS_TX} !important;">'
+               f'{escape(sponsor["cta_text"])} &rarr;</span></a>' if sponsor.get("cta_text") and sponsor.get("cta_url") else "")
+    else:
+        label, logo = "Your brand here", ""
+        message = "Put your brand in front of The Crypto Playback&rsquo;s readers."
+        cta = (f' <a href="mailto:info@cryptoplayback.com?subject=Sponsoring%20The%20Crypto%20Playback" style="font-weight:600;color:{BRASS_TX} !important;text-decoration:none;">'
+               f'<span style="color:{BRASS_TX} !important;">Advertise with us &rarr;</span></a>')
+    return (f'<tr><td style="background:{IVORY};padding:26px 40px;border-top:1px solid {LINE};border-bottom:1px solid {LINE};" class="v3-pad">'
+            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px dashed {BRASS};background:#FFFFFF;"><tr>'
+            f'<td align="center" style="padding:20px 24px;text-align:center;">'
+            f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.18em;text-transform:uppercase;color:{MUTED};margin-bottom:12px;">{label}</div>'
+            f'{logo}<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{TEXT};">{message}{cta}</div>'
+            f'</td></tr></table></td></tr>')
+
+
+def story_list(stories, base, sponsor=None):
+    """The rest of the issue's stories, with the sponsor slot in the middle."""
+    def block(chunk):
+        rows = "".join(story_row(x["headline"], x["body"], x["source_title"], x["source_url"], base) for x in chunk)
+        return (f'<tr><td style="padding:12px 40px 12px;" class="v3-pad">'
+                f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></td></tr>')
+    if len(stories) < 3:
+        return block(stories)
+    mid = (len(stories) + 1) // 2
+    return block(stories[:mid]) + sponsor_band(sponsor) + block(stories[mid:])
 
 
 def indicators_section(live, base):
@@ -511,10 +552,6 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
   .v3-cc {{ display:inline-block !important; width:50% !important; box-sizing:border-box !important; }}
   .v3-acrow {{ display:block !important; }}
   .v3-ac {{ display:block !important; width:100% !important; box-sizing:border-box !important; padding:5px 0 !important; }}
-  .v3-missed-arrow {{ display:block !important; width:100% !important; box-sizing:border-box !important; padding:18px 0 0 !important; }}
-  .v3-missed-text {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:10px 18px 20px !important; }}
-  .v3-arrow-r {{ display:none !important; }}
-  .v3-arrow-d {{ display:block !important; }}
   .v3-desk {{ display:none !important; }}
   .v3-mob {{ display:table !important; }}
   .v3-score, .v3-scoretxt {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 8px 0 !important; }}
@@ -537,9 +574,9 @@ def render(*, issue_title, intro, stories, ticker_prices, tag, date_display, dat
         snapshot_section(live, gauge_url, base), bottom_line_section(live, intro, base), dashboard_panel(live, base),
     ]
     if indicators_last:
-        parts += [news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base), indicators_section(live, base)]
+        parts += [news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base, load_sponsor()), indicators_section(live, base)]
     else:
-        parts += [indicators_section(live, base), news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base)]
+        parts += [indicators_section(live, base), news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base, load_sponsor())]
     parts += [cta_section(), footer_section(live, stamp, base, year)]
     body = "\n".join(p for p in parts if p)
     body, shared_css = compact(body)
