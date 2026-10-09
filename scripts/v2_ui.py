@@ -12,6 +12,7 @@ from html import escape
 # first fourteen are the design's own; breadth/narrative are new, drawn in
 # the same style.
 ICON_PATHS = {
+    "mic": '<rect x="18" y="6" width="12" height="22" rx="6"/><path d="M12 24a12 12 0 0 0 24 0M24 36v6M17 42h14"/>',
     "fear_greed": '<path d="M6 34a18 18 0 0 1 36 0"/><path d="M24 34l9-12"/>',
     "biggest_mover": '<path d="M8 36l10-12 8 6 14-18"/><path d="M30 12h10v10"/>',
     "risk_radar": '<path d="M24 8L42 40H6z"/><path d="M24 20v10M24 35v1"/>',
