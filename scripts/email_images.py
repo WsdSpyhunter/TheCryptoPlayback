@@ -16,9 +16,9 @@ def make_issue_header(dt, out_path):
     d = ImageDraw.Draw(im)
     text = f"{dt.strftime('%A, %B')} {dt.day}, {dt.year}".upper()
     font = ImageFont.truetype(FONT, 44)
-    x, spacing = 424.0, 6.2
+    x, spacing = 421.0 + 140, 6.2      # 140 = the shift make_header_centered.py applied to the title group (art is trimmed 3px)
     for ch in text:
-        d.text((x, 363), ch, font=font, fill=(176, 193, 221), anchor="ls")
+        d.text((x, 360), ch, font=font, fill=(176, 193, 221), anchor="ls")
         x += d.textlength(ch, font=font) + spacing
     im.save(out_path, optimize=True)
     return out_path
