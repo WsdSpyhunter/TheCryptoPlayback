@@ -1939,21 +1939,6 @@ def _live_context(entries):
                                   f"${float(prev_etf_flow)/1e6:+.1f}M &rarr; ${float(latest_etf_flow)/1e6:+.1f}M"))
 
     real_change_items = list(change_items)      # genuine moves only (the fallback below is illustrative sample copy)
-    if not change_items and prev_snapshot:
-        # PREVIEW COPY, requested by the user to see the section's real
-        # layout with content in it (there isn't 24h of real drift yet).
-        # Same real indicators this section actually tracks, illustrative
-        # numbers only - swap back to the genuine "No major shifts" empty
-        # state (still handled below) once real drift exists, or sooner
-        # on request.
-        change_items = [
-            ("&#128994;", "Fear &amp; Greed climbed", "62 &rarr; 70 (+8)"),
-            ("&#128994;", "Capital Flow strengthened", "74 &rarr; 88 (+14)"),
-            ("&#128308;", "Risk Radar ticked up", "LOW &rarr; MODERATE"),
-            ("&#128993;", "Sector leadership rotated", "AI &rarr; RWA"),
-            ("&#128994;", "Biggest mover flipped", "ETH +3.1% &rarr; SOL +18.6%"),
-        ]
-
     return {"dashboard": dashboard, "prices": prices, "fng": fng, "indicators": indicators, "overview": overview,
             "confluence_items": confluence_items, "positive_count": positive_count, "total_count": total_count,
             "interpretation": interpretation, "snapshot_text": snapshot_text, "market_lean": market_lean,

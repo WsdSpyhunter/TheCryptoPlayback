@@ -120,7 +120,7 @@ def confluence_and_changed(items, positive_count, total_count, interpretation, c
         rows += (f'<div class="v2-change"><div class="v2-change-name">{headline}</div>'
                  f'<div class="v2-change-detail {tone}">{detail}</div></div>')
     if not rows:
-        rows = '<p class="v2-change-empty">Check back after the next update to see what has changed.</p>'
+        rows = '<p class="v2-change-empty">No indicator has moved enough to flag in the last 24 hours.</p>'
     return f"""<section class="v2-dark" id="confluence" aria-labelledby="confluence-h">
   <div class="v2-wrap">
     {ui.title_box("confluence", '<span id="confluence-h">Signal Confluence</span>', f"Updated {date_abbrev}", dark=True)}
