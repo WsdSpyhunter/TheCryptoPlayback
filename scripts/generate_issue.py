@@ -25,7 +25,7 @@ from build_site import (
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
     load_index, save_gauge_image, format_date_abbrev, load_market_overview, ROOT,
 )
-from email_render import stories_to_plain_email_html, stories_to_plain_email_html_v1, upload_gauge_image
+from email_build import build_email
 import os
 
 from buttondown_client import create_draft, send_draft_to_reviewer
@@ -221,21 +221,13 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     }
     print(f"Generated {tag.lower()} post: {slug} ({len(result['stories'])} stories)")
 
-    # Newsletter Version 2 (Market Snapshot, Signal Confluence, news section).
-    # Falls back to the Version 1 layout only if there's no live indicator
-    # data on disk to build the new sections from.
-    overview = load_market_overview()
-    if overview is not None:
-        email_body = stories_to_plain_email_html(
-            result["issue_title"], result["intro"], result["stories"], prices,
-            tag, date_display, date_abbrev, issue_number, overview, missed_story,
-        )
-    else:
-        print("No live indicator data found - falling back to the Version 1 email layout.")
-        email_body = stories_to_plain_email_html_v1(
-            result["issue_title"], result["intro"], result["stories"], prices,
-            fng, mover, tag, date_display, date_abbrev, issue_number, upload_gauge_image(gauge_path),
-        )
+    # Newsletter Version 3 (the owner's redesign; see docs/newsletter-v3-design). Needs live indicator data on disk;
+    # if it is missing we stop (and the workflow retries) rather than quietly sending an old layout.
+    email_body = build_email(
+        issue_title=result["issue_title"], intro=result["intro"], stories=result["stories"], prices=prices, tag=tag,
+        date_display=date_display, date_abbrev=date_abbrev, issue_number=issue_number, slug=slug,
+        missed_story=missed_story, upload=True,
+    )
     # Last gate: never create a draft Buttondown would refuse to publish. Failing
     # here makes the workflow retry with a fresh write-up instead of leaving a
     # draft you can't send.

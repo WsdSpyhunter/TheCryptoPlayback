@@ -13,13 +13,12 @@ Locally add --dry-run to just write the HTML to /tmp and touch nothing else.
 """
 import json
 import os
-import re
 import sys
 
 import build_site as b
 from blocked_terms import contains_blocked, neutralize_links
 from buttondown_client import get_email_status, send_draft_to_reviewer, update_draft_body
-from email_render import stories_to_plain_email_html
+from email_build import build_email
 from story_images import fix_story_images
 
 
@@ -36,13 +35,10 @@ def main():
     fixed, dropped = fix_story_images(post["stories"])
     neutralize_links({"stories": post["stories"], "missed_story": post.get("missed_story")}, b.ROOT)
 
-    overview = b.load_market_overview()
-    if overview is None:
-        raise SystemExit("No live indicator data on disk - cannot rebuild the email.")
-    intro = re.sub(r"<[^>]+>", "", post["top_story_html"]).replace("TOP STORY", "").strip()
-    email_body = stories_to_plain_email_html(
-        post["title"], intro, post["stories"], post["prices"], post["tag"],
-        post["date_display"], post["date_abbrev"], post["issue_number"], overview, post.get("missed_story"),
+    email_body = build_email(
+        issue_title=post["title"], intro=post["top_story_html"], stories=post["stories"], prices=post["prices"], tag=post["tag"],
+        date_display=post["date_display"], date_abbrev=post["date_abbrev"], issue_number=post["issue_number"], slug=post["slug"],
+        missed_story=post.get("missed_story"), upload=not dry, local_assets=dry,
     )
     if contains_blocked(email_body):
         raise SystemExit("A blocked term is in the rebuilt email - not updating the draft.")
