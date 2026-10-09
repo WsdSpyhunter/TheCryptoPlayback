@@ -75,8 +75,8 @@ def render(post, root, market, entries, footer_links=""):
 <section class="v2-section v2-ind-body v2-post-body">
   <div class="v2-wrap v2-post-wrap">
     <div class="v2-post-lede"><span>Top story</span><p>{lede}</p></div>
+    {missed_card(post["missed_story"], root, "v2-news-missed") if isinstance(post.get("missed_story"), dict) and post["missed_story"].get("headline") else ""}
     {stories}
-    {missed_card(post["missed_story"], root) if isinstance(post.get("missed_story"), dict) and post["missed_story"].get("headline") else ""}
     <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="{root}index.html#subscribe">Get the daily playback free</a></p>
     {nav}
   </div>

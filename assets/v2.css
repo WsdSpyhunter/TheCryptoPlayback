@@ -813,3 +813,11 @@ body.v2 { overflow-x: clip; }
 @media (max-width: 700px) { .v2 .v2-missed { grid-template-columns: minmax(0, 1fr); } .v2-missed-arrow { width: 52px; height: 39px; } }
 .v2-missed-arrow { align-self: center; margin-top: 0; }
 @media (max-width: 700px) { .v2-missed-arrow { align-self: auto; } }
+
+/* Issue pages: wider column, a brass frame all the way around the Top Story and story boxes, missed card right after the Top Story */
+.v2-post-wrap { max-width: 1000px !important; }
+.v2-post-lede { border: 2px solid var(--brass); }
+.v2-post-story { border: 2px solid var(--brass); }
+.v2-post-wrap .v2-missed { margin: 0 0 26px; }
+.v2-post-story p { font-size: 17.5px; }
+@media (max-width: 700px) { .v2-post-lede { border: 2px solid var(--brass); } }
