@@ -390,7 +390,7 @@ def story_row(headline, body, source_title, source_url, base, first=False):
                 f'<strong style="color:{NAVY};">Why it matters:</strong> {why}</div>') if why else ""
     return (f'<tr><td align="center" style="padding:24px 0 22px;border-top:1px solid {LINE};text-align:center;">'
             f'{story_tile(ic, base)}'
-            f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_TX};margin:18px 0 10px;text-align:center;">{label} &middot; {escape(source_title)}</div>'
+            f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_TX};margin:14px 0 14px;text-align:center;">{label} &middot; {escape(source_title)}</div>'
             f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;letter-spacing:-0.01em;color:{NAVY};margin-bottom:8px;text-align:center;">{headline}</div>'
             f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:8px;text-align:center;">{summary}</div>{why_html}'
             f'<a href="{source_url}" style="font-family:{SANS};font-size:13px;font-weight:600;color:{BRASS_TX} !important;text-decoration:none;"><span style="color:{BRASS_TX} !important;">Read at {escape(source_title)} &rarr;</span></a>'
