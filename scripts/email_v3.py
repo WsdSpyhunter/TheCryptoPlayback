@@ -281,12 +281,12 @@ def notable_section(missed, base):
     frame = f'background:{NAVY};border:2px solid {BRASS};box-shadow:0 6px 18px rgba(11,31,58,0.28);'
     desk = (f'<table role="presentation" class="v3-desk" width="100%" cellpadding="0" cellspacing="0" border="0" style="{frame}"><tr>'
             f'<td width="104" align="center" valign="middle" style="width:104px;padding:16px 0 16px 20px;">'
-            f'<img src="{base}/email-v3/arrow-red.png" width="68" height="51" alt="" style="display:block;width:68px;height:51px;border:0;margin:0 auto;"></td>'
+            f'<img src="{base}/email-v3/arrow-red.png" width="56" height="42" alt="" style="display:block;width:56px;height:42px;border:0;margin:0 auto;"></td>'
             f'<td valign="middle" style="padding:16px 26px 16px 10px;">'
             f'{kicker.replace("</div>", "").replace("text-transform:uppercase;", "text-transform:uppercase;margin-bottom:10px;") + "</div>"}{headline}{text}</td></tr></table>')
     mob = (f'<table role="presentation" class="v3-mob" width="100%" cellpadding="0" cellspacing="0" border="0" style="display:none;{frame}"><tr>'
            f'<td align="center" style="padding:20px 18px 22px;text-align:center;">{kicker}'
-           f'<img src="{base}/email-v3/arrow-red-down.png" width="40" height="53" alt="" style="display:block;width:40px;height:53px;border:0;margin:14px auto 14px;">'
+           f'<img src="{base}/email-v3/arrow-red-down.png" width="30" height="40" alt="" style="display:block;width:30px;height:40px;border:0;margin:14px auto 14px;">'
            f'{headline}{text}</td></tr></table>')
     return f'<tr><td style="padding:0 40px 34px;" class="v3-pad">{desk}{mob}</td></tr>'
 
@@ -509,8 +509,8 @@ def footer_section(live, prices_stamp, base, year):
             f'<div style="font-family:{SANS};font-size:13.5px;line-height:1.65;color:{DK_SOFT};padding-bottom:16px;border-bottom:1px solid {NAVY_LINE};">{sources}</div>'
             f'<div style="font-family:{SANS};font-size:12.5px;line-height:1.65;color:{DK_SOFT};padding-top:16px;">{disclaimer}</div>'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;"><tr>'
-            f'<td style="font-family:{SANS};font-size:12.5px;color:{DK_SOFT};">&copy; {year} The Crypto Playback &middot; <span style="white-space:nowrap;">info&#8203;@cryptoplayback.com</span></td>'
-            f'<td align="right" style="font-family:{SANS};font-size:12.5px;"><a href="{unsub}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Unsubscribe</span></a></td>'
+            f'<td valign="top" style="font-family:{SANS};font-size:12.5px;color:{DK_SOFT};">&copy; {year} The Crypto Playback &middot; <span style="white-space:nowrap;">info&#8203;@cryptoplayback.com</span></td>'
+            f'<td align="right" valign="top" style="font-family:{SANS};font-size:12.5px;white-space:nowrap;padding-left:14px;"><a href="{unsub}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Unsubscribe</span></a></td>'
             f'</tr></table></td></tr>')
 
 
