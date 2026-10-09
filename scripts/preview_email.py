@@ -14,7 +14,6 @@ from datetime import datetime, timezone
 import build_site as b
 import email_images
 import email_v3
-from email_v3 import load_playback_read
 
 
 def render_latest(local_assets=False, indicators_last=True):
@@ -36,7 +35,7 @@ def render_latest(local_assets=False, indicators_last=True):
     html = email_v3.render(
         issue_title=post["title"], intro=intro, stories=post["stories"], ticker_prices=prices, tag=post["tag"],
         date_display=post["date_display"], date_abbrev=post.get("date_abbrev") or live["date_abbrev"],
-        issue_number=post["issue_number"], live=live, missed_story=post.get("missed_story"), read=load_playback_read(),
+        issue_number=post["issue_number"], live=live, missed_story=post.get("missed_story"),
         header_url=header, gauge_url=gauge, slug=post["slug"], year=datetime.now().year, base=base, indicators_last=indicators_last)
     return post, html
 

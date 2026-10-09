@@ -7,9 +7,10 @@ Everything here is markup only. Numbers come from the same live data the website
 Email-safe on purpose: nested tables and inline CSS, PNG icons/gauge/arrow (no inline SVG), no flexbox,
 grid, position or clip-path. A small media query stacks the grids on phones.
 
-Order (the owner asked to try indicators at the bottom): top bar, header, Top 6 strip, The Bottom Line,
-Market Snapshot, Notable, Signal Confluence + What Changed, The Playback Read, Top News Stories,
-Alerts & Indicators, CTA, footer.  `indicators_last=False` puts Alerts & Indicators back before the news.
+Order (set by the owner 2026-10-09): top bar, header, Top 6 strip, Market Snapshot, The Bottom Line,
+Signal Confluence + What Changed, Top Story, Notable (a story you may have missed), the rest of the stories,
+Alerts & Indicators, CTA, footer.  The Playback Read is NOT in the newsletter (owner decision).
+`indicators_last=False` puts Alerts & Indicators back before the news.
 """
 import json
 import os
@@ -359,11 +360,17 @@ def story_row(headline, body, source_title, source_url, base, first=False):
             f'</td></tr></table></td></tr>')
 
 
-def news_section(intro, stories, base):
+def news_intro(intro, base):
+    """'The Top News Stories' title and the Top Story box."""
+    return (f'<tr><td style="padding:38px 40px 30px;" class="v3-pad">{section_title("news", "The Top News Stories", base)}'
+            f'<div style="font-family:{FRANK};font-weight:600;font-size:22px;line-height:1.45;color:{IVORY};background:{NAVY_LEDE};padding:22px 26px;margin:0;'
+            f'box-shadow:0 6px 18px rgba(11,31,58,0.28);">{_plain(intro)}</div></td></tr>')
+
+
+def story_list(stories, base):
+    """The rest of the issue's stories."""
     rows = "".join(story_row(s["headline"], s["body"], s["source_title"], s["source_url"], base) for s in stories)
-    return (f'<tr><td style="padding:38px 40px 12px;" class="v3-pad">{section_title("news", "The Top News Stories", base)}'
-            f'<div style="font-family:{FRANK};font-weight:600;font-size:22px;line-height:1.45;color:{IVORY};background:{NAVY_LEDE};padding:22px 26px;margin:0 0 22px;'
-            f'box-shadow:0 6px 18px rgba(11,31,58,0.28);">{_plain(intro)}</div>'
+    return (f'<tr><td style="padding:12px 40px 12px;" class="v3-pad">'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></td></tr>')
 
 
@@ -476,7 +483,7 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
 
 
 def render(*, issue_title, intro, stories, ticker_prices, tag, date_display, date_abbrev, issue_number, live,
-           missed_story=None, read=None, header_url, gauge_url, slug, year, base=ASSET_BASE, indicators_last=True):
+           missed_story=None, header_url, gauge_url, slug, year, base=ASSET_BASE, indicators_last=True):
     weekly = tag == "Weekly"
     kicker = "Weekly Issue" if weekly else "Daily Issue"
     view_url = f"{SITE_URL}posts/{slug}.html"
@@ -485,13 +492,12 @@ def render(*, issue_title, intro, stories, ticker_prices, tag, date_display, dat
     alt = f"The Crypto Playback. Daily research and news on Bitcoin and digital assets. {date_display}."
     parts = [
         top_bar(kicker, issue_number, view_url), header_row(header_url, alt), price_strip(ticker_prices, caption),
-        bottom_line_section(live, intro, base), snapshot_section(live, gauge_url, base), notable_section(missed_story, base),
-        dashboard_panel(live, base), read_section(read, tag, base),
+        snapshot_section(live, gauge_url, base), bottom_line_section(live, intro, base), dashboard_panel(live, base),
     ]
     if indicators_last:
-        parts += [news_section(intro, stories, base), indicators_section(live, base)]
+        parts += [news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base), indicators_section(live, base)]
     else:
-        parts += [indicators_section(live, base), news_section(intro, stories, base)]
+        parts += [indicators_section(live, base), news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base)]
     parts += [cta_section(), footer_section(live, stamp, base, year)]
     body = "\n".join(p for p in parts if p)
     body, shared_css = compact(body)
