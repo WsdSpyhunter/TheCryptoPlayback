@@ -405,12 +405,12 @@ def news_intro(intro, base):
 
 
 def load_sponsor():
-    """data/sponsor.json: set "active": true plus logo_url / message / cta_text / cta_url to run a real sponsor."""
+    """data/sponsor.json: set "active": true plus either image_url (a banner that links to cta_url) or logo_url / message / cta_text / cta_url."""
     try:
         d = json.load(open(os.path.join(ROOT, "data", "sponsor.json")))
     except (OSError, ValueError):
         d = {}
-    return d if d.get("active") and d.get("message") else None
+    return d if d.get("active") and (d.get("message") or d.get("image_url")) else None
 
 
 def sponsor_band(sponsor):
@@ -419,7 +419,11 @@ def sponsor_band(sponsor):
         label = escape(sponsor.get("label") or "Sponsored")
         logo = (f'<img src="{sponsor["logo_url"]}" alt="" style="display:block;max-width:150px;max-height:60px;width:auto;height:auto;margin:0 auto 12px;border:0;">'
                 if sponsor.get("logo_url") else "")
-        message = escape(sponsor["message"])
+        if sponsor.get("image_url"):        # a full banner; the whole image is the link
+            img = (f'<img src="{sponsor["image_url"]}" width="544" alt="{escape(sponsor.get("image_alt", "Sponsor"), quote=True)}" '
+                   f'style="display:block;width:100%;max-width:544px;height:auto;margin:0 auto;border:0;">')
+            logo = (f'<a href="{sponsor["cta_url"]}" style="text-decoration:none;display:block;">{img}</a>' if sponsor.get("cta_url") else img)
+        message = escape(sponsor.get("message", ""))
         cta = (f' <a href="{sponsor["cta_url"]}" style="font-weight:600;color:{BRASS_TX} !important;text-decoration:none;"><span style="color:{BRASS_TX} !important;">'
                f'{escape(sponsor["cta_text"])} &rarr;</span></a>' if sponsor.get("cta_text") and sponsor.get("cta_url") else "")
     else:
@@ -431,7 +435,7 @@ def sponsor_band(sponsor):
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px dashed {BRASS};background:#FFFFFF;"><tr>'
             f'<td align="center" style="padding:20px 24px;text-align:center;">'
             f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.18em;text-transform:uppercase;color:{MUTED};margin-bottom:12px;">{label}</div>'
-            f'{logo}<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{TEXT};">{message}{cta}</div>'
+            f'{logo}{(f"<div style=\"font-family:{SANS};font-size:14.5px;line-height:1.55;color:{TEXT};\">{message}{cta}</div>") if message else ""}'
             f'</td></tr></table></td></tr>')
 
 
