@@ -202,8 +202,8 @@ def footer_v2(root, year, indicator_links=""):
     are an expression of opinion. While we believe our statements to be true, they always depend on the reliability of our own
     credible sources. We recommend that you consult a licensed, qualified investment advisor before making any investment decisions.</p>
     <div class="v2-footer-base">
-      <span>&copy; {year} The Crypto Playback &middot; <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></span>
-      <span><a href="{root}index.html#subscribe">Subscribe</a> &middot; <a href="{SITE_URL}/feed.xml">RSS</a></span>
+      <span>&copy; {year} The Crypto Playback&trade;. All rights reserved. &middot; <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></span>
+      <span><a href="{root}terms.html">Terms of Use</a> &middot; <a href="{root}index.html#subscribe">Subscribe</a> &middot; <a href="{SITE_URL}/feed.xml">RSS</a></span>
     </div>
   </div>
 </footer>"""

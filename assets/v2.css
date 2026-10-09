@@ -849,3 +849,7 @@ body.v2 { overflow-x: clip; }
 #miners, #sources { padding-top: 56px; }
 #unwind { padding-top: 64px; }
 @media (max-width: 860px) { #unwind { padding-top: 44px; } }
+
+/* Terms page: left-aligned reading text in cards, centered on phones like the About page */
+.v2-about-card h2 { margin: 0 0 10px; }
+.v2-about-card a { color: var(--brass-text); font-weight: 600; }

@@ -37,6 +37,21 @@ ABOUT_BODY = """<section class="v2-ind-hero" aria-labelledby="about-h">
   </div>
 </section>"""
 
+
+TERMS_SECTIONS = [
+    ("Using this site", """<p>These terms apply to cryptoplayback.com, The Crypto Playback newsletter, and the Playback Lab (together, the &ldquo;Service&rdquo;), operated by The Crypto Playback (&ldquo;we&rdquo;, &ldquo;us&rdquo;). By using the Service you agree to them. If you do not agree, please do not use it.</p>"""),
+    ("Not financial advice", """<p>Everything in the Service is independent market research and commentary for general information only. It is not investment, financial, tax or legal advice, and it is not an offer or solicitation to buy or sell anything. Indicators describe market conditions as measured by third-party data; they are not forecasts, and past readings do not predict future results. Do your own research and consult a licensed, qualified advisor before making any investment decision. You are solely responsible for your decisions.</p>"""),
+    ("Our content and copyright", """<p>The Service, including its text, newsletters, indicator pages, the Playback Lab, charts, page design, software and artwork, is protected by copyright and other laws. Unless a page says otherwise, &copy; The Crypto Playback. All rights reserved.</p>
+<p>You may read, share links to, and quote short excerpts of our content for personal, non-commercial use, with attribution and a link back to the original page. You may not, without our written permission: copy, republish or redistribute our content or any substantial part of it; scrape or harvest the Service by automated means; build a competing product or database from it; or use it to train machine-learning models.</p>"""),
+    ("Trademarks", """<p>&ldquo;The Crypto Playback&rdquo;, &ldquo;Playback Lab&rdquo;, &ldquo;The Playback Read&rdquo;, the PlayBack wordmark and our mascot are trademarks or branding of The Crypto Playback. Other names, logos and marks on the Service belong to their respective owners, and their appearance does not imply endorsement.</p>"""),
+    ("The Playback Lab and our indicators", """<p>Our indicators and scores (for example the Institutional Positioning Index, Basis-Trade Crowding, Miner Stress, Net Liquidity &amp; Macro, Crowded Unwind Risk, Stablecoin Flows and The Playback Read) are our own composite measures, calculated from third-party and public data. We publish methodology so readers can understand how they work. Publishing it does not give you a licence to copy our pages, scores or presentation, or to present them as your own.</p>"""),
+    ("Third-party data, links and promotions", """<p>We rely on data and news from third parties and cannot guarantee that it is accurate, complete or timely; it can be delayed, revised or wrong. Their own terms apply to their data. The Service links to third-party sites, which we do not control. Some items, such as featured shows or sponsored placements, may be promotions. We label paid sponsorships as such. Inclusion of any resource is not an endorsement.</p>"""),
+    ("Newsletter", """<p>If you subscribe, we will email you our newsletter. You can unsubscribe at any time using the link in every email. Emails are delivered through a third-party email provider.</p>"""),
+    ("No warranty; limit of liability", """<p>The Service is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo;, without warranties of any kind, express or implied. To the fullest extent permitted by law, we are not liable for any loss or damage (including trading or investment losses) arising from your use of, or reliance on, the Service.</p>"""),
+    ("Changes and contact", """<p>We may update these terms from time to time; the effective date below shows the latest version, and continued use means you accept the changes. Governing law: [STATE &mdash; to be completed]. Questions: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a>.</p>
+<p class="v2-about-note">Effective October 9, 2026.</p>"""),
+]
+
 # ---------------------------------------------------------------------------
 # Resources page: full-bleed banded sections of shadowed link cards. All
 # styling lives in assets/styles.css under the res- prefix. Cards are plain
@@ -258,6 +273,22 @@ def _crumbs_ld(*items):
         separators=(",", ":"))
 
 
+def _build_terms():
+    cards = "".join(f'<article class="v2-ind-card v2-about-card"><h2>{h}</h2>{b}</article>' for h, b in TERMS_SECTIONS)
+    return (
+        '<section class="v2-ind-hero" aria-labelledby="terms-h"><div class="v2-wrap">'
+        '<nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Terms of Use</span></nav>'
+        '<div class="v2-kicker v2-kicker-brass v2-ind-kicker">The fine print</div>'
+        '<h1 class="v2-ind-title" id="terms-h">Terms of Use</h1>'
+        '<p class="v2-arch-sub">Plain-English terms for using The Crypto Playback, the newsletter and the Playback Lab.</p>'
+        '</div></section>'
+        f'<section class="v2-section v2-ind-body"><div class="v2-wrap v2-about">{cards}</div></section>'
+    )
+
+
+TERMS_BODY = _build_terms()
+
+
 def build():
     import build_site
     year = datetime.now().year
@@ -270,7 +301,11 @@ def build():
         f.write(page("", "Crypto Resources & Glossary | The Crypto Playback", RESOURCES_BODY, year, theme="v2", indicator_links=links,
                      description="Hand-picked crypto tools, research, essential Bitcoin reading and a plain-English glossary for retail and institutional investors.",
                      path="resources.html", jsonld=_crumbs_ld(("Home", ""), ("Resources", "resources.html"))))
-    print("Built about.html and resources.html")
+    with open(os.path.join(ROOT, "terms.html"), "w") as f:
+        f.write(page("", "Terms of Use | The Crypto Playback", TERMS_BODY, year, theme="v2", indicator_links=links,
+                     description="Terms of use for The Crypto Playback: copyright, trademarks, data and indicators, and not-financial-advice notice.",
+                     path="terms.html", jsonld=_crumbs_ld(("Home", ""), ("Terms of Use", "terms.html"))))
+    print("Built about.html, resources.html and terms.html")
 
 
 if __name__ == "__main__":

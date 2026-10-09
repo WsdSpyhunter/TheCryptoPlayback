@@ -21,6 +21,7 @@ STATIC_PAGES = [  # (path, changefreq, priority)
     ("archive.html", "daily", "0.8"),
     ("resources.html", "monthly", "0.7"),
     ("about.html", "monthly", "0.5"),
+    ("terms.html", "yearly", "0.3"),
 ]
 
 
