@@ -78,33 +78,49 @@ def _kind(positive):
     return "pos" if positive is True else ("neg" if positive is False else "neu")
 
 
-def section_title(key, title, base, meta="", pad_bottom=20):
-    """White shadow box with icon + title sitting on a 2px navy rule (light sections)."""
-    meta_cell = (f'<td class="v3-tmeta" align="right" valign="bottom" style="padding:0 0 12px 12px;font-family:{SANS};font-size:12px;color:{MUTED};">{meta}</td>'
-                 if meta else "")
-    return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
-            f'style="border-bottom:2px solid {NAVY};margin:0 0 {pad_bottom}px 0;"><tr>'
-            f'<td class="v3-tcell" valign="bottom" style="padding:0 0 10px 0;">'
-            f'<table role="presentation" class="v3-tbox" cellpadding="0" cellspacing="0" border="0" '
-            f'style="background:#FFFFFF;border:1px solid {LINE};box-shadow:0 4px 14px rgba(11,31,58,0.16);"><tr>'
+def _title_box(key, title, base, nowrap=True):
+    return (f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" '
+            f'style="background:#FFFFFF;border:1px solid {LINE};box-shadow:0 4px 14px rgba(11,31,58,0.16);margin:0 auto;"><tr>'
             f'<td style="padding:10px 0 10px 18px;" valign="middle">{icon(key, "ink", 22, base)}</td>'
-            f'<td class="v3-ttxt" style="padding:10px 18px 10px 10px;font-family:{SANS};font-weight:600;font-size:14px;letter-spacing:0.14em;'
-            f'text-transform:uppercase;color:{NAVY};white-space:nowrap;" valign="middle">{title}</td>'
-            f'</tr></table></td>{meta_cell}</tr></table>')
+            f'<td style="padding:10px 18px 10px 10px;font-family:{SANS};font-weight:600;font-size:14px;letter-spacing:0.14em;'
+            f'text-transform:uppercase;color:{NAVY};{"white-space:nowrap;" if nowrap else ""}" valign="middle">{title}</td></tr></table>')
+
+
+def section_title(key, title, base, meta="", pad_bottom=20):
+    """White shadow box with icon + title on a 2px navy rule. Desktop: box left, note right. Phones get their own
+    centered version (box, then the note underneath) because that swap works in every mail app."""
+    meta_cell = (f'<td align="right" valign="bottom" style="padding:0 0 12px 12px;font-family:{SANS};font-size:12px;color:{MUTED};">{meta}</td>'
+                 if meta else "")
+    desk = (f'<table role="presentation" class="v3-desk" width="100%" cellpadding="0" cellspacing="0" border="0" '
+            f'style="border-bottom:2px solid {NAVY};margin:0 0 {pad_bottom}px 0;"><tr>'
+            f'<td valign="bottom" style="padding:0 0 10px 0;">{_title_box(key, title, base).replace(" align=\"center\"", "").replace("margin:0 auto;", "")}</td>{meta_cell}</tr></table>')
+    meta_row = (f'<tr><td align="center" style="padding:0 0 12px;font-family:{SANS};font-size:12px;color:{MUTED};">{meta}</td></tr>' if meta else "")
+    mob = (f'<table role="presentation" class="v3-mob" width="100%" cellpadding="0" cellspacing="0" border="0" '
+           f'style="display:none;border-bottom:2px solid {NAVY};margin:0 0 {pad_bottom}px 0;">'
+           f'<tr><td align="center" style="padding:0 0 10px;">{_title_box(key, title, base, nowrap=False)}</td></tr>{meta_row}</table>')
+    return desk + mob
 
 
 def dark_title(key, title, base, meta="", margin="0 0 18px 0"):
-    meta_cell = (f'<td class="v3-dmeta" align="right" valign="middle" style="padding:0 0 10px 12px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td>'
+    """Dark-panel section title. Desktop: icon + title left, note right. Phones: icon, title and note centered, stacked."""
+    meta_cell = (f'<td align="right" valign="middle" style="padding:0 0 10px 12px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td>'
                  if meta else "")
-    return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
+    desk = (f'<table role="presentation" class="v3-desk" width="100%" cellpadding="0" cellspacing="0" border="0" '
             f'style="border-bottom:1px solid {NAVY_LINE};margin:{margin};"><tr>'
-            f'<td class="v3-dicon" width="32" valign="middle" style="padding:0 10px 10px 0;"><div class="v3-dicon-in">{icon(key, "gold", 22, base)}</div></td>'
-            f'<td class="v3-dtxt" valign="middle" style="padding:0 0 10px 0;font-family:{SANS};font-weight:600;font-size:12px;letter-spacing:0.14em;'
+            f'<td width="32" valign="middle" style="padding:0 10px 10px 0;">{icon(key, "gold", 22, base)}</td>'
+            f'<td valign="middle" style="padding:0 0 10px 0;font-family:{SANS};font-weight:600;font-size:12px;letter-spacing:0.14em;'
             f'text-transform:uppercase;color:{IVORY};">{title}</td>{meta_cell}</tr></table>')
+    meta_row = (f'<tr><td align="center" style="padding:0 0 10px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td></tr>' if meta else "")
+    mob = (f'<table role="presentation" class="v3-mob" width="100%" cellpadding="0" cellspacing="0" border="0" '
+           f'style="display:none;border-bottom:1px solid {NAVY_LINE};margin:{margin};">'
+           f'<tr><td align="center" style="padding:0 0 8px;">{icon(key, "gold", 22, base).replace("display:block;", "display:block;margin:0 auto;")}</td></tr>'
+           f'<tr><td align="center" style="padding:0 0 6px;font-family:{SANS};font-weight:600;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:{IVORY};">{title}</td></tr>'
+           f'{meta_row}</table>')
+    return desk + mob
 
 
 def story_tile(icon_key, base):
-    return (f'<table role="presentation" width="64" cellpadding="0" cellspacing="0" border="0" class="v3-tile">'
+    return (f'<table role="presentation" width="64" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">'
             f'<tr><td width="64" height="64" align="center" valign="middle" style="width:64px;height:64px;background:{NAVY};'
             f'border-bottom:3px solid {BRASS};">{icon(icon_key, "gold", 36, base).replace("display:block;", "display:block;margin:0 auto;")}</td></tr></table>')
 
@@ -162,7 +178,7 @@ def bottom_line(live, intro):
     b3 = f"<strong style=\"color:{NAVY};\">Top story:</strong> {_plain(intro)}"
     rows = ""
     for i, txt in enumerate((b1, b2, b3), 1):
-        rows += (f'<tr><td width="62" valign="top" style="width:62px;padding:0 14px 18px 0;font-family:{FRANK};font-weight:700;font-size:30px;white-space:nowrap;'
+        rows += (f'<tr><td width="46" valign="top" style="width:46px;padding:0 14px 18px 0;font-family:{FRANK};font-weight:700;font-size:30px;white-space:nowrap;'
                  f'line-height:1;color:{BRASS};">0{i}</td>'
                  f'<td valign="top" style="padding:0 0 18px 0;font-family:{SANS};font-size:15.5px;line-height:1.6;color:{TEXT};">{txt}</td></tr>')
     return rows
@@ -262,8 +278,8 @@ def notable_section(missed, base):
             f'<img class="v3-arrow-r" src="{base}/email-v3/arrow-red.png" width="68" height="51" alt="" style="display:block;width:68px;height:51px;border:0;margin:0 auto;">'
             f'<img class="v3-arrow-d" src="{base}/email-v3/arrow-red-down.png" width="45" height="60" alt="" style="display:none;width:45px;height:60px;border:0;margin:0 auto;"></td>'
             f'<td class="v3-missed-text" valign="middle" style="padding:16px 26px 16px 10px;">'
-            f'<div style="font-family:{COND};font-weight:700;font-size:17px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6F61;">Here&rsquo;s A Story You May Have Missed!</div>'
-            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{IVORY};margin:6px 0 8px;">{missed["headline"]}</div>'
+            f'<div style="font-family:{COND};font-weight:700;font-size:17px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6F61;margin-bottom:10px;">Here&rsquo;s A Story You May Have Missed!</div>'
+            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{IVORY};margin:0 0 8px;">{missed["headline"]}</div>'
             f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{DK_TEXT};margin-bottom:6px;">{body}</div>'
             f'<a href="{missed["source_url"]}" style="font-family:{SANS};font-size:14px;font-weight:600;color:{BRASS_HI} !important;text-decoration:none;">'
             f'<span style="color:{BRASS_HI} !important;">Read more at {escape(missed["source_title"])} &rarr;</span></a>'
@@ -276,7 +292,7 @@ def confluence_card(name, positive, value_html, detail, kind_override=None):
     border, bg = (NEG_BG, NEG_CARD) if neg else (NAVY_LINE, NAVY_CARD)
     name_c = DK_SOFT if neg else DK_MUTED
     return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{bg};border:1px solid {border};"><tr>'
-            f'<td style="padding:12px;" valign="top">'
+            f'<td style="padding:12px;text-align:center;" valign="top" align="center">'
             f'<div style="font-family:{SANS};font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:{name_c};">{name}</div>'
             f'<div style="font-family:{MONO};font-size:16px;color:{IVORY};margin-top:4px;">{value_html}</div>'
             f'<div style="font-family:{SANS};font-size:12px;color:{name_c};margin-top:2px;line-height:1.4;">{detail or "&nbsp;"}</div>'
@@ -331,7 +347,7 @@ def dashboard_panel(live, base):
             f'<td class="v3-score" valign="bottom" style="width:1%;white-space:nowrap;font-family:{FRANK};font-weight:700;font-size:56px;line-height:1;color:{IVORY};">{pos}<span style="font-size:30px;color:{DK_MUTED};font-weight:600;">/{total}</span></td>'
             f'<td class="v3-scoretxt" valign="bottom" style="padding:0 0 6px 14px;font-family:{SANS};font-size:14px;line-height:1.5;color:{DK_TEXT};">signals positive. {live["interpretation"]}</td></tr></table>'
             f'<div style="margin:0 -4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></div>'
-            f'<div style="margin-top:12px;font-family:{SANS};font-size:12px;line-height:1.5;color:{DK_MUTED};">{note}Capital Flow Score is a Crypto Playback composite of price and sector breadth weighted against sentiment. '
+            f'<div style="margin-top:12px;text-align:center;font-family:{SANS};font-size:12px;line-height:1.5;color:{DK_MUTED};">{note}Capital Flow Score is a Crypto Playback composite of price and sector breadth weighted against sentiment. '
             f'It is not institutional transaction data. <a href="{SITE_URL}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Full methodology</span></a></div>'
             f'{dark_title("changed", "What Changed", base, "vs. ~24 hours ago", "34px 0 6px 0")}'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{ch}</table>'
@@ -365,22 +381,21 @@ def story_row(headline, body, source_title, source_url, base, first=False):
     paras = re.findall(r"<p[^>]*>(.*?)</p>", body, re.S) or [body]
     summary = paras[0].strip()
     why = " ".join(p.strip() for p in paras[1:]).strip()
-    why_html = (f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:10px;">'
+    why_html = (f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:10px;text-align:center;">'
                 f'<strong style="color:{NAVY};">Why it matters:</strong> {why}</div>') if why else ""
-    return (f'<tr><td style="padding:22px 0;border-top:1px solid {LINE};">'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
-            f'<td width="82" valign="top" class="v3-tilecell" style="width:82px;padding-right:18px;">{story_tile(ic, base)}</td>'
-            f'<td valign="top"><div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_TX};margin-bottom:6px;">{label} &middot; {escape(source_title)}</div>'
-            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;letter-spacing:-0.01em;color:{NAVY};margin-bottom:8px;">{headline}</div>'
-            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:8px;">{summary}</div>{why_html}'
+    return (f'<tr><td align="center" style="padding:24px 0 22px;border-top:1px solid {LINE};text-align:center;">'
+            f'{story_tile(ic, base)}'
+            f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_TX};margin:14px 0 6px;text-align:center;">{label} &middot; {escape(source_title)}</div>'
+            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;letter-spacing:-0.01em;color:{NAVY};margin-bottom:8px;text-align:center;">{headline}</div>'
+            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:8px;text-align:center;">{summary}</div>{why_html}'
             f'<a href="{source_url}" style="font-family:{SANS};font-size:13px;font-weight:600;color:{BRASS_TX} !important;text-decoration:none;"><span style="color:{BRASS_TX} !important;">Read at {escape(source_title)} &rarr;</span></a>'
-            f'</td></tr></table></td></tr>')
+            f'</td></tr>')
 
 
 def news_intro(intro, base):
     """'The Top News Stories' title and the Top Story box."""
     return (f'<tr><td style="padding:38px 40px 30px;" class="v3-pad">{section_title("news", "The Top News Stories", base)}'
-            f'<div style="font-family:{FRANK};font-weight:600;font-size:22px;line-height:1.45;color:{IVORY};background:{NAVY_LEDE};padding:22px 26px;margin:0;'
+            f'<div style="font-family:{FRANK};font-weight:600;font-size:22px;line-height:1.45;color:{IVORY};background:{NAVY_LEDE};padding:22px 26px;margin:0;text-align:center;'
             f'box-shadow:0 6px 18px rgba(11,31,58,0.28);">{_plain(intro)}</div></td></tr>')
 
 
@@ -402,14 +417,15 @@ def indicators_section(live, base):
         link = SITE_URL + ind["page"]
         cards.append(
             f'<td class="v3-ac" width="50%" valign="top" style="width:50%;padding:5px;">'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{NAVY_CARD};border:1px solid {NAVY_LINE};"><tr><td style="padding:16px;" valign="top">'
-            f'<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="26" valign="middle">{icon(ind["id"], "gold", 18, base)}</td>'
+            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{NAVY_CARD};border:1px solid {NAVY_LINE};"><tr>'
+            f'<td style="padding:16px;text-align:center;" align="center" valign="top">'
+            f'<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr><td width="26" valign="middle">{icon(ind["id"], "gold", 18, base)}</td>'
             f'<td valign="middle" style="font-family:{FRANK};font-weight:700;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:{IVORY};">{ui.strip_emoji(ind["card_label"])}</td></tr></table>'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr>'
-            f'<td style="font-family:{MONO};font-size:20px;color:{IVORY};">{value}</td><td align="right">{pill(kind)}</td></tr></table>'
-            f'<div style="font-family:{SANS};font-size:13px;color:{DK_TEXT};margin-top:8px;">{detail or "&nbsp;"}</div>'
-            f'<div style="font-family:{SANS};font-size:12.5px;line-height:1.5;color:{DK_MUTED};margin-top:8px;">{ind["explainer_text"]}</div>'
-            f'<div style="margin-top:10px;"><a href="{link}" style="font-family:{SANS};font-size:12px;font-weight:600;color:{BRASS_HI} !important;text-decoration:none;">'
+            f'<div style="font-family:{MONO};font-size:20px;color:{IVORY};margin-top:12px;text-align:center;">{value}</div>'
+            f'<div style="margin-top:8px;text-align:center;">{pill(kind)}</div>'
+            f'{(f"<div style=\"font-family:{SANS};font-size:13px;color:{DK_TEXT};margin-top:8px;text-align:center;\">{detail}</div>") if detail else ""}'
+            f'<div style="font-family:{SANS};font-size:12.5px;line-height:1.5;color:{DK_MUTED};margin-top:8px;text-align:center;">{ind["explainer_text"]}</div>'
+            f'<div style="margin-top:10px;text-align:center;"><a href="{link}" style="font-family:{SANS};font-size:12px;font-weight:600;color:{BRASS_HI} !important;text-decoration:none;">'
             f'<span style="color:{BRASS_HI} !important;">View full breakdown &rarr;</span></a></div></td></tr></table></td>')
     rows = ""
     for i in range(0, len(cards), 2):
@@ -417,7 +433,7 @@ def indicators_section(live, base):
         rows += '<tr class="v3-acrow">' + "".join(pair) + ("<td></td>" if len(pair) < 2 else "") + "</tr>"
     return (f'<tr><td style="background:{IVORY};padding:34px 40px 26px;border-top:4px solid {BRASS};border-bottom:1px solid {LINE};" class="v3-pad">'
             f'{section_title("alerts", "Alerts &amp; Indicators", base, f"Updated {live["date_abbrev"]}", 14)}'
-            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};">Each card links to its full methodology and history on the site.</div></td></tr>'
+            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};text-align:center;">Each card links to its full methodology and history on the site.</div></td></tr>'
             f'<tr><td style="background:{NAVY};padding:28px 40px 34px;" class="v3-pad"><div style="margin:0 -5px;">'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></div></td></tr>')
 
@@ -499,13 +515,9 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
   .v3-missed-text {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:10px 18px 20px !important; }}
   .v3-arrow-r {{ display:none !important; }}
   .v3-arrow-d {{ display:block !important; }}
-  .v3-tcell {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 10px 0 !important; }}
-  .v3-tbox {{ margin:0 auto !important; }}
-  .v3-dicon, .v3-dtxt, .v3-dmeta {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 8px 0 !important; }}
-  .v3-dicon-in {{ width:22px !important; margin:0 auto !important; }}
+  .v3-desk {{ display:none !important; }}
+  .v3-mob {{ display:table !important; }}
   .v3-score, .v3-scoretxt {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 8px 0 !important; }}
-  .v3-tmeta {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 10px 0 !important; }}
-  .v3-ttxt {{ white-space:normal !important; }}
   .v3-tilecell {{ width:56px !important; padding-right:12px !important; }}
   .v3-tile, .v3-tile td {{ width:52px !important; height:52px !important; }}
 }}
