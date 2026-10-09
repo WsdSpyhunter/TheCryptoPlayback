@@ -18,7 +18,7 @@ import sys
 from datetime import datetime, timezone
 
 from build_site import DATA_DIR, LIVE_DATA_FILE, format_date_abbrev, load_index, load_market_overview
-from email_render import stories_to_plain_email_html
+from email_render import stories_to_plain_email_html, load_playback_read
 
 
 def render_latest(missed_override=None, fallback_missed=None):
@@ -41,7 +41,7 @@ def render_latest(missed_override=None, fallback_missed=None):
     date_abbrev = post.get("date_abbrev") or format_date_abbrev(datetime.now(timezone.utc))
     html = stories_to_plain_email_html(
         post["title"], intro, post["stories"], prices, post["tag"],
-        post["date_display"], date_abbrev, post["issue_number"], overview, missed,
+        post["date_display"], date_abbrev, post["issue_number"], overview, missed, load_playback_read(),
     )
     return post, html
 

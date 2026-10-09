@@ -25,7 +25,7 @@ from build_site import (
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
     load_index, save_gauge_image, format_date_abbrev, load_market_overview, ROOT,
 )
-from email_render import stories_to_plain_email_html, stories_to_plain_email_html_v1, upload_gauge_image
+from email_render import stories_to_plain_email_html, stories_to_plain_email_html_v1, upload_gauge_image, load_playback_read
 import os
 
 from buttondown_client import create_draft, send_draft_to_reviewer
@@ -228,7 +228,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     if overview is not None:
         email_body = stories_to_plain_email_html(
             result["issue_title"], result["intro"], result["stories"], prices,
-            tag, date_display, date_abbrev, issue_number, overview, missed_story,
+            tag, date_display, date_abbrev, issue_number, overview, missed_story, load_playback_read(),
         )
     else:
         print("No live indicator data found - falling back to the Version 1 email layout.")

@@ -37,11 +37,11 @@ CONTENT_WIDTH = 900
 
 # Sampled directly from the masthead artwork (black background, gold wordmark)
 # so the surrounding chrome matches it exactly rather than an eyeballed guess.
-BLACK = "#000000"
-GOLD = "#C9974F"
+BLACK = "#0B1F3A"
+GOLD = "#B8934A"
 # The exact color of the "P" in "PLAYBACK" — a deeper, more muted bronze than
 # the general GOLD sample above, used only where explicitly requested.
-PLAYBACK_P_GOLD = "#936038"
+PLAYBACK_P_GOLD = "#8A6A1F"
 
 
 def upload_gauge_image(gauge_path):
@@ -69,9 +69,9 @@ def preheader_email_html():
     front of it into an intentional, branded line instead of dead space."""
     return (
         f'<div style="background:{BLACK}; padding:14px 20px; text-align:center;">'
-        f'<a href="{SITE_URL}" style="text-decoration:none; color:#FBF9F5 !important;">'
+        f'<a href="{SITE_URL}" style="text-decoration:none; color:#F7F4EC !important;">'
         f'<span style="font-family:Georgia,serif; font-weight:bold; font-size:16px; '
-        f'letter-spacing:0.15em; color:#FBF9F5 !important;">THE CRYPTO '
+        f'letter-spacing:0.15em; color:#F7F4EC !important;">THE CRYPTO '
         f'<span style="color:{GOLD} !important;">PLAYBACK</span></span></a></div>'
     )
 
@@ -86,7 +86,7 @@ def masthead_email_html():
     # universally-supported way to show an image in email.
     return (
         f'<a href="{SITE_URL}" style="display:block; text-decoration:none;">'
-        f'<img src="{ASSET_BASE}/header-a.png" alt="The Crypto Playback" '
+        f'<img src="{ASSET_BASE}/email-v3-masthead.png" alt="The Crypto Playback" '
         f'width="{CONTENT_WIDTH}" style="width:100%;max-width:{CONTENT_WIDTH}px;'
         f'height:auto;display:block;margin:10px auto 0;border:0;"></a>'
     )
@@ -104,8 +104,8 @@ def ticker_bar_email_html(prices, date_abbrev):
     client renders identically."""
 
     def chip(c, size=14):
-        arrow_color = "#8FBF5C" if c["change_24h"] >= 0 else "#E8837A"
-        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:{size}px; white-space:nowrap;">'
+        arrow_color = "#6FCF97" if c["change_24h"] >= 0 else "#E8837A"
+        return (f'<span style="color:#F7F4EC; font-family:Arial,sans-serif; font-size:{size}px; white-space:nowrap;">'
                 f'{c["symbol"]} ${c["price"]:,.2f} <span style="color:{arrow_color};">({c["change_24h"]:+.1f}%)</span></span>')
 
     # Both price rows as <tr>s of ONE table, not two separate <table>s. Two
@@ -132,7 +132,7 @@ def ticker_bar_email_html(prices, date_abbrev):
 
     tab_html = (
         f'<table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>'
-        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 6 Market</td>'
+        f'<td style="background:{PLAYBACK_P_GOLD};color:#F7F4EC;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 12px;white-space:nowrap;">Top 6 Market</td>'
         f'</tr></table>'
     )
 
@@ -145,7 +145,7 @@ def ticker_bar_email_html(prices, date_abbrev):
     # weekly can't affect it.
     tab_html_mobile = (
         f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table;"><tr>'
-        f'<td style="background:{PLAYBACK_P_GOLD};color:#FBF9F5;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 26px;border-radius:20px;white-space:nowrap;">Top 6 Market</td>'
+        f'<td style="background:{PLAYBACK_P_GOLD};color:#F7F4EC;font-family:Arial,sans-serif;font-weight:bold;font-size:14px;padding:10px 26px;border-radius:20px;white-space:nowrap;">Top 6 Market</td>'
         f'</tr></table>'
     )
 
@@ -154,8 +154,8 @@ def ticker_bar_email_html(prices, date_abbrev):
     # (three full pairs) gives each chip roughly half the row instead of a
     # third, which fits comfortably at a normal, readable size.
     def mobile_chip(c):
-        arrow_color = "#8FBF5C" if c["change_24h"] >= 0 else "#E8837A"
-        return (f'<span style="color:#FBF9F5; font-family:Arial,sans-serif; font-size:15px; white-space:nowrap;">'
+        arrow_color = "#6FCF97" if c["change_24h"] >= 0 else "#E8837A"
+        return (f'<span style="color:#F7F4EC; font-family:Arial,sans-serif; font-size:15px; white-space:nowrap;">'
                 f'{c["symbol"]} ${c["price"]:,.2f}</span><br>'
                 f'<span style="color:{arrow_color}; font-family:Arial,sans-serif; font-size:14px; white-space:nowrap;">'
                 f'({c["change_24h"]:+.1f}%)</span>')
@@ -182,7 +182,7 @@ def ticker_bar_email_html(prices, date_abbrev):
       <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>
         <td valign="top" align="center">
           {tab_html}
-          <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.35;white-space:nowrap;text-align:center;">Prices as of<br>6AM (cst) on<br>printed date</div>
+          <div style="color:#F7F4EC;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:8px;line-height:1.35;white-space:nowrap;text-align:center;">Prices as of<br>6AM (cst) on<br>printed date</div>
         </td>
         <td style="width:48px; font-size:0; line-height:0;">&nbsp;</td>
         <td valign="middle">{prices_html}</td>
@@ -193,7 +193,7 @@ def ticker_bar_email_html(prices, date_abbrev):
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="tbar-mobile" style="background:{BLACK}; display:none;">
   <tr><td style="padding:24px 20px 4px; text-align:center;">
     {tab_html_mobile}
-    <div style="color:#FBF9F5;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
+    <div style="color:#F7F4EC;font-weight:bold;font-family:Arial,sans-serif;font-size:12px;margin-top:10px;line-height:1.3;">prices as of 6AM (cst) on printed date</div>
   </td></tr>
   <tr><td align="center" style="padding:14px 20px 18px; text-align:center;">{mobile_prices_html}</td></tr>
 </table>
@@ -207,31 +207,31 @@ def ticker_bar_email_html(prices, date_abbrev):
   </td>
 </tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td style="padding:10px 20px 6px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#FBF9F5;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
+  <td style="padding:10px 20px 6px; text-align:center; font-family:Arial,sans-serif; font-size:15px; color:#F7F4EC;">TOP NEWS: <em style="color:{PLAYBACK_P_GOLD};">{date_abbrev}</em></td>
 </tr></table>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="subscribe-desktop" style="background:{BLACK}; display:table;"><tr>
   <td style="padding:6px 20px 12px; text-align:center; white-space:nowrap;">
-    <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
+    <span style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#F7F4EC; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</span>
     &nbsp;&nbsp;
-    <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5;">SUBSCRIBE HERE</span>
+    <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#F7F4EC;">SUBSCRIBE HERE</span>
     &nbsp;&nbsp;
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table; vertical-align:middle;"><tr>
       <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
     </tr></table>
     &nbsp;
-    <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
+    <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#1F3A63; color:#F7F4EC; text-align:center; font-size:13px; text-decoration:none;">X</a>
   </td>
 </tr></table>
 <div class="subscribe-mobile" style="background:{BLACK}; padding:10px 20px 14px; text-align:center; display:none;">
-    <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#FBF9F5; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
+    <div style="font-family:Georgia,serif; font-style:italic; font-size:12px; color:#F7F4EC; opacity:0.75;">Enjoying this? Share it with a friend &rarr;</div>
     <div style="margin-top:10px;">
-      <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#FBF9F5; vertical-align:middle;">SUBSCRIBE HERE</span>
+      <span style="font-family:Arial,sans-serif; font-size:16px; font-weight:bold; color:#F7F4EC; vertical-align:middle;">SUBSCRIBE HERE</span>
       &nbsp;&nbsp;
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table; vertical-align:middle;"><tr>
         <td width="30" height="30" align="center" valign="middle" style="background:{PLAYBACK_P_GOLD}; border-radius:50%;"><a href="#" style="text-decoration:none;"><img src="{ASSET_BASE}/mail-icon-glyph.png" width="17" height="12" alt="" style="display:block; border:0;"></a></td>
       </tr></table>
       &nbsp;
-      <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#4A90D9; color:#FBF9F5; text-align:center; font-size:13px; text-decoration:none;">X</a>
+      <a href="https://x.com/cryptoplayback" style="display:inline-block; vertical-align:middle; width:27px; height:27px; line-height:27px; border-radius:50%; background:#1F3A63; color:#F7F4EC; text-align:center; font-size:13px; text-decoration:none;">X</a>
     </div>
 </div>"""
 
@@ -249,9 +249,9 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     the pill's rendered position stopped matching). Every one of those nudges
     is reproduced here as ordinary table-cell padding instead, which has no
     such gap between "renders in a browser" and "renders in an inbox"."""
-    fng_color = "#E24C4C" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
+    fng_color = "#F0786E" if fng["value"] <= 45 else ("#256B32" if fng["value"] >= 55 else "#8A7F5C")
     mover_up = mover["change_24h"] >= 0
-    mover_color = "#256B32" if mover_up else "#E24C4C"
+    mover_color = "#256B32" if mover_up else "#F0786E"
     mover_sign = "+" if mover_up else ""
     # Two independent halves (each pinned to its own edge of the box), not one
     # auto-centered row. A single centered row couples both sides together —
@@ -260,7 +260,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # kept moving the "already correct" pill when only the left side needed
     # to change. Splitting into two 50%-wide, edge-anchored halves lets the
     # left side move on its own without touching the right side's position.
-    desktop_box = f"""<div class="fng-desktop" style="background:#F1EEE7; padding:18px 18px; border:6px solid {PLAYBACK_P_GOLD}; display:block;">
+    desktop_box = f"""<div class="fng-desktop" style="background:#FFFFFF; padding:18px 18px; border:6px solid {PLAYBACK_P_GOLD}; display:block;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
       <td width="50%" style="padding:16px 8px 16px 16px;" align="left" valign="middle">
@@ -300,7 +300,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
     # on one line, value+detail on the next - so there's enough width per
     # half to use meaningfully larger text/icon than a single nowrap row
     # could ever fit on a phone screen.
-    mobile_box = f"""<div class="fng-mobile" style="background:#F1EEE7; padding:22px 16px; border:3px solid {PLAYBACK_P_GOLD}; display:none;">
+    mobile_box = f"""<div class="fng-mobile" style="background:#FFFFFF; padding:22px 16px; border:3px solid {PLAYBACK_P_GOLD}; display:none;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.06); border:1.5px solid {GOLD}; border-radius:6px;">
     <tr>
       <td width="50%" style="padding:18px 10px 18px 14px;" align="left" valign="top">
@@ -333,11 +333,11 @@ def sentiment_to_email_html(fng, mover, gauge_src):
 def release_row_email_html(date_display, issue_number, tag):
     label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
     return f"""<div style="margin:20px 20px 0;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F1EEE7; border-radius:4px; box-shadow:0 2px 5px rgba(23,21,18,0.18);">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FFFFFF; border-radius:4px; box-shadow:0 2px 5px rgba(23,21,18,0.18);">
   <tr>
     <td class="rel-left" style="padding:10px 16px; font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD};" valign="middle"><span style="white-space:nowrap;">Release date:</span> <span class="rel-date" style="white-space:nowrap;">{date_display}</span></td>
     <td class="rel-right" style="padding:10px 16px; text-align:right; white-space:nowrap;" valign="middle">
-      <span style="display:inline-block;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;letter-spacing:0.04em;color:#FBF9F5;background:#268CCA;padding:4px 10px;border-radius:3px;">{label}</span>
+      <span style="display:inline-block;font-family:Arial,sans-serif;font-weight:bold;font-size:11px;letter-spacing:0.04em;color:#F7F4EC;background:#0B1F3A;padding:4px 10px;border-radius:3px;">{label}</span>
       <span style="font-family:Arial,sans-serif; font-size:14px; color:{PLAYBACK_P_GOLD}; margin-left:20px;">Issue #{issue_number}</span>
     </td>
   </tr>
@@ -351,10 +351,10 @@ def issue_title_block_email_html(title):
     # margin — this fights that back to keep the title tight to the release
     # row above it instead of leaving a large gap.
     return f"""<div style="margin:20px 20px 4px; text-align:center;">
-<span class="notable-tab" style="display:inline-block; font-family:Arial,sans-serif; font-weight:bold; font-size:48px; line-height:1.15; letter-spacing:0.14em; color:{GOLD}; background:#171512; padding:10px 38px; border-radius:8px 8px 0 0;">NOTA<img class="notable-b" src="{ASSET_BASE}/email-notable-b.png" height="45" alt="B" style="height:45px; width:auto; vertical-align:-5px; margin:0 4px; border:0;">LE</span>
-<div style="background:#F1EEE7; border:2px solid {PLAYBACK_P_GOLD}; border-radius:0 8px 8px 8px; padding:4px; margin-top:-1px; box-shadow:0 4px 10px rgba(23,21,18,0.2);">
+<span class="notable-tab" style="display:inline-block; font-family:Arial,sans-serif; font-weight:bold; font-size:48px; line-height:1.15; letter-spacing:0.14em; color:{GOLD}; background:#0B1F3A; padding:10px 38px; border-radius:8px 8px 0 0;">NOTA<img class="notable-b" src="{ASSET_BASE}/email-notable-b.png" height="45" alt="B" style="height:45px; width:auto; vertical-align:-5px; margin:0 4px; border:0;">LE</span>
+<div style="background:#FFFFFF; border:2px solid {PLAYBACK_P_GOLD}; border-radius:0 8px 8px 8px; padding:4px; margin-top:-1px; box-shadow:0 4px 10px rgba(23,21,18,0.2);">
   <div style="border:1px solid {GOLD}; border-radius:4px; padding:18px 22px;">
-    <h1 style="font-family:Arial,sans-serif;font-weight:bold;font-style:italic;font-size:26px;color:#171512;margin:0 !important;line-height:1.15;">{title}</h1>
+    <h1 style="font-family:Arial,sans-serif;font-weight:bold;font-style:italic;font-size:26px;color:#0B1F3A;margin:0 !important;line-height:1.15;">{title}</h1>
   </div>
 </div>
 </div>"""
@@ -371,12 +371,12 @@ def top_story_to_email_html(intro):
     # by Gmail — a real image's pixels are identical everywhere, since there's
     # no CSS for the client to selectively support.
     return f"""<div style="margin:20px 20px 32px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F1EEE7; border-radius:8px; border:2px solid #268CCA; box-shadow:0 4px 10px rgba(23,21,18,0.2);">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FFFFFF; border-radius:8px; border:2px solid #B8934A; box-shadow:0 4px 10px rgba(23,21,18,0.2);">
   <tr>
-    <td class="ts-label-cell" width="112" style="background:#268CCA; border-radius:6px 0 0 6px;" align="center" valign="middle">
+    <td class="ts-label-cell" width="112" style="background:#0B1F3A; border-radius:6px 0 0 6px;" align="center" valign="middle">
       <img class="ts-label" src="{ASSET_BASE}/top-story-label-2x.png" width="88" alt="TOP STORY" style="display:block; width:88px; height:auto; border:0;">
     </td>
-    <td class="ts-text" style="padding:24px 28px 24px 24px; font-family:Arial,Helvetica,sans-serif; font-weight:600; font-size:24px; line-height:1.4; color:#171512;" valign="middle">{intro}</td>
+    <td class="ts-text" style="padding:24px 28px 24px 24px; font-family:Arial,Helvetica,sans-serif; font-weight:600; font-size:24px; line-height:1.4; color:#0B1F3A;" valign="middle">{intro}</td>
   </tr>
 </table>
 </div>"""
@@ -386,19 +386,25 @@ def footer_email_html():
     year = datetime.now().year
     # A real <img>, same reasoning as the masthead — see the note there.
     disclaimer_html = (
-        f'<img src="{ASSET_BASE}/disclaimer.png" alt="Legal disclaimer: The Crypto Playback is not financial advice." '
-        f'width="{CONTENT_WIDTH}" style="width:100%;max-width:{CONTENT_WIDTH}px;'
-        f'height:auto;display:block;margin-top:24px;border:0;">'
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:24px; background:#FFFFFF; border:2px solid #B8934A;"><tr>'
+        '<td style="padding:16px 20px; font-family:Arial,Helvetica,sans-serif; font-size:12.5px; line-height:1.55; color:#0B1F3A;">'
+        '<strong style="font-size:14px;">THE CRYPTO PLAYBACK IS NOT FINANCIAL ADVICE.</strong> '
+        'The material in this newsletter has no regard to any specific investment objectives, financial situation, or particular needs of any reader. '
+        'It is published solely for informational purposes and is not to be construed as a solicitation nor does it constitute advice, investment or otherwise. '
+        'References made to third parties are based on information obtained from sources believed to be reliable but not guaranteed as being accurate. '
+        'Readers should not regard it as a substitute for the exercise of their own judgment. Our comments are an expression of opinion. '
+        'We recommend that you consult with a licensed, qualified investment advisor before making any investment decisions.'
+        '</td></tr></table>'
     )
     return f"""{disclaimer_html}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{BLACK};"><tr>
-  <td class="ft-cell" style="padding:14px 20px; color:#FBF9F5;font-family:Arial,sans-serif;font-size:12px;" valign="bottom">&copy; {year} The Crypto Playback &middot; <span style="white-space:nowrap;">info&#8203;@cryptoplayback.com</span></td>
+  <td class="ft-cell" style="padding:14px 20px; color:#F7F4EC;font-family:Arial,sans-serif;font-size:12px;" valign="bottom">&copy; {year} The Crypto Playback &middot; <span style="white-space:nowrap;">info&#8203;@cryptoplayback.com</span></td>
   <td class="ft-cell" style="padding:14px 20px; text-align:right; white-space:nowrap;" valign="bottom">
-    <a href="{SITE_URL}" style="text-decoration:none;"><img class="ft-img" src="{ASSET_BASE}/mascot-icon.png" width="44" height="55" style="width:44px;height:55px;display:inline-block;vertical-align:bottom;border:0;" alt="The Crypto Playback"></a>
-    <a href="{SITE_URL}" style="text-decoration:none;"><img class="ft-img" src="{ASSET_BASE}/logo-white.png" width="90" height="43" style="width:90px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;" alt="The Crypto Playback"></a>
+    <a href="{SITE_URL}" style="text-decoration:none;"><img class="ft-img" src="{ASSET_BASE}/email-v3-footer-badge.png" width="52" height="52" style="width:52px;height:52px;display:inline-block;vertical-align:bottom;border:0;" alt="The Crypto Playback"></a>
+    <a href="{SITE_URL}" style="text-decoration:none;"><img class="ft-img" src="{ASSET_BASE}/email-v3-footer-logo.png" width="150" height="16" style="width:150px;height:auto;display:inline-block;vertical-align:bottom;margin-left:8px;border:0;" alt="The Crypto Playback"></a>
   </td>
 </tr></table>
-<p style="text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#666666;padding:10px 0;margin:0;background:#FBF9F5;">
+<p style="text-align:center;font-family:Arial,sans-serif;font-size:11px;color:#666666;padding:10px 0;margin:0;background:#F7F4EC;">
   <a href="{{{{ unsubscribe_url }}}}" style="color:#666666;">Unsubscribe from The Crypto Playback</a>
 </p>"""
 
@@ -428,7 +434,7 @@ def stories_to_plain_email_html_v1(issue_title, intro, stories, ticker_prices, f
         img_html = f"<p><img src='{s['image_url']}' style='max-width:100%; display:block;'></p>" if s.get("image_url") else ""
         parts.append(
             f"<div style='margin:0 20px;'>"
-            f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:#171512;margin:0 0 10px;'>{s['headline']}</h3>{img_html}{s['body']}"
+            f"<h3 style='font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:20px;color:#0B1F3A;margin:0 0 10px;'>{s['headline']}</h3>{img_html}{s['body']}"
             f"<p><a href='{s['source_url']}' style='color:{GOLD};font-weight:bold;text-decoration:none;'>Read more at {s['source_title']} &rarr;</a></p>"
             f"<div style='height:1px; background:#DDD9CE; margin:16px 0;'></div>"
             f"</div>"
@@ -441,7 +447,7 @@ def stories_to_plain_email_html_v1(issue_title, intro, stories, ticker_prices, f
     # template happens to give unconstrained content.
     wrapped = (
         f"<div style='max-width:{CONTENT_WIDTH}px;margin:0 auto;"
-        f"font-family:Arial,Helvetica,sans-serif;color:#171512;font-size:15px;line-height:1.5;'>{body_html}</div>"
+        f"font-family:Arial,Helvetica,sans-serif;color:#0B1F3A;font-size:15px;line-height:1.5;'>{body_html}</div>"
     )
     # A full, minimal HTML document, not stray <meta> tags dropped in front
     # of the content. The color-scheme meta tags lock the email to light mode
@@ -477,7 +483,7 @@ def stories_to_plain_email_html_v1(issue_title, intro, stories, ticker_prices, f
 }}
 </style>
 </head>
-<body style="margin:0; padding:0; background:#FBF9F5;">
+<body style="margin:0; padding:0; background:#F7F4EC;">
 {preheader_email_html()}
 {parts[0]}
 {wrapped}
@@ -494,16 +500,16 @@ def stories_to_plain_email_html_v1(issue_title, intro, stories, ticker_prices, f
 # table-based, inline-styled approach as everything above. Gradients always
 # carry a solid `background-color` fallback first, because older desktop
 # Outlook ignores `background-image: linear-gradient(...)` entirely.
-V2_PAPER = "#FBF9F5"
-V2_INK = "#171512"
-V2_SNAP_BAND = "#9C9892"
-V2_SNAP_CARD = "#EDE9E2"
-V2_DARK_BAND = "#121212"
-V2_DARK_CARD = "#1B1B1B"
-V2_GREEN = "#8FBF5C"
-V2_RED = "#E24C4C"
-V2_GOLD_GRAD = ("#B68047", "linear-gradient(135deg, #D9A857, #936038)")
-V2_GREEN_GRAD = ("#76A04A", "linear-gradient(135deg, #8FBF5C, #5D7C3C)")
+V2_PAPER = "#F7F4EC"
+V2_INK = "#0B1F3A"
+V2_SNAP_BAND = "#DDD6C2"
+V2_SNAP_CARD = "#FFFFFF"
+V2_DARK_BAND = "#0B1F3A"
+V2_DARK_CARD = "#12294A"
+V2_GREEN = "#6FCF97"
+V2_RED = "#F0786E"
+V2_GOLD_GRAD = ("#B8934A", "linear-gradient(135deg, #D4B063, #9A7A36)")
+V2_GREEN_GRAD = ("#76A04A", "linear-gradient(135deg, #6FCF97, #5D7C3C)")
 
 
 def _cap_email_html(inner):
@@ -513,9 +519,10 @@ def _cap_email_html(inner):
 
 def _oval_email_html(label, grad, size=13, pad="10px 26px", css_class=""):
     solid, image = grad
+    txt = "#0B1F3A" if grad is V2_GOLD_GRAD else "#ffffff"
     cls = f' class="{css_class}"' if css_class else ""
     return (f'<span{cls} style="display:inline-block; font-family:Arial,sans-serif; font-weight:bold; font-size:{size}px; '
-            f'letter-spacing:0.1em; text-transform:uppercase; color:#ffffff; background-color:{solid}; '
+            f'letter-spacing:0.1em; text-transform:uppercase; color:{txt}; background-color:{solid}; '
             f'background-image:{image}; padding:{pad}; border-radius:30px; '
             f'box-shadow:0 4px 14px rgba(0,0,0,0.25);">{label}</span>')
 
@@ -523,7 +530,7 @@ def _oval_email_html(label, grad, size=13, pad="10px 26px", css_class=""):
 def news_highlights_header_email_html():
     """Bordered divider that announces the news section is starting."""
     return f"""<div style="padding:30px 20px 12px; text-align:center;">
-  <table role="presentation" align="center" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto; border:3px solid {V2_INK}; background-color:#2E2E2E;">
+  <table role="presentation" align="center" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto; border:3px solid {V2_INK}; background-color:#0B1F3A;">
     <tr><td style="padding:5px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid {GOLD};">
         <tr><td class="news-hl" align="center" style="padding:16px 12px; font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:26px; letter-spacing:6px; color:#FFFFFF;">NEWS HIGHLIGHTS</td></tr>
@@ -574,7 +581,7 @@ def signal_confluence_email_html(overview):
                 f'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{dot};">&nbsp;</span></td>'
                 f'<td valign="top" align="left" style="font-family:Arial,sans-serif; line-height:1.35; text-align:left;">'
                 f'<span class="conf-name" style="font-weight:bold; font-size:18px; color:{V2_PAPER};">{name}</span><br>'
-                f'<span class="conf-val" style="color:#9D9C99; font-size:15px;">{value}</span></td>'
+                f'<span class="conf-val" style="color:#AEB9CC; font-size:15px;">{value}</span></td>'
                 f'</tr></table></td>')
     items = overview["confluence_items"]
     grid = ""
@@ -588,13 +595,13 @@ def signal_confluence_email_html(overview):
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:1100px; margin:0 auto; background:{V2_DARK_CARD}; border:1px solid rgba(255,255,255,0.08); border-radius:18px;">
       <tr><td class="conf-card" style="padding:30px 16px; text-align:center;">
         {_oval_email_html("Signal Confluence", V2_GOLD_GRAD, 17)}
-        <div style="font-family:Arial,sans-serif; font-size:14.5px; color:#8A8A88; margin:12px 0 20px;">Updated {overview["updated"]}</div>
-        <div style="margin:0 0 56px;"><div style="display:inline-block; background:#262626; border:2px solid {GOLD}; border-radius:14px; padding:14px 44px 16px; box-shadow:0 10px 26px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5);">
-          <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:#8A8A88; font-weight:normal;">/{overview["total_count"]}</span></span></div>
-          <div style="font-family:Arial,sans-serif; font-size:18px; color:#A1A09E;">signals positive</div>
+        <div style="font-family:Arial,sans-serif; font-size:14.5px; color:#93A3BD; margin:12px 0 20px;">Updated {overview["updated"]}</div>
+        <div style="margin:0 0 56px;"><div style="display:inline-block; background:#0B1F3A; border:2px solid {GOLD}; border-radius:14px; padding:14px 44px 16px; box-shadow:0 10px 26px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5);">
+          <div><span style="font-family:Arial,sans-serif; font-weight:bold; font-size:43px; color:{V2_PAPER};">{overview["positive_count"]}<span style="font-size:24px; color:#93A3BD; font-weight:normal;">/{overview["total_count"]}</span></span></div>
+          <div style="font-family:Arial,sans-serif; font-size:18px; color:#B9C4D6;">signals positive</div>
         </div></div>
         <div class="conf-wrap" style="padding-left:30px;"><table class="conf-table" role="presentation" align="center" width="784" cellpadding="0" cellspacing="0" border="0" style="width:784px; max-width:100%; table-layout:fixed; margin:0 auto;">{grid}</table></div>
-        <div style="font-family:Arial,sans-serif; font-size:16px; color:#A1A09E; margin-top:56px;">{overview["interpretation"]}</div>
+        <div style="font-family:Arial,sans-serif; font-size:16px; color:#B9C4D6; margin-top:56px;">{overview["interpretation"]}</div>
       </td></tr>
     </table></a>
   </td></tr>
@@ -619,8 +626,48 @@ def story_you_missed_email_html(missed):
           <td class="missed-spacer" width="25%">&nbsp;</td>
         </tr></table>
         <div style="font-family:Arial,Helvetica,sans-serif; font-weight:bold; font-size:20px; line-height:1.35; color:{V2_PAPER}; margin:20px 0 10px;">{missed["headline"]}</div>
-        <div style="font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.55; color:#BCBBB8; margin-bottom:12px;">{body}</div>
-        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D9A857 !important; text-decoration:none;"><span style="color:#D9A857 !important;">Read more at {missed["source_title"]} &rarr;</span></a>
+        <div style="font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:1.55; color:#C5CEDD; margin-bottom:12px;">{body}</div>
+        <a href="{missed["source_url"]}" style="font-family:Arial,sans-serif; font-weight:bold; font-size:14px; color:#D4B063 !important; text-decoration:none;"><span style="color:#D4B063 !important;">Read more at {missed["source_title"]} &rarr;</span></a>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>"""
+
+
+def load_playback_read():
+    """The Lab's Playback Read (data/pro/read.json), or None if it isn't there or isn't current."""
+    import json as _json
+    try:
+        r = _json.load(open(os.path.join(ROOT, "data", "pro", "read.json")))
+    except (OSError, ValueError):
+        return None
+    return r if r.get("status") == "ok" and r.get("counts") else None
+
+
+def playback_read_email_html(read, tag):
+    """Ivory band, white card with a brass frame: 'Today's / This Week's Playback Read', the three
+    counts, the one-sentence summary, and a link to the Lab. Tables only (no flex), like the rest."""
+    title = "This Week's Playback Read" if tag == "Weekly" else "Today's Playback Read"
+    c = read["counts"]
+
+    def tile(label, n, color):
+        return (f'<td class="rd-tile" width="33%" align="center" style="width:33%; padding:0 5px;">'
+                f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0B1F3A; border-bottom:3px solid #B8934A;"><tr>'
+                f'<td align="center" style="padding:14px 6px 12px;">'
+                f'<div class="rd-num" style="font-family:Arial,sans-serif; font-weight:bold; font-size:42px; line-height:1.1; color:{color};">{n}</div>'
+                f'<div class="rd-lbl" style="font-family:Arial,sans-serif; font-weight:bold; font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase; color:#F7F4EC;">{label}</div>'
+                f'</td></tr></table></td>')
+    tiles = tile("Supportive", c["Supportive"], "#6FCF97") + tile("Neutral", c["Neutral"], "#D5CFBF") + tile("Caution", c["Caution"], "#F0786E")
+    lab = SITE_URL + "playback-lab.html"
+    return f"""<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F7F4EC;">
+  <tr><td class="band-pad" style="padding:34px 12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:760px; margin:0 auto; background:#FFFFFF; border:2px solid #B8934A; box-shadow:0 8px 24px rgba(11,31,58,0.14);">
+      <tr><td class="rd-card" style="padding:28px 28px 26px; text-align:center;">
+        {_oval_email_html(title, V2_GOLD_GRAD, 17, "11px 30px", "rd-badge")}
+        <div style="font-family:Arial,sans-serif; font-size:13.5px; color:#374151; margin:12px 0 18px;">From the Playback Lab &middot; {read["total"]} readings</div>
+        <table role="presentation" align="center" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px; margin:0 auto;"><tr>{tiles}</tr></table>
+        <div class="rd-text" style="font-family:Arial,Helvetica,sans-serif; font-size:17px; line-height:1.55; color:#0B1F3A; margin:20px 0 20px; text-align:center;">{read["summary"]}</div>
+        <a href="{lab}" style="display:inline-block; background:#0B1F3A; color:#D4B063 !important; font-family:Arial,sans-serif; font-weight:bold; font-size:14px; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; padding:13px 26px; border-bottom:3px solid #B8934A;"><span style="color:#D4B063 !important;">View in the Playback Lab &rarr;</span></a>
       </td></tr>
     </table>
   </td></tr>
@@ -645,7 +692,7 @@ def story_blocks_email_html(stories):
 
 
 def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag, date_display, date_abbrev,
-                                issue_number, overview, missed_story=None):
+                                issue_number, overview, missed_story=None, read=None):
     """Newsletter Version 2 — full HTML for the email body. Order: masthead,
     ticker, release row, Market Snapshot, Signal Confluence, NEWS HIGHLIGHTS,
     Top Story, Here's A Story You Missed (when there is one), NOTABLE title,
@@ -656,6 +703,10 @@ def stories_to_plain_email_html(issue_title, intro, stories, ticker_prices, tag,
         _cap_email_html(release_row_email_html(date_display, issue_number, tag) + "<div style='height:20px;'></div>"),
         market_snapshot_email_html(overview),
         signal_confluence_email_html(overview),
+    ]
+    if read:
+        segments.append(playback_read_email_html(read, tag))
+    segments += [
         _cap_email_html(news_highlights_header_email_html() + top_story_to_email_html(intro)),
     ]
     if missed_story:
@@ -710,6 +761,11 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
   .notable-b {{ height:26px !important; vertical-align:-3px !important; }}
   .ts-label-cell {{ width:64px !important; }}
   .ts-label {{ width:52px !important; }}
+  .rd-card {{ padding:22px 14px 22px !important; }}
+  .rd-badge {{ font-size:14px !important; padding:9px 18px !important; }}
+  .rd-num {{ font-size:34px !important; }}
+  .rd-lbl {{ font-size:11px !important; letter-spacing:0.06em !important; }}
+  .rd-text {{ font-size:15.5px !important; }}
 }}
 </style>
 </head>
