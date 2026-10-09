@@ -839,3 +839,7 @@ body.v2 { overflow-x: clip; }
   #listen .v2-lead { text-align: center; margin-left: auto; margin-right: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .v2 a.v2-res-feature { transition: none; } }
+
+/* Playback Lab: brass rule above Basis-Trade, Net Liquidity and Stablecoin sections */
+#basis, #liquidity, #stables { border-top: 3px solid var(--brass); }
+#stables { padding-top: 56px; }
