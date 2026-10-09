@@ -5,7 +5,7 @@ Build from the locked baseline (tag `version-2-homepage-baseline`, branch `versi
 1. The 16 indicator pages in the v2 shell (own title/description, breadcrumbs, structured data).
 2. Archive and issue pages (per-issue share card with headline, Article structured data).
 3. About and Resources in the v2 shell.
-4. Rebuild the newsletter email to the v2 design (table-based, test sends to the owner's phone).
+4. Rebuild the newsletter email from the LOCKED redesign in docs/newsletter-v3-design/ (README + index.html are the source of truth; table-based, test sends to the owner's phone). See docs/NEWSLETTER-V3-DESIGN-LOCK.md.
 5. Merge to `main` only on the owner's go-ahead (re-run build_site.py after the merge).
 
 ## Owner actions

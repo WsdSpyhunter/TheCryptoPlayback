@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Crypto Playback - Daily Issue</title>
+<!-- Source of truth for the design. See README.md for tokens, structure and production notes. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Franklin:wght@600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#E9E4D6}
+a{color:#8A6A1F;text-decoration:none}
+a:hover{color:#0B1F3A;text-decoration:underline}
+</style>
+</head>
+<body>
+
+
+
+<div style="width: 720px; box-sizing: border-box; background: #E9E4D6; padding: 24px; font-family: 'IBM Plex Sans', Helvetica, sans-serif; color: #1F2937;">
+<div style="width: 672px; background: #FFFFFF; border: 1px solid #D9D3C3;">
+
+<!-- TOP BAR -->
+<div style="background: #07162B; padding: 12px 40px; display: flex; justify-content: space-between; align-items: center; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #C9D2E0;">
+<span>Daily Issue &middot; No. 4</span>
+<a href="https://cryptoplayback.com" style="color: #D4B063;">View in browser</a>
+</div>
+
+<!-- HEADER -->
+<div style="background: #0B1F3A; border-bottom: 4px solid #B8934A; line-height: 0;">
+<img src="assets/TCP_Header_1_2.png" alt="The Crypto Playback. Daily research and news on Bitcoin and digital assets. Monday, October 5, 2026." style="display: block; width: 100%; height: auto;">
+</div>
+
+<!-- PRICE STRIP -->
+<div style="background: #F7F4EC; padding: 20px 40px 16px 40px; border-bottom: 1px solid #E2DDD0;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px 16px; text-align: center;">
+<div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6472;">BTC</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; color: #0B1F3A;">$85,876.00</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #1E7A4C;">&#9650; 0.9%</div></div>
+<div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6472;">ETH</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; color: #0B1F3A;">$2,710.20</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #1E7A4C;">&#9650; 0.4%</div></div>
+<div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6472;">BNB</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; color: #0B1F3A;">$787.79</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5B6472;">&#9644; 0.0%</div></div>
+<div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6472;">XRP</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; color: #0B1F3A;">$1.51</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #1E7A4C;">&#9650; 0.6%</div></div>
+<div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6472;">SOL</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; color: #0B1F3A;">$120.45</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B3372F;">&#9660; 0.7%</div></div>
+<div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5B6472;">TRX</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; color: #0B1F3A;">$0.34</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5B6472;">&#9644; 0.0%</div></div>
+</div>
+<div style="margin-top: 14px; font-size: 12px; color: #5B6472;">Top six by market cap. Prices as of 6:00 AM CT, October 5, 2026.</div>
+</div>
+
+<!-- BOTTOM LINE -->
+<div style="padding: 36px 40px 36px 40px;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 22px;">
+<div style="display: inline-flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E2DDD0; box-shadow: 0 4px 14px rgba(11, 31, 58, 0.16); padding: 10px 18px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 12h26M16 24h26M16 36h26"/><circle cx="7" cy="12" r="1.5"/><circle cx="7" cy="24" r="1.5"/><circle cx="7" cy="36" r="1.5"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">The Bottom Line</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 30px; line-height: 1; color: #B8934A; width: 46px; flex-shrink: 0;">01</div><div style="font-size: 15.5px; line-height: 1.6;"><strong style="color: #0B1F3A;">Signals:</strong> 11 of 12 indicators are positive and sentiment reads Greed (70). Long liquidations are the lone negative.</div></div>
+<div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 30px; line-height: 1; color: #B8934A; width: 46px; flex-shrink: 0;">02</div><div style="font-size: 15.5px; line-height: 1.6;"><strong style="color: #0B1F3A;">Flows:</strong> Spot Bitcoin ETFs recorded inflows across the first two October sessions, and Strategy added another 334 BTC.</div></div>
+<div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 30px; line-height: 1; color: #B8934A; width: 46px; flex-shrink: 0;">03</div><div style="font-size: 15.5px; line-height: 1.6;"><strong style="color: #0B1F3A;">Structure:</strong> OKX and ICE filed for 24/7 tokenized equity trading, and community banks sued over OCC trust charters for crypto firms.</div></div>
+</div>
+</div>
+
+<!-- MARKET SNAPSHOT (light) -->
+<div style="padding: 34px 40px 36px 40px;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 18px;">
+<div style="display: inline-flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E2DDD0; box-shadow: 0 4px 14px rgba(11, 31, 58, 0.16); padding: 10px 18px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 34a18 18 0 0 1 36 0"/><path d="M24 34l9-12"/><circle cx="24" cy="34" r="2"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">Market Snapshot</span>
+</div>
+<span style="font-size: 12px; color: #5B6472; margin-left: auto;">Updated 12:21 PM UTC &middot; 12 indicators</span>
+</div>
+<div style="display: flex; align-items: center; gap: 28px; background: #F7F4EC; border: 1px solid #E2DDD0; padding: 22px 26px;">
+<div style="width: 210px; flex-shrink: 0; text-align: center;">
+<svg width="200" height="122" viewBox="0 0 200 122" aria-label="Sentiment gauge showing 70, Greed" role="img">
+<path d="M20 100 A80 80 0 0 1 35.3 53" fill="none" stroke="#8E2B25" stroke-width="12"/>
+<path d="M35.3 53 A80 80 0 0 1 75.3 23.9" fill="none" stroke="#C98079" stroke-width="12"/>
+<path d="M75.3 23.9 A80 80 0 0 1 124.7 23.9" fill="none" stroke="#C9C2B0" stroke-width="12"/>
+<path d="M124.7 23.9 A80 80 0 0 1 164.7 53" fill="none" stroke="#6FA98A" stroke-width="12"/>
+<path d="M164.7 53 A80 80 0 0 1 180 100" fill="none" stroke="#1E7A4C" stroke-width="12"/>
+<line x1="100" y1="100" x2="135.3" y2="51.5" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round"/>
+<circle cx="100" cy="100" r="6" fill="#0B1F3A"/>
+<text x="20" y="118" text-anchor="middle" font-size="10" fill="#5B6472" font-family="IBM Plex Sans, sans-serif">0</text>
+<text x="180" y="118" text-anchor="middle" font-size="10" fill="#5B6472" font-family="IBM Plex Sans, sans-serif">100</text>
+</svg>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 32px; line-height: 1; color: #0B1F3A;">70</div>
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #145C39; font-weight: 600; margin-top: 4px;">Greed</div>
+</div>
+<div style="font-size: 15px; line-height: 1.65; color: #1F2937;">The market shows a greed-leaning profile with low volatility risk and accumulation-leaning capital flow. Memecoins lead sector rotation, and participation across tracked assets is broad.</div>
+</div>
+</div>
+
+<!-- NOTABLE (story you may have missed) -->
+<div style="background: #F7F4EC; padding: 32px 40px 30px 40px; border-top: 1px solid #E2DDD0; border-bottom: 1px solid #E2DDD0;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 20px;">
+<div style="display: inline-flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E2DDD0; box-shadow: 0 4px 14px rgba(11, 31, 58, 0.16); padding: 10px 18px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="8"/><path d="M24 24L37 11"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">Notable</span>
+</div>
+<div style="position: relative; margin-left: auto;">
+<span style="display: block; background: #0B1F3A; color: #D4B063; border-bottom: 3px solid #B8934A; font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 14px;">A story you may have missed</span>
+<svg aria-hidden="true" width="80" height="72" viewBox="0 0 80 72" fill="none" style="position: absolute; right: 100%; top: 0; overflow: visible;"><path d="M80 16 C48 12 22 22 24 52" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round"/><path d="M15 53 L24 69 L33 53 Z" fill="#0B1F3A"/></svg>
+</div>
+</div>
+<div style="display: flex; gap: 18px;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="22" width="24" height="18" rx="2"/><path d="M17 22v-6a7 7 0 0 1 14 0v6"/><circle cx="24" cy="31" r="2"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Security &middot; Decrypt</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Near Intents Exploiter Returns About $3.8M After 48-Hour Deadline</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;">Near Intents said roughly $3.8 million drained in a Thursday exploit was returned in full after the team told the attacker it had identified them and set a 48-hour deadline. Resolutions this fast are less common than prolonged bounty negotiations.</div>
+<a href="https://decrypt.co" style="font-size: 13px; font-weight: 600;">Read at Decrypt &rarr;</a>
+</div>
+</div>
+</div>
+
+<!-- DASHBOARD PANEL (dark) -->
+<div style="background: #0B1F3A; padding: 38px 40px 34px 40px; color: #F7F4EC;">
+
+<!-- Signal Confluence -->
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2C4263; padding-bottom: 10px; margin: 0 0 18px 0;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="27" y="8" width="13" height="13" rx="2"/><rect x="8" y="27" width="13" height="13" rx="2"/><rect x="27" y="27" width="13" height="13" rx="2"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #F7F4EC;">Signal Confluence</span>
+<span style="font-size: 12px; color: #9FB0C8; margin-left: auto;">Updated 12:21 PM UTC</span>
+</div>
+<div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px;">
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 56px; line-height: 1; color: #F7F4EC;">11<span style="font-size: 30px; color: #9FB0C8; font-weight: 600;">/12</span></div>
+<div style="font-size: 14px; line-height: 1.5; color: #E4E9F1;">signals positive. Liquidations are the lone holdout.</div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px;">
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Fear &amp; Greed</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">70</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">Greed</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Biggest Mover, 24H</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">BTC +1.0%</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">Top 10 by market cap</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Risk Radar</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">LOW</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">Volatility and sentiment</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Playback Capital Flow Score</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">81</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">Accumulation</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Top Sectors</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">3 / 3</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">Sectors positive</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Leverage Heat</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">+0.008%</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">BTC funding, balanced</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Stablecoin Liquidity</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">$311.9B</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">+0.2%</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">DeFi Pulse</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">$96.6B</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">TVL, +1.2%</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Miner Health</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">965 EH/s</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">Hash rate, stable</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #B3372F; background: #2B1C2A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #C9D2E0; min-height: 26px;">Liquidations</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">$1.07M</div><div style="font-size: 12px; color: #C9D2E0; margin-top: 2px; min-height: 32px;">Long-dominant</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #B3372F; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Negative</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px;"><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8; min-height: 26px;">Macro Risk</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC; margin-top: 4px;">LOW</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 2px; min-height: 32px;">VIX 16.1</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px; margin-top: 6px;">Positive</div></div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 12px; grid-column: 1 / 5;"><div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;"><div><div style="font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB0C8;">Bitcoin ETF Flow</div><div style="font-size: 12px; color: #9FB0C8; margin-top: 4px;">2-day inflow streak</div></div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #F7F4EC;">+$189.8M</div><div style="display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</div></div></div>
+
+</div>
+<div style="margin-top: 12px; font-size: 12px; line-height: 1.5; color: #9FB0C8;">Capital Flow Score is a Crypto Playback composite of price and sector breadth weighted against sentiment. It is not institutional transaction data. <a href="https://cryptoplayback.com" style="color: #D4B063;">Full methodology</a></div>
+
+<!-- What Changed -->
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2C4263; padding-bottom: 10px; margin: 34px 0 6px 0;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 18h30l-7-7M40 30H10l7 7"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #F7F4EC;">What Changed</span>
+<span style="font-size: 12px; color: #9FB0C8; margin-left: auto;">vs. ~24 hours ago</span>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #2C4263;"><div style="font-size: 15px; color: #E4E9F1;">Fear &amp; Greed</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #F7F4EC;">65 &rarr; 70 <span style="color: #8FD0AC;">(+5)</span></div></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #2C4263;"><div style="font-size: 15px; color: #E4E9F1;">Liquidations</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #F7F4EC; text-align: right;">Short-dominant &rarr; <span style="color: #F2A29B;">Long-dominant</span></div></div>
+<div style="padding-top: 12px; font-size: 13px; line-height: 1.5; color: #9FB0C8;">Each indicator is compared with its own reading from about 24 hours earlier. ETF flow compares to the prior trading day. Sample rows shown; the full list is generated each issue.</div>
+
+</div>
+
+<!-- ALERTS & INDICATORS (own section) -->
+<div style="background: #F7F4EC; padding: 34px 40px 26px 40px; border-top: 4px solid #B8934A; border-bottom: 1px solid #E2DDD0;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 14px;">
+<div style="display: inline-flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E2DDD0; box-shadow: 0 4px 14px rgba(11, 31, 58, 0.16); padding: 10px 18px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 34V22a14 14 0 0 1 28 0v12l3 4H7z"/><path d="M20 43h8"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">Alerts &amp; Indicators</span>
+</div>
+<span style="font-size: 12px; color: #5B6472; margin-left: auto;">Updated 12:21 PM UTC</span>
+</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937;">Each card links to its full methodology and history on the site.</div>
+</div>
+<div style="background: #0B1F3A; padding: 28px 40px 34px 40px; color: #F7F4EC;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 34a18 18 0 0 1 36 0"/><path d="M24 34l9-12"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Fear &amp; Greed Index</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">70</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Greed</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Daily 0-100 read on market mood, from Extreme Fear to Extreme Greed.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 36l10-12 8 6 14-18"/><path d="M30 12h10v10"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Biggest Mover (24H)</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">BTC +1.0%</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">24-hour move</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Largest move among the top 10 coins by market cap, up or down.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8L42 40H6z"/><path d="M24 20v10M24 35v1"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Risk Radar</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">LOW</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Overall market risk</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Current turbulence, built from volatility and sentiment extremes.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 24h32"/><path d="M30 14l10 10-10 10"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Playback Capital Flow</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">81</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Accumulation</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Composite of price and sector breadth weighted against sentiment. Not institutional flow data.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="27" y="8" width="13" height="13" rx="2"/><rect x="8" y="27" width="13" height="13" rx="2"/><rect x="27" y="27" width="13" height="13" rx="2"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Top Sectors</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">3 / 3</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Sectors positive</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Best-performing crypto narratives over the last 24 hours.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M38 20a14 14 0 0 0-26-4"/><path d="M10 28a14 14 0 0 0 26 4"/><path d="M12 8v8h8"/><path d="M36 40v-8h-8"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Altcoin Rotation</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">58.7%</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #4A5F82; color: #FFFFFF; padding: 2px 8px;">Neutral</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">BTC dominance, in line</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Whether altcoins are out- or underperforming BTC over 24 hours.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6c2 8 10 12 10 22a10 10 0 0 1-20 0c0-6 4-8 4-14 4 2 6 6 6 10"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Leverage Heat</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">+0.008%</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Funding, balanced</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">BTC perpetual funding rate. Shows which side of the market is crowded with leverage.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="16"/><path d="M24 15v18"/><path d="M29 20h-7a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-8"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Stablecoin Liquidity</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">$311.9B</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">+0.2% over 7 days</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Total stablecoin supply, a proxy for capital ready to deploy.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8l16 8-16 8-16-8z"/><path d="M8 24l16 8 16-8"/><path d="M8 32l16 8 16-8"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">DeFi Pulse</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">$96.6B</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">+1.2% over 7 days</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Total value locked across DeFi protocols, all chains combined.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="14" width="20" height="20" rx="2"/><path d="M20 8v6M28 8v6M20 34v6M28 34v6M8 20h6M8 28h6M34 20h6M34 28h6"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Miner Health</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">965 EH/s</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Hash rate, stable</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Bitcoin hash rate trend and mempool congestion. A network health read, not a price signal.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #B3372F; background: #2B1C2A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 6L12 26h10l-2 16 16-22H26z"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Liquidations</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">$1.07M</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #B3372F; color: #FFFFFF; padding: 2px 8px;">Negative</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Long-dominant</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #C9D2E0;">Size and direction of recent BTC perpetual liquidations on OKX.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 26c6-8 12-8 18 0s12 8 18 0"/><path d="M6 36c6-8 12-8 18 0s12 8 18 0"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Whale Activity</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">11</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #4A5F82; color: #FFFFFF; padding: 2px 8px;">Neutral</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">Elevated</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Count of $1M+ BTC transactions in a recent sample. A size read, not scored.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="16"/><path d="M8 24h32"/><path d="M24 8c-8 8-8 24 0 32"/><path d="M24 8c8 8 8 24 0 32"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Macro Risk</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">LOW</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">VIX 16.1</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Equity volatility and dollar strength, the one indicator that looks outside crypto.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+<div style="border: 1px solid #2C4263; background: #12294A; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="26" width="6" height="12"/><rect x="19" y="18" width="6" height="20"/><rect x="29" y="22" width="6" height="16"/><path d="M6 41h36"/></svg><span style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #F7F4EC;">Bitcoin ETF Flow</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: #F7F4EC;">+$189.8M</span><span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; background: #1E7A4C; color: #FFFFFF; padding: 2px 8px;">Positive</span></div>
+<div style="font-size: 13px; color: #E4E9F1;">2-day inflow</div>
+<div style="font-size: 12.5px; line-height: 1.5; color: #9FB0C8;">Net daily flow across US spot Bitcoin ETFs, with a rolling streak.</div>
+<a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 12px; font-weight: 600;">View full breakdown &rarr;</a>
+</div>
+
+</div>
+<div style="margin-top: 12px; font-size: 12px; line-height: 1.5; color: #9FB0C8;">Altcoin Rotation and Whale Activity are shown for context and are not part of the 12-signal count.</div>
+
+<div style="margin-top: 24px; text-align: right;"><a href="https://cryptoplayback.com" style="color: #D4B063; font-size: 13px; font-weight: 600;">Explore every indicator on the site &rarr;</a></div>
+</div>
+
+<!-- TOP STORIES -->
+<div style="padding: 38px 40px 12px 40px;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 20px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M14 16h12M14 22h20M14 28h20M14 34h12"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">The Top News Stories</span>
+</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.45; color: #F7F4EC; background: #16305A; padding: 22px 26px; margin-bottom: 22px; box-shadow: 0 6px 18px rgba(11, 31, 58, 0.28);">Bitcoin held near $85.9K as the dollar strengthened. Corporate treasury activity and changes to U.S. crypto oversight led the news flow.</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-top: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="26" width="6" height="12"/><rect x="19" y="18" width="6" height="20"/><rect x="29" y="22" width="6" height="16"/><path d="M8 14l14-6 16 5"/><path d="M6 41h36"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Flows &middot; Decrypt</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Spot Bitcoin ETFs Record Inflows to Open October</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">Spot Bitcoin ETFs took in [$134.4M: confirm against dashboard] across the first two sessions of October, reversing a Sept. 30 outflow after a weak jobs report lowered expectations of a Fed rate hike.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> Two sessions is a limited sample. Sustained flows over the coming week are the better signal.</div>
+<a href="https://decrypt.co" style="font-size: 13px; font-weight: 600;">Read at Decrypt &rarr;</a>
+</div>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-top: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="24" cy="12" rx="12" ry="4.5"/><path d="M12 12v8c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-8"/><path d="M12 20v8c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-8"/><path d="M12 28v8c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-8"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Corporate Treasuries &middot; The Block</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Strategy Adds 334 BTC; Holdings Pass 848,000</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">Strategy bought 334 BTC for $28.7 million, lifting total holdings above 848,000 BTC. That is roughly 4% of the 21 million supply cap and about $73 billion at current prices.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> The accumulation signals strong conviction, and it ties a growing share of supply to one company's balance sheet decisions.</div>
+<a href="https://www.theblock.co" style="font-size: 13px; font-weight: 600;">Read at The Block &rarr;</a>
+</div>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-top: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 18h30l-7-7"/><path d="M40 30H10l7 7"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Corporate Treasuries &middot; Decrypt</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Metaplanet Sells 10,000 BTC, Repurchases 11,000</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">Metaplanet sold 10,000 BTC in Q3 and bought back 11,000, taking total holdings to 44,000 BTC. CEO Simon Gerovich said the move answered rating agency questions about whether a treasury company would sell to meet obligations.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> The open question is whether rating agencies and regulators accept a self-initiated liquidity test as credible evidence.</div>
+<a href="https://decrypt.co" style="font-size: 13px; font-weight: 600;">Read at Decrypt &rarr;</a>
+</div>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-top: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8h20M14 40h20"/><path d="M16 8c0 10 8 12 8 16s-8 6-8 16"/><path d="M32 8c0 10-8 12-8 16s8 6 8 16"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Network &middot; CoinDesk</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Ethereum Staking Exit Queue Reaches 2026 High</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">The validator exit queue reached its longest level of 2026 in early October, with [queue size: confirm 786K vs. 1.5M ETH] waiting and a wait of [confirm: ~14 vs. ~25 days]. Researcher estimates attribute more than half of the queue at its Oct. 2 peak to MetaMask.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> Staking exits are not instant. Liquidity planning should allow for multi-week queues.</div>
+<a href="https://www.coindesk.com" style="font-size: 13px; font-weight: 600;">Read at CoinDesk &rarr;</a>
+</div>
+</div>
+</div>
+
+<!-- SPONSOR SLOT -->
+<div style="background: #F7F4EC; padding: 26px 40px; border-top: 1px solid #E2DDD0; border-bottom: 1px solid #E2DDD0;">
+<div style="border: 1px dashed #B8934A; background: #FFFFFF; padding: 20px 24px;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: #5B6472; margin-bottom: 12px;">Sponsored</div>
+<div style="display: flex; align-items: center; gap: 20px;">
+<div style="width: 96px; height: 56px; border: 1px solid #D9D3C3; background: #FBFAF6; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #5B6472; text-align: center; flex-shrink: 0;">[Sponsor logo]</div>
+<div style="font-size: 14.5px; line-height: 1.55; color: #1F2937;">[One-line sponsor message, 25 words or fewer.] <a href="https://cryptoplayback.com" style="font-weight: 600;">[Call to action] &rarr;</a></div>
+</div>
+</div>
+</div>
+
+<!-- MARKET STRUCTURE & POLICY -->
+<div style="padding: 38px 40px 12px 40px;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 4px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18L24 8l18 10"/><path d="M12 22v14M20 22v14M28 22v14M36 22v14"/><path d="M6 41h36"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">Market Structure &amp; Policy</span>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-bottom: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="16"/><path d="M24 14v10l7 4"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Market Infrastructure &middot; Decrypt</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">OKX and ICE File for 24/7 Tokenized Equity Trading</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">A joint venture between OKX and ICE, the owner of the NYSE, filed with the SEC under its new Innovation Exemption. It would offer 24/7 tokenized trading in more than 60 US-listed stocks, including Nvidia and SpaceX, paired with stablecoins.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> It is a formal link between exchange infrastructure and crypto rails. Approval and scope are the items to watch.</div>
+<a href="https://decrypt.co" style="font-size: 13px; font-weight: 600;">Read at Decrypt &rarr;</a>
+</div>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-bottom: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18L24 8l18 10"/><path d="M12 22v14M20 22v14M28 22v14M36 22v14"/><path d="M6 41h36"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Banking &middot; Decrypt</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Community Bankers Sue Over OCC Trust Charters for Crypto Firms</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">The Independent Community Bankers of America filed suit arguing that OCC national trust charters give crypto firms a "side door into the banking system" without the safeguards that apply to banks.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> The outcome could shape how easily crypto companies connect to the traditional financial system.</div>
+<a href="https://decrypt.co" style="font-size: 13px; font-weight: 600;">Read at Decrypt &rarr;</a>
+</div>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0; border-bottom: 1px solid #E2DDD0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6h14l8 8v28H14z"/><path d="M28 6v8h8"/><path d="M19 24h12M19 30h12M19 36h8"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Policy &middot; Decrypt</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Jay Clayton Named to Lead Federal AI Policy Coordination</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">President Trump named Jay Clayton, the former SEC chair who oversaw the agency's lawsuit against Ripple, to lead a new "Super Intelligence Force" coordinating federal AI policy.</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> Direct crypto impact is limited. It is mainly a signal of how the administration is staffing technology oversight.</div>
+<a href="https://decrypt.co" style="font-size: 13px; font-weight: 600;">Read at Decrypt &rarr;</a>
+</div>
+</div>
+
+<div style="display: flex; gap: 18px; padding: 22px 0 8px 0;">
+<div style="width: 64px; height: 64px; background: #0B1F3A; border-bottom: 3px solid #B8934A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#D4B063" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6l15 6v12c0 9-6 15-15 18C15 39 9 33 9 24V12z"/><path d="M17 24l5 5 9-10"/></svg></div>
+<div style="flex: 1;">
+<div style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A1F; margin-bottom: 6px;">Compliance &middot; CoinDesk</div>
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; color: #0B1F3A; margin-bottom: 8px;">Treasury Action Cites Crypto in Hamas Fundraising Network</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 8px;">A Treasury Department action identified crypto use within a Hamas-linked fundraising network totaling [amount: confirm $2M vs. $8M].</div>
+<div style="font-size: 14.5px; line-height: 1.6; color: #1F2937; margin-bottom: 10px;"><strong style="color: #0B1F3A;">Why it matters:</strong> Illicit-finance cases keep compliance scrutiny high. On-chain transparency is also what makes these networks traceable.</div>
+<a href="https://www.coindesk.com" style="font-size: 13px; font-weight: 600;">Read at CoinDesk &rarr;</a>
+</div>
+</div>
+</div>
+
+<!-- WEEK AHEAD -->
+<div style="background: #F7F4EC; padding: 32px 40px 28px 40px; border-top: 1px solid #E2DDD0; margin-top: 24px;">
+<div style="display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #0B1F3A; padding-bottom: 10px; margin-bottom: 6px;">
+<svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#8A6A1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="10" width="34" height="30" rx="2"/><path d="M7 19h34M16 6v8M32 6v8"/></svg>
+<span style="font-family: 'IBM Plex Sans', Helvetica, sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #0B1F3A;">Week Ahead</span>
+</div>
+<div style="display: flex; gap: 18px; padding: 13px 0; border-bottom: 1px solid #E2DDD0; font-size: 14.5px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A6A1F; width: 64px; flex-shrink: 0;">[Day]</div><div style="color: #1F2937;">[Fed speaker or rate-policy event]</div></div>
+<div style="display: flex; gap: 18px; padding: 13px 0; border-bottom: 1px solid #E2DDD0; font-size: 14.5px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A6A1F; width: 64px; flex-shrink: 0;">[Day]</div><div style="color: #1F2937;">[Economic data release]</div></div>
+<div style="display: flex; gap: 18px; padding: 13px 0; border-bottom: 1px solid #E2DDD0; font-size: 14.5px;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A6A1F; width: 64px; flex-shrink: 0;">[Day]</div><div style="color: #1F2937;">[ETF decision, token unlock, or protocol event]</div></div>
+</div>
+
+<!-- CTA -->
+<div style="padding: 34px 40px 38px 40px; text-align: center;">
+<div style="font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 22px; color: #0B1F3A; margin-bottom: 14px;">Explore the full indicator dashboard</div>
+<a href="https://cryptoplayback.com" style="display: inline-block; background: #0B1F3A; color: #F7F4EC; border-bottom: 3px solid #B8934A; padding: 14px 32px; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;">View on cryptoplayback.com</a>
+<div style="margin-top: 16px; font-size: 13.5px; color: #5B6472;">Forwarded this issue? <a href="https://cryptoplayback.com" style="font-weight: 600;">Subscribe free</a></div>
+</div>
+
+<!-- FOOTER -->
+<div style="background: #0B1F3A; border-top: 4px solid #B8934A; line-height: 0;">
+<img src="assets/TCP_newsletter_footer.png" alt="The Crypto Playback. Sources and timestamps: prices from CoinGecko as of 6:00 AM CT, October 5, 2026; indicators updated 12:21 PM UTC; news from Decrypt, The Block and CoinDesk. The Crypto Playback is not financial advice. Copyright 2026 The Crypto Playback, info@cryptoplayback.com. Unsubscribe. Manage subscription." style="display: block; width: 100%; height: auto;">
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
