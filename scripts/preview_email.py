@@ -16,7 +16,7 @@ import email_images
 import email_v3
 
 
-def render_latest(local_assets=False, indicators_last=True):
+def render_latest(local_assets=False, indicators_last=True, upload=False, fallback_missed=None):
     entries = b.load_index()
     entry = entries[0]
     post = json.load(open(os.path.join(b.DATA_DIR, "posts", entry["slug"] + ".json")))
@@ -32,10 +32,13 @@ def render_latest(local_assets=False, indicators_last=True):
     base = f"file://{b.ROOT}/assets" if local_assets else email_v3.ASSET_BASE
     if local_assets:
         header, gauge = f"file://{header}", f"file://{gauge}"
+    elif upload:        # real email: images hosted by Buttondown so they show in the draft immediately
+        from buttondown_client import upload_image
+        header, gauge = upload_image(header), upload_image(gauge)
     html = email_v3.render(
         issue_title=post["title"], intro=intro, stories=post["stories"], ticker_prices=prices, tag=post["tag"],
         date_display=post["date_display"], date_abbrev=post.get("date_abbrev") or live["date_abbrev"],
-        issue_number=post["issue_number"], live=live, missed_story=post.get("missed_story"),
+        issue_number=post["issue_number"], live=live, missed_story=post.get("missed_story") or fallback_missed,
         header_url=header, gauge_url=gauge, slug=post["slug"], year=datetime.now().year, base=base, indicators_last=indicators_last)
     return post, html
 

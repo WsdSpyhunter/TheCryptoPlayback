@@ -1,11 +1,11 @@
 """
-send_email_test.py — creates a clearly-marked TEST draft of the Version 2
+send_email_test.py — creates a clearly-marked TEST draft of the Version 3
 newsletter in Buttondown, built from the latest published post + the latest
 live indicator data. Like everything in buttondown_client.py it only ever
 creates a DRAFT - nothing is sent to subscribers. Open the draft in the
 Buttondown dashboard and use "Send test" to mail it to yourself.
 
-Run it from GitHub: Actions -> "Email test (Version 2 layout)" -> Run
+Run it from GitHub: Actions -> "Email test (Version 3 layout)" -> Run
 workflow (it needs the BUTTONDOWN_API_KEY repo secret).
 
 Issues generated before Version 2 have no saved "missed_story", so the test
@@ -29,12 +29,12 @@ SAMPLE_MISSED_STORY = {
 }
 
 if __name__ == "__main__":
-    post, html = render_latest(fallback_missed=SAMPLE_MISSED_STORY)
+    post, html = render_latest(upload=True, fallback_missed=SAMPLE_MISSED_STORY)
     # A different label every run (set TEST_LABEL, e.g. "3"; the UTC time is
     # always added) so each test draft is obviously distinguishable.
     label = os.environ.get("TEST_LABEL", "").strip()
     stamp = datetime.now(timezone.utc).strftime("%H:%M UTC")
     tag = f"TEST #{label} {stamp}" if label else f"TEST {stamp}"
-    draft = create_draft(f"[{tag} - Version 2 layout] The Crypto Playback — {post['title']}", html)
+    draft = create_draft(f"[{tag} - Version 3 layout] The Crypto Playback — {post['title']}", html)
     print(f"Created TEST draft from {post['slug']}: {draft.get('id', '(no id returned)')}")
     send_draft_to_reviewer(draft.get("id"), os.environ.get("REVIEW_EMAIL", "").strip())
