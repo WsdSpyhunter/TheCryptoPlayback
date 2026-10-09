@@ -1,6 +1,6 @@
 {
   "slug": "2026-10-09-daily",
-  "title": "Uptober Goes Red, Regulators Go Global",
+  "title": "Seizures, Lawsuits, and a Wallet Reseller Gone Rogue",
   "date_display": "October 09, 2026",
   "tag": "Daily",
   "issue_number": 6,
@@ -10,49 +10,49 @@
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 82884,
-      "change_24h": 0.3658,
-      "change_7d": -4.4606
+      "price": 82429,
+      "change_24h": 0.82125,
+      "change_7d": -2.3543
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2498.83,
-      "change_24h": -1.68528,
-      "change_7d": -9.3183
+      "price": 2480.5,
+      "change_24h": 0.25802,
+      "change_7d": -7.0936
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 741.34,
-      "change_24h": -2.83654,
-      "change_7d": -4.5129
+      "price": 739.87,
+      "change_24h": 0.78939,
+      "change_7d": -3.5202
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
       "price": 1.39,
-      "change_24h": -0.47146,
-      "change_7d": -9.9796
+      "change_24h": 0.7293,
+      "change_7d": -5.6528
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 110.59,
-      "change_24h": -2.59488,
-      "change_7d": -9.9528
+      "price": 108.88,
+      "change_24h": -0.85101,
+      "change_7d": -8.087
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.332644,
-      "change_24h": -0.88328,
-      "change_7d": -0.7349
+      "price": 0.331979,
+      "change_24h": -0.23727,
+      "change_7d": -0.9078
     }
   ],
   "fng": {
@@ -60,33 +60,33 @@
     "classification": "Greed"
   },
   "mover": {
-    "id": "dogecoin",
-    "symbol": "DOGE",
-    "name": "Dogecoin",
-    "price": 0.084817,
-    "change_24h": -2.8633,
-    "change_7d": -13.1238
+    "id": "zcash",
+    "symbol": "ZEC",
+    "name": "Zcash",
+    "price": 1208.75,
+    "change_24h": 2.52781,
+    "change_7d": -7.9645
   },
   "week_mover": {
-    "id": "ripple",
-    "symbol": "XRP",
-    "name": "XRP",
-    "price": 1.39,
-    "change_24h": -0.47146,
-    "change_7d": -9.9796
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 108.88,
+    "change_24h": -0.85101,
+    "change_7d": -8.087
   },
   "sectors": [
     {
       "label": "L2",
-      "change_24h": 2.07368192507833
+      "change_24h": 3.83234480496326
     },
     {
-      "label": "RWA",
-      "change_24h": 0.1362445227841922
+      "label": "AI",
+      "change_24h": 1.7415920962211426
     },
     {
-      "label": "L1",
-      "change_24h": -0.1511971072294413
+      "label": "DePIN",
+      "change_24h": 1.380931446206896
     }
   ],
   "stablecoins": {
@@ -94,81 +94,74 @@
     "change_7d_pct": 0.07016622622546512
   },
   "date_abbrev": "OCT. 9, 2026",
-  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $82,884.00 <span style=\"color:#8FBF5C;\">(+0.4%)</span></span><span class=\"price-chip\">ETH $2,498.83 <span style=\"color:#E8837A;\">(-1.7%)</span></span><span class=\"price-chip\">BNB $741.34 <span style=\"color:#E8837A;\">(-2.8%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.39 <span style=\"color:#E8837A;\">(-0.5%)</span></span><span class=\"price-chip\">SOL $110.59 <span style=\"color:#E8837A;\">(-2.6%)</span></span><span class=\"price-chip\">TRX $0.33 <span style=\"color:#E8837A;\">(-0.9%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 9, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
-  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">59</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">DOGE</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-2.9%</span>\n    </div>\n  </div>",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $82,429.00 <span style=\"color:#8FBF5C;\">(+0.8%)</span></span><span class=\"price-chip\">ETH $2,480.50 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span><span class=\"price-chip\">BNB $739.87 <span style=\"color:#8FBF5C;\">(+0.8%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.39 <span style=\"color:#8FBF5C;\">(+0.7%)</span></span><span class=\"price-chip\">SOL $108.88 <span style=\"color:#E8837A;\">(-0.9%)</span></span><span class=\"price-chip\">TRX $0.33 <span style=\"color:#E8837A;\">(-0.2%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 9, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">59</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">ZEC</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+2.5%</span>\n    </div>\n  </div>",
   "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
-  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin's seasonal nickname is taking a beating as liquidations stack up, while regulators from London to Paris to Bangkok keep rewriting the rulebook around it.</p>\n  </div>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Between billion-dollar sanctions seizures, a lifetime ban for Alex Mashinsky, and a hardware wallet scandal draining millions from users, crypto's 'Uptober' is proving a lot more eventful than its price chart suggests.</p>\n  </div>",
   "stories": [
     {
-      "headline": "Uptober Turns Into Downtober as Majors Slide",
-      "body": "<p>Crypto's favorite seasonal meme hit a speed bump as bitcoin and other majors slid hard, with traders debating whether this is the start of a bigger selloff tied to the 10/10 anniversary or just a leverage flush clearing the way for another leg up.</p><p>Seasonality memes are fun until the chart stops cooperating. Nicknames don't move markets, but overleveraged positions sure do \u2014 which is exactly what seems to be getting cleared out right now.</p>",
+      "headline": "Treasury Says It's Coming for $1 Billion in Iran-Linked Crypto",
+      "body": "<p>Treasury Secretary Scott Bessent announced plans to seize roughly $1 billion in crypto tied to Iran sanctions this week, part of a broader wave of digital asset seizures the Treasury has been rolling out.</p><p>Sanctions enforcement moving onto the blockchain isn't new, but a billion-dollar figure said out loud by the Treasury Secretary is a different kind of headline than the usual quiet wallet freeze. It's a reminder that 'crypto is untraceable' was always more marketing slogan than fact.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/scott-bessent-us-seize-crypto-iran-sanctions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4H3BG1JYYXKKGEB4KD8923P/hi-us-has-seized-iranian-crypto-1.jpg"
+    },
+    {
+      "headline": "Mashinsky Gets the Industry Ban He's Earned",
+      "body": "<p>New York has permanently barred former Celsius CEO Alex Mashinsky from the securities and crypto industries as part of a $35 million settlement resolving the state's 2023 civil fraud lawsuit against him.</p><p>Celsius promised yield that didn't exist and a CEO who apparently didn't either, once the lights came on. A permanent ban feels almost anticlimactic at this point, but it's still a notable bookend to one of the uglier chapters of the last cycle.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/celsius-founder-alex-mashinsky-permanently-banned-from-crypto-industry-in-ny-settlement?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4H3BAEH9JKD3WDH6MG84JNW/interviewalex-mashinsky2.png"
+    },
+    {
+      "headline": "Ledger's Reseller Problem Just Became an $86 Million Problem",
+      "body": "<p>Ledger is investigating reports that users in Southeast Asia lost fund after buying hardware wallets from a reseller called CryptoBilis, with an onchain investigator tracking more than $86 million in suspected thefts. Ledger has asked the reseller to pause sales and is warning recent buyers not to set up their devices.</p><p>Hardware wallets are supposed to be the boring, bulletproof part of self-custody. A compromised supply chain undercuts the entire premise, and it's a brutal lesson in checking exactly where your 'cold storage' device actually came from.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/ledger-investigates-fund-losses-linked-to-southeast-asian-reseller-warns-users?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4GQZR5EE6DC45BS4MEHM47N/hi-got-crypto-losses-wallet-shutdown-2.png"
+    },
+    {
+      "headline": "THORChain Exec Says Tether Froze Then Quietly Unfroze USDT Vaults",
+      "body": "<p>THORChain's technical co-founder Chad Barraford says Tether temporarily froze USDT vaults on the network before unfreezing them without explanation.</p><p>Tether freezing funds isn't unusual on its own\u2014it does that for sanctions and law enforcement requests all the time. What's notable here is the lack of explanation, which is exactly the kind of opacity that keeps 'is my stablecoin actually censorship-resistant' debates alive.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/thorchain-tether-freezing-usdt-addresses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M3NT5GYVR0DHCZ7EB688AQWY/tether-2.jpg"
+    },
+    {
+      "headline": "Blockchain.com Wants to Run Its Own Prediction Markets, CFTC Permitting",
+      "body": "<p>Blockchain.com has filed for designated contract market and futures commission merchant licenses, which would let it operate a regulated event-contract venue in the US instead of leaning on overseas partners\u2014reportedly ahead of a planned $500 million IPO.</p><p>Prediction markets have gone from crypto curiosity to genuine regulatory battleground this year, and everyone wants to be the compliant option before Washington picks winners. Getting there first, and legally, might matter more than getting there loudest.</p>",
       "source_title": "Decrypt",
-      "source_url": "https://decrypt.co/380569/morning-minute-uptober-turns-sour-as-crypto-majors-slide",
-      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/bitcoin-down-decrypt-style-gID_7.png"
+      "source_url": "https://decrypt.co/380612/blockchain-cftc-prediction-markets-crypto-derivatives",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/01/crypto-trading-gen-z-decrypt-style-gID_7.jpg"
     },
     {
-      "headline": "$1.1 Billion in Liquidations as Speculators Rush for the Exits",
-      "body": "<p>Bitcoin dipped below $81,000 and speculators moved roughly 55,000 BTC onto exchanges amid $1.1 billion in liquidations, a classic signal of traders de-risking or being forced out of leveraged bets all at once.</p><p>Mass movement of coins to exchanges during a drawdown is usually less about conviction and more about panic \u2014 or margin calls making the decision for you. Either way, it's a reminder that leverage cuts both directions.</p>",
-      "source_title": "Cointelegraph",
-      "source_url": "https://cointelegraph.com/markets/bitcoin-speculators-btc-exchanges-crypto-liquidation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4FX2DFZ8H6KSQP3M3F615T4/article-covers-246541-three-signs-bitcoin-price-near-full-capitulation-960x640.webp"
-    },
-    {
-      "headline": "Zcash Devs Target January for Quantum-Resistant Payments After 'Bunker Mode' Scare",
-      "body": "<p>Zcash developers set a January deadline to ship quantum-resistant payments, following a 'bunker mode' scare that put the spotlight on just how exposed current cryptographic systems could be to advancing computing power.</p><p>Quantum threats to crypto have long lived in the realm of hypothetical worst-case scenarios. Setting an actual date to ship a fix suggests at least some corners of the industry are done treating it as science fiction.</p>",
-      "source_title": "CoinDesk",
-      "source_url": "https://www.coindesk.com/tech/2026/10/09/zcash-developers-set-january-target-for-quantum-resistant-payments-after-bunker-mode-scare",
-      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/6359a9ff83ee7ba7465c0ff2289cb8ae23e7ac43-1500x1000.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
-    },
-    {
-      "headline": "UK Sanctions Three Crypto Exchanges Over Alleged Russia Links",
-      "body": "<p>The UK government sanctioned three crypto exchanges and payment processors it says are tied to illicit Russian funds, the latest move in an ongoing effort to choke off sanctions-evasion routes running through digital assets.</p><p>Every sanctions action like this is a small reminder that 'permissionless' and 'untraceable' aren't the same thing \u2014 blockchains are transparent ledgers, and governments have gotten a lot better at reading them.</p>",
-      "source_title": "CoinDesk",
-      "source_url": "https://www.coindesk.com/policy/2026/10/09/uk-slaps-sanctions-on-three-crypto-exchanges-over-alleged-russia-links",
-      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/3ed99ad8e1d2af4b11b0bb301a546dddccbf65e4-6000x4000.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
-    },
-    {
-      "headline": "France's Finance Committee Backs Stablecoin Swap Tax in 2027 Budget",
-      "body": "<p>French lawmakers backed new taxes on stablecoin swaps, along with levies on unrealized crypto gains for certain households, as part of the country's 2027 budget bill.</p><p>Taxing unrealized gains is the kind of policy that sounds reasonable in a committee room and causes chaos the moment it meets actual portfolios. Worth watching how this one evolves before it becomes law.</p>",
-      "source_title": "Cointelegraph",
-      "source_url": "https://cointelegraph.com/news/france-crypto-stablecoin-swap-tax-2027-budget?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4FT35RCS7WXQT4HAHHT14GK/regulations-france-crypto.jpg"
-    },
-    {
-      "headline": "Thailand Opens the Door to Local Bitcoin and Ether ETFs",
-      "body": "<p>Thailand's SEC finalized rules limiting initial crypto ETFs to bitcoin and ether, with new custody, exposure, and trading requirements taking effect October 16 and products trading exclusively on the Stock Exchange of Thailand.</p><p>Another country deciding bitcoin and ether are the 'safe' entry point for retail-friendly wrappers. It's becoming the standard playbook: start conservative, expand later if nothing blows up.</p>",
-      "source_title": "CoinDesk",
-      "source_url": "https://www.coindesk.com/policy/2026/10/09/thailand-opens-door-to-locally-listed-bitcoin-and-ether-etfs",
-      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/70284126e74d9b4b82638d4995ed0ba9820e80a9-4883x2747.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
-    },
-    {
-      "headline": "Empire Market Co-Creator Gets 40 Years Over $430M Dark Web Bazaar",
-      "body": "<p>Raheim Hamilton, co-creator of the Empire Market dark web bazaar, was sentenced to 40 years and forfeited roughly 1,230 BTC. His co-creator, Thomas Pavey, who agreed to forfeit 1,584 BTC, is due to be sentenced later this month.</p><p>A reminder that bitcoin's traceability is a double-edged sword for anyone running an illicit marketplace \u2014 the chain remembers, even years later, and so do prosecutors.</p>",
+      "headline": "Starknet Pops 20% on Plan to Ditch Ethereum L2 Status",
+      "body": "<p>Starknet jumped 20% after saying it's 'actively considering' becoming its own standalone blockchain rather than an Ethereum layer-2, a move it claims would make it the first fully quantum-resistant network by 2027.</p><p>Going independent is a big strategic swing for an L2, and the quantum-resistance angle is clearly aimed at getting ahead of a threat most chains are still pretending is decades away. Whether traders are pricing in the roadmap or just the headline is the real question.</p>",
       "source_title": "Decrypt",
-      "source_url": "https://decrypt.co/380561/empire-market-co-creator-sentenced-to-40-years-over-430m-dark-web-bazaar",
-      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/crypto-crime-decrypt-style-1-gID_7.png"
+      "source_url": "https://decrypt.co/380585/ethereum-l2-starknet-jumps-20-after-saying-it-wants-to-become-an-l1",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/ai-decrypt-style-13-gID_7.png"
     },
     {
-      "headline": "Securitize Stock Jumps as Tokenized US Equities Land on Solana",
-      "body": "<p>Securitize's stock jumped over 10% after it launched tokenized US equities on Solana, giving eligible investors a new way to hold exposure to real shares on-chain.</p><p>Tokenized stocks keep inching from novelty to infrastructure. The market reaction here suggests investors see real revenue potential, not just a press-release headline.</p>",
-      "source_title": "Cointelegraph",
-      "source_url": "https://cointelegraph.com/news/securitize-stock-jumps-launching-tokenized-us-equities-solana?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4EEEA4K0X2GAJFKB9A8T56C/hi-how-ondo-finance-plans-to-bring-tokenized-us-stocks-to-solana-3.png"
+      "headline": "Bitcoin Bleeds in Uptober, and Traders Aren't Convinced It's Done",
+      "body": "<p>Bitcoin has slid in what's traditionally a seasonally strong month, with analysts pointing to support levels ranging from $83,000 down to $72,000 that it may still need to test.</p><p>'Uptober' was always more meme than guarantee, and this year's price action is a solid reminder that seasonal patterns are backward-looking observations, not forward-looking promises.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380574/bitcoin-bleeds-in-uptober-how-low-can-it-go-experts-weigh-in",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/02/bitcoin-crack-decrypt-style-gID_7.jpg"
     },
     {
-      "headline": "Sam Altman-Backed Bitcoin Insurer Meanwhile Raises $37.5M",
-      "body": "<p>Meanwhile, the Sam Altman-backed bitcoin life insurer, raised a $37.5 million round led by Bain Capital Crypto, pushing its total funding above $180 million.</p><p>Bitcoin-denominated life insurance is still a niche concept, but the continued interest from serious institutional capital suggests someone believes 'held in BTC, paid out in BTC' has a real market beyond crypto diehards.</p>",
-      "source_title": "The Block",
-      "source_url": "https://www.theblock.co/news/deals/2026-10-09-sam-altman-backed-bitcoin-life-insurer-meanwhile-raises-37-5-million-round-led-by-bain-capital-crypto-418131",
-      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/meanwhile.png"
+      "headline": "DWF Labs Affiliates Sue BitGo for $141 Million Over Early Token Dumps",
+      "body": "<p>DWF Labs-linked firms are suing BitGo in London's High Court, alleging it sold discounted Falcon Finance and ESPORTS tokens roughly two months before their lock-up expired, tanking the value of their remaining holdings.</p><p>Token lock-ups are supposed to be the guardrail that prevents exactly this kind of scenario. If the allegations hold up, it's a pointed reminder that custodial and market-making arrangements deserve as much scrutiny as the tokens themselves.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380593/dwf-bitgo-141-million-lawsuit-early-token-sales",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Judge-decrypt-style-2-gID_7.png"
     }
   ],
   "missed_story": {
-    "headline": "A $8.3 Million Satoshi-Era Wallet Wakes Up After 16 Years",
-    "body": "A batch of 100.02 BTC mined back in July 2010 moved on-chain after sitting untouched for 16 years, now worth about $8.3 million. The transaction itself reveals nothing about who finally moved it or why, leaving the crypto detectives to speculate as usual. There's something almost poetic about a wallet from bitcoin's infancy stirring in the middle of a volatile Uptober \u2014 a ghost from the genesis era showing up uninvited to the party.",
-    "source_title": "Decrypt",
-    "source_url": "https://decrypt.co/380514/satoshi-era-bitcoin-mined-2010-moves-16-years"
+    "headline": "Former FTX COO Says Netflix's FTX Drama Made Her Physically Ill",
+    "body": "Former FTX COO Constance Wang says the trailer for Netflix's 'The Altruists' made her 'physically throw up,' arguing it misrepresents FTX's collapse by turning it into a love story. It's a strange little footnote in the FTX saga: the people who lived through one of crypto's biggest implosions now have to watch it get reimagined as streaming entertainment, and apparently the Hollywood version doesn't match their memory of events at all.",
+    "source_title": "The Block",
+    "source_url": "https://www.theblock.co/news/business/2026-10-09-former-ftx-coo-netflix-the-altruists-trailer-418208"
   },
-  "excerpt": "Bitcoin's seasonal nickname is taking a beating as liquidations stack up, while regulators from London to Paris to Bangkok keep rewriting the rulebook around it.",
-  "buttondown_email_id": "em_702hsy06t191kbz9558scsad30"
+  "excerpt": "Between billion-dollar sanctions seizures, a lifetime ban for Alex Mashinsky, and a hardware wallet scandal draining millions from users, crypto's 'Uptober' is proving a lot more eventful than its price chart suggests.",
+  "buttondown_email_id": "em_18qktdr8bf99zv8405k8ze47de"
 }
