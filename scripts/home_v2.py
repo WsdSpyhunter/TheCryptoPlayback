@@ -86,7 +86,7 @@ def snapshot(fng, snapshot_text, total_count, date_abbrev):
     tone = "pos" if fng["value"] >= 55 else ("neg" if fng["value"] <= 45 else "neu")
     return f"""<section class="v2-section" id="snapshot" aria-labelledby="snapshot-h">
   <div class="v2-wrap">
-    {ui.title_box("snapshot", '<span id="snapshot-h">Market Snapshot</span>', f"Updated {date_abbrev} &middot; {total_count} indicators")}
+    {ui.title_box("snapshot", '<span id="snapshot-h">Market Snapshot</span>', f"Updated {date_abbrev}")}
     <div class="v2-snapshot">
       <div class="v2-snapshot-gauge">
         {ui.gauge_svg(fng["value"], cls)}

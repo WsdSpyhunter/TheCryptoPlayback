@@ -234,7 +234,7 @@ def snapshot_section(live, gauge_url, base):
     v = fng["value"]
     tone = POS_TX if v >= 55 else (NEG_BG if v <= 45 else MUTED)
     return (f'<tr><td style="padding:34px 40px 0;" class="v3-pad">'
-            f'{section_title("snapshot", "Market Snapshot", base, f"Updated {live["date_abbrev"]} &middot; {live["total_count"]} indicators", 18)}'
+            f'{section_title("snapshot", "Market Snapshot", base, f"Updated {live["date_abbrev"]}", 18)}'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{IVORY};border:1px solid {LINE};"><tr>'
             f'<td class="v3-stack" width="210" align="center" valign="middle" style="width:210px;padding:22px 10px 22px 26px;">'
             f'<img src="{gauge_url}" width="200" height="122" alt="Sentiment gauge showing {v}, {escape(cls)}" style="display:block;width:200px;height:auto;margin:0 auto;border:0;">'
