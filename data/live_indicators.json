@@ -1,52 +1,52 @@
 {
-  "updated_at": "2026-10-09T17:15:22.418795+00:00",
+  "updated_at": "2026-10-09T17:46:44.386804+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 82603,
-      "change_24h": 2.16415,
+      "price": 82671,
+      "change_24h": 2.34381,
       "change_7d": -3.0932
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2486.25,
-      "change_24h": 2.59164,
+      "price": 2485.51,
+      "change_24h": 2.6806,
       "change_7d": -7.6929
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 739.95,
-      "change_24h": 2.18173,
+      "price": 740.55,
+      "change_24h": 2.52386,
       "change_7d": -4.266
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 1.38,
-      "change_24h": 3.18882,
+      "price": 1.39,
+      "change_24h": 4.63426,
       "change_7d": -8.1713
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 109.55,
-      "change_24h": 1.78134,
+      "price": 109.65,
+      "change_24h": 2.84307,
       "change_7d": -8.627
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.332297,
-      "change_24h": -0.27617,
+      "price": 0.332266,
+      "change_24h": -0.18793,
       "change_7d": -1.1346
     }
   ],
@@ -58,30 +58,30 @@
     "id": "zcash",
     "symbol": "ZEC",
     "name": "Zcash",
-    "price": 1217.05,
-    "change_24h": 6.86643,
+    "price": 1218.68,
+    "change_24h": 7.43786,
     "change_7d": -10.8574
   },
   "week_mover": {
     "id": "solana",
     "symbol": "SOL",
     "name": "Solana",
-    "price": 109.55,
-    "change_24h": 1.78134,
+    "price": 109.65,
+    "change_24h": 2.84307,
     "change_7d": -8.627
   },
   "sectors": [
     {
       "label": "L2",
-      "change_24h": 7.871990855075736
+      "change_24h": 8.019135355845055
     },
     {
       "label": "DePIN",
-      "change_24h": 5.72541816209414
+      "change_24h": 5.732752794579157
     },
     {
       "label": "NFT",
-      "change_24h": 4.200209931213529
+      "change_24h": 4.903517835212016
     }
   ],
   "stablecoins": {
@@ -89,52 +89,41 @@
     "change_7d_pct": 0.07016622622546512
   },
   "dominance": {
-    "btc_dominance_pct": 59.211521768342465,
-    "total_market_cap_usd": 2796597076929.292
+    "btc_dominance_pct": 59.22329164676599,
+    "total_market_cap_usd": 2800058329053.926
   },
   "leverage": {
-    "funding_rate_pct": 0.00333011866619,
+    "funding_rate_pct": 0.00411967710161,
     "next_funding_time_ms": 1791619200000,
-    "open_interest_usd": 2486015180.23597
+    "open_interest_usd": 2487454186.6422606
   },
   "defi_tvl": {
-    "total_usd": 91600222276.0,
-    "change_7d_pct": -3.6641811692525286
+    "total_usd": 91650438662.0,
+    "change_7d_pct": -3.694811187089571
   },
   "network_health": {
-    "hashrate_eh": 997.968771438231,
-    "difficulty_change_pct": 4.451736622871505,
-    "fastest_fee_satvb": 3,
-    "pending_tx_count": 87105
+    "hashrate_eh": 1000.408809110251,
+    "difficulty_change_pct": 4.529804658354375,
+    "fastest_fee_satvb": 2,
+    "pending_tx_count": 79713
   },
   "liquidations": {
-    "long_liq_usd": 116196.87199,
-    "short_liq_usd": 281656.86059999996,
+    "long_liq_usd": 262925.76221,
+    "short_liq_usd": 212971.93809999997,
     "event_count": 100,
-    "window_minutes": 178.82086666666666
+    "window_minutes": 194.42311666666666
   },
   "whale_activity": {
     "amounts_btc": [
-      211.99998214,
-      119.68778411,
-      84.90490146,
-      34.21509796,
-      14.03145255,
-      13.7447262,
-      9.86397345,
-      9.81308718,
-      7.01924464,
-      6.56704507,
-      6.27520168,
-      5.19565394
+      282.17118465
     ],
     "sample_size": 1000
   },
   "macro": {
-    "vix": 14.85,
-    "vix_change_pct": -3.632,
-    "dxy": 102.287,
-    "dxy_change_pct": 0.146
+    "vix": 14.87,
+    "vix_change_pct": -3.504,
+    "dxy": 102.286,
+    "dxy_change_pct": 0.145
   },
   "gauge_path": "assets/gauges/live.png"
 }
