@@ -17,10 +17,17 @@ OUT = os.path.join(ROOT, "assets", "email-v3")
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 TONES = {"ink": "#8A6A1F", "gold": "#D4B063"}
 CELL = 96
+# story-tile icons from the designer's file that the website icon set doesn't have
+EXTRA = {
+    "lock": '<rect x="12" y="22" width="24" height="18" rx="2"/><path d="M17 22v-6a7 7 0 0 1 14 0v6"/><circle cx="24" cy="31" r="2"/>',
+    "clock": '<circle cx="24" cy="24" r="16"/><path d="M24 14v10l7 4"/>',
+    "stack": '<ellipse cx="24" cy="12" rx="12" ry="4.5"/><path d="M12 12v8c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-8"/><path d="M12 20v8c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-8"/><path d="M12 28v8c0 2.5 5.4 4.5 12 4.5s12-2 12-4.5v-8"/>',
+}
+ALL_PATHS = {**ui.ICON_PATHS, **EXTRA}
 
 
 def render_icons():
-    keys = sorted(ui.ICON_PATHS)
+    keys = sorted(ALL_PATHS)
     cols = 8
     rows = (len(keys) * len(TONES) + cols - 1) // cols
     cells, order = [], []
@@ -29,7 +36,7 @@ def render_icons():
             order.append((k, tone))
             cells.append(f'<div style="width:{CELL}px;height:{CELL}px;display:flex;align-items:center;justify-content:center;">'
                          f'<svg width="{CELL - 16}" height="{CELL - 16}" viewBox="0 0 48 48" fill="none" stroke="{color}" stroke-width="2.4" '
-                         f'stroke-linecap="round" stroke-linejoin="round">{ui.ICON_PATHS[k]}</svg></div>')
+                         f'stroke-linecap="round" stroke-linejoin="round">{ALL_PATHS[k]}</svg></div>')
     html = (f'<html><body style="margin:0;background:transparent"><div style="display:grid;grid-template-columns:repeat({cols},{CELL}px);">'
             + "".join(cells) + "</div></body></html>")
     with tempfile.TemporaryDirectory() as td:

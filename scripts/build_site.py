@@ -1775,21 +1775,12 @@ def load_market_overview():
     return overview
 
 
-def render_index(entries):
-    hero = home_v2.hero(16)
-
-    if not entries:
-        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year, theme="v2")
-
-    # Homepage's live indicator sections (ticker, Market Snapshot, Signal
-    # Confluence, What Changed, Alerts & Indicators) are sourced from
-    # data/live_indicators.json, refreshed on its own 15-minute schedule by
-    # refresh_indicators.py - completely independent of when a newsletter
-    # issue publishes. See _load_dashboard_data for the fallback used
-    # before that file exists.
+def _live_context(entries):
+    """Everything the live sections (price strip, Market Snapshot, Signal Confluence, What Changed,
+    Alerts & Indicators) are built from, so the website and the newsletter use the same numbers."""
     dashboard = _load_dashboard_data(entries)
     if dashboard is None:
-        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year, theme="v2")
+        return None
     prices = dashboard["prices"]
     fng = dashboard["fng"]
     mover = dashboard["mover"]
@@ -1947,6 +1938,7 @@ def render_index(entries):
             change_items.append((dot, "ETF flow flipped direction",
                                   f"${float(prev_etf_flow)/1e6:+.1f}M &rarr; ${float(latest_etf_flow)/1e6:+.1f}M"))
 
+    real_change_items = list(change_items)      # genuine moves only (the fallback below is illustrative sample copy)
     if not change_items and prev_snapshot:
         # PREVIEW COPY, requested by the user to see the section's real
         # layout with content in it (there isn't 24h of real drift yet).
@@ -1962,6 +1954,32 @@ def render_index(entries):
             ("&#128994;", "Biggest mover flipped", "ETH +3.1% &rarr; SOL +18.6%"),
         ]
 
+    return {"dashboard": dashboard, "prices": prices, "fng": fng, "indicators": indicators, "overview": overview,
+            "confluence_items": confluence_items, "positive_count": positive_count, "total_count": total_count,
+            "interpretation": interpretation, "snapshot_text": snapshot_text, "market_lean": market_lean,
+            "change_items": change_items, "real_change_items": real_change_items, "date_abbrev": date_abbrev, "market_strip": market_strip,
+            "market_snapshot_section": market_snapshot_section, "etf": etf, "resolved_mover": resolved_mover}
+
+
+def render_index(entries):
+    hero = home_v2.hero(16)
+
+    if not entries:
+        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year, theme="v2")
+
+    # Homepage's live indicator sections (ticker, Market Snapshot, Signal
+    # Confluence, What Changed, Alerts & Indicators) are sourced from
+    # data/live_indicators.json, refreshed on its own 15-minute schedule by
+    # refresh_indicators.py - completely independent of when a newsletter
+    # issue publishes. See _load_dashboard_data for the fallback used
+    # before that file exists.
+    live = _live_context(entries)
+    if live is None:
+        return page("", "The Crypto Playback", hero + "<p>First post coming soon.</p>", datetime.now().year, theme="v2")
+    indicators = live["indicators"]
+    confluence_items, positive_count, total_count = live["confluence_items"], live["positive_count"], live["total_count"]
+    interpretation, change_items, date_abbrev = live["interpretation"], live["change_items"], live["date_abbrev"]
+    market_strip, market_snapshot_section = live["market_strip"], live["market_snapshot_section"]
     confluence_section = home_v2.confluence_and_changed(
         confluence_items, positive_count, total_count, interpretation, change_items, date_abbrev)
 
