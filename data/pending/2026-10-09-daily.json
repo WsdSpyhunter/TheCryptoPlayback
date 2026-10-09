@@ -1,0 +1,174 @@
+{
+  "slug": "2026-10-09-daily",
+  "title": "Uptober Goes Red, Regulators Go Global",
+  "date_display": "October 09, 2026",
+  "tag": "Daily",
+  "issue_number": 6,
+  "gauge_path": "assets/gauges/2026-10-09-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 82884,
+      "change_24h": 0.3658,
+      "change_7d": -4.4606
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2498.83,
+      "change_24h": -1.68528,
+      "change_7d": -9.3183
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 741.34,
+      "change_24h": -2.83654,
+      "change_7d": -4.5129
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.39,
+      "change_24h": -0.47146,
+      "change_7d": -9.9796
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 110.59,
+      "change_24h": -2.59488,
+      "change_7d": -9.9528
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.332644,
+      "change_24h": -0.88328,
+      "change_7d": -0.7349
+    }
+  ],
+  "fng": {
+    "value": 59,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "dogecoin",
+    "symbol": "DOGE",
+    "name": "Dogecoin",
+    "price": 0.084817,
+    "change_24h": -2.8633,
+    "change_7d": -13.1238
+  },
+  "week_mover": {
+    "id": "ripple",
+    "symbol": "XRP",
+    "name": "XRP",
+    "price": 1.39,
+    "change_24h": -0.47146,
+    "change_7d": -9.9796
+  },
+  "sectors": [
+    {
+      "label": "L2",
+      "change_24h": 2.07368192507833
+    },
+    {
+      "label": "RWA",
+      "change_24h": 0.1362445227841922
+    },
+    {
+      "label": "L1",
+      "change_24h": -0.1511971072294413
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 311397931425.0,
+    "change_7d_pct": 0.07016622622546512
+  },
+  "date_abbrev": "OCT. 9, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $82,884.00 <span style=\"color:#8FBF5C;\">(+0.4%)</span></span><span class=\"price-chip\">ETH $2,498.83 <span style=\"color:#E8837A;\">(-1.7%)</span></span><span class=\"price-chip\">BNB $741.34 <span style=\"color:#E8837A;\">(-2.8%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.39 <span style=\"color:#E8837A;\">(-0.5%)</span></span><span class=\"price-chip\">SOL $110.59 <span style=\"color:#E8837A;\">(-2.6%)</span></span><span class=\"price-chip\">TRX $0.33 <span style=\"color:#E8837A;\">(-0.9%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 9, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">59</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">DOGE</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-2.9%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin's seasonal nickname is taking a beating as liquidations stack up, while regulators from London to Paris to Bangkok keep rewriting the rulebook around it.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Uptober Turns Into Downtober as Majors Slide",
+      "body": "<p>Crypto's favorite seasonal meme hit a speed bump as bitcoin and other majors slid hard, with traders debating whether this is the start of a bigger selloff tied to the 10/10 anniversary or just a leverage flush clearing the way for another leg up.</p><p>Seasonality memes are fun until the chart stops cooperating. Nicknames don't move markets, but overleveraged positions sure do \u2014 which is exactly what seems to be getting cleared out right now.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380569/morning-minute-uptober-turns-sour-as-crypto-majors-slide",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/bitcoin-down-decrypt-style-gID_7.png"
+    },
+    {
+      "headline": "$1.1 Billion in Liquidations as Speculators Rush for the Exits",
+      "body": "<p>Bitcoin dipped below $81,000 and speculators moved roughly 55,000 BTC onto exchanges amid $1.1 billion in liquidations, a classic signal of traders de-risking or being forced out of leveraged bets all at once.</p><p>Mass movement of coins to exchanges during a drawdown is usually less about conviction and more about panic \u2014 or margin calls making the decision for you. Either way, it's a reminder that leverage cuts both directions.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-speculators-btc-exchanges-crypto-liquidation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4FX2DFZ8H6KSQP3M3F615T4/article-covers-246541-three-signs-bitcoin-price-near-full-capitulation-960x640.webp"
+    },
+    {
+      "headline": "Zcash Devs Target January for Quantum-Resistant Payments After 'Bunker Mode' Scare",
+      "body": "<p>Zcash developers set a January deadline to ship quantum-resistant payments, following a 'bunker mode' scare that put the spotlight on just how exposed current cryptographic systems could be to advancing computing power.</p><p>Quantum threats to crypto have long lived in the realm of hypothetical worst-case scenarios. Setting an actual date to ship a fix suggests at least some corners of the industry are done treating it as science fiction.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/10/09/zcash-developers-set-january-target-for-quantum-resistant-payments-after-bunker-mode-scare",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/6359a9ff83ee7ba7465c0ff2289cb8ae23e7ac43-1500x1000.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "UK Sanctions Three Crypto Exchanges Over Alleged Russia Links",
+      "body": "<p>The UK government sanctioned three crypto exchanges and payment processors it says are tied to illicit Russian funds, the latest move in an ongoing effort to choke off sanctions-evasion routes running through digital assets.</p><p>Every sanctions action like this is a small reminder that 'permissionless' and 'untraceable' aren't the same thing \u2014 blockchains are transparent ledgers, and governments have gotten a lot better at reading them.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/10/09/uk-slaps-sanctions-on-three-crypto-exchanges-over-alleged-russia-links",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/3ed99ad8e1d2af4b11b0bb301a546dddccbf65e4-6000x4000.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "France's Finance Committee Backs Stablecoin Swap Tax in 2027 Budget",
+      "body": "<p>French lawmakers backed new taxes on stablecoin swaps, along with levies on unrealized crypto gains for certain households, as part of the country's 2027 budget bill.</p><p>Taxing unrealized gains is the kind of policy that sounds reasonable in a committee room and causes chaos the moment it meets actual portfolios. Worth watching how this one evolves before it becomes law.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/france-crypto-stablecoin-swap-tax-2027-budget?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4FT35RCS7WXQT4HAHHT14GK/regulations-france-crypto.jpg"
+    },
+    {
+      "headline": "Thailand Opens the Door to Local Bitcoin and Ether ETFs",
+      "body": "<p>Thailand's SEC finalized rules limiting initial crypto ETFs to bitcoin and ether, with new custody, exposure, and trading requirements taking effect October 16 and products trading exclusively on the Stock Exchange of Thailand.</p><p>Another country deciding bitcoin and ether are the 'safe' entry point for retail-friendly wrappers. It's becoming the standard playbook: start conservative, expand later if nothing blows up.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/10/09/thailand-opens-door-to-locally-listed-bitcoin-and-ether-etfs",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/70284126e74d9b4b82638d4995ed0ba9820e80a9-4883x2747.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Empire Market Co-Creator Gets 40 Years Over $430M Dark Web Bazaar",
+      "body": "<p>Raheim Hamilton, co-creator of the Empire Market dark web bazaar, was sentenced to 40 years and forfeited roughly 1,230 BTC. His co-creator, Thomas Pavey, who agreed to forfeit 1,584 BTC, is due to be sentenced later this month.</p><p>A reminder that bitcoin's traceability is a double-edged sword for anyone running an illicit marketplace \u2014 the chain remembers, even years later, and so do prosecutors.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380561/empire-market-co-creator-sentenced-to-40-years-over-430m-dark-web-bazaar",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/crypto-crime-decrypt-style-1-gID_7.png"
+    },
+    {
+      "headline": "Securitize Stock Jumps as Tokenized US Equities Land on Solana",
+      "body": "<p>Securitize's stock jumped over 10% after it launched tokenized US equities on Solana, giving eligible investors a new way to hold exposure to real shares on-chain.</p><p>Tokenized stocks keep inching from novelty to infrastructure. The market reaction here suggests investors see real revenue potential, not just a press-release headline.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/securitize-stock-jumps-launching-tokenized-us-equities-solana?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4EEEA4K0X2GAJFKB9A8T56C/hi-how-ondo-finance-plans-to-bring-tokenized-us-stocks-to-solana-3.png"
+    },
+    {
+      "headline": "Sam Altman-Backed Bitcoin Insurer Meanwhile Raises $37.5M",
+      "body": "<p>Meanwhile, the Sam Altman-backed bitcoin life insurer, raised a $37.5 million round led by Bain Capital Crypto, pushing its total funding above $180 million.</p><p>Bitcoin-denominated life insurance is still a niche concept, but the continued interest from serious institutional capital suggests someone believes 'held in BTC, paid out in BTC' has a real market beyond crypto diehards.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/deals/2026-10-09-sam-altman-backed-bitcoin-life-insurer-meanwhile-raises-37-5-million-round-led-by-bain-capital-crypto-418131",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/meanwhile.png"
+    }
+  ],
+  "missed_story": {
+    "headline": "A $8.3 Million Satoshi-Era Wallet Wakes Up After 16 Years",
+    "body": "A batch of 100.02 BTC mined back in July 2010 moved on-chain after sitting untouched for 16 years, now worth about $8.3 million. The transaction itself reveals nothing about who finally moved it or why, leaving the crypto detectives to speculate as usual. There's something almost poetic about a wallet from bitcoin's infancy stirring in the middle of a volatile Uptober \u2014 a ghost from the genesis era showing up uninvited to the party.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/380514/satoshi-era-bitcoin-mined-2010-moves-16-years"
+  },
+  "excerpt": "Bitcoin's seasonal nickname is taking a beating as liquidations stack up, while regulators from London to Paris to Bangkok keep rewriting the rulebook around it.",
+  "buttondown_email_id": "em_702hsy06t191kbz9558scsad30"
+}
