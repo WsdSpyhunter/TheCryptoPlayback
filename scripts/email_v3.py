@@ -84,8 +84,8 @@ def section_title(key, title, base, meta="", pad_bottom=20):
                  if meta else "")
     return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
             f'style="border-bottom:2px solid {NAVY};margin:0 0 {pad_bottom}px 0;"><tr>'
-            f'<td valign="bottom" style="padding:0 0 10px 0;">'
-            f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+            f'<td class="v3-tcell" valign="bottom" style="padding:0 0 10px 0;">'
+            f'<table role="presentation" class="v3-tbox" cellpadding="0" cellspacing="0" border="0" '
             f'style="background:#FFFFFF;border:1px solid {LINE};box-shadow:0 4px 14px rgba(11,31,58,0.16);"><tr>'
             f'<td style="padding:10px 0 10px 18px;" valign="middle">{icon(key, "ink", 22, base)}</td>'
             f'<td class="v3-ttxt" style="padding:10px 18px 10px 10px;font-family:{SANS};font-weight:600;font-size:14px;letter-spacing:0.14em;'
@@ -94,12 +94,12 @@ def section_title(key, title, base, meta="", pad_bottom=20):
 
 
 def dark_title(key, title, base, meta="", margin="0 0 18px 0"):
-    meta_cell = (f'<td class="v3-tmeta" align="right" valign="middle" style="padding:0 0 10px 12px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td>'
+    meta_cell = (f'<td class="v3-dmeta" align="right" valign="middle" style="padding:0 0 10px 12px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td>'
                  if meta else "")
     return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
             f'style="border-bottom:1px solid {NAVY_LINE};margin:{margin};"><tr>'
-            f'<td width="32" valign="middle" style="padding:0 10px 10px 0;">{icon(key, "gold", 22, base)}</td>'
-            f'<td valign="middle" style="padding:0 0 10px 0;font-family:{SANS};font-weight:600;font-size:12px;letter-spacing:0.14em;'
+            f'<td class="v3-dicon" width="32" valign="middle" style="padding:0 10px 10px 0;"><div class="v3-dicon-in">{icon(key, "gold", 22, base)}</div></td>'
+            f'<td class="v3-dtxt" valign="middle" style="padding:0 0 10px 0;font-family:{SANS};font-weight:600;font-size:12px;letter-spacing:0.14em;'
             f'text-transform:uppercase;color:{IVORY};">{title}</td>{meta_cell}</tr></table>')
 
 
@@ -162,7 +162,7 @@ def bottom_line(live, intro):
     b3 = f"<strong style=\"color:{NAVY};\">Top story:</strong> {_plain(intro)}"
     rows = ""
     for i, txt in enumerate((b1, b2, b3), 1):
-        rows += (f'<tr><td width="46" valign="top" style="width:46px;padding:0 0 18px 0;font-family:{FRANK};font-weight:700;font-size:30px;'
+        rows += (f'<tr><td width="62" valign="top" style="width:62px;padding:0 14px 18px 0;font-family:{FRANK};font-weight:700;font-size:30px;white-space:nowrap;'
                  f'line-height:1;color:{BRASS};">0{i}</td>'
                  f'<td valign="top" style="padding:0 0 18px 0;font-family:{SANS};font-size:15.5px;line-height:1.6;color:{TEXT};">{txt}</td></tr>')
     return rows
@@ -327,9 +327,9 @@ def dashboard_panel(live, base):
               f'No indicator has moved enough to flag since yesterday.</td></tr>')
     return (f'<tr><td style="background:{NAVY};padding:38px 40px 34px;color:{IVORY};" class="v3-pad">'
             f'{dark_title("confluence", "Signal Confluence", base, f"Updated {live["date_abbrev"]}")}'
-            f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px;"><tr>'
-            f'<td valign="bottom" style="font-family:{FRANK};font-weight:700;font-size:56px;line-height:1;color:{IVORY};">{pos}<span style="font-size:30px;color:{DK_MUTED};font-weight:600;">/{total}</span></td>'
-            f'<td valign="bottom" style="padding:0 0 6px 14px;font-family:{SANS};font-size:14px;line-height:1.5;color:{DK_TEXT};">signals positive. {live["interpretation"]}</td></tr></table>'
+            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px;"><tr>'
+            f'<td class="v3-score" valign="bottom" style="width:1%;white-space:nowrap;font-family:{FRANK};font-weight:700;font-size:56px;line-height:1;color:{IVORY};">{pos}<span style="font-size:30px;color:{DK_MUTED};font-weight:600;">/{total}</span></td>'
+            f'<td class="v3-scoretxt" valign="bottom" style="padding:0 0 6px 14px;font-family:{SANS};font-size:14px;line-height:1.5;color:{DK_TEXT};">signals positive. {live["interpretation"]}</td></tr></table>'
             f'<div style="margin:0 -4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></div>'
             f'<div style="margin-top:12px;font-family:{SANS};font-size:12px;line-height:1.5;color:{DK_MUTED};">{note}Capital Flow Score is a Crypto Playback composite of price and sector breadth weighted against sentiment. '
             f'It is not institutional transaction data. <a href="{SITE_URL}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Full methodology</span></a></div>'
@@ -395,6 +395,8 @@ def indicators_section(live, base):
     cards = []
     for ind in live["indicators"]:
         value, detail = ui.split_value(ind["confluence_display"])
+        if not value:                       # e.g. Market Breadth while it is still building history
+            value = _plain(ind["card_main_html"])[:40]
         value = money(value)
         kind = _kind(ind.get("confluence_positive"))
         link = SITE_URL + ind["page"]
@@ -497,7 +499,12 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
   .v3-missed-text {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:10px 18px 20px !important; }}
   .v3-arrow-r {{ display:none !important; }}
   .v3-arrow-d {{ display:block !important; }}
-  .v3-tmeta {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:left !important; padding:0 0 10px 0 !important; }}
+  .v3-tcell {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 10px 0 !important; }}
+  .v3-tbox {{ margin:0 auto !important; }}
+  .v3-dicon, .v3-dtxt, .v3-dmeta {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 8px 0 !important; }}
+  .v3-dicon-in {{ width:22px !important; margin:0 auto !important; }}
+  .v3-score, .v3-scoretxt {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 8px 0 !important; }}
+  .v3-tmeta {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:0 0 10px 0 !important; }}
   .v3-ttxt {{ white-space:normal !important; }}
   .v3-tilecell {{ width:56px !important; padding-right:12px !important; }}
   .v3-tile, .v3-tile td {{ width:52px !important; height:52px !important; }}
