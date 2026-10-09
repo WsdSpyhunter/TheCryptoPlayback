@@ -8,17 +8,24 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONT = os.path.join(ROOT, "assets", "fonts", "BarlowCondensed-Medium.ttf")
 BASE_HEADER = os.path.join(ROOT, "assets", "email-v3-header.png")
+# Header group geometry (shared with make_header_centered.py): the mascot + title + tagline group is scaled by
+# HDR_SCALE about (HDR_CX, HDR_CY) and then moved HDR_SHIFT px to the right. Art coordinates (3px white edge trimmed).
+HDR_SCALE, HDR_CX, HDR_CY, HDR_SHIFT = 1.14, 793.0, 236.0, 140
+TAG_X, DATE_BASE_Y, DATE_PT = 421.0, 360.0, 44
 
 
 def make_issue_header(dt, out_path):
-    """The dateless header + '<WEEKDAY>, <MONTH> <D>, <YEAR>' at the designer's spot (x=424, baseline y=363 on the 2048px art)."""
+    """The group-adjusted header + '<WEEKDAY>, <MONTH> <D>, <YEAR>' under the (scaled) tagline, in the designer's date font."""
     im = Image.open(BASE_HEADER).convert("RGB")
     d = ImageDraw.Draw(im)
     text = f"{dt.strftime('%A, %B')} {dt.day}, {dt.year}".upper()
-    font = ImageFont.truetype(FONT, 44)
-    x, spacing = 421.0 + 140, 6.2      # 140 = the shift make_header_centered.py applied to the title group (art is trimmed 3px)
+    sc = HDR_SCALE
+    font = ImageFont.truetype(FONT, round(DATE_PT * sc))
+    x = HDR_CX + (TAG_X - HDR_CX) * sc + HDR_SHIFT
+    y = HDR_CY + (DATE_BASE_Y - HDR_CY) * sc
+    spacing = 6.2 * sc
     for ch in text:
-        d.text((x, 360), ch, font=font, fill=(176, 193, 221), anchor="ls")
+        d.text((x, y), ch, font=font, fill=(176, 193, 221), anchor="ls")
         x += d.textlength(ch, font=font) + spacing
     im.save(out_path, optimize=True)
     return out_path

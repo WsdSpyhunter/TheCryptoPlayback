@@ -187,10 +187,10 @@ def bottom_line(live, intro):
 # ------------------------------------------------------------------ sections
 
 def top_bar(kicker, issue_no, view_url):
-    return (f'<tr><td style="background:{NAVY_TOP};padding:12px 40px;" class="v3-pad">'
+    return (f'<tr><td style="background:{NAVY_TOP};padding:6px 40px;" class="v3-pad">'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
-            f'<td style="font-family:{COND};font-weight:500;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{DK_SOFT};">{kicker} &middot; No. {issue_no}</td>'
-            f'<td align="right" style="font-family:{COND};font-weight:500;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;">'
+            f'<td style="font-family:{COND};font-weight:500;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:{DK_SOFT};">{kicker} &middot; No. {issue_no}</td>'
+            f'<td align="right" style="font-family:{COND};font-weight:500;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">'
             f'<a href="{view_url}" style="color:{BRASS_HI} !important;text-decoration:none;"><span style="color:{BRASS_HI} !important;">View in browser</span></a></td>'
             f'</tr></table></td></tr>')
 

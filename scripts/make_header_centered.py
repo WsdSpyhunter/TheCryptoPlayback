@@ -13,12 +13,15 @@ import sys
 import numpy as np
 from PIL import Image
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from email_images import HDR_SCALE, HDR_CX, HDR_CY, HDR_SHIFT
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.expanduser("~/Downloads/crypto-playback-newsletter zip/assets/TCP_Header_1_2.png")
 OUT = os.path.join(ROOT, "assets", "email-v3-header.png")
 if not os.path.exists(SRC):
     SRC = os.path.join(ROOT, "docs", "newsletter-v3-design", "assets", "TCP_Header_1_2.png")
-SHIFT = 140                  # pixels (on the 2042px-wide art) the group moves right
+SHIFT = HDR_SHIFT            # pixels (on the 2042px-wide art) the group moves right
 TRIM = 3                     # white edge to cut off
 LINE_MIN = 40                # luminance above which a pixel can be part of a candle line
 
@@ -117,17 +120,17 @@ def build():
         return np.asarray(m.filter(ImageFilter.GaussianBlur(blur))).astype(float) / 255.0
 
     out = bg.copy()
-    src = a
+    sc = HDR_SCALE
+    coef = (1 / sc, 0, HDR_CX - (HDR_CX + SHIFT) / sc, 0, 1 / sc, HDR_CY - HDR_CY / sc)   # output -> input (scale about the anchor, then shift)
+    src_img = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+    moved = np.asarray(src_img.transform((w, h), Image.AFFINE, coef, Image.BICUBIC)).astype(float)
     for mask, blur in ((mascot_box, 6), (text_keep, 0.8)):
-        alpha = soft(mask, blur)
-        sh_alpha = np.zeros_like(alpha); sh_src = np.zeros_like(src)
-        sh_alpha[:, SHIFT:] = alpha[:, :w - SHIFT]; sh_src[:, SHIFT:] = src[:, :w - SHIFT]
-        out = out * (1 - sh_alpha[..., None]) + sh_src * sh_alpha[..., None]
+        alpha_img = Image.fromarray((soft(mask, blur) * 255).astype(np.uint8))
+        alpha = np.asarray(alpha_img.transform((w, h), Image.AFFINE, coef, Image.BICUBIC)).astype(float) / 255.0
+        out = out * (1 - alpha[..., None]) + moved * alpha[..., None]
     Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)).save(OUT, optimize=True)
     return OUT, (w, h)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        SHIFT = int(sys.argv[1])
     print(build())
