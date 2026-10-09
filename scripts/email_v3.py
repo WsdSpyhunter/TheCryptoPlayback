@@ -224,7 +224,7 @@ def price_strip(prices, caption):
 
 
 def bottom_line_section(live, intro, base):
-    return (f'<tr><td style="padding:36px 40px;" class="v3-pad">{section_title("bottom_line", "The Bottom Line", base)}'
+    return (f'<tr><td style="padding:34px 40px 36px;" class="v3-pad">{section_title("bottom_line", "The Bottom Line", base)}'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{bottom_line(live, intro)}</table></td></tr>')
 
 
@@ -233,7 +233,7 @@ def snapshot_section(live, gauge_url, base):
     cls = str(fng["classification"])
     v = fng["value"]
     tone = POS_TX if v >= 55 else (NEG_BG if v <= 45 else MUTED)
-    return (f'<tr><td style="padding:34px 40px 36px;" class="v3-pad">'
+    return (f'<tr><td style="padding:34px 40px 0;" class="v3-pad">'
             f'{section_title("snapshot", "Market Snapshot", base, f"Updated {live["date_abbrev"]} &middot; {live["total_count"]} indicators", 18)}'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:{IVORY};border:1px solid {LINE};"><tr>'
             f'<td class="v3-stack" width="210" align="center" valign="middle" style="width:210px;padding:22px 10px 22px 26px;">'
