@@ -65,6 +65,20 @@ def render_arrow():
         Image.open(sp).convert("RGBA").save(os.path.join(OUT, "arrow-notable.png"), optimize=True)
 
 
+def render_red_arrow():
+    """The website's big red arrow for the 'story you may have missed' card: pointing right (desktop) and down (phones)."""
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" width="136" height="102" viewBox="0 0 64 48">'
+           '<path d="M3 18h31V4l27 20-27 20V30H3z" fill="#E5382D"/></svg>')
+    with tempfile.TemporaryDirectory() as td:
+        hp, sp = os.path.join(td, "a.html"), os.path.join(td, "a.png")
+        open(hp, "w").write(f'<html><body style="margin:0;background:transparent">{svg}</body></html>')
+        subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--default-background-color=00000000",
+                        "--window-size=136,102", f"--screenshot={sp}", f"file://{hp}"], check=True, capture_output=True)
+        right = Image.open(sp).convert("RGBA")
+    right.save(os.path.join(OUT, "arrow-red.png"), optimize=True)
+    right.rotate(-90, expand=True).save(os.path.join(OUT, "arrow-red-down.png"), optimize=True)
+
+
 def make_dateless_header(src):
     """Paint the baked-in date (it sits on plain navy, clear of the candlesticks) out of the designer's header."""
     im = Image.open(src).convert("RGB")
@@ -79,6 +93,7 @@ def make_dateless_header(src):
 if __name__ == "__main__":
     print("icons:", render_icons())
     render_arrow()
+    render_red_arrow()
     src = os.path.expanduser("~/Downloads/crypto-playback-newsletter zip/assets/TCP_Header_1_2.png")
     make_dateless_header(src)
     print("done")

@@ -80,7 +80,7 @@ def _kind(positive):
 
 def section_title(key, title, base, meta="", pad_bottom=20):
     """White shadow box with icon + title sitting on a 2px navy rule (light sections)."""
-    meta_cell = (f'<td align="right" valign="bottom" style="padding:0 0 12px 12px;font-family:{SANS};font-size:12px;color:{MUTED};">{meta}</td>'
+    meta_cell = (f'<td class="v3-tmeta" align="right" valign="bottom" style="padding:0 0 12px 12px;font-family:{SANS};font-size:12px;color:{MUTED};">{meta}</td>'
                  if meta else "")
     return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
             f'style="border-bottom:2px solid {NAVY};margin:0 0 {pad_bottom}px 0;"><tr>'
@@ -88,13 +88,13 @@ def section_title(key, title, base, meta="", pad_bottom=20):
             f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
             f'style="background:#FFFFFF;border:1px solid {LINE};box-shadow:0 4px 14px rgba(11,31,58,0.16);"><tr>'
             f'<td style="padding:10px 0 10px 18px;" valign="middle">{icon(key, "ink", 22, base)}</td>'
-            f'<td style="padding:10px 18px 10px 10px;font-family:{SANS};font-weight:600;font-size:14px;letter-spacing:0.14em;'
+            f'<td class="v3-ttxt" style="padding:10px 18px 10px 10px;font-family:{SANS};font-weight:600;font-size:14px;letter-spacing:0.14em;'
             f'text-transform:uppercase;color:{NAVY};white-space:nowrap;" valign="middle">{title}</td>'
             f'</tr></table></td>{meta_cell}</tr></table>')
 
 
 def dark_title(key, title, base, meta="", margin="0 0 18px 0"):
-    meta_cell = (f'<td align="right" valign="middle" style="padding:0 0 10px 12px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td>'
+    meta_cell = (f'<td class="v3-tmeta" align="right" valign="middle" style="padding:0 0 10px 12px;font-family:{SANS};font-size:12px;color:{DK_MUTED};">{meta}</td>'
                  if meta else "")
     return (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
             f'style="border-bottom:1px solid {NAVY_LINE};margin:{margin};"><tr>'
@@ -228,28 +228,36 @@ def snapshot_section(live, gauge_url, base):
             f'</tr></table></td></tr>')
 
 
+def _clip(text, limit=300):
+    """First sentence(s) up to ~limit characters, ending on a sentence or word boundary (the website shows three lines)."""
+    t = re.sub(r"\s+", " ", text).strip()
+    if len(t) <= limit:
+        return t
+    cut = t[:limit]
+    end = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+    if end > limit * 0.5:
+        return cut[:end + 1]
+    return cut.rsplit(" ", 1)[0].rstrip(",;:") + "\u2026"
+
+
 def notable_section(missed, base):
+    """'Here's a story you may have missed!': the website's card (navy, brass frame, big red arrow, coral title)."""
     if not missed:
         return ""
-    body = re.sub(r"</p>\s*<p[^>]*>", "<br><br>", missed["body"])
-    body = re.sub(r"</?p[^>]*>", "", body).strip()
-    badge = (f'<table role="presentation" align="right" cellpadding="0" cellspacing="0" border="0"><tr>'
-             f'<td valign="bottom" style="padding-right:4px;"><img src="{base}/email-v3/arrow-notable.png" width="40" height="36" alt="" style="display:block;width:40px;height:36px;border:0;"></td>'
-             f'<td style="background:{NAVY};border-bottom:3px solid {BRASS};padding:7px 14px;font-family:{SANS};font-weight:600;font-size:12px;'
-             f'letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_HI};white-space:nowrap;">A story you may have missed</td></tr></table>')
-    return (f'<tr><td style="background:{IVORY};padding:32px 40px 30px;border-top:1px solid {LINE};border-bottom:1px solid {LINE};" class="v3-pad">'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom:2px solid {NAVY};margin:0 0 20px;"><tr>'
-            f'<td valign="bottom" style="padding:0 0 10px;">'
-            f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="background:#FFFFFF;border:1px solid {LINE};box-shadow:0 4px 14px rgba(11,31,58,0.16);"><tr>'
-            f'<td style="padding:10px 0 10px 18px;">{icon("notable", "ink", 22, base)}</td>'
-            f'<td style="padding:10px 18px 10px 10px;font-family:{SANS};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{NAVY};">Notable</td>'
-            f'</tr></table></td><td align="right" valign="bottom" style="padding:0 0 12px 12px;">{badge}</td></tr></table>'
-            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
-            f'<td width="82" valign="top" class="v3-tilecell" style="width:82px;padding-right:18px;">{story_tile("notable", base)}</td>'
-            f'<td valign="top"><div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_TX};margin-bottom:6px;">Notable &middot; {escape(missed["source_title"])}</div>'
-            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{NAVY};margin-bottom:8px;">{missed["headline"]}</div>'
-            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:10px;">{body}</div>'
-            f'<a href="{missed["source_url"]}" style="font-family:{SANS};font-size:13px;font-weight:600;color:{BRASS_TX} !important;text-decoration:none;"><span style="color:{BRASS_TX} !important;">Read at {escape(missed["source_title"])} &rarr;</span></a>'
+    body = re.sub(r"</p>\s*<p[^>]*>", " ", missed["body"])
+    body = _clip(re.sub(r"</?p[^>]*>", "", body))
+    return (f'<tr><td style="padding:0 40px 34px;" class="v3-pad">'
+            f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
+            f'style="background:{NAVY};border:2px solid {BRASS};box-shadow:0 6px 18px rgba(11,31,58,0.28);"><tr>'
+            f'<td class="v3-missed-arrow" width="104" align="center" valign="middle" style="width:104px;padding:22px 0 22px 20px;">'
+            f'<img class="v3-arrow-r" src="{base}/email-v3/arrow-red.png" width="68" height="51" alt="" style="display:block;width:68px;height:51px;border:0;margin:0 auto;">'
+            f'<img class="v3-arrow-d" src="{base}/email-v3/arrow-red-down.png" width="45" height="60" alt="" style="display:none;width:45px;height:60px;border:0;margin:0 auto;"></td>'
+            f'<td class="v3-missed-text" valign="middle" style="padding:20px 26px 20px 10px;">'
+            f'<div style="font-family:{COND};font-weight:700;font-size:17px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6F61;">Here&rsquo;s A Story You May Have Missed!</div>'
+            f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{IVORY};margin:6px 0 8px;">{missed["headline"]}</div>'
+            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{DK_TEXT};margin-bottom:8px;">{body}</div>'
+            f'<a href="{missed["source_url"]}" style="font-family:{SANS};font-size:14px;font-weight:600;color:{BRASS_HI} !important;text-decoration:none;">'
+            f'<span style="color:{BRASS_HI} !important;">Read more at {escape(missed["source_title"])} &rarr;</span></a>'
             f'</td></tr></table></td></tr>')
 
 
@@ -476,6 +484,12 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
   .v3-cc {{ display:inline-block !important; width:50% !important; box-sizing:border-box !important; }}
   .v3-acrow {{ display:block !important; }}
   .v3-ac {{ display:block !important; width:100% !important; box-sizing:border-box !important; padding:5px 0 !important; }}
+  .v3-missed-arrow {{ display:block !important; width:100% !important; box-sizing:border-box !important; padding:18px 0 0 !important; }}
+  .v3-missed-text {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding:10px 18px 20px !important; }}
+  .v3-arrow-r {{ display:none !important; }}
+  .v3-arrow-d {{ display:block !important; }}
+  .v3-tmeta {{ display:block !important; width:100% !important; box-sizing:border-box !important; text-align:left !important; padding:0 0 10px 0 !important; }}
+  .v3-ttxt {{ white-space:normal !important; }}
   .v3-tilecell {{ width:56px !important; padding-right:12px !important; }}
   .v3-tile, .v3-tile td {{ width:52px !important; height:52px !important; }}
 }}
