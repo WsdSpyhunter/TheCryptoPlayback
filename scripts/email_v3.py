@@ -356,7 +356,7 @@ def dashboard_panel(live, base):
             f'It is not institutional transaction data. <a href="{SITE_URL}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Full methodology</span></a></div>'
             f'{dark_title("changed", "What Changed", base, "vs. ~24 hours ago", "34px 0 6px 0")}'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{ch}</table>'
-            f'<div style="padding-top:12px;font-family:{SANS};font-size:13px;line-height:1.5;color:{DK_MUTED};">Each indicator is compared with its own reading from about 24 hours earlier. ETF flow compares to the prior trading day.</div>'
+            f'<div style="padding-top:12px;text-align:center;font-family:{SANS};font-size:13px;line-height:1.5;color:{DK_MUTED};">Each indicator is compared with its own reading from about 24 hours earlier. ETF flow compares to the prior trading day.</div>'
             f'</td></tr>')
 
 
