@@ -52,7 +52,7 @@ TAGS = {
 
 TAG_CLS = {"R": "retail", "I": "inst", "A": "all"}
 SEC_ICONS = {"start": "book", "tools": "network_health", "institutional": "structure", "protect": "risk_radar",
-             "reading": "news", "signals": "alerts", "glossary": "book"}
+             "reading": "news", "listen": "mic", "signals": "alerts", "glossary": "book"}
 
 
 def _card(source, title, desc, url, tag):
@@ -177,7 +177,7 @@ def _build_resources():
         '<p class="v2-arch-sub">Tools, research and reading for retail and institutional investors.</p>'
         '<div class="v2-res-legend"><span class="v2-res-tag v2-res-retail">Retail</span><span class="v2-res-tag v2-res-inst">Institutional</span><span class="v2-res-tag v2-res-all">All levels</span></div>'
         '<nav class="pro-jump" aria-label="Resource sections"><a href="#start">Start Here</a><a href="#tools">Tools</a><a href="#institutional">Institutional</a>'
-        '<a href="#protect">Protect &amp; Plan</a><a href="#reading">Essential Reading</a><a href="#signals">Our Signals</a><a href="#glossary">Glossary</a></nav>'
+        '<a href="#protect">Protect &amp; Plan</a><a href="#reading">Essential Reading</a><a href="#listen">Listen</a><a href="#signals">Our Signals</a><a href="#glossary">Glossary</a></nav>'
         '</div></section>'
     )
     start = _section("start", "ivory", "New to Crypto", "Start Here",
@@ -205,9 +205,26 @@ def _build_resources():
         '</div></section>'
     )
 
+    spotify = "https://open.spotify.com/show/03UqgZlYo6VpsfuUrCZlN2?si=0c4aad0b22a348c8"
+    listen = (
+        '<section class="v2-section v2-section-white" id="listen" aria-labelledby="listen-h"><div class="v2-wrap">'
+        f'{ui.title_box(SEC_ICONS["listen"], "<span id=\'listen-h\'>Listen</span>", "Podcasts")}'
+        '<p class="v2-lead">Bitcoin and markets, in your ears. Shows we like and recommend.</p>'
+        f'<a class="v2-res-feature" href="{spotify}" target="_blank" rel="noopener noreferrer">'
+        '<img class="v2-res-feature-img" src="assets/resources/the-money-block-thumb.jpg" width="520" height="287" '
+        'alt="The Money Block with Matthew J. Moore: Bitcoin and markets, featured on BizTV and Biz Talk Radio" loading="lazy">'
+        '<span class="v2-res-feature-body">'
+        '<span class="v2-res-top"><span class="v2-res-source">Spotify &middot; Podcast</span><span class="v2-res-tag v2-res-all">All levels</span></span>'
+        '<h3>The Money Block</h3>'
+        '<span class="v2-res-feature-by">with Matthew J. Moore</span>'
+        '<p>A weekly Bitcoin and money show on BizTV and Biz Talk Radio, Saturdays at 3 PM ET. Clear conversation on Bitcoin, markets and what moves them.</p>'
+        '<span class="v2-res-go">Listen on Spotify &rarr;</span></span></a>'
+        '</div></section>'
+    )
+
     chips = "".join(f'<a href="{href}">{label}</a>' for href, label in SIGNALS)
     signals = (
-        '<section class="v2-section v2-section-white" id="signals" aria-labelledby="signals-h"><div class="v2-wrap">'
+        '<section class="v2-section" id="signals" aria-labelledby="signals-h"><div class="v2-wrap">'
         f'{ui.title_box(SEC_ICONS["signals"], "<span id=\'signals-h\'>Know Your Signals</span>", "On This Site")}'
         '<p class="v2-lead">Every indicator on our dashboard has its own page explaining what it measures and how it is scored. '
         'For deeper market-structure research, see the <a href="playback-lab.html">Playback Lab</a>.</p>'
@@ -216,7 +233,7 @@ def _build_resources():
 
     terms = "".join(f'<div class="v2-res-term"><dt>{t}</dt><dd>{d}</dd></div>' for t, d in GLOSSARY)
     glossary = (
-        '<section class="v2-section" id="glossary" aria-labelledby="glossary-h"><div class="v2-wrap">'
+        '<section class="v2-section v2-section-white" id="glossary" aria-labelledby="glossary-h"><div class="v2-wrap">'
         f'{ui.title_box(SEC_ICONS["glossary"], "<span id=\'glossary-h\'>Glossary</span>", "Plain English")}'
         '<p class="v2-lead">The terms you will run into most often here and in the newsletter.</p>'
         f'<dl class="v2-res-gloss">{terms}</dl>'
@@ -228,7 +245,7 @@ def _build_resources():
         'Nothing here is financial advice &mdash; see the note at the bottom of every page for the full disclosure.</p>'
         '</div></section>'
     )
-    return hero + start + tools + inst + protect + reading + signals + glossary
+    return hero + start + tools + inst + protect + reading + listen + signals + glossary
 
 
 RESOURCES_BODY = _build_resources()
