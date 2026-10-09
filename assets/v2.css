@@ -843,3 +843,9 @@ body.v2 { overflow-x: clip; }
 /* Playback Lab: brass rule above Basis-Trade, Net Liquidity and Stablecoin sections */
 #basis, #liquidity, #stables { border-top: 3px solid var(--brass); }
 #stables { padding-top: 56px; }
+
+/* Playback Lab: brass rule above Miner Stress, Crowded Unwind Risk and Methodology as well */
+#miners, #unwind, #sources { border-top: 3px solid var(--brass); }
+#miners, #sources { padding-top: 56px; }
+#unwind { padding-top: 64px; }
+@media (max-width: 860px) { #unwind { padding-top: 44px; } }
