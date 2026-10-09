@@ -228,16 +228,25 @@ def snapshot_section(live, gauge_url, base):
             f'</tr></table></td></tr>')
 
 
-def _clip(text, limit=300):
-    """First sentence(s) up to ~limit characters, ending on a sentence or word boundary (the website shows three lines)."""
+def _clip(text, limit=200):
+    """One or two sentences, at most ~`limit` characters (a long first sentence is cut at a word with an ellipsis)."""
     t = re.sub(r"\s+", " ", text).strip()
-    if len(t) <= limit:
-        return t
-    cut = t[:limit]
-    end = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
-    if end > limit * 0.5:
-        return cut[:end + 1]
-    return cut.rsplit(" ", 1)[0].rstrip(",;:") + "\u2026"
+    sentences = re.split(r"(?<=[.!?])\s+", t)
+    out = sentences[0]
+    if len(out) > limit:
+        cut = out[:limit]
+        comma = cut.rfind(",")
+        if comma > limit * 0.55:                       # stop at a natural pause
+            cut = cut[:comma]
+        else:
+            cut = cut.rsplit(" ", 1)[0]
+        for q in ("'", '"'):                           # never leave a quotation open
+            if cut.count(q) % 2 == 1 and q in cut[1:]:
+                cut = cut[:cut.rfind(q)]
+        return cut.rstrip(",;:. ") + "\u2026"
+    if len(sentences) > 1 and len(out) + 1 + len(sentences[1]) <= limit:
+        out += " " + sentences[1]
+    return out
 
 
 def notable_section(missed, base):
@@ -249,13 +258,13 @@ def notable_section(missed, base):
     return (f'<tr><td style="padding:0 40px 34px;" class="v3-pad">'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
             f'style="background:{NAVY};border:2px solid {BRASS};box-shadow:0 6px 18px rgba(11,31,58,0.28);"><tr>'
-            f'<td class="v3-missed-arrow" width="104" align="center" valign="middle" style="width:104px;padding:22px 0 22px 20px;">'
+            f'<td class="v3-missed-arrow" width="104" align="center" valign="middle" style="width:104px;padding:16px 0 16px 20px;">'
             f'<img class="v3-arrow-r" src="{base}/email-v3/arrow-red.png" width="68" height="51" alt="" style="display:block;width:68px;height:51px;border:0;margin:0 auto;">'
             f'<img class="v3-arrow-d" src="{base}/email-v3/arrow-red-down.png" width="45" height="60" alt="" style="display:none;width:45px;height:60px;border:0;margin:0 auto;"></td>'
-            f'<td class="v3-missed-text" valign="middle" style="padding:20px 26px 20px 10px;">'
+            f'<td class="v3-missed-text" valign="middle" style="padding:16px 26px 16px 10px;">'
             f'<div style="font-family:{COND};font-weight:700;font-size:17px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6F61;">Here&rsquo;s A Story You May Have Missed!</div>'
             f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;color:{IVORY};margin:6px 0 8px;">{missed["headline"]}</div>'
-            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{DK_TEXT};margin-bottom:8px;">{body}</div>'
+            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.55;color:{DK_TEXT};margin-bottom:6px;">{body}</div>'
             f'<a href="{missed["source_url"]}" style="font-family:{SANS};font-size:14px;font-weight:600;color:{BRASS_HI} !important;text-decoration:none;">'
             f'<span style="color:{BRASS_HI} !important;">Read more at {escape(missed["source_title"])} &rarr;</span></a>'
             f'</td></tr></table></td></tr>')
