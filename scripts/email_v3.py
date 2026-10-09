@@ -510,7 +510,7 @@ def footer_section(live, prices_stamp, base, year):
             f'<div style="font-family:{SANS};font-size:12.5px;line-height:1.65;color:{DK_SOFT};padding-top:16px;">{disclaimer}</div>'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;"><tr>'
             f'<td valign="top" style="font-family:{SANS};font-size:12.5px;color:{DK_SOFT};">&copy; {year} The Crypto Playback &middot; <span style="white-space:nowrap;">info&#8203;@cryptoplayback.com</span></td>'
-            f'<td align="right" valign="top" style="font-family:{SANS};font-size:12.5px;white-space:nowrap;padding-left:14px;"><a href="{unsub}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Unsubscribe</span></a></td>'
+            f'<td align="right" valign="top" style="font-family:{SANS};font-size:12.5px;white-space:nowrap;padding-left:14px;"><a href="{SITE_URL}terms.html" style="color:{DK_SOFT} !important;"><span style="color:{DK_SOFT} !important;">Terms</span></a> &middot; <a href="{unsub}" style="color:{BRASS_HI} !important;"><span style="color:{BRASS_HI} !important;">Unsubscribe</span></a></td>'
             f'</tr></table></td></tr>')
 
 

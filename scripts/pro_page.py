@@ -804,7 +804,7 @@ def sec_stables(s):
 def sec_sources():
     head = ui.title_box("book", '<span id="sources-h">Methodology, Data Sources &amp; Limits</span>', "Everything is free public data")
     body = """<p class="pro-lead">Every number on this page is computed from free public data with no paid vendor and no API key. The formulas are
-    published beside each indicator and in the open source code (<code>scripts/pro/</code>).</p>
+    documented beside each indicator.</p>
     <div class="pro-sources">
       <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
       <div><h3>Miners and the Bitcoin network</h3><p>mempool.space's open public API: hashrate and price history, difficulty adjustments, block rewards and fees, and mining-pool shares.</p></div>
