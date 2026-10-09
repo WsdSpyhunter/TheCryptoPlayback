@@ -62,6 +62,7 @@ def robots_txt():
     return f"""User-agent: *
 Allow: /
 Disallow: /go/
+Disallow: /docs/
 
 Sitemap: {SITE_URL}/sitemap.xml
 """
