@@ -64593,5 +64593,176 @@
       "dxy_change_pct": 0.018
     },
     "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-10-10T08:46:16.572001+00:00",
+    "prices": [
+      {
+        "id": "bitcoin",
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 82733,
+        "change_24h": 0.30012,
+        "change_7d": -2.1677
+      },
+      {
+        "id": "ethereum",
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2491.83,
+        "change_24h": -0.16609,
+        "change_7d": -6.9557
+      },
+      {
+        "id": "binancecoin",
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 749.12,
+        "change_24h": 0.91368,
+        "change_7d": -2.2197
+      },
+      {
+        "id": "ripple",
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.41,
+        "change_24h": 0.32427,
+        "change_7d": -5.4008
+      },
+      {
+        "id": "solana",
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 109.77,
+        "change_24h": -0.28891,
+        "change_7d": -8.0443
+      },
+      {
+        "id": "tron",
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.330837,
+        "change_24h": -0.36426,
+        "change_7d": -1.2548
+      }
+    ],
+    "fng": {
+      "value": 64,
+      "classification": "Greed"
+    },
+    "mover": {
+      "id": "hyperliquid",
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "price": 84.35,
+      "change_24h": -1.4836,
+      "change_7d": -4.2736
+    },
+    "week_mover": {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 109.77,
+      "change_24h": -0.28891,
+      "change_7d": -8.0443
+    },
+    "sectors": [
+      {
+        "label": "AI",
+        "change_24h": 3.1935061188389806
+      },
+      {
+        "label": "L2",
+        "change_24h": 2.5832605419333508
+      },
+      {
+        "label": "DePIN",
+        "change_24h": 1.9881709045780374
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 310765599461.05,
+      "change_7d_pct": -0.256454708445087
+    },
+    "dominance": {
+      "btc_dominance_pct": 59.10918800003627,
+      "total_market_cap_usd": 2806591319691.2026
+    },
+    "leverage": {
+      "funding_rate_pct": 0.0037936717662700003,
+      "next_funding_time_ms": 1791676800000,
+      "open_interest_usd": 2488515618.2528296
+    },
+    "defi_tvl": {
+      "total_usd": 91853114916.0,
+      "change_7d_pct": -3.191499185717951
+    },
+    "network_health": {
+      "hashrate_eh": 979.324954852287,
+      "difficulty_change_pct": 3.150397343721578,
+      "fastest_fee_satvb": 2,
+      "pending_tx_count": 80343
+    },
+    "liquidations": {
+      "long_liq_usd": 338106.8416699999,
+      "short_liq_usd": 403340.8576499999,
+      "event_count": 100,
+      "window_minutes": 831.7420166666667
+    },
+    "whale_activity": {
+      "amounts_btc": [
+        68.02113335,
+        66.5532519,
+        62.77602673,
+        56.82353151,
+        56.82222627,
+        43.97823551,
+        39.26802286,
+        38.59629019,
+        30.58114875,
+        30.57444418,
+        24.78110795,
+        24.24078897,
+        19.92995024,
+        15.94202157,
+        11.15888154,
+        10.76707278,
+        10.71545273,
+        10.42036744,
+        10.29025013,
+        10.27074175,
+        9.79999731,
+        9.79999731,
+        9.79999729,
+        9.79999729,
+        9.79999729,
+        9.79999729,
+        9.79999729,
+        9.79999729,
+        9.79999291,
+        9.57404997,
+        9.55237798,
+        9.22884891,
+        8.36503058,
+        8.03696794,
+        7.68386513,
+        6.83954801,
+        6.26985288,
+        5.62027048,
+        5.62026481,
+        5.53629802,
+        5.11898497,
+        5.09332317,
+        5.00111797
+      ],
+      "sample_size": 1000
+    },
+    "macro": {
+      "vix": 14.84,
+      "vix_change_pct": -3.699,
+      "dxy": 102.231,
+      "dxy_change_pct": 0.018
+    },
+    "gauge_path": "assets/gauges/live.png"
   }
 ]
