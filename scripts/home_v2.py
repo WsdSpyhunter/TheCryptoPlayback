@@ -262,24 +262,21 @@ def subscribe():
       <p class="v2-fine-light">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</p>
       <script>
       (function () {
+        // The form posts straight to Buttondown in a NEW TAB so the real result (confirmation or an error such as
+        // "already subscribed") is always visible. This page then shows a short note and a link to our archive.
         var f = document.getElementById('sub-form');
-        if (!f || !window.fetch || !window.FormData) { return; }
-        f.addEventListener('submit', function (e) {
-          e.preventDefault();
-          var btn = f.querySelector('button'), email = f.querySelector('[name=email]').value;
-          btn.disabled = true; btn.textContent = 'Subscribing...';
-          fetch(f.action, { method: 'POST', mode: 'no-cors', body: new FormData(f) }).then(function () {
+        if (!f) { return; }
+        f.addEventListener('submit', function () {
+          var email = f.querySelector('[name=email]').value;
+          setTimeout(function () {
             var done = document.createElement('div');
             done.className = 'v2-sub-done'; done.setAttribute('role', 'status');
-            var h = document.createElement('strong'); h.textContent = "You're almost in.";
-            var p = document.createElement('p'); p.textContent = 'We sent a confirmation email to ' + email + '. Click the link inside to finish. If you don\u2019t see it, check spam or Promotions.';
+            var h = document.createElement('strong'); h.textContent = 'One more step.';
+            var p = document.createElement('p'); p.textContent = 'A new tab just opened to confirm ' + email + '. Finish there, then look for our confirmation email (check spam or Promotions). If no tab opened, allow pop-ups for this site and try again.';
             var a = document.createElement('a'); a.href = 'archive.html'; a.className = 'v2-btn v2-btn-brass'; a.textContent = 'Browse the archive';
             done.appendChild(h); done.appendChild(p); done.appendChild(a);
             f.parentNode.replaceChild(done, f);
-          }).catch(function () {
-            btn.disabled = false; btn.textContent = 'Subscribe';
-            HTMLFormElement.prototype.submit.call(f);       // fall back to a normal form post in a new tab
-          });
+          }, 600);
         });
       })();
       </script>
