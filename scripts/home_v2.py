@@ -252,7 +252,7 @@ def subscribe():
       <h2 id="subscribe-h">Subscribe for free and don't miss another top story</h2>
       <p>One concise briefing every morning: live market signals, what changed overnight, and the stories that matter
       for Bitcoin and digital assets. Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
-      <form class="v2-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/cryptoplayback', 'popupwindow')">
+      <form class="v2-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="_blank" id="sub-form">
         <label class="v2-sr" for="sub-name">First name</label>
         <input id="sub-name" type="text" name="metadata__first_name" placeholder="First name" autocomplete="given-name" required>
         <label class="v2-sr" for="sub-email">Email address</label>
@@ -260,6 +260,29 @@ def subscribe():
         <button type="submit" class="v2-btn v2-btn-brass">Subscribe</button>
       </form>
       <p class="v2-fine-light">Free (for now). Unsubscribe anytime. No spam. We don't share your info.</p>
+      <script>
+      (function () {
+        var f = document.getElementById('sub-form');
+        if (!f || !window.fetch || !window.FormData) { return; }
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var btn = f.querySelector('button'), email = f.querySelector('[name=email]').value;
+          btn.disabled = true; btn.textContent = 'Subscribing...';
+          fetch(f.action, { method: 'POST', mode: 'no-cors', body: new FormData(f) }).then(function () {
+            var done = document.createElement('div');
+            done.className = 'v2-sub-done'; done.setAttribute('role', 'status');
+            var h = document.createElement('strong'); h.textContent = "You're almost in.";
+            var p = document.createElement('p'); p.textContent = 'We sent a confirmation email to ' + email + '. Click the link inside to finish. If you don\u2019t see it, check spam or Promotions.';
+            var a = document.createElement('a'); a.href = 'archive.html'; a.className = 'v2-btn v2-btn-brass'; a.textContent = 'Browse the archive';
+            done.appendChild(h); done.appendChild(p); done.appendChild(a);
+            f.parentNode.replaceChild(done, f);
+          }).catch(function () {
+            btn.disabled = false; btn.textContent = 'Subscribe';
+            HTMLFormElement.prototype.submit.call(f);       // fall back to a normal form post in a new tab
+          });
+        });
+      })();
+      </script>
     </div>
   </div>
 </section>"""

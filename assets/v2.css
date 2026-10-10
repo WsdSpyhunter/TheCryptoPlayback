@@ -853,3 +853,10 @@ body.v2 { overflow-x: clip; }
 /* Terms page: left-aligned reading text in cards, centered on phones like the About page */
 .v2-about-card h2 { margin: 0 0 10px; }
 .v2-about-card a { color: var(--brass-text); font-weight: 600; }
+
+/* Subscribe form: inline thank-you instead of sending people to Buttondown */
+.v2-sub-done { background: rgba(255,255,255,.07); border: 1px solid var(--brass-hi); padding: 18px 22px; max-width: 520px; color: var(--ivory); }
+.v2-sub-done strong { display: block; font-family: var(--f-head); font-size: 22px; color: var(--brass-hi); margin-bottom: 6px; }
+.v2-sub-done p { margin: 0 0 14px; font-size: 16px; line-height: 1.55; color: var(--dark-text); }
+@media (max-width: 700px) { .v2-sub-done { text-align: center; margin-left: auto; margin-right: auto; } }
+.v2-sub-done { margin-top: 18px; }
