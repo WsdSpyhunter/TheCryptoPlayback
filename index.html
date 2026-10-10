@@ -344,7 +344,7 @@
           e.preventDefault();
           var btn = f.querySelector('button'), email = f.querySelector('[name=email]').value;
           btn.disabled = true; btn.textContent = 'Subscribing...';
-          fetch(f.action, { method: 'POST', mode: 'no-cors', body: new FormData(f) }).then(function () {
+          fetch(f.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(f)) }).then(function () {
             var done = document.createElement('div');
             done.className = 'v2-sub-done'; done.setAttribute('role', 'status');
             var h = document.createElement('strong'); h.textContent = "You're almost in.";
