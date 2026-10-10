@@ -275,9 +275,13 @@ def subscribe():
             var done = document.createElement('div');
             done.className = 'v2-sub-done'; done.setAttribute('role', 'status');
             var h = document.createElement('strong'); h.textContent = "You're almost in.";
-            var p = document.createElement('p'); p.textContent = 'We sent a confirmation email to ' + email + '. Click the link inside to finish. Not there after a few minutes? Check spam or Promotions, or write to info@cryptoplayback.com.';
+            var p = document.createElement('p'); p.textContent = 'We sent a confirmation email to ' + email + '. Click the link inside to finish. Not there after a few minutes? Check spam or Promotions.';
+            var p2 = document.createElement('p'); p2.className = 'v2-sub-alt';
+            p2.appendChild(document.createTextNode('Still nothing? '));
+            var alt = document.createElement('a'); alt.href = 'https://buttondown.com/cryptoplayback'; alt.target = '_blank'; alt.rel = 'noopener'; alt.textContent = 'Subscribe on Buttondown instead';
+            p2.appendChild(alt); p2.appendChild(document.createTextNode(' (it can ask you to verify you are human), or write to info@cryptoplayback.com.'));
             var a = document.createElement('a'); a.href = 'archive.html'; a.className = 'v2-btn v2-btn-brass'; a.textContent = 'Browse the archive';
-            done.appendChild(h); done.appendChild(p); done.appendChild(a);
+            done.appendChild(h); done.appendChild(p); done.appendChild(p2); done.appendChild(a);
             f.parentNode.replaceChild(done, f);
           }).catch(function () {
             btn.disabled = false; btn.textContent = 'Subscribe';

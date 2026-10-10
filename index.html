@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Franklin:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/v2.css?v=30442449bc">
+<link rel="stylesheet" href="assets/v2.css?v=9f9ace166f">
 <link rel="icon" type="image/png" href="assets/v2/favicon.png?v=ef227f90c5">
 <link rel="apple-touch-icon" href="assets/v2/apple-touch-icon.png">
 <link rel="alternate" type="application/rss+xml" title="The Crypto Playback" href="https://cryptoplayback.com/feed.xml">
@@ -348,9 +348,13 @@
             var done = document.createElement('div');
             done.className = 'v2-sub-done'; done.setAttribute('role', 'status');
             var h = document.createElement('strong'); h.textContent = "You're almost in.";
-            var p = document.createElement('p'); p.textContent = 'We sent a confirmation email to ' + email + '. Click the link inside to finish. Not there after a few minutes? Check spam or Promotions, or write to info@cryptoplayback.com.';
+            var p = document.createElement('p'); p.textContent = 'We sent a confirmation email to ' + email + '. Click the link inside to finish. Not there after a few minutes? Check spam or Promotions.';
+            var p2 = document.createElement('p'); p2.className = 'v2-sub-alt';
+            p2.appendChild(document.createTextNode('Still nothing? '));
+            var alt = document.createElement('a'); alt.href = 'https://buttondown.com/cryptoplayback'; alt.target = '_blank'; alt.rel = 'noopener'; alt.textContent = 'Subscribe on Buttondown instead';
+            p2.appendChild(alt); p2.appendChild(document.createTextNode(' (it can ask you to verify you are human), or write to info@cryptoplayback.com.'));
             var a = document.createElement('a'); a.href = 'archive.html'; a.className = 'v2-btn v2-btn-brass'; a.textContent = 'Browse the archive';
-            done.appendChild(h); done.appendChild(p); done.appendChild(a);
+            done.appendChild(h); done.appendChild(p); done.appendChild(p2); done.appendChild(a);
             f.parentNode.replaceChild(done, f);
           }).catch(function () {
             btn.disabled = false; btn.textContent = 'Subscribe';
