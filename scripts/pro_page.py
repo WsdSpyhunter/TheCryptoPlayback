@@ -391,7 +391,7 @@ def sec_basis(b):
       </div>
       <div class="pro-chart-card"><div class="pro-chart-title">Hedge funds' net short, % of CME Bitcoin futures open interest (3 years, weekly)</div>{chart}</div>
     </div>
-    <div class="pro-comps pro-comps-3">{comps}</div>
+    <div class="pro-comps pro-comps-3 pro-comps-center">{comps}</div>
     {kpis}
     {method}"""
     return f'<section class="v2-section" id="basis" aria-labelledby="basis-h">{_wrap(head + body)}</section>'
@@ -547,7 +547,7 @@ def sec_trend(t):
       <div class="pro-chart-card"><div class="pro-chart-title">Bitcoin price with 50- and 200-day averages, 2 years</div>{chart1}</div>
     </div>
     <p class="pro-read"><strong>The read:</strong> {escape(t['read'])}</p>
-    <div class="pro-comps pro-comps-3">{comps}</div>
+    <div class="pro-comps pro-comps-3 pro-comps-center">{comps}</div>
     {kpis}
     <div class="pro-chart-card" style="margin-top:22px"><div class="pro-chart-title">30-day realized volatility, annualised (2 years)</div>{chart2}</div>
     {study}

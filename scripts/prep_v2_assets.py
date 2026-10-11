@@ -108,7 +108,7 @@ def share_card():
         d.line((0, y, W, y), fill=(20, 44, 78, 255), width=1)
     d.rectangle((0, H - 10, W, H), fill=(184, 147, 74, 255))   # brass rule
     m = fit_h(mk, 540)
-    card.alpha_composite(m, (50, 36))
+    card.alpha_composite(m, (14, 36))
     wm_img = Image.open(os.path.join(OUT, "the-crypto-playback-logo.webp")).convert("RGBA")
     ww = 640
     wm2 = wm_img.resize((ww, round(wm_img.height * ww / wm_img.width)), Image.LANCZOS)
@@ -116,7 +116,7 @@ def share_card():
     f = font(None, 38)
     d.text((470, 210 + wm2.height + 34), "DAILY BITCOIN & CRYPTO MARKET RESEARCH", font=f, fill=(201, 210, 224, 255))
     f2 = font(None, 30)
-    d.text((470, 210 + wm2.height + 92), "16 LIVE INDICATORS  ·  FREE NEWSLETTER", font=f2, fill=BRASS + (255,))
+    d.text((470, 210 + wm2.height + 92), "24 LIVE INDICATORS  ·  FREE NEWSLETTER", font=f2, fill=BRASS + (255,))
     card.convert("RGB").save(os.path.join(OUT, "the-crypto-playback-share-card.png"), optimize=True)
     print("the-crypto-playback-share-card.png", (W, H))
 
