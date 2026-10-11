@@ -117,7 +117,7 @@ def head_v2(root, title, description=None, path="", og_image=None, jsonld=None, 
     description = escape(description or DEFAULT_DESCRIPTION, quote=True)
     safe_title = escape(title, quote=True)
     url = f"{SITE_URL}/{path}" if path else f"{SITE_URL}/"
-    image = og_image or f"{SITE_URL}/assets/v2/the-crypto-playback-share-card.png"
+    image = og_image or f"{SITE_URL}/assets/v2/the-crypto-playback-share-card.png?v=2"
     robots = '<meta name="robots" content="noindex,follow">' if noindex else \
         '<meta name="robots" content="index,follow,max-image-preview:large">'
     ld = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
