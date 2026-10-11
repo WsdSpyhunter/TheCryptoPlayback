@@ -7,7 +7,22 @@ Requires env var: COINGECKO_API_KEY
 import os
 import requests
 
-STABLECOINS = {"usdt", "usdc", "dai", "fdusd", "usde", "busd", "tusd"}
+STABLECOINS = {"usdt", "usdc", "dai", "fdusd", "usde", "busd", "tusd", "usds", "usd1", "usdg", "pyusd", "usdtb", "rlusd", "usdd"}
+
+# Not crypto-native price discovery: tokenized loans, treasuries, gold, wrapped/staked copies.
+# These would make the Biggest Mover and Top 6 read like something other than the crypto market.
+NON_NATIVE = {"figr_heloc", "xaut", "paxg", "buidl", "usyc", "ousg", "wbtc", "cbbtc", "steth", "wsteth", "weth", "weeth", "wbeth", "reth", "jitosol", "msol"}
+NON_NATIVE_IDS = {"figure-heloc"}
+
+
+def _excluded(coin):
+    sym = coin["symbol"].lower()
+    if sym in STABLECOINS or sym in NON_NATIVE or coin.get("id") in NON_NATIVE_IDS:
+        return True
+    # Unlisted dollar-pegged coins: sitting on $1 with almost no movement.
+    price = coin.get("current_price") or 0
+    chg = coin.get("price_change_percentage_24h") or 0
+    return 0.97 <= price <= 1.03 and abs(chg) < 0.3
 
 # The Top 6 Market ticker shows the first 6 coins; the Biggest Mover (24H)
 # indicator looks at the first 10 (same ranking, stablecoins excluded).
@@ -21,7 +36,7 @@ def get_top_prices(count=6):
     params = {
         "vs_currency": "usd",
         "order": "market_cap_desc",
-        "per_page": 20,  # grab extra so we can filter stablecoins and still have 6
+        "per_page": 50,  # grab extra so we can filter out stablecoins/tokenized assets and still fill the pool
         "page": 1,
         "price_change_percentage": "24h,7d",
     }
@@ -32,7 +47,7 @@ def get_top_prices(count=6):
 
     results = []
     for coin in data:
-        if coin["symbol"].lower() in STABLECOINS:
+        if _excluded(coin):
             continue
         results.append({
             "id": coin["id"],

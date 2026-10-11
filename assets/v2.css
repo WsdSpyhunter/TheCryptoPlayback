@@ -175,6 +175,9 @@ body.v2 { margin: 0; background: #fff; color: var(--text); font-family: var(--f-
 .v2-card .pulse-card-word { display: block; margin-top: 3px; font-family: var(--f-sans); font-size: 15px; font-weight: 400; color: var(--dark-text); }
 .v2-card .pulse-mover-symbol { font-family: var(--f-mono); font-size: 31px; color: var(--ivory); margin-right: 8px; }
 .v2-card .pulse-mover-change { font-family: var(--f-mono); font-size: 31px; }
+.v2-card-main:has(.pulse-mover-symbol) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; max-width: 100%; min-width: 0; }
+.v2-card .pulse-mover-symbol { max-width: 100%; overflow-wrap: anywhere; font-size: clamp(20px, 2.3vw, 31px); margin-right: 0; }
+.v2-card .pulse-mover-change { font-size: clamp(20px, 2.3vw, 31px); }
 .v2-card .pulse-sector-list { display: flex; flex-direction: column; gap: 4px; }
 .v2-card .pulse-sector-row { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 16.5px; }
 .v2-card .pulse-sector-name { color: var(--dark-text); }
