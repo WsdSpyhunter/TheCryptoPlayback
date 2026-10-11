@@ -873,3 +873,10 @@ body.v2 { overflow-x: clip; }
 .v2 a.v2-rel-card:hover { border-left-color: var(--navy); }
 .v2-rel-card strong { font-size: 16px; } .v2-rel-card span { font-size: 14px; color: #374151; line-height: 1.45; }
 @media (max-width: 700px) { .v2-rel-grid { grid-template-columns: minmax(0, 1fr); } .v2-post-related { padding: 20px 16px; } .v2 a.v2-rel-card { text-align: center; border-left-width: 1px; border-top: 5px solid var(--brass); } }
+
+/* Issue pages: ticker symbols in the price strip larger and bold */
+.v2-post-chip b { font-size: 17px; font-weight: 700; letter-spacing: .04em; }
+.v2-post-chips { gap: 10px 16px; }
+.v2-post-chip { gap: 6px; font-size: 14px; }
+.v2-post-strip .v2-wrap { max-width: 1240px; }
+@media (max-width: 700px) { .v2-post-chip b { font-size: 16px; } }
