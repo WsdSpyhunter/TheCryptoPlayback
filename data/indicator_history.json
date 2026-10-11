@@ -1,93 +1,5 @@
 [
   {
-    "updated_at": "2026-09-30T06:50:15.343554+00:00",
-    "prices": [
-      {
-        "symbol": "BTC",
-        "name": "Bitcoin",
-        "price": 82985,
-        "change_24h": -1.07016,
-        "change_7d": -4.3881
-      },
-      {
-        "symbol": "ETH",
-        "name": "Ethereum",
-        "price": 2658.8,
-        "change_24h": -1.46275,
-        "change_7d": -3.8447
-      },
-      {
-        "symbol": "BNB",
-        "name": "BNB",
-        "price": 757.16,
-        "change_24h": -0.81022,
-        "change_7d": -3.8681
-      },
-      {
-        "symbol": "XRP",
-        "name": "XRP",
-        "price": 1.49,
-        "change_24h": -0.59263,
-        "change_7d": -8.3547
-      },
-      {
-        "symbol": "SOL",
-        "name": "Solana",
-        "price": 118.12,
-        "change_24h": -0.67834,
-        "change_7d": -0.354
-      },
-      {
-        "symbol": "TRX",
-        "name": "TRON",
-        "price": 0.337163,
-        "change_24h": 0.68858,
-        "change_7d": -2.0399
-      }
-    ],
-    "fng": {
-      "value": 71,
-      "classification": "Greed"
-    },
-    "mover": {
-      "symbol": "ETH",
-      "name": "Ethereum",
-      "price": 2658.8,
-      "change_24h": -1.46275,
-      "change_7d": -3.8447
-    },
-    "week_mover": {
-      "symbol": "XRP",
-      "name": "XRP",
-      "price": 1.49,
-      "change_24h": -0.59263,
-      "change_7d": -8.3547
-    },
-    "sectors": [
-      {
-        "label": "L2",
-        "change_24h": 1.1717591100454345
-      },
-      {
-        "label": "AI",
-        "change_24h": 0.8159997022425157
-      },
-      {
-        "label": "RWA",
-        "change_24h": 0.6967728990405826
-      }
-    ],
-    "stablecoins": {
-      "total_usd": 310955914423.15,
-      "change_7d_pct": 1.0025200520786572
-    },
-    "dominance": {
-      "btc_dominance_pct": 58.28469363805067,
-      "total_market_cap_usd": 2854904440160.139
-    },
-    "gauge_path": "assets/gauges/live.png"
-  },
-  {
     "updated_at": "2026-09-30T07:18:22.551959+00:00",
     "prices": [
       {
@@ -71226,6 +71138,150 @@
         6.33695454,
         5.58293743,
         5.42011441
+      ],
+      "sample_size": 1000
+    },
+    "macro": {
+      "vix": 14.84,
+      "vix_change_pct": -3.699,
+      "dxy": 102.231,
+      "dxy_change_pct": 0.018
+    },
+    "gauge_path": "assets/gauges/live.png"
+  },
+  {
+    "updated_at": "2026-10-11T05:46:13.142821+00:00",
+    "prices": [
+      {
+        "id": "bitcoin",
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "price": 82997,
+        "change_24h": 0.34664,
+        "change_7d": -2.2107
+      },
+      {
+        "id": "ethereum",
+        "symbol": "ETH",
+        "name": "Ethereum",
+        "price": 2503.56,
+        "change_24h": 0.31055,
+        "change_7d": -7.0037
+      },
+      {
+        "id": "binancecoin",
+        "symbol": "BNB",
+        "name": "BNB",
+        "price": 746.76,
+        "change_24h": -0.38029,
+        "change_7d": -4.6805
+      },
+      {
+        "id": "ripple",
+        "symbol": "XRP",
+        "name": "XRP",
+        "price": 1.39,
+        "change_24h": -1.19718,
+        "change_7d": -6.3325
+      },
+      {
+        "id": "solana",
+        "symbol": "SOL",
+        "name": "Solana",
+        "price": 109.39,
+        "change_24h": -0.66283,
+        "change_7d": -9.2552
+      },
+      {
+        "id": "tron",
+        "symbol": "TRX",
+        "name": "TRON",
+        "price": 0.330453,
+        "change_24h": -0.13258,
+        "change_7d": -1.5195
+      }
+    ],
+    "fng": {
+      "value": 61,
+      "classification": "Greed"
+    },
+    "mover": {
+      "id": "figure-heloc",
+      "symbol": "FIGR_HELOC",
+      "name": "Figure Heloc",
+      "price": 1.065,
+      "change_24h": 6.38951,
+      "change_7d": -0.3299
+    },
+    "week_mover": {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 109.39,
+      "change_24h": -0.66283,
+      "change_7d": -9.2552
+    },
+    "sectors": [
+      {
+        "label": "L2",
+        "change_24h": 2.4439909497975134
+      },
+      {
+        "label": "RWA",
+        "change_24h": 1.657409820974914
+      },
+      {
+        "label": "AI",
+        "change_24h": 0.397647090824211
+      }
+    ],
+    "stablecoins": {
+      "total_usd": 310870233978.28,
+      "change_7d_pct": -0.24981203181474593
+    },
+    "dominance": {
+      "btc_dominance_pct": 59.14656736318995,
+      "total_market_cap_usd": 2813266235483.879
+    },
+    "leverage": {
+      "funding_rate_pct": 6.923829486e-05,
+      "next_funding_time_ms": 1791734400000,
+      "open_interest_usd": 2505830768.169311
+    },
+    "defi_tvl": {
+      "total_usd": 91963007516.0,
+      "change_7d_pct": -3.42663939000487
+    },
+    "network_health": {
+      "hashrate_eh": 1013.8580976722179,
+      "difficulty_change_pct": 3.328351135576546,
+      "fastest_fee_satvb": 1,
+      "pending_tx_count": 77390
+    },
+    "liquidations": {
+      "long_liq_usd": 103260.54672000001,
+      "short_liq_usd": 373864.1667600001,
+      "event_count": 100,
+      "window_minutes": 1329.083
+    },
+    "whale_activity": {
+      "amounts_btc": [
+        108.41064377,
+        96.30443525,
+        64.96524978,
+        19.53388038,
+        19.48334104,
+        19.46217458,
+        12.49679138,
+        11.42567231,
+        10.82042945,
+        9.80000031,
+        9.80000031,
+        9.80000031,
+        9.13082679,
+        8.4863863,
+        8.21786047,
+        5.12902045
       ],
       "sample_size": 1000
     },
