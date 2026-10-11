@@ -880,3 +880,6 @@ body.v2 { overflow-x: clip; }
 .v2-post-chip { gap: 6px; font-size: 14px; }
 .v2-post-strip .v2-wrap { max-width: 1240px; }
 @media (max-width: 700px) { .v2-post-chip b { font-size: 16px; } }
+
+/* price strip: Fear & Greed on its own centered line between the tickers and the caption */
+.v2-post-moodline { margin-top: 10px; }
