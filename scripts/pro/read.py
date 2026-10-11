@@ -4,6 +4,7 @@ No blended score and no invented weights. Each indicator with a clear direction 
 Supportive / Neutral / Caution using fixed thresholds, then counted. The Regulatory Tracker has no
 good or bad direction, so it is shown as a note and does not vote.
 
+  Bitcoin trend    uptrend (price above 50- and 200-day averages, 50 above 200) Supportive, downtrend Caution
   Positioning      z >= +1 Supportive, z <= -1 Caution
   Basis crowding   score >= 55 Caution, <= 20 Supportive (little crowding to unwind)
   Miner stress     score >= 70 Caution, < 30 Supportive
@@ -30,10 +31,10 @@ except Exception:       # noqa: BLE001
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.path.join(ROOT, "data", "pro")
 HIST = os.path.join(DATA, "read_history.json")
-ORDER = ["liquidity", "pressure", "basis", "stables", "unwind", "miners"]
-NAMES = {"liquidity": "Macro backdrop", "pressure": "Institutional positioning", "basis": "Basis-trade crowding",
+ORDER = ["trend", "liquidity", "pressure", "basis", "stables", "unwind", "miners"]
+NAMES = {"trend": "Bitcoin trend", "liquidity": "Macro backdrop", "pressure": "Institutional positioning", "basis": "Basis-trade crowding",
          "stables": "Stablecoin flows", "unwind": "Crowded unwind risk", "miners": "Miner stress"}
-ANCHOR = {"liquidity": "liquidity", "pressure": "pressure", "basis": "basis", "stables": "stables", "unwind": "unwind", "miners": "miners"}
+ANCHOR = {"trend": "trend", "liquidity": "liquidity", "pressure": "pressure", "basis": "basis", "stables": "stables", "unwind": "unwind", "miners": "miners"}
 
 
 def _load(name):
@@ -51,6 +52,11 @@ def _median(xs):
 
 def classify():
     out = {}
+    tr = _load("trend")
+    if tr:
+        t = tr["trend"]
+        out["trend"] = ("Supportive" if t["points"] == 3 else "Caution" if t["points"] == 0 else "Neutral",
+                        f"{t['label']} · {t['dist200_pct']:+.0f}% vs 200-day · volatility {tr['volatility']['label'].lower()}")
     p = _load("pressure")
     if p:
         z = p["score_z"]
@@ -93,7 +99,7 @@ def compute():
     counts = {k: sum(1 for v in labels.values() if v == k) for k in ("Supportive", "Neutral", "Caution")}
     today = datetime.now(CT).strftime("%Y-%m-%d")
     hist = [h for h in load_history() if h["d"] != today]
-    hist.append({"d": today, "labels": labels, **{k.lower(): v for k, v in counts.items()}})
+    hist.append({"d": today, "px": (_load("trend") or {}).get("price_usd"), "labels": labels, **{k.lower(): v for k, v in counts.items()}})
     hist = hist[-400:]
     json.dump(hist, open(HIST, "w"), separators=(",", ":"))
 

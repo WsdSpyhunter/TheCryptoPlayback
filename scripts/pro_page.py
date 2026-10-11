@@ -168,8 +168,12 @@ def _empty(title):
 
 # ------------------------------ sections -----------------------------------
 
-def overview_cards(p, u, q, s, b=None, rg=None, mi=None, lq=None):
+def overview_cards(p, u, q, s, b=None, rg=None, mi=None, lq=None, tr=None):
     cards = []
+    if tr:
+        t = tr["trend"]
+        cards.append(("trend", "Bitcoin Trend", t["label"], f"{t['dist200_pct']:+.0f}% vs 200-day · volatility {tr['volatility']['label'].lower()}",
+                      "up" if t["points"] == 3 else "down" if t["points"] == 0 else "flat", sparkline(tr["history"]["price"][-180:]), tr["updated_at"]))
     if p:
         z = p["score_z"]
         cards.append(("pressure", "Institutional Positioning", f"{z:+.2f}", p["regime"], _tone(z) if abs(z) >= 1 else "flat",
@@ -270,7 +274,7 @@ def sec_read(r):
     else:
         rec = f'<p class="pro-note light">Public record begins {datetime.strptime(r["tracking_since"], "%Y-%m-%d").strftime("%b %-d, %Y")}. One bar per day will build here, so you can see how the overall picture has shifted over time.</p>'
     method = """<details class="pro-method"><summary>How the Read is built</summary>
-      <p>There is no blended score and no weights. Each indicator with a clear direction is sorted by a fixed threshold: <strong>positioning</strong> z of +1 or more is Supportive and -1 or less is Caution; <strong>basis-trade crowding</strong> 55+ is Caution and 20 or less is Supportive; <strong>miner stress</strong> 70+ is Caution and under 30 is Supportive; <strong>macro backdrop</strong> 62+ is Supportive and 38 or less is Caution; <strong>unwind risk</strong> (median of ten markets) 55+ is Caution and under 35 is Supportive; <strong>stablecoin supply</strong> up 0.5% in a week is Supportive and down 0.5% is Caution. The Regulatory Tracker has no good or bad direction, so it does not vote.</p>
+      <p>There is no blended score and no weights. Each indicator with a clear direction is sorted by a fixed threshold: <strong>Bitcoin trend</strong> is Supportive in an uptrend (price above its 50- and 200-day averages, 50-day above 200-day) and Caution in a downtrend; <strong>positioning</strong> z of +1 or more is Supportive and -1 or less is Caution; <strong>basis-trade crowding</strong> 55+ is Caution and 20 or less is Supportive; <strong>miner stress</strong> 70+ is Caution and under 30 is Supportive; <strong>macro backdrop</strong> 62+ is Supportive and 38 or less is Caution; <strong>unwind risk</strong> (median of ten markets) 55+ is Caution and under 35 is Supportive; <strong>stablecoin supply</strong> up 0.5% in a week is Supportive and down 0.5% is Caution. The Regulatory Tracker has no good or bad direction, so it does not vote.</p>
       <p class="pro-caveat">"Caution" means stretched or stressed, not "bearish": miner capitulation, for example, has often clustered near market lows. This summarises the sections below and is not a forecast or financial advice.</p></details>"""
     body = f"""<p class="pro-lead">One look at the whole Lab: how many readings are supportive, neutral or cautionary, where they disagree, and what has changed. It is a simple count, not a blended score.</p>
     <div class="pro-rd-top"><div class="pro-rd-tiles">{tiles}</div><p class="pro-read" style="margin:0"><strong>The read:</strong> {escape(r['summary'])}</p></div>
@@ -481,6 +485,74 @@ def bars_svg(vals, w=300, h=70):
         out.append(f'<rect x="{i * bw + 2:.1f}" y="{y:.1f}" width="{bw - 4:.1f}" height="{max(bh, 1):.1f}" fill="{col}"/>')
     out.append("</svg>")
     return "".join(out)
+
+
+def _ord(x):
+    n = int(round(x))
+    return f"{n}{'th' if 10 <= n % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')}"
+
+
+def sec_trend(t):
+    head = ui.title_box("structure", '<span id="trend-h">Bitcoin Trend &amp; Volatility</span>',
+                        f"Updated {updated(t['updated_at'])}" if t else "")
+    if not t:
+        return f'<section class="v2-section" id="trend">{_wrap(head + _empty("Bitcoin Trend"))}</section>'
+    tr, mo, vo, dd, h = t["trend"], t["momentum"], t["volatility"], t["drawdown"], t["history"]
+    tone = "up" if tr["points"] == 3 else "down" if tr["points"] == 0 else "flat"
+    chart1 = multi_chart(h["t"], [("Price", h["price"], "#0B1F3A"), ("50-day average", h["sma50"], "#8A6A1F"), ("200-day average", h["sma200"], "#B3372F")],
+                         fmt="${:,.0f}", zero=False, label="Bitcoin price with its 50-day and 200-day averages, last two years")
+    chart2 = line_chart(h["t"], h["vol30"], color="#4A5F82", fmt="{:.0f}%", floor=0, label="Bitcoin 30-day realized volatility, annualised, last two years")
+    checks = [("Price above its 200-day average", tr["above_200"], f"{tr['dist200_pct']:+.1f}% vs ${tr['sma200']:,.0f}"),
+              ("Price above its 50-day average", tr["above_50"], f"{tr['dist50_pct']:+.1f}% vs ${tr['sma50']:,.0f}"),
+              ("50-day above 200-day", tr["ma50_above_200"], f"{tr['cross']['state']}" + (f", {tr['cross']['days_since']} days ago" if tr["cross"]["days_since"] is not None else ""))]
+    comps = "".join(
+        f'<div class="pro-comp"><div class="pro-comp-top"><span class="pro-comp-name">{escape(n)}</span></div>'
+        f'<div class="pro-comp-z {"up" if ok else "down"}">{"Yes" if ok else "No"}</div><div class="pro-comp-read">{escape(d)}</div></div>' for n, ok, d in checks)
+    kpis = (f'<div class="pro-kpis"><div class="pro-kpi"><span>30-day change</span><strong class="{_tone(mo["ret_30d"])}">{pct(mo["ret_30d"], 1)}</strong><small>90 days: {pct(mo["ret_90d"], 1)}</small></div>'
+            f'<div class="pro-kpi"><span>RSI (14-day)</span><strong>{mo["rsi14"]:.0f}</strong><small>{"stretched high" if mo["rsi14"] >= 70 else "stretched low" if mo["rsi14"] <= 30 else "mid-range"}; 70+ and 30- are the usual extremes</small></div>'
+            f'<div class="pro-kpi"><span>Volatility (30-day)</span><strong>{vo["vol30"]:.0f}%</strong><small>{vo["label"]}, {vo["direction"].lower()} · {_ord(vo["percentile"])} percentile since 2013</small></div>'
+            f'<div class="pro-kpi"><span>From all-time high</span><strong class="{_tone(dd["from_ath_pct"])}">{pct(dd["from_ath_pct"], 0)}</strong><small>high {money(dd["ath_usd"], 0)} on {datetime.strptime(dd["ath_date"], "%Y-%m-%d").strftime("%b %-d, %Y")}</small></div></div>')
+
+    def _row(name, e):
+        def cell(x):
+            return "n/a" if x["median"] is None else f'<span class="{_tone(x["median"])}">{x["median"]:+.1f}%</span> <small>({x["hit"]:.0f}% up)</small>'
+        return f'<tr><th scope="row">{escape(name)}</th><td class="pro-num">{e["days"]:,}</td><td class="pro-num">{cell(e["d30"])}</td><td class="pro-num">{cell(e["d90"])}</td></tr>'
+    ev = t["events"]
+    rows_t = "".join(_row(k, v) for k, v in ev["trend"].items())
+    rows_v = "".join(_row(k, v) for k, v in ev["volatility"].items())
+    study = f"""<div class="pro-chart-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
+      <div class="pro-two">
+        <div class="pro-table-wrap"><table class="pro-table"><caption>BTC change afterwards, by trend state (every day since 2013)</caption>
+          <thead><tr><th>Trend state</th><th>Days</th><th>Median next 30d</th><th>Median next 90d</th></tr></thead><tbody>{rows_t}</tbody></table>
+          <p class="pro-note light">Trends have persisted more often than not, which is why this is a baseline for reading the other signals. But days overlap heavily, so there are only a handful of independent cycles behind these numbers, and a median is not a promise.</p></div>
+        <div class="pro-table-wrap"><table class="pro-table"><caption>BTC change afterwards, by volatility regime</caption>
+          <thead><tr><th>30-day volatility</th><th>Days</th><th>Median next 30d</th><th>Median next 90d</th></tr></thead><tbody>{rows_v}</tbody></table>
+          <p class="pro-note light">Volatility says how large moves are, not which way they go. Quiet periods have often ended in large moves in either direction.</p></div>
+      </div>"""
+    method = """<details class="pro-method"><summary>How these readings are calculated</summary>
+      <p><strong>Data:</strong> mempool.space's open public price history (daily, since 2010). It is a third-party estimate and can be delayed or revised.</p>
+      <p><strong>Trend state</strong> scores three yes/no checks: price above its 200-day simple average, price above its 50-day average, and the 50-day above the 200-day. Three of three is an Uptrend, none is a Downtrend, one or two is Mixed (a trend in transition).
+      A <strong>golden cross</strong> is the 50-day rising above the 200-day; a <strong>death cross</strong> is the reverse. <strong>RSI</strong> is the standard 14-day Wilder relative strength index. <strong>Volatility</strong> is the standard deviation of daily log returns over 30 days, annualised by the square root of 365,
+      ranked against every day since 2013 (Calm under the 30th percentile, Elevated above the 70th, Extreme above the 90th); expanding or contracting compares it with the 90-day figure.</p>
+      <p class="pro-caveat">Moving averages lag by design: they confirm a trend after it has started, and they whipsaw in sideways markets. In the Playback Read, an Uptrend counts as Supportive, a Downtrend as Caution and Mixed as Neutral. Not financial advice.</p></details>"""
+    body = f"""{_stale(t)}
+    <p class="pro-lead">The most basic read on Bitcoin: which way the price is trending, how strong the momentum is, and how violently it is moving. The other Lab readings are best understood against this backdrop.</p>
+    <div class="pro-hero-grid">
+      <div class="pro-score-card">
+        <div class="pro-score-label">Trend state</div>
+        <div class="pro-score-big {tone}">{tr['points']}<small style="font-size:.4em"> / 3</small></div>
+        <div class="pro-score-regime {tone}">{escape(tr['label'])}</div>
+        <div class="pro-score-pct" style="font-size:20px">Volatility: {escape(vo['label'])}<small style="display:block;margin:6px 0 0">{escape(vo['direction'])} vs the 90-day figure</small></div>
+      </div>
+      <div class="pro-chart-card"><div class="pro-chart-title">Bitcoin price with 50- and 200-day averages, 2 years</div>{chart1}</div>
+    </div>
+    <p class="pro-read"><strong>The read:</strong> {escape(t['read'])}</p>
+    <div class="pro-comps pro-comps-3">{comps}</div>
+    {kpis}
+    <div class="pro-chart-card" style="margin-top:22px"><div class="pro-chart-title">30-day realized volatility, annualised (2 years)</div>{chart2}</div>
+    {study}
+    {method}"""
+    return f'<section class="v2-section" id="trend" aria-labelledby="trend-h">{_wrap(head + body)}</section>'
 
 
 def sec_miners(m):
@@ -807,7 +879,7 @@ def sec_sources():
     documented beside each indicator.</p>
     <div class="pro-sources">
       <div><h3>On-chain perpetuals and futures</h3><p>Hyperliquid's public info endpoint (funding, premium, open interest, prices) and the CFTC's weekly Traders in Financial Futures report for CME Bitcoin futures (US government data).</p></div>
-      <div><h3>Miners and the Bitcoin network</h3><p>mempool.space's open public API: hashrate and price history, difficulty adjustments, block rewards and fees, and mining-pool shares.</p></div>
+      <div><h3>Miners, price trend and the Bitcoin network</h3><p>mempool.space's open public API: price history (for the trend and volatility readings), hashrate, difficulty adjustments, block rewards and fees, and mining-pool shares.</p></div>
       <div><h3>Liquidity and macro</h3><p>Federal Reserve and Treasury series via FRED (St. Louis Fed): Fed assets, the Treasury General Account, reverse repo, the 10-year real yield and the broad dollar index.</p></div>
       <div><h3>Regulation and the ETF pipeline</h3><p>The Federal Register's free public API and the SEC's EDGAR daily filing indexes (US government public data).</p></div>
       <div><h3>ETF flows</h3><p>US spot Bitcoin ETF daily net flows from the site's own ETF dataset (SoSoValue, cross-checked against XOOMAR). Farside Investors was not used because it blocks automated access.</p></div>
@@ -829,9 +901,9 @@ def hero(meta):
     <h1 class="pro-h1"><span aria-hidden="true" class="pro-brandtitle pro-brandtitle-lg">The
       <img class="pro-brandword" src="assets/v2/the-crypto-playback-word-playback-gold.webp" width="900" height="215" alt=""> Lab</span>
       <span class="v2-sr">The Crypto Playback Lab</span></h1>
-    <p>Live readings of crypto market structure: how the big regulated players are positioned, how crowded the ETF basis trade is, what regulators and the SEC pipeline are doing, how stretched miners are, which on-chain markets are fragile,
+    <p>Live readings of crypto market structure: which way Bitcoin is trending, how the big regulated players are positioned, how crowded the ETF basis trade is, what regulators and the SEC pipeline are doing, how stretched miners are, which on-chain markets are fragile,
     where dollar liquidity is flowing, and what the macro backdrop looks like. Built only from free public data and fully documented.</p>
-    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#miners">Miner Stress</a><a href="#liquidity">Net Liquidity</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
+    <nav class="pro-jump" aria-label="Playback Lab sections"><a href="#trend">Bitcoin Trend</a><a href="#pressure">Positioning Index</a><a href="#basis">Basis Trade</a><a href="#reg">Regulatory</a><a href="#miners">Miner Stress</a><a href="#liquidity">Net Liquidity</a><a href="#unwind">Unwind Risk</a><a href="#stables">Stablecoin Flows</a><a href="#sources">Methodology</a></nav>
   </div>
 </section>"""
 
@@ -851,10 +923,11 @@ def _footer_links():
 
 def render_institutional():
     rd = _load("read")
+    tr = _load("trend")
     p, u, s, b, rg, mi, lq = _load("pressure"), _load("unwind"), _load("stables"), _load("basis"), _load("regulatory"), _load("miners"), _load("liquidity")
     q = _load("quality") if SHOW_QUALITY else None
     meta = _load("meta") or {}
-    ov = overview_cards(p, u, q, s, b, rg, mi, lq)
+    ov = overview_cards(p, u, q, s, b, rg, mi, lq, tr)
     summary_title = ui.title_box(
         "pulse",
         '<span id="summary-h"><span aria-hidden="true" class="pro-brandtitle">The '
@@ -862,7 +935,7 @@ def render_institutional():
         '<span class="v2-sr">The Playback Summary</span></span>',
         "All readings at a glance")
     body = (hero(meta) + sec_read(rd) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
-            + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_liquidity(lq) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
+            + sec_trend(tr) + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_liquidity(lq) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
     return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
                 description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, regulatory and ETF-pipeline tracking, miner stress, on-chain crowded unwind risk and stablecoin flows.",

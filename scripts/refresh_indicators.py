@@ -96,6 +96,14 @@ def refresh():
         json.dump(history, f, indent=2)
 
     entries = load_index()
+    try:    # daily Signal Confluence log (track record); never allowed to break the refresh
+        from build_site import _live_context
+        import signal_log
+        btc = next((c["price"] for c in prices if c["symbol"] == "BTC"), None)
+        if signal_log.record(_live_context(entries), btc, fng.get("value")):
+            print("Logged today's Signal Confluence reading")
+    except Exception as exc:    # noqa: BLE001
+        print(f"signal log skipped: {exc}")
     with open(os.path.join(ROOT, "index.html"), "w") as f:
         f.write(render_index(entries))
     # etf-flow.html and market-breadth.html are owned by their own decoupled
