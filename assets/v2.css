@@ -863,3 +863,13 @@ body.v2 { overflow-x: clip; }
 
 .v2-sub-done .v2-sub-alt { font-size: 14.5px; color: var(--dark-muted); }
 .v2-sub-done .v2-sub-alt a { color: var(--brass-hi); text-decoration: underline; }
+
+/* Issue pages: Related research box */
+.v2-post-related { margin-top: 30px; background: #fff; border: 2px solid var(--brass); box-shadow: var(--shadow); padding: 24px 26px; }
+.v2-post-related h2 { margin: 0 0 6px; font-family: var(--f-cond); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 18px; color: var(--navy); text-align: center; }
+.v2-post-related > p { margin: 0 0 16px; text-align: center; color: #374151; font-size: 15.5px; }
+.v2-rel-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.v2 a.v2-rel-card { display: flex; flex-direction: column; gap: 3px; background: var(--ivory); border: 1px solid var(--line); border-left: 5px solid var(--brass); padding: 12px 16px; color: var(--navy); text-decoration: none; }
+.v2 a.v2-rel-card:hover { border-left-color: var(--navy); }
+.v2-rel-card strong { font-size: 16px; } .v2-rel-card span { font-size: 14px; color: #374151; line-height: 1.45; }
+@media (max-width: 700px) { .v2-rel-grid { grid-template-columns: minmax(0, 1fr); } .v2-post-related { padding: 20px 16px; } .v2 a.v2-rel-card { text-align: center; border-left-width: 1px; border-top: 5px solid var(--brass); } }
