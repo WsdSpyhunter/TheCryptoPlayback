@@ -890,3 +890,14 @@ body.v2 { overflow-x: clip; }
 .pro-comps-center .pro-comp { text-align: center; }
 .pro-comps-center .pro-comp-top { justify-content: center; }
 .v2 .v2-missed.v2-news-missed { margin-bottom: 56px; }
+
+/* Playback Lab on mobile: centered read chips, changed/track-record cards, difficulty card, history headings */
+@media (max-width: 700px) {
+  #trend .v2-titlebar, #trend .v2-title-meta { justify-content: center; text-align: center; }
+  #trend .v2-titlebox { flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+  .v2 a.pro-rd-chip { align-items: center; text-align: center; }
+  .pro-center-m, .pro-center-m .pro-chart-title, .pro-center-m .pro-note, .pro-center-m .pro-diff, .pro-center-m .pro-diff-big, .pro-center-m .pro-diff-sub { text-align: center; }
+  .pro-center-m ul { list-style-position: inside; padding-left: 0; margin-left: 0; }
+  .pro-center-m .pro-rd-bars { justify-content: center; }
+  .pro-study-title, #miners .pro-table caption, #trend .pro-table caption { text-align: center; }
+}

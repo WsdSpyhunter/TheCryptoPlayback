@@ -260,11 +260,11 @@ def sec_read(r):
                     f'<span class="pro-rd-label">{i["label"]}</span><span class="pro-rd-detail">{escape(i["detail"])}</span></a>' for i in r["indicators"])
     if r["changes"]:
         ch = "<ul>" + "".join(f'<li><b>{escape(x["name"])}</b>: {x["from"]} to {x["to"]}</li>' for x in r["changes"]) + "</ul>"
-        changed = f'<div class="pro-chart-card"><div class="pro-chart-title">What changed since {datetime.strptime(r["since"], "%Y-%m-%d").strftime("%b %-d")}</div>{ch}</div>'
+        changed = f'<div class="pro-chart-card pro-center-m"><div class="pro-chart-title">What changed since {datetime.strptime(r["since"], "%Y-%m-%d").strftime("%b %-d")}</div>{ch}</div>'
     elif r["since"]:
-        changed = f'<div class="pro-chart-card"><div class="pro-chart-title">What changed since {datetime.strptime(r["since"], "%Y-%m-%d").strftime("%b %-d")}</div><p class="pro-note light">No indicator has changed its label.</p></div>'
+        changed = f'<div class="pro-chart-card pro-center-m"><div class="pro-chart-title">What changed since {datetime.strptime(r["since"], "%Y-%m-%d").strftime("%b %-d")}</div><p class="pro-note light">No indicator has changed its label.</p></div>'
     else:
-        changed = '<div class="pro-chart-card"><div class="pro-chart-title">What changed</div><p class="pro-note light">The record starts today. Changes will appear here as the readings move.</p></div>'
+        changed = '<div class="pro-chart-card pro-center-m"><div class="pro-chart-title">What changed</div><p class="pro-note light">The record starts today. Changes will appear here as the readings move.</p></div>'
     hist = r["history"]
     if len(hist) >= 2:
         bw = max(2, min(18, int(640 / len(hist)) - 2))
@@ -279,7 +279,7 @@ def sec_read(r):
     body = f"""<p class="pro-lead">One look at the whole Lab: how many readings are supportive, neutral or cautionary, where they disagree, and what has changed. It is a simple count, not a blended score.</p>
     <div class="pro-rd-top"><div class="pro-rd-tiles">{tiles}</div><p class="pro-read" style="margin:0"><strong>The read:</strong> {escape(r['summary'])}</p></div>
     <div class="pro-rd-chips">{chips}</div>
-    <div class="pro-two" style="margin-top:22px">{changed}<div class="pro-chart-card"><div class="pro-chart-title">Track record</div>{rec}</div></div>
+    <div class="pro-two" style="margin-top:22px">{changed}<div class="pro-chart-card pro-center-m"><div class="pro-chart-title">Track record</div>{rec}</div></div>
     {method}"""
     return f'<section class="v2-section" id="read" aria-labelledby="read-h">{_wrap(head + body)}</section>'
 
@@ -520,7 +520,7 @@ def sec_trend(t):
     ev = t["events"]
     rows_t = "".join(_row(k, v) for k, v in ev["trend"].items())
     rows_v = "".join(_row(k, v) for k, v in ev["volatility"].items())
-    study = f"""<div class="pro-chart-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
+    study = f"""<div class="pro-chart-title pro-study-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
       <div class="pro-two">
         <div class="pro-table-wrap"><table class="pro-table"><caption>BTC change afterwards, by trend state (every day since 2013)</caption>
           <thead><tr><th>Trend state</th><th>Days</th><th>Median next 30d</th><th>Median next 90d</th></tr></thead><tbody>{rows_t}</tbody></table>
@@ -584,7 +584,7 @@ def sec_miners(m):
                       f'<td class="pro-num {_tone(b["margin_pct_at_reference"])}">{b["margin_pct_at_reference"]:+.0f}%</td></tr>' for b in hp["breakeven"])
     from datetime import datetime as _dt
     eta = _dt.fromtimestamp(df["estimated_retarget"], timezone.utc).strftime("%b %-d, %Y")
-    diff_card = (f'<div class="pro-chart-card"><div class="pro-chart-title">Next difficulty adjustment</div>'
+    diff_card = (f'<div class="pro-chart-card pro-center-m"><div class="pro-chart-title">Next difficulty adjustment</div>'
                  f'<div class="pro-diff"><div class="pro-diff-big {_tone(df["estimated_change_pct"])}">{df["estimated_change_pct"]:+.1f}%</div>'
                  f'<div class="pro-diff-sub">projected around {eta} · {df["remaining_blocks"]:,} blocks to go · average block time this epoch {df["avg_block_time_s"] / 60:.1f} min</div>'
                  f'<span class="pro-scorebar light" style="width:100%;display:block;margin-top:10px"><span style="width:{df["progress_pct"]:.0f}%"></span></span>'
@@ -616,7 +616,7 @@ def sec_miners(m):
     pb_rows = "".join(f'<tr><th scope="row">{b["band"]}</th><td class="pro-num">{b["days"]:,}</td>'
                       f'<td class="pro-num {_tone(b["median_90d"])}">{"n/a" if b["median_90d"] is None else f"{b["median_90d"]:+.1f}%"}</td>'
                       f'<td class="pro-num">{"n/a" if b["positive_pct"] is None else f"{b["positive_pct"]:.0f}%"}</td></tr>' for b in pu["buckets"])
-    study = f"""<div class="pro-chart-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
+    study = f"""<div class="pro-chart-title pro-study-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
       <div class="pro-two">
         <div class="pro-table-wrap"><table class="pro-table"><caption>After every hash-ribbon recovery since 2012 (BTC price change afterwards)</caption>
           <thead><tr><th>Capitulation began</th><th>Signal</th><th>Days squeezed</th><th>+30d</th><th>+90d</th><th>+180d</th></tr></thead><tbody>{ep_rows}</tbody></table>
@@ -696,7 +696,7 @@ def sec_liquidity(l):
     rg_rows = "".join(f'<tr class="{"pro-now" if r["regime"] == rg["current"] else ""}"><th scope="row">{escape(r["regime"])}{" (now)" if r["regime"] == rg["current"] else ""}</th><td class="pro-num">{r["weeks"]:,}</td>'
                       f'<td class="pro-num {_tone(r["median_13w"])}">{"n/a" if r["median_13w"] is None else f"{r['median_13w']:+.1f}%"}</td>'
                       f'<td class="pro-num">{"n/a" if r["positive_pct"] is None else f"{r['positive_pct']:.0f}%"}</td></tr>' for r in rg["table"])
-    study = f"""<div class="pro-chart-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
+    study = f"""<div class="pro-chart-title pro-study-title" style="margin-top:34px">What history says (descriptive, not a forecast)</div>
       <div class="pro-table-wrap"><table class="pro-table"><caption>Bitcoin's next 13 weeks, by the liquidity regime at the start (weekly, since {rg["since"]})</caption>
         <thead><tr><th>Liquidity regime</th><th>Weeks</th><th>Median 13-week return</th><th>Positive</th></tr></thead><tbody>{rg_rows}</tbody></table></div>
       <p class="pro-note light">The pattern leans the expected way: Bitcoin did better after weeks of expanding liquidity. But the windows overlap, there are only a few market cycles, and Bitcoin's own trend dominates, so this is a modest tilt, not a trading edge. The week-to-week correlation above is close to zero: liquidity matters more as a slow backdrop than as a timing tool.</p>"""
