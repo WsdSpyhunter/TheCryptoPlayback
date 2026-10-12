@@ -908,3 +908,11 @@ body.v2 { overflow-x: clip; }
   .v2-ind-history h2, .v2-ind-related h2 { text-align: center; }
   .v2-ind-chips { justify-content: center; }
 }
+
+/* Archive on mobile: centered date/tag, title and arrow inside each issue box */
+@media (max-width: 700px) {
+  .v2 a.v2-arch-item { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 8px; }
+  .v2-arch-meta { justify-content: center; }
+  .v2-arch-title { text-align: center; }
+  .v2-arch-go { line-height: 1; }
+}
