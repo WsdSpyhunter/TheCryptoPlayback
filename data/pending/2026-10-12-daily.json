@@ -1,0 +1,167 @@
+{
+  "slug": "2026-10-12-daily",
+  "title": "Patches, Penthouses, and a Very Patient Bug",
+  "date_display": "October 12, 2026",
+  "tag": "Daily",
+  "issue_number": 7,
+  "gauge_path": "assets/gauges/2026-10-12-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 83269,
+      "change_24h": 0.23899,
+      "change_7d": -2.9268
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2541.36,
+      "change_24h": 1.48262,
+      "change_7d": -6.0129
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 748.39,
+      "change_24h": -0.04131,
+      "change_7d": -4.7435
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.4,
+      "change_24h": 0.15798,
+      "change_7d": -7.1013
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 110.72,
+      "change_24h": 1.02593,
+      "change_7d": -7.4806
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.331403,
+      "change_24h": 0.31311,
+      "change_7d": -1.3051
+    }
+  ],
+  "fng": {
+    "value": 69,
+    "classification": "Greed"
+  },
+  "mover": {
+    "id": "zcash",
+    "symbol": "ZEC",
+    "name": "Zcash",
+    "price": 1288.46,
+    "change_24h": 4.1317,
+    "change_7d": -0.5687
+  },
+  "week_mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 110.72,
+    "change_24h": 1.02593,
+    "change_7d": -7.4806
+  },
+  "sectors": [
+    {
+      "label": "AI",
+      "change_24h": 4.251870296188478
+    },
+    {
+      "label": "DePIN",
+      "change_24h": 3.7978330239625318
+    },
+    {
+      "label": "NFT",
+      "change_24h": 1.768885481719971
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 311106061398.01,
+    "change_7d_pct": -0.2450949400104183
+  },
+  "date_abbrev": "OCT. 12, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $83,269.00 <span style=\"color:#8FBF5C;\">(+0.2%)</span></span><span class=\"price-chip\">ETH $2,541.36 <span style=\"color:#8FBF5C;\">(+1.5%)</span></span><span class=\"price-chip\">BNB $748.39 <span style=\"color:#E8837A;\">(-0.0%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.40 <span style=\"color:#8FBF5C;\">(+0.2%)</span></span><span class=\"price-chip\">SOL $110.72 <span style=\"color:#8FBF5C;\">(+1.0%)</span></span><span class=\"price-chip\">TRX $0.33 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 12, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">69</span>\n      <span class=\"sentiment-word\" style=\"color:#256B32;\">Greed</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">ZEC</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+4.1%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">DAILY ISSUE</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin is parked in the low-$80Ks waiting on CPI, but the real action today is in the plumbing \u2014 patched ledgers, frozen penthouses, and banks quietly building rails for a tokenized future.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Idles Near $83K While Everyone Stares at CPI",
+      "body": "<p>Bitcoin is holding in a tight range near $83,000 as traders wait on U.S. inflation data, with October rate-hike odds fading but two-decade-high Treasury yields still capping risk appetite. ETF outflows topping $600 million and a pullback from $84,000 suggest institutional money isn't exactly rushing in either.</p><p>Markets waiting on a single data print is nothing new, but it's a reminder that bitcoin's 'uncorrelated asset' pitch still bends pretty hard around traditional macro levers. Range-bound price action makes for a quiet week, which honestly might be the best kind right now.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/380669/bitcoin-ranges-near-83k-as-traders-look-to-us-inflation-data",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/07/Bitcoin-decrypt-style-25-gID_7.png"
+    },
+    {
+      "headline": "A Decade-Old Bug Could Have Minted 18 Trillion XRP \u2014 It Just Got Patched",
+      "body": "<p>The XRP Ledger Foundation pushed out an emergency patch for an overflow bug in the payment engine that, left unaddressed, could have let an attacker mint roughly 18 trillion spendable XRP in a single transaction \u2014 nearly double the entire 100 billion supply cap. The foundation is now defending claims that the patch was forced on network operators rather than coordinated.</p><p>A supply-cap-breaking bug sitting undiscovered for years is the kind of thing that should make every 'audited and battle-tested' claim in crypto a little less comforting. Credit where due for catching and fixing it quietly, but the optics of 'trust us, it's fine now' never land great in this industry.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/10/12/why-a-bug-that-could-have-threatened-xrp-s-100-billion-supply-cap-stayed-hidden-for-years",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/af945cfdd3152f9ebc96d44f89ccafea550ccb57-5760x3840.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Ledger Finds an Unauthorized Implant Hiding Inside a Device Sold by a Third-Party Retailer",
+      "body": "<p>Ledger says it has confirmed an unauthorized implant in at least one hardware wallet sold by CryptoBilis, raising fresh concerns about supply-chain tampering for devices bought outside official channels.</p><p>Hardware wallets exist specifically so you don't have to trust software \u2014 which makes a tampered unit from an unofficial seller about the worst possible failure mode. The lesson here isn't new, just newly urgent: buy cold storage directly from the source, not wherever it's cheapest.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/tech/2026/10/12/ledger-says-unauthorized-implant-found-in-at-least-one-device-sold-by-cryptobilis",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/5607275c13867a17ff6663ed3a0586b0c4361b2b-2560x1707.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "South Korean Bank Starts Lending Against Bitcoin Collateral",
+      "body": "<p>South Korea has reportedly seen its first traditional bank loans backed by bitcoin, with Jeonbuk Bank offering bitcoin-backed loans to corporate customers via a third-party custodian holding the collateral.</p><p>Bitcoin as collateral for an actual regulated bank loan \u2014 not a crypto-native lender, a bank \u2014 is a meaningful crack in the wall between traditional finance and digital assets. It's a small pilot, but these are exactly the kinds of quiet, unglamorous integrations that end up mattering more than headline price moves.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/10/12/south-korea-just-got-its-first-traditional-bank-loans-backed-by-bitcoin",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/d942a1634dad0f09e3b8e09b5f0184eaa796bc57-4240x2385.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Global Watchdog Warns G20 About Stablecoin Contagion and AI Threats",
+      "body": "<p>The Financial Stability Board flagged cross-border stablecoin risks and AI-related cybersecurity threats ahead of G20 meetings, calling for cross-border information sharing and planning for a potential stablecoin crisis.</p><p>Regulators asking for coordinated crisis planning before a crisis happens is, in theory, exactly what you'd want \u2014 stablecoins have grown big enough that a failure wouldn't stay contained to crypto Twitter. Whether G20 members can actually coordinate on anything quickly is a separate and much less certain question.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/10/12/global-financial-watchdog-calls-for-cross-border-information-sharing-planning-for-stablecoin-crisis",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/1a69f4a4dc7580b072baf69f08a84b53c0b7799e-1920x1281.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Standard Chartered Adds RLUSD Custody, Eyes Collateral Deal with LMAX",
+      "body": "<p>Standard Chartered has launched custody services for Ripple's RLUSD stablecoin and is working with Ripple and LMAX Group to enable RLUSD as collateral for certain LMAX products under a collateral mirroring model.</p><p>A major global bank building custody infrastructure around a specific stablecoin is a strong institutional vote of confidence, and the collateral angle hints at where this is really headed \u2014 stablecoins not just as a payment rail but as usable collateral inside traditional trading venues.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-10-12-standard-chartered-custody-ripple-rlusd-418258",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/standard-chartered.png"
+    },
+    {
+      "headline": "France Weighs Fines for Undeclared Crypto Wallets Over $112K",
+      "body": "<p>French lawmakers have backed a reporting rule requiring disclosure of crypto wallets holding more than $112,000, with holders facing fines of up to 10,000 euros for failing to declare qualifying assets.</p><p>Every major jurisdiction eventually arrives at the same instinct: if it's worth enough money, it's worth a reporting requirement. The threshold and penalty size will matter a lot to how this actually plays out for ordinary holders versus whales.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/french-lawmakers-back-reporting-rule-for-crypto-wallets-over-112k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4Q6GWATH459W87C1BCBF448/france-tax.jpg"
+    },
+    {
+      "headline": "A Former FTX-Linked Bitcoin Miner Gets an $894 Million Pivot \u2014 to AI",
+      "body": "<p>SWI has raised $894 million to repurpose Genesis Digital, the bitcoin mining company once tied to FTX, toward AI infrastructure instead.</p><p>The mining-to-AI pivot has become such a well-worn playbook that it barely registers as news anymore, but the scale here \u2014 nearly a billion dollars \u2014 and the FTX provenance of the underlying assets give it an extra layer of irony. One era's collapsed empire becomes the next era's compute farm.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/10/12/swi-raises-usd894-million-to-repurpose-former-ftx-bitcoin-miner-genesis-digital-to-ai",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/ca35baafe5c46bb4b2cfe659ffd824568e1c8cbf-3072x1534.png?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    }
+  ],
+  "missed_story": {
+    "headline": "A Trader Allegedly Moved Hyperliquid's Own Price Feed to Pocket $1.28 Million",
+    "body": "On a new 1,000x-leverage exchange called Papertrade, a trader reportedly netted $1.28 million by moving Hyperliquid's ETH prices to their advantage. The same wallet later gave back $450,000 when 30 short positions were liquidated after staying open for more than three hours. It's a strange little case study in how extreme leverage and cross-platform price dependencies can be gamed \u2014 and how quickly those gains can unwind.",
+    "source_title": "The Block",
+    "source_url": "https://www.theblock.co/news/defi/2026-10-11-trader-nets-1-28-million-on-new-1000x-exchange-papertrade-by-moving-hyperliquids-eth-prices-418239"
+  },
+  "excerpt": "Bitcoin is parked in the low-$80Ks waiting on CPI, but the real action today is in the plumbing \u2014 patched ledgers, frozen penthouses, and banks quietly building rails for a tokenized future.",
+  "buttondown_email_id": "em_5d4bfsze329jrv3w0agng9766h"
+}
