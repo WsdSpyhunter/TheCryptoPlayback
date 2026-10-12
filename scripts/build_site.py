@@ -50,6 +50,20 @@ MONTH_ABBREV = {
 }
 
 
+try:
+    from zoneinfo import ZoneInfo
+    CENTRAL = ZoneInfo("America/Chicago")
+except Exception:       # noqa: BLE001 - tzdata missing: fall back to UTC-6 (never worse than showing UTC unlabelled)
+    CENTRAL = timezone(timedelta(hours=-6))
+
+
+def to_central(dt):
+    """Live-refresh timestamps are stored in UTC; the site displays US Central time (CST/CDT)."""
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(CENTRAL)
+
+
 def format_date_abbrev(dt):
     return f"{MONTH_ABBREV[dt.month]} {dt.day}, {dt.year}"
 
@@ -442,13 +456,13 @@ def _load_dashboard_data(entries):
 
 
 def _format_live_updated(updated_at_iso, fallback_display):
-    """'Sept. 29, 2026 - 2:45 PM UTC' from the live refresh timestamp, or
+    """'Sept. 29, 2026 - 2:45 PM CT' from the live refresh timestamp, or
     the post's own date_display if there's no live timestamp yet (the
     fallback-to-latest-post path in _load_dashboard_data)."""
     if not updated_at_iso:
         return fallback_display
-    dt = datetime.fromisoformat(updated_at_iso)
-    return f"{format_date_abbrev(dt)} &middot; {dt.strftime('%-I:%M %p')} UTC"
+    dt = to_central(datetime.fromisoformat(updated_at_iso))
+    return f"{format_date_abbrev(dt)} &middot; {dt.strftime('%-I:%M %p')} CT"
 
 
 def _format_date_only(date_str):
@@ -1999,9 +2013,9 @@ def _recent_readings(history, limit=12):
             continue
         sectors = snap.get("sectors") or []
         sig = _compute_derived_signals(prices, fng, sectors)
-        dt = datetime.fromisoformat(snap["updated_at"])
+        dt = to_central(datetime.fromisoformat(snap["updated_at"]))
         rows.append({
-            "date_display": f"{format_date_abbrev(dt)} {dt.strftime('%-I:%M %p')} UTC",
+            "date_display": f"{format_date_abbrev(dt)} {dt.strftime('%-I:%M %p')} CT",
             "fng": fng,
             "mover": _live_mover_display(snap["mover"]),
             "sectors": sectors,
