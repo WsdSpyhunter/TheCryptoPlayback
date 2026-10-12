@@ -916,3 +916,8 @@ body.v2 { overflow-x: clip; }
   .v2-arch-title { text-align: center; }
   .v2-arch-go { line-height: 1; }
 }
+
+/* Playback Lab hero on desktop: centered title, intro and section links (matches the centered kicker) */
+.pro-hero { text-align: center; }
+.pro-hero p { margin-left: auto; margin-right: auto; }
+.pro-hero .pro-jump { justify-content: center; }
