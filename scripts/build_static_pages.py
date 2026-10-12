@@ -26,7 +26,7 @@ ABOUT_BODY = """<section class="v2-ind-hero" aria-labelledby="about-h">
     </article>
     <div class="v2-about-tiles">
       <a class="v2-about-tile" href="archive.html"><span>The briefing</span><strong>Daily and weekly issues</strong><em>Browse the archive &rarr;</em></a>
-      <a class="v2-about-tile" href="index.html#alerts"><span>The data</span><strong>16 live indicators</strong><em>See the dashboard &rarr;</em></a>
+      <a class="v2-about-tile" href="index.html#alerts"><span>The data</span><strong>24 live indicators</strong><em>See the dashboard &rarr;</em></a>
       <a class="v2-about-tile" href="playback-lab.html"><span>The research</span><strong>The Playback Lab</strong><em>Open the Lab &rarr;</em></a>
     </div>
     <article class="v2-ind-card v2-about-card" id="contact">
@@ -295,7 +295,7 @@ def build():
     links = build_site._footer_indicator_links()
     with open(os.path.join(ROOT, "about.html"), "w") as f:
         f.write(page("", "About The Crypto Playback | Bitcoin & Crypto Research", ABOUT_BODY, year, theme="v2", indicator_links=links,
-                     description="The Crypto Playback is a free daily and weekly briefing on Bitcoin and crypto: top headlines, 16 live indicators and the Playback Lab.",
+                     description="The Crypto Playback is a free daily and weekly briefing on Bitcoin and crypto: top headlines, 24 live indicators and the Playback Lab.",
                      path="about.html", jsonld=_crumbs_ld(("Home", ""), ("About", "about.html"))))
     with open(os.path.join(ROOT, "resources.html"), "w") as f:
         f.write(page("", "Crypto Resources & Glossary | The Crypto Playback", RESOURCES_BODY, year, theme="v2", indicator_links=links,

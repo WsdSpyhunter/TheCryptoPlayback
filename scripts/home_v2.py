@@ -23,7 +23,11 @@ def _strip_tags(s):
     return re.sub(r"<[^>]+>", "", s or "")
 
 
+LAB_INDICATORS = 8   # Playback Lab sections (incl. the Regulatory tracker); keep in step with scripts/pro_page.py
+
+
 def hero(n_indicators):
+    n_indicators = n_indicators + LAB_INDICATORS
     return f"""<section class="v2-hero" aria-labelledby="home-title">
   <div class="v2-hero-bg" aria-hidden="true">{ui.candlesticks_svg()}</div>
   <div class="v2-hero-inner">
@@ -37,7 +41,7 @@ def hero(n_indicators):
       </div>
       <ul class="v2-hero-facts">
         <li><strong>{n_indicators}</strong> live indicators</li>
-        <li><strong>15 min</strong> data refresh</li>
+        <li><strong>15 min</strong> market data refresh</li>
         <li><strong>Mon&ndash;Sat</strong> free briefing</li>
       </ul>
     </div>
@@ -332,7 +336,7 @@ def jsonld(indicators):
             {"@type": "Organization", "@id": f"{SITE_URL}/#org", "name": "The Crypto Playback", "url": SITE_URL + "/",
              "logo": f"{SITE_URL}/assets/v2/the-crypto-playback-badge.webp", "email": "info@cryptoplayback.com"},
             {"@type": "WebSite", "@id": f"{SITE_URL}/#site", "url": SITE_URL + "/", "name": "The Crypto Playback",
-             "description": "Free daily Bitcoin and crypto market research with 16 live indicators.",
+             "description": "Free daily Bitcoin and crypto market research with 24 live indicators.",
              "publisher": {"@id": f"{SITE_URL}/#org"}, "inLanguage": "en-US"},
             {"@type": "FAQPage", "mainEntity": faq},
         ],

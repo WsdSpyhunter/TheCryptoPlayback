@@ -87,7 +87,7 @@ def feed_xml(entries, limit=20):
     return ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n'
             "<title>The Crypto Playback</title>\n"
             f"<link>{SITE_URL}/</link>\n"
-            "<description>Daily research and news on Bitcoin and digital assets, with 16 live market indicators.</description>\n"
+            "<description>Daily research and news on Bitcoin and digital assets, with 24 live market indicators.</description>\n"
             "<language>en-us</language>\n"
             f"<lastBuildDate>{format_datetime(now)}</lastBuildDate>\n"
             f'<atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n'
@@ -100,7 +100,8 @@ def llms_txt(indicators):
     return f"""# The Crypto Playback
 
 > Free daily Bitcoin and crypto market research. A live dashboard of 16 market indicators (sentiment, risk, ETF flows,
-> stablecoin liquidity, leverage, on-chain activity and more), refreshed every 15 minutes, plus a concise newsletter
+> stablecoin liquidity, leverage, on-chain activity and more) refreshed every 15 minutes, plus 8 Playback Lab indicators
+> (Bitcoin trend, institutional positioning, miner stress, net liquidity and more) refreshed every 2 hours, and a concise newsletter
 > published Monday through Saturday. Not financial advice.
 
 ## Main pages

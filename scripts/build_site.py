@@ -1992,7 +1992,7 @@ def render_index(entries):
     return page(
         "", "Daily Bitcoin & Crypto Market Research | The Crypto Playback", body,
         datetime.now().year, theme="v2",
-        description=("Free daily Bitcoin & crypto market research. 16 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter."),
+        description=("Free daily Bitcoin & crypto market research. 24 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter."),
         path="", jsonld=home_v2.jsonld(indicators),
         extra_head='<link rel="preload" as="image" href="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" type="image/webp" fetchpriority="high">',
         indicator_links=home_v2.indicator_footer_links(indicators),
