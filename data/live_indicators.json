@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-10-12T03:38:00.654844+00:00",
+  "updated_at": "2026-10-12T04:02:28.786046+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 83585,
-      "change_24h": 0.80079,
-      "change_7d": -3.2679
+      "price": 83518,
+      "change_24h": 0.96506,
+      "change_7d": -3.4335
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2543.34,
-      "change_24h": 1.46126,
-      "change_7d": -6.5162
+      "price": 2543.63,
+      "change_24h": 1.85683,
+      "change_7d": -6.8492
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 751.68,
-      "change_24h": 0.66149,
-      "change_7d": -5.715
+      "price": 750.7,
+      "change_24h": 0.84222,
+      "change_7d": -6.2523
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 1.41,
-      "change_24h": 0.87344,
-      "change_7d": -7.4862
+      "price": 1.4,
+      "change_24h": 1.24571,
+      "change_7d": -7.5133
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 111.72,
-      "change_24h": 1.93403,
-      "change_7d": -7.5486
+      "price": 111.6,
+      "change_24h": 2.41603,
+      "change_7d": -7.9374
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.330933,
-      "change_24h": 0.38396,
-      "change_7d": -1.6975
+      "price": 0.331563,
+      "change_24h": 0.41068,
+      "change_7d": -1.3338
     }
   ],
   "fng": {
@@ -58,30 +58,30 @@
     "id": "zcash",
     "symbol": "ZEC",
     "name": "Zcash",
-    "price": 1276.92,
-    "change_24h": 4.16114,
-    "change_7d": -4.6519
+    "price": 1282.57,
+    "change_24h": 5.00387,
+    "change_7d": -4.4917
   },
   "week_mover": {
     "id": "solana",
     "symbol": "SOL",
     "name": "Solana",
-    "price": 111.72,
-    "change_24h": 1.93403,
-    "change_7d": -7.5486
+    "price": 111.6,
+    "change_24h": 2.41603,
+    "change_7d": -7.9374
   },
   "sectors": [
     {
       "label": "AI",
-      "change_24h": 6.7568567827023545
+      "change_24h": 7.469734971549315
     },
     {
       "label": "DePIN",
-      "change_24h": 5.1270606000675105
+      "change_24h": 5.6137557453505345
     },
     {
       "label": "NFT",
-      "change_24h": 3.6286166814260827
+      "change_24h": 2.824495183068442
     }
   ],
   "stablecoins": {
@@ -89,23 +89,23 @@
     "change_7d_pct": -0.2450949400104183
   },
   "dominance": {
-    "btc_dominance_pct": 59.70589399310708,
-    "total_market_cap_usd": 2806910391229.267
+    "btc_dominance_pct": 59.68044729892576,
+    "total_market_cap_usd": 2806515003764.3647
   },
   "leverage": {
-    "funding_rate_pct": -0.0008291100924199999,
+    "funding_rate_pct": -0.0007470193912,
     "next_funding_time_ms": 1791820800000,
-    "open_interest_usd": 2459637426.45901
+    "open_interest_usd": 2456409776.3241596
   },
   "defi_tvl": {
     "total_usd": 92708008162.0,
     "change_7d_pct": -4.058230870372206
   },
   "network_health": {
-    "hashrate_eh": 1008.36014478601,
-    "difficulty_change_pct": 5.090767343115998,
-    "fastest_fee_satvb": 1,
-    "pending_tx_count": 72839
+    "hashrate_eh": 1009.517035122426,
+    "difficulty_change_pct": 5.046021280762458,
+    "fastest_fee_satvb": 2,
+    "pending_tx_count": 77805
   },
   "liquidations": {
     "long_liq_usd": 1623242.59392,
@@ -114,14 +114,24 @@
     "window_minutes": 345.6284333333333
   },
   "whale_activity": {
-    "amounts_btc": [],
+    "amounts_btc": [
+      1078.55434911,
+      94.62025467,
+      89.07876636,
+      9.79999603,
+      9.79999603,
+      9.79999601,
+      9.79999601,
+      9.79999601,
+      8.99999566
+    ],
     "sample_size": 1000
   },
   "macro": {
     "vix": 14.84,
     "vix_change_pct": -3.699,
-    "dxy": 102.167,
-    "dxy_change_pct": -0.045
+    "dxy": 102.166,
+    "dxy_change_pct": -0.046
   },
   "gauge_path": "assets/gauges/live.png"
 }
