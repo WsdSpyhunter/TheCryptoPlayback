@@ -1,6 +1,7 @@
 """
 blocked_terms.py - names Buttondown refuses to publish (it rejects the email
-with "contains prohibited word"). Found so far: Bitget. Add a new entry the
+with "contains prohibited word"). Found so far: Bitget; KuCoin and MEXC added 2026-10-13 after a
+Cointelegraph link (".../including-kucoin-mexc") blocked the Oct 13 daily. Add a new entry the
 moment Buttondown rejects another word - nothing else needs to change.
 
 The story is still told; the NAME is replaced by a generic description:
@@ -26,6 +27,8 @@ import re
 # true of the company (the wording is read by subscribers).
 BLOCKED_TERMS = {
     "Bitget": "a large overseas crypto exchange",
+    "KuCoin": "an overseas crypto exchange",
+    "MEXC": "another overseas crypto exchange",
 }
 SITE_URL = "https://cryptoplayback.com"
 
