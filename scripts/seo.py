@@ -1,5 +1,5 @@
 """Search-engine and discovery files, regenerated on every site build:
-sitemap.xml, robots.txt, feed.xml (RSS), llms.txt and the 404 page.
+sitemap.xml, sitemap.html (for visitors), robots.txt, feed.xml (RSS), llms.txt and the 404 page.
 
 Called from build_site (full rebuild, publish) and refresh_indicators (every
 15 minutes), so a new issue is in the sitemap and feed as soon as it is posted.
@@ -22,6 +22,7 @@ STATIC_PAGES = [  # (path, changefreq, priority)
     ("resources.html", "monthly", "0.7"),
     ("about.html", "monthly", "0.5"),
     ("terms.html", "yearly", "0.3"),
+    ("sitemap.html", "daily", "0.3"),
 ]
 
 
@@ -41,7 +42,7 @@ def sitemap_xml(entries, indicator_files, updated=None):
     urls = []
     latest_post = next((_slug_date(e["slug"]) for e in entries if _slug_date(e["slug"])), now)
     for path, freq, prio in STATIC_PAGES:
-        lm = now if path in ("", "playback-lab.html") else (latest_post if path == "archive.html" else STATIC_LASTMOD)
+        lm = now if path in ("", "playback-lab.html") else (latest_post if path in ("archive.html", "sitemap.html") else STATIC_LASTMOD)
         urls.append((f"{SITE_URL}/{path}", _iso(lm), freq, prio))
     for fn in sorted(indicator_files):
         urls.append((f"{SITE_URL}/{fn}", _iso(now), "hourly", "0.9"))
@@ -117,15 +118,68 @@ def llms_txt(indicators):
 """
 
 
+LAB_SECTIONS = [("trend", "Bitcoin Trend & Volatility"), ("pressure", "Institutional Positioning"), ("basis", "Basis-Trade Crowding"),
+                ("reg", "Regulatory & ETF Pipeline"), ("miners", "Miner Stress"), ("liquidity", "Net Liquidity & Macro"),
+                ("unwind", "Crowded Unwind Risk"), ("stables", "Stablecoin Flows"), ("sources", "Methodology & Data Sources")]
+
+
+def _plain(t):
+    return re.sub(r"<[^>]+>", "", t or "").replace("&amp;", "&")
+
+
 def not_found_html(indicators, year):
-    links = "".join(f'<li><a href="/{i["page"]}">{i["page_title"]}</a></li>' for i in indicators)
-    body = f"""<section class="v2-section v2-section-white"><div class="v2-wrap">
-  <h1 class="v2-lead" style="font-family:var(--f-head);font-size:34px;font-weight:700">That page isn't on the board</h1>
-  <p class="v2-lead">The page you were looking for has moved or doesn't exist. Try the live dashboard, the archive,
-  or one of the indicators below.</p>
-  <p><a class="v2-btn v2-btn-navy" href="/">Back to the live dashboard</a></p>
-  <ul>{links}</ul></div></section>"""
+    chips = "".join(f'<a href="/{i["page"]}">{_plain(i["page_title"])}</a>' for i in indicators)
+    body = f"""<section class="v2-ind-hero" aria-labelledby="nf-h">
+  <div class="v2-wrap">
+    <div class="v2-kicker v2-kicker-brass v2-ind-kicker">Error 404</div>
+    <h1 class="v2-ind-title" id="nf-h">That page isn&rsquo;t on the board</h1>
+    <p class="v2-arch-sub">The page you were looking for has moved or doesn&rsquo;t exist. Here is where to go next.</p>
+  </div>
+</section>
+<section class="v2-section v2-ind-body">
+  <div class="v2-wrap" style="text-align:center">
+    <p class="v2-ind-sub" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+      <a class="v2-btn v2-btn-navy" href="/">Live dashboard</a>
+      <a class="v2-btn v2-btn-navy" href="/playback-lab.html">Playback Lab</a>
+      <a class="v2-btn v2-btn-navy" href="/archive.html">Newsletter archive</a>
+      <a class="v2-btn v2-btn-navy" href="/sitemap.html">Site map</a>
+    </p>
+    <section class="v2-ind-related" aria-labelledby="nf-ind-h"><h2 id="nf-ind-h" style="text-align:center">Live indicators</h2><div class="v2-ind-chips" style="justify-content:center">{chips}</div></section>
+  </div>
+</section>"""
     return page("/", "Page not found | The Crypto Playback", body, year, theme="v2", path="404.html", noindex=True)
+
+
+def sitemap_html(entries, indicators, year):
+    """A human-readable site map (the XML sitemap is for search engines)."""
+    def block(title, links):
+        return (f'<section class="v2-ind-related"><h2>{title}</h2><ul class="v2-sitemap-list">'
+                + "".join(f'<li><a href="{h}">{escape(t)}</a></li>' for h, t in links) + "</ul></section>")
+    main = [("index.html", "Home: live dashboard"), ("playback-lab.html", "The Playback Lab"), ("archive.html", "Newsletter archive"),
+            ("resources.html", "Resources"), ("about.html", "About"), ("terms.html", "Terms of Use"), ("index.html#subscribe", "Subscribe free"),
+            ("feed.xml", "RSS feed")]
+    lab = [(f"playback-lab.html#{a}", t) for a, t in LAB_SECTIONS]
+    ind = [(i["page"], _plain(i["page_title"])) for i in indicators]
+    seen, posts = set(), []
+    for e in entries:
+        if e["slug"] in seen:
+            continue
+        seen.add(e["slug"])
+        posts.append((f"posts/{e['slug']}.html", f"{e['tag']} · {e['date_display']}: {_plain(e['title'])}"))
+    body = f"""<section class="v2-ind-hero" aria-labelledby="sm-h">
+  <div class="v2-wrap">
+    <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Site map</span></nav>
+    <div class="v2-kicker v2-kicker-brass v2-ind-kicker">Every page, one place</div>
+    <h1 class="v2-ind-title" id="sm-h">Site Map</h1>
+    <p class="v2-arch-sub">Everything on The Crypto Playback: the main pages, the Playback Lab, every live indicator and every newsletter issue.</p>
+  </div>
+</section>
+<section class="v2-section v2-ind-body"><div class="v2-wrap v2-sitemap">
+  {block("Main pages", main)}{block("Playback Lab", lab)}{block("Live indicators", ind)}{block("Newsletter issues", posts)}
+</div></section>"""
+    return page("", "Site Map | The Crypto Playback", body, year, theme="v2",
+                description="Every page on The Crypto Playback: the live dashboard, Playback Lab, all live indicators and every newsletter issue.",
+                path="sitemap.html")
 
 
 def write_seo_files(entries, indicators, indicator_files, updated=None):
@@ -137,3 +191,4 @@ def write_seo_files(entries, indicators, indicator_files, updated=None):
     w("feed.xml", feed_xml(entries))
     w("llms.txt", llms_txt(indicators))
     w("404.html", not_found_html(indicators, datetime.now().year))
+    w("sitemap.html", sitemap_html(entries, indicators, datetime.now().year))

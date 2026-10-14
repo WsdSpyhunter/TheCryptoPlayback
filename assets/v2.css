@@ -921,3 +921,12 @@ body.v2 { overflow-x: clip; }
 .pro-hero { text-align: center; }
 .pro-hero p { margin-left: auto; margin-right: auto; }
 .pro-hero .pro-jump { justify-content: center; }
+
+/* Site map page */
+.v2-sitemap .v2-ind-related { margin-top: 28px; }
+.v2-sitemap .v2-ind-related:first-child { margin-top: 0; }
+.v2-sitemap-list { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 32px; }
+.v2-sitemap-list li { break-inside: avoid; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.4; }
+.v2 .v2-sitemap-list a { color: var(--navy); font-weight: 600; text-decoration: none; }
+.v2 .v2-sitemap-list a:hover { color: var(--brass-text); }
+@media (max-width: 700px) { .v2-sitemap-list { columns: 1; } .v2-sitemap .v2-ind-related h2 { text-align: center; } }

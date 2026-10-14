@@ -183,6 +183,7 @@ def footer_v2(root, year, indicator_links=""):
           <li><a href="{root}archive.html">Newsletter archive</a></li>
           <li><a href="{root}resources.html">Resources</a></li>
           <li><a href="{root}about.html">About</a></li>
+          <li><a href="{root}sitemap.html">Site map</a></li>
           <li><a href="{root}index.html#subscribe">Subscribe free</a></li>
         </ul>
       </div>
