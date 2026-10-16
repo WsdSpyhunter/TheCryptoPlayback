@@ -930,3 +930,9 @@ body.v2 { overflow-x: clip; }
 .v2 .v2-sitemap-list a { color: var(--navy); font-weight: 600; text-decoration: none; }
 .v2 .v2-sitemap-list a:hover { color: var(--brass-text); }
 @media (max-width: 700px) { .v2-sitemap-list { columns: 1; } .v2-sitemap .v2-ind-related h2 { text-align: center; } }
+
+/* "In Their Words" quote story on issue pages */
+.v2-post-quote { margin: 4px 0 18px; padding: 8px 0 8px 18px; border-left: 4px solid var(--brass); }
+.v2-post-quote p { margin: 0; font-family: var(--f-head); font-style: italic; font-size: 20px; line-height: 1.5; color: var(--navy); }
+.v2-post-quote footer { margin-top: 8px; font-family: var(--f-cond); font-weight: 600; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--brass-text); }
+@media (max-width: 700px) { .v2-post-quote { border-left: 0; border-top: 4px solid var(--brass); padding: 12px 0 0; text-align: center; } }

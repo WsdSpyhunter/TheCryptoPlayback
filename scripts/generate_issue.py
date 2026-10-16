@@ -18,6 +18,7 @@ from fetch_sentiment import get_fear_greed
 from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
+from quote_story import insert_quote_story
 from story_images import fix_story_images
 from blocked_terms import BLOCKED_TERMS, contains_blocked, sanitize_headlines, mask_result, neutralize_links
 from build_site import (
@@ -80,6 +81,15 @@ Rules:
   "a large overseas crypto exchange"). Use that wording and write naturally \
   around it - still tell the whole story, just never name, guess or hint at \
   the missing name. Never write any of these words in any form: {blocked_list}.
+- QUOTE SLOT (a goal, not a guarantee): if one of the headlines contains a direct quote from a named \
+  public official or market-moving figure (Federal Reserve, Treasury, White House, a regulator, a \
+  legislator) that is genuinely relevant to crypto or markets, use it for ONE special story in \
+  "quote_story" INSTEAD of one of the regular stories (so the regular stories plus the quote story add up \
+  to the target count). The quote must be copied WORD FOR WORD, character for character, from that \
+  headline's own headline/summary text - never paraphrased, shortened mid-sentence, merged or recalled \
+  from memory, and 8-60 words long. Use single quotes for any quotation marks inside it. If no headline \
+  contains a suitable verbatim quote, set "quote_story" to null and write the regular number of stories - \
+  never force it. A program checks every quote against the source text and drops any that do not match.
 - CRITICAL for valid output: never use a literal double-quote character (") \
   inside any string value. If you need quotation marks for HTML attributes, \
   use single quotes (e.g. <a href='...'>). If you need to quote a phrase in \
@@ -98,6 +108,15 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
       "image_url": "exact image URL from the list for this headline, or null"
     }}
   ],
+  "quote_story": {{
+    "quote": "the exact words, copied verbatim from the cited headline/summary (8-60 words), or set the whole quote_story to null",
+    "speaker": "full name as given in the source",
+    "role": "title, e.g. Treasury Secretary",
+    "context": "1-2 sentences of neutral context from the same source: when/where it was said and why it matters",
+    "take": "one sentence of your own take (optional)",
+    "source_title": "exact source name from the list",
+    "source_url": "exact link from the list"
+  }},
   "missed_story": {{
     "headline": "punchy headline, your own words",
     "body": "2-3 plain-text sentences, no HTML",
@@ -175,6 +194,8 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
 
     # A story image that 404s shows as a broken-image icon in the email: check each
     # one, swap in the article's own image when the feed's is dead, else drop it.
+    if insert_quote_story(result, headlines):
+        print("Added an 'In Their Words' quote story (verified word-for-word against its source).")
     fix_story_images(result["stories"])
     missed_story = validated_missed_story(result, headlines)
     # Source links that contain a blocked name (e.g. ".../bitget-hack") go through

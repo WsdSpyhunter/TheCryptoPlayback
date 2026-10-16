@@ -381,18 +381,22 @@ def read_section(read, tag, base):
             f'<span style="color:{BRASS_HI} !important;">View in the Playback Lab &rarr;</span></a></td></tr>')
 
 
-def story_row(headline, body, source_title, source_url, base, first=False):
+def story_row(headline, body, source_title, source_url, base, first=False, quote=None):
     label, ic = categorize(_plain(headline), _plain(body))
     paras = re.findall(r"<p[^>]*>(.*?)</p>", body, re.S) or [body]
     summary = paras[0].strip()
     why = " ".join(p.strip() for p in paras[1:]).strip()
     why_html = (f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:10px;text-align:center;">'
                 f'<strong style="color:{NAVY};">Why it matters:</strong> {why}</div>') if why else ""
+    quote_html = (f'<div style="font-family:{FRANK};font-style:italic;font-size:18px;line-height:1.5;color:{NAVY};margin:2px 0 6px;text-align:center;">'
+                  f'&ldquo;{escape(quote["text"], quote=False)}&rdquo;</div>'
+                  f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.12em;text-transform:uppercase;color:{BRASS_TX};margin:0 0 14px;text-align:center;">'
+                  f'&mdash; {escape(quote["speaker"], quote=False)}, {escape(quote["role"], quote=False)}</div>') if quote else ""
     return (f'<tr><td align="center" style="padding:24px 0 22px;border-top:1px solid {LINE};text-align:center;">'
             f'{story_tile(ic, base)}'
             f'<div style="font-family:{COND};font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:{BRASS_TX};margin:14px 0 14px;text-align:center;">{label} &middot; {escape(source_title)}</div>'
             f'<div style="font-family:{FRANK};font-weight:700;font-size:19px;line-height:1.3;letter-spacing:-0.01em;color:{NAVY};margin-bottom:8px;text-align:center;">{headline}</div>'
-            f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:8px;text-align:center;">{summary}</div>{why_html}'
+            f'{quote_html}<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};margin-bottom:8px;text-align:center;">{summary}</div>{why_html}'
             f'<a href="{source_url}" style="font-family:{SANS};font-size:13px;font-weight:600;color:{BRASS_TX} !important;text-decoration:none;"><span style="color:{BRASS_TX} !important;">Read at {escape(source_title)} &rarr;</span></a>'
             f'</td></tr>')
 
@@ -442,7 +446,7 @@ def sponsor_band(sponsor):
 def story_list(stories, base, sponsor=None):
     """The rest of the issue's stories, with the sponsor slot in the middle."""
     def block(chunk):
-        rows = "".join(story_row(x["headline"], x["body"], x["source_title"], x["source_url"], base) for x in chunk)
+        rows = "".join(story_row(x["headline"], x["body"], x["source_title"], x["source_url"], base, quote=x.get("quote")) for x in chunk)
         return (f'<tr><td style="padding:12px 40px 12px;" class="v3-pad">'
                 f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">{rows}</table></td></tr>')
     if len(stories) < 3:

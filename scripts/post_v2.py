@@ -93,7 +93,9 @@ def render(post, root, market, entries, footer_links=""):
     for s in post["stories"]:
         img = (f'<img class="v2-post-img" src="{s["image_url"]}" alt="{escape(_plain(s["headline"]), quote=True)}" loading="lazy">'
                if s.get("image_url") else "")
-        stories += (f'<article class="v2-post-story">{img}<h2>{s["headline"]}</h2>{s["body"]}'
+        qt = (f'<blockquote class="v2-post-quote"><p>&ldquo;{escape(s["quote"]["text"], quote=False)}&rdquo;</p>'
+              f'<footer>&mdash; {escape(s["quote"]["speaker"], quote=False)}, {escape(s["quote"]["role"], quote=False)}</footer></blockquote>') if s.get("quote") else ""
+        stories += (f'<article class="v2-post-story">{img}<h2>{s["headline"]}</h2>{qt}{s["body"]}'
                     f'<a class="v2-post-src" href="{s["source_url"]}" target="_blank" rel="noopener">Read more at {s["source_title"]} &rarr;</a></article>')
 
     # prev / next issue (entries are newest first)

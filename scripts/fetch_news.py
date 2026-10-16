@@ -60,7 +60,7 @@ def get_recent_headlines(hours=36, max_per_feed=8):
                 continue
             items.append({
                 "headline": entry.get("title", "").strip(),
-                "summary": entry.get("summary", "")[:400],
+                "summary": entry.get("summary", "")[:800],
                 "link": entry.get("link", ""),
                 "source": source,
                 "published": published.isoformat() if published else None,
