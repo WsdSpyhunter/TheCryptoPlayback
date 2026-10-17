@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-10-17T12:26:47.525000+00:00",
+  "updated_at": "2026-10-17T13:05:13.094950+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 81436,
-      "change_24h": -1.06482,
-      "change_7d": -1.5904
+      "price": 81444,
+      "change_24h": -0.59084,
+      "change_7d": -1.6813
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2425.73,
-      "change_24h": -1.9045,
-      "change_7d": -2.5292
+      "price": 2424.3,
+      "change_24h": -1.40729,
+      "change_7d": -2.8752
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 719.41,
-      "change_24h": -1.4161,
-      "change_7d": -3.841
+      "price": 718.74,
+      "change_24h": -1.13184,
+      "change_7d": -4.0334
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 1.3,
-      "change_24h": -3.1359,
-      "change_7d": -7.0854
+      "price": 1.29,
+      "change_24h": -2.90221,
+      "change_7d": -7.7916
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 104.17,
-      "change_24h": -2.09222,
-      "change_7d": -4.6014
+      "price": 103.86,
+      "change_24h": -1.50446,
+      "change_7d": -5.4329
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.336545,
-      "change_24h": 0.29298,
-      "change_7d": 1.6979
+      "price": 0.336649,
+      "change_24h": 0.46695,
+      "change_7d": 1.6293
     }
   ],
   "fng": {
@@ -58,30 +58,30 @@
     "id": "zcash",
     "symbol": "ZEC",
     "name": "Zcash",
-    "price": 1167.24,
-    "change_24h": -5.19775,
-    "change_7d": -4.2757
+    "price": 1156.21,
+    "change_24h": -5.09048,
+    "change_7d": -5.7545
   },
   "week_mover": {
     "id": "ripple",
     "symbol": "XRP",
     "name": "XRP",
-    "price": 1.3,
-    "change_24h": -3.1359,
-    "change_7d": -7.0854
+    "price": 1.29,
+    "change_24h": -2.90221,
+    "change_7d": -7.7916
   },
   "sectors": [
     {
       "label": "L1",
-      "change_24h": -1.3469674377522693
+      "change_24h": -1.0718809152700863
     },
     {
       "label": "RWA",
-      "change_24h": -1.3970238241012434
+      "change_24h": -1.3165201372846922
     },
     {
       "label": "Gaming",
-      "change_24h": -2.0110279874423065
+      "change_24h": -2.0508449121220558
     }
   ],
   "stablecoins": {
@@ -89,35 +89,42 @@
     "change_7d_pct": -0.3592277050711903
   },
   "dominance": {
-    "btc_dominance_pct": 59.34054357347841,
-    "total_market_cap_usd": 2752463142829.5093
+    "btc_dominance_pct": 59.37426075390486,
+    "total_market_cap_usd": 2748953168688.324
   },
   "leverage": {
     "funding_rate_pct": 0.01,
     "next_funding_time_ms": 1792281600000,
-    "open_interest_usd": 2492736511.2096863
+    "open_interest_usd": 2489559535.008006
   },
   "defi_tvl": {
-    "total_usd": 89574361332.0,
-    "change_7d_pct": -2.2262689593866316
+    "total_usd": 89529878262.0,
+    "change_7d_pct": -2.2748238768581674
   },
   "network_health": {
-    "hashrate_eh": 1031.6785646716999,
-    "difficulty_change_pct": 2.307208290409002,
+    "hashrate_eh": 1037.143150591811,
+    "difficulty_change_pct": 1.7633985066487945,
     "fastest_fee_satvb": 1,
-    "pending_tx_count": 74812
+    "pending_tx_count": 75804
   },
   "liquidations": {
-    "long_liq_usd": 219156.10095000005,
-    "short_liq_usd": 249038.64511000004,
+    "long_liq_usd": 284035.22927000007,
+    "short_liq_usd": 249054.94045000002,
     "event_count": 100,
-    "window_minutes": 933.1590833333333
+    "window_minutes": 1099.79025
   },
   "whale_activity": {
     "amounts_btc": [
-      63.98302341,
-      49.00693471,
-      15.02017656
+      125.88409267,
+      107.60828699,
+      69.93170065,
+      59.49795285,
+      17.31494983,
+      10.84201065,
+      9.83763425,
+      8.77098863,
+      7.999992,
+      7.23203941
     ],
     "sample_size": 1000
   },
