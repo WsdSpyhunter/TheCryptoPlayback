@@ -42,7 +42,7 @@ def hero(n_indicators):
       <ul class="v2-hero-facts">
         <li><strong>{n_indicators}</strong> live indicators</li>
         <li><strong>15 min</strong> market data refresh</li>
-        <li><strong>Mon&ndash;Sat</strong> free briefing</li>
+        <li><strong>4&times;/week</strong> free briefing</li>
       </ul>
     </div>
   </div>
@@ -254,7 +254,7 @@ def subscribe():
     <div class="v2-subscribe-copy">
       <div class="v2-kicker v2-kicker-brass">Join The Playback</div>
       <h2 id="subscribe-h">Subscribe for free and don't miss another top story</h2>
-      <p>One concise briefing every morning: live market signals, what changed overnight, and the stories that matter
+      <p>Four concise briefings a week (Monday, Wednesday, Friday and Saturday): live market signals, what changed since the last issue, and the stories that matter
       for Bitcoin and digital assets. Subscribe now and automatically unlock <strong>VIP OG status</strong>.</p>
       <form class="v2-form" action="https://buttondown.com/api/emails/embed-subscribe/cryptoplayback" method="post" target="_blank" id="sub-form">
         <label class="v2-sr" for="sub-name">First name</label>
@@ -336,7 +336,7 @@ def jsonld(indicators):
             {"@type": "Organization", "@id": f"{SITE_URL}/#org", "name": "The Crypto Playback", "url": SITE_URL + "/",
              "logo": f"{SITE_URL}/assets/v2/the-crypto-playback-badge.webp", "email": "info@cryptoplayback.com"},
             {"@type": "WebSite", "@id": f"{SITE_URL}/#site", "url": SITE_URL + "/", "name": "The Crypto Playback",
-             "description": "Free daily Bitcoin and crypto market research with 24 live indicators.",
+             "description": "Free Bitcoin and crypto market research, four times a week, with 24 live indicators.",
              "publisher": {"@id": f"{SITE_URL}/#org"}, "inLanguage": "en-US"},
             {"@type": "FAQPage", "mainEntity": faq},
         ],

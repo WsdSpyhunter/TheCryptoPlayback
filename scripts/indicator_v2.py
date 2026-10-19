@@ -59,7 +59,7 @@ def render(ind, history_rows, refresh_note, all_inds):
     {lab_html}
     {history}
     {related}
-    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the daily playback free</a></p>
+    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the Playback free</a></p>
   </div>
 </section>"""
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [

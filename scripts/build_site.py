@@ -1992,7 +1992,7 @@ def render_index(entries):
     return page(
         "", "Daily Bitcoin & Crypto Market Research | The Crypto Playback", body,
         datetime.now().year, theme="v2",
-        description=("Free daily Bitcoin & crypto market research. 24 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter."),
+        description=("Free Bitcoin & crypto market research, four times a week. 24 live indicators (Fear & Greed, ETF flows, stablecoin liquidity, risk) plus a morning newsletter."),
         path="", jsonld=home_v2.jsonld(indicators),
         extra_head='<link rel="preload" as="image" href="assets/v2/crypto-playback-mascot-bitcoin-uncle-sam.webp" type="image/webp" fetchpriority="high">',
         indicator_links=home_v2.indicator_footer_links(indicators),
@@ -2117,7 +2117,7 @@ def render_archive(entries):
       <button class="active" data-filter="all">All</button><button data-filter="Daily">Daily</button><button data-filter="Weekly">Weekly</button>
     </div>
     <div class="v2-arch-list" id="archive-items">{items}</div>
-    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the daily playback free</a></p>
+    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the Playback free</a></p>
   </div>
 </section>
 <script>

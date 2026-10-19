@@ -2,14 +2,14 @@ name: Daily Playback
 
 on:
   schedule:
-    # Monday-Friday, 6:30 AM Central. GitHub cron is UTC-only and best-effort,
+    # Monday, Wednesday and Friday, 6:30 AM Central (Saturday is the weekly; see weekly.yml). GitHub cron is UTC-only and best-effort,
     # so there are three starts: 11:30 UTC is 6:30 AM during daylight time,
     # 12:30 UTC is 6:30 AM during standard time (and the 7:30 backup in
     # summer), and 14:30 UTC is a later backup. The guard job lets only the
     # first useful one through, so there is never more than one issue a day.
-    - cron: "30 11 * * 1-5"
-    - cron: "30 12 * * 1-5"
-    - cron: "30 14 * * 1-5"
+    - cron: "30 11 * * 1,3,5"
+    - cron: "30 12 * * 1,3,5"
+    - cron: "30 14 * * 1,3,5"
   workflow_dispatch: {}     # lets you trigger it manually from the Actions tab to test
 
 permissions:

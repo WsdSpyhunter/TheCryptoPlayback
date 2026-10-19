@@ -33,7 +33,7 @@ ABOUT_BODY = """<section class="v2-ind-hero" aria-labelledby="about-h">
       <h2>Contact</h2>
       <p>Questions, tips, or feedback: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></p>
     </article>
-    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the daily playback free</a></p>
+    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the Playback free</a></p>
   </div>
 </section>"""
 
@@ -295,7 +295,7 @@ def build():
     links = build_site._footer_indicator_links()
     with open(os.path.join(ROOT, "about.html"), "w") as f:
         f.write(page("", "About The Crypto Playback | Bitcoin & Crypto Research", ABOUT_BODY, year, theme="v2", indicator_links=links,
-                     description="The Crypto Playback is a free daily and weekly briefing on Bitcoin and crypto: top headlines, 24 live indicators and the Playback Lab.",
+                     description="The Crypto Playback is a free briefing on Bitcoin and crypto, four times a week: top headlines, 24 live indicators and the Playback Lab.",
                      path="about.html", jsonld=_crumbs_ld(("Home", ""), ("About", "about.html"))))
     with open(os.path.join(ROOT, "resources.html"), "w") as f:
         f.write(page("", "Crypto Resources & Glossary | The Crypto Playback", RESOURCES_BODY, year, theme="v2", indicator_links=links,

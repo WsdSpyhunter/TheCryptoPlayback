@@ -100,10 +100,10 @@ def llms_txt(indicators):
                       for i in indicators)
     return f"""# The Crypto Playback
 
-> Free daily Bitcoin and crypto market research. A live dashboard of 16 market indicators (sentiment, risk, ETF flows,
+> Free Bitcoin and crypto market research, four issues a week. A live dashboard of 16 market indicators (sentiment, risk, ETF flows,
 > stablecoin liquidity, leverage, on-chain activity and more) refreshed every 15 minutes, plus 8 Playback Lab indicators
 > (Bitcoin trend, institutional positioning, miner stress, net liquidity and more) refreshed every 2 hours, and a concise newsletter
-> published Monday through Saturday. Not financial advice.
+> published Monday, Wednesday, Friday and Saturday. Not financial advice.
 
 ## Main pages
 - [Home and live dashboard]({SITE_URL}/)

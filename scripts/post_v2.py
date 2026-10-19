@@ -123,7 +123,7 @@ def render(post, root, market, entries, footer_links=""):
     {missed_card(post["missed_story"], root, "v2-news-missed") if isinstance(post.get("missed_story"), dict) and post["missed_story"].get("headline") else ""}
     {stories}
     {related_research(post, root)}
-    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="{root}index.html#subscribe">Get the daily playback free</a></p>
+    <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="{root}index.html#subscribe">Get the Playback free</a></p>
     {nav}
   </div>
 </section>"""

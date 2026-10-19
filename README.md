@@ -58,8 +58,8 @@ repository secret**, one at a time:
   create a Buttondown draft — check buttondown.com/emails/drafts for it)
 
 ## How it runs from here
-- Daily post: fires automatically every morning (~6am CST)
-- Weekly post: fires automatically every Friday morning
+- Playback posts: fire automatically Monday, Wednesday and Friday mornings (~6:30am Central)
+- Weekly (Saturday weekend edition): fires automatically Saturday morning
 - Each one opens a PR — **GitHub emails you automatically** the moment
   that happens (that email/notification IS the "review it" step)
 - Merge the PR to publish it live on the site

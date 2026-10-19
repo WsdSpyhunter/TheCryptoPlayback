@@ -1,6 +1,6 @@
 """
-generate_daily.py — the daily Playback: 4-10 of the most significant,
-distinct stories from the last day (as many as the day's real news
+generate_daily.py — the Mon/Wed/Fri Playback: 4-10 of the most significant,
+distinct stories from the last two days (as many as the day's real news
 warrants), each with a short summary + editorial take, plus the price
 ticker, Fear & Greed Index, and biggest mover of the day.
 
@@ -24,10 +24,10 @@ def main():
         model=MODEL,
         tag="Daily",
         slug_suffix="-daily",
-        cadence_label="the last day",
-        headlines_hours=40,
-        max_per_feed=12,
-        max_headlines=50,
+        cadence_label="the last two days",
+        headlines_hours=52,
+        max_per_feed=16,
+        max_headlines=60,
         story_min=STORY_COUNT_MIN,
         story_max=STORY_COUNT_MAX,
     )
