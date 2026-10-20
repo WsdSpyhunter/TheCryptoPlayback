@@ -19,12 +19,13 @@ from fetch_sectors import get_top_sectors
 from fetch_stablecoins import get_stablecoin_liquidity
 from claude_client import ask_claude_json
 from quote_story import insert_quote_story
+import playback_take
 from story_images import fix_story_images
 from blocked_terms import BLOCKED_TERMS, contains_blocked, sanitize_headlines, mask_result, neutralize_links
 from build_site import (
     save_pending_post, render_ticker_bar, render_sentiment_combined,
     render_issue_pill, render_top_story_box, compute_biggest_mover, compute_weekly_mover,
-    load_index, save_gauge_image, format_date_abbrev, load_market_overview, ROOT,
+    load_index, save_gauge_image, format_date_abbrev, load_market_overview, ROOT, _live_context,
 )
 from email_build import build_email
 import os
@@ -85,6 +86,16 @@ Rules:
   "a large overseas crypto exchange"). Use that wording and write naturally \
   around it - still tell the whole story, just never name, guess or hint at \
   the missing name. Never write any of these words in any form: {blocked_list}.
+- PLAYBACK TAKE: you are also given "Our indicator readings right now" (Signal Confluence and the Playback \
+  Lab read). Write "playback_take": 2-3 short points (each a label of 1-3 words plus ONE sentence) that \
+  connect the issue's news to those readings, one sentence on where the news and our data agree or pull in \
+  different directions ("tension"), and one sentence on what to watch next ("watch"). Rules: use ONLY the \
+  readings given; any number you write must be copied exactly from them (never invent or compute figures). \
+  Describe what the readings show - NEVER claim the news caused a move or the data explains the news; use \
+  wording like 'is consistent with' or 'sits alongside'. No predictions and no advice: do not use the words \
+  will, should, buy, sell, bullish, bearish, expected to, likely to, going to, because, due to, driven by, \
+  led to, caused, or triggered. If the readings are not given or nothing meaningful connects, set \
+  "playback_take" to null. A program checks every number and the wording and drops the section if it fails.
 - QUOTE SLOT (a goal, not a guarantee): if one of the headlines contains a direct quote from a named \
   public official or market-moving figure (Federal Reserve, Treasury, White House, a regulator, a \
   legislator) that is genuinely relevant to crypto or markets, use it for ONE special story in \
@@ -112,6 +123,11 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
       "image_url": "exact image URL from the list for this headline, or null"
     }}
   ],
+  "playback_take": {{
+    "points": [{{"label": "Sentiment", "text": "one sentence using only the given readings"}}],
+    "tension": "one sentence on where the news and our readings agree or pull apart",
+    "watch": "one sentence on what to watch next, starting with 'Whether'"
+  }},
   "quote_story": {{
     "quote": "the exact words, copied verbatim from the cited headline/summary (8-60 words), or set the whole quote_story to null",
     "speaker": "full name as given in the source",
@@ -130,12 +146,15 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
 }}"""
 
 
-def build_user_prompt(headlines, cadence_label, max_headlines):
+def build_user_prompt(headlines, cadence_label, max_headlines, facts=""):
     lines = []
     for h in headlines[:max_headlines]:
         img_note = f" [image: {h['image_url']}]" if h.get("image_url") else " [image: none]"
         lines.append(f"- [{h['source']}] {h['headline']}: {h['summary']} ({h['link']}){img_note}")
-    return f"Headlines from {cadence_label}:\n" + "\n".join(lines)
+    prompt = f"Headlines from {cadence_label}:\n" + "\n".join(lines)
+    if facts:
+        prompt += "\n\nOur indicator readings right now (use only these for playback_take):\n" + facts
+    return prompt
 
 
 def clean_issue_title(title):
@@ -189,7 +208,12 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         sys.exit(1)
 
     system_prompt = build_system_prompt(story_min, story_max, cadence_label)
-    user_prompt = build_user_prompt(headlines, cadence_label, max_headlines)
+    try:
+        facts = playback_take.build_facts(_live_context(load_index()))
+    except Exception as exc:    # noqa: BLE001 - the take is optional; never block the issue
+        print(f"Indicator readings unavailable for the Playback Take: {exc}")
+        facts = ""
+    user_prompt = build_user_prompt(headlines, cadence_label, max_headlines, facts)
     result = ask_claude_json(model, system_prompt, user_prompt, max_tokens=max_tokens)
     result["issue_title"] = clean_issue_title(result["issue_title"])
     masked = mask_result(result)
@@ -200,6 +224,8 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     # one, swap in the article's own image when the feed's is dead, else drop it.
     if insert_quote_story(result, headlines):
         print("Added an 'In Their Words' quote story (verified word-for-word against its source).")
+    take = playback_take.validate(result.get("playback_take"), facts)
+    print("Added 'The Playback Take' (numbers checked against our readings)." if take else "No Playback Take this issue.")
     fix_story_images(result["stories"])
     missed_story = validated_missed_story(result, headlines)
     # Source links that contain a blocked name (e.g. ".../bitget-hack") go through
@@ -242,6 +268,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
         "top_story_html": render_top_story_box(result["intro"]),
         "stories": result["stories"],
         "missed_story": missed_story,
+        "playback_take": take,
         "excerpt": result["intro"][:220],
     }
     print(f"Generated {tag.lower()} post: {slug} ({len(result['stories'])} stories)")
@@ -251,7 +278,7 @@ def generate_issue(model, tag, slug_suffix, cadence_label, headlines_hours,
     email_body = build_email(
         issue_title=result["issue_title"], intro=result["intro"], stories=result["stories"], prices=prices, tag=tag,
         date_display=date_display, date_abbrev=date_abbrev, issue_number=issue_number, slug=slug,
-        missed_story=missed_story, upload=True,
+        missed_story=missed_story, upload=True, playback_take=take,
     )
     # Last gate: never create a draft Buttondown would refuse to publish. Failing
     # here makes the workflow retry with a fresh write-up instead of leaving a

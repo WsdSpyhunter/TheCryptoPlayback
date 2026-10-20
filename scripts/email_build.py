@@ -16,7 +16,7 @@ import email_v3
 
 
 def build_email(*, issue_title, intro, stories, prices, tag, date_display, date_abbrev, issue_number, slug,
-                missed_story=None, upload=False, local_assets=False, indicators_last=True):
+                missed_story=None, upload=False, local_assets=False, indicators_last=True, playback_take=None):
     entries = b.load_index()
     live = b._live_context(entries)
     if live is None:
@@ -36,4 +36,4 @@ def build_email(*, issue_title, intro, stories, prices, tag, date_display, date_
     return email_v3.render(
         issue_title=issue_title, intro=intro, stories=stories, ticker_prices=prices, tag=tag, date_display=date_display,
         date_abbrev=live["date_abbrev"] or date_abbrev, issue_number=issue_number, live=live, missed_story=missed_story,
-        header_url=header, gauge_url=gauge, slug=slug, year=datetime.now().year, base=base, indicators_last=indicators_last)
+        header_url=header, gauge_url=gauge, slug=slug, year=datetime.now().year, base=base, indicators_last=indicators_last, playback_take=playback_take)

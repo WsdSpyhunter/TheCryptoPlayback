@@ -36,7 +36,7 @@ def main():
     neutralize_links({"stories": post["stories"], "missed_story": post.get("missed_story")}, b.ROOT)
 
     email_body = build_email(
-        issue_title=post["title"], intro=post["top_story_html"], stories=post["stories"], prices=post["prices"], tag=post["tag"],
+        issue_title=post["title"], intro=post["top_story_html"], stories=post["stories"], prices=post["prices"], tag=post["tag"], playback_take=post.get("playback_take"),
         date_display=post["date_display"], date_abbrev=post["date_abbrev"], issue_number=post["issue_number"], slug=post["slug"],
         missed_story=post.get("missed_story"), upload=not dry, local_assets=dry,
     )

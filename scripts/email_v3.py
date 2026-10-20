@@ -415,6 +415,19 @@ def news_intro(intro, base):
             f'box-shadow:0 6px 18px rgba(11,31,58,0.28);">{_plain(intro)}</div></td></tr>')
 
 
+def take_section(take, base):
+    """'The Playback Take': the news tied to our own indicator readings (see playback_take.py). Empty when there is none."""
+    if not take:
+        return ""
+    pts = "".join(
+        f'<div style="margin:0 0 12px;text-align:center;"><div style="font-family:{COND};font-weight:600;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:{BRASS_TX};margin-bottom:3px;">{escape(p["label"])}</div>'
+        f'<div style="font-family:{SANS};font-size:14.5px;line-height:1.6;color:{TEXT};">{escape(p["text"])}</div></div>' for p in take["points"])
+    return (f'<tr><td style="padding:6px 40px 26px;" class="v3-pad">{section_title("confluence", "The Playback Take", base)}'
+            f'<div style="background:{IVORY};border-top:3px solid {BRASS};padding:20px 22px 14px;text-align:center;">{pts}'
+            f'<div style="font-family:{FRANK};font-style:italic;font-size:16.5px;line-height:1.5;color:{NAVY};margin:6px 0 12px;text-align:center;">{escape(take["tension"])}</div>'
+            f'<div style="font-family:{SANS};font-size:14px;line-height:1.55;color:{TEXT};text-align:center;"><strong style="color:{NAVY};">What to watch:</strong> {escape(take["watch"])}</div></div></td></tr>')
+
+
 def load_sponsor():
     """data/sponsor.json: set "active": true plus either image_url (a banner that links to cta_url) or logo_url / message / cta_text / cta_url."""
     try:
@@ -577,7 +590,7 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
 
 
 def render(*, issue_title, intro, stories, ticker_prices, tag, date_display, date_abbrev, issue_number, live,
-           missed_story=None, header_url, gauge_url, slug, year, base=ASSET_BASE, indicators_last=True):
+           missed_story=None, header_url, gauge_url, slug, year, base=ASSET_BASE, indicators_last=True, playback_take=None):
     weekly = tag == "Weekly"
     kicker = "Weekend Edition" if weekly else "The Playback"
     view_url = f"{SITE_URL}posts/{slug}.html"
@@ -589,9 +602,9 @@ def render(*, issue_title, intro, stories, ticker_prices, tag, date_display, dat
         snapshot_section(live, gauge_url, base), bottom_line_section(live, intro, base), dashboard_panel(live, base),
     ]
     if indicators_last:
-        parts += [news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base, load_sponsor()), indicators_section(live, base)]
+        parts += [news_intro(intro, base), take_section(playback_take, base), notable_section(missed_story, base), story_list(stories, base, load_sponsor()), indicators_section(live, base)]
     else:
-        parts += [indicators_section(live, base), news_intro(intro, base), notable_section(missed_story, base), story_list(stories, base, load_sponsor())]
+        parts += [indicators_section(live, base), news_intro(intro, base), take_section(playback_take, base), notable_section(missed_story, base), story_list(stories, base, load_sponsor())]
     parts += [cta_section(), footer_section(live, stamp, base, year)]
     body = "\n".join(p for p in parts if p)
     body, shared_css = compact(body)

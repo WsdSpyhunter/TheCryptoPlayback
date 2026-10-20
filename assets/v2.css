@@ -941,3 +941,15 @@ body.v2 { overflow-x: clip; }
 @media (max-width: 700px) {
   .v2-changed .v2-change-detail { text-align: left; }
 }
+
+/* "The Playback Take" on issue pages */
+.v2-post-take { margin: 26px 0 0; background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--brass); box-shadow: var(--shadow); padding: 22px 26px 20px; }
+.v2-post-take h2 { margin: 0 0 14px; font-family: var(--f-cond); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 18px; color: var(--navy); }
+.v2-post-take ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.v2-post-take li { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: baseline; }
+.v2-post-take li b { font-family: var(--f-cond); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; font-size: 14px; color: var(--brass-text); }
+.v2-post-take li span { font-size: 16px; line-height: 1.6; color: var(--text); }
+.v2-take-tension { margin: 16px 0 0; font-family: var(--f-head); font-style: italic; font-size: 19px; line-height: 1.5; color: var(--navy); }
+.v2-take-watch { margin: 12px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--text); }
+@media (max-width: 700px) { .v2-post-take { text-align: center; } .v2-post-take li { grid-template-columns: 1fr; gap: 2px; } }
+.v2-post-wrap .v2-post-take + .v2-missed { margin-top: 26px; }

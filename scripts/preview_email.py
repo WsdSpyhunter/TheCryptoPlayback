@@ -19,7 +19,7 @@ def render_latest(local_assets=False, indicators_last=True, upload=False, fallba
     live = b._live_context(entries)
     prices = post.get("prices") or (live or {}).get("prices")
     html = build_email(
-        issue_title=post["title"], intro=post["top_story_html"], stories=post["stories"], prices=prices, tag=post["tag"],
+        issue_title=post["title"], intro=post["top_story_html"], stories=post["stories"], prices=prices, tag=post["tag"], playback_take=post.get("playback_take"),
         date_display=post["date_display"], date_abbrev=post.get("date_abbrev"), issue_number=post["issue_number"],
         slug=post["slug"], missed_story=post.get("missed_story") or fallback_missed, upload=upload,
         local_assets=local_assets, indicators_last=indicators_last)

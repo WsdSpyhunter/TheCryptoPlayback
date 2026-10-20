@@ -67,6 +67,17 @@ def _fmt_price(p):
     return f"${p:,.2f}" if p < 1000 else f"${p:,.0f}"
 
 
+def take_block(take, root):
+    """'The Playback Take': the issue's news tied to our own indicator readings."""
+    if not take:
+        return ""
+    pts = "".join(f'<li><b>{escape(p["label"])}</b><span>{escape(p["text"])}</span></li>' for p in take["points"])
+    return (f'<section class="v2-post-take" aria-labelledby="take-h"><h2 id="take-h">The Playback Take</h2><ul>{pts}</ul>'
+            f'<p class="v2-take-tension">{escape(take["tension"])}</p>'
+            f'<p class="v2-take-watch"><strong>What to watch:</strong> {escape(take["watch"])} '
+            f'<a href="{root}index.html#confluence">See the live indicators &rarr;</a></p></section>')
+
+
 def render(post, root, market, entries, footer_links=""):
     prices, fng, mover = market
     slug = post["slug"]
@@ -122,6 +133,7 @@ def render(post, root, market, entries, footer_links=""):
 <section class="v2-section v2-ind-body v2-post-body">
   <div class="v2-wrap v2-post-wrap">
     <div class="v2-post-lede"><span>Top story</span><p>{lede}</p></div>
+    {take_block(post.get("playback_take"), root)}
     {missed_card(post["missed_story"], root, "v2-news-missed") if isinstance(post.get("missed_story"), dict) and post["missed_story"].get("headline") else ""}
     {stories}
     {related_research(post, root)}
