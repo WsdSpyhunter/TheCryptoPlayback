@@ -25,10 +25,18 @@ ABOUT_BODY = """<section class="v2-ind-hero" aria-labelledby="about-h">
       <p class="v2-about-note">Nothing here is financial advice. See the note at the bottom of every page for the full disclosure.</p>
     </article>
     <div class="v2-about-tiles">
-      <a class="v2-about-tile" href="archive.html"><span>The briefing</span><strong>Daily and weekly issues</strong><em>Browse the archive &rarr;</em></a>
+      <a class="v2-about-tile" href="archive.html"><span>The briefing</span><strong>Four issues a week</strong><em>Browse the archive &rarr;</em></a>
       <a class="v2-about-tile" href="index.html#alerts"><span>The data</span><strong>24 live indicators</strong><em>See the dashboard &rarr;</em></a>
       <a class="v2-about-tile" href="playback-lab.html"><span>The research</span><strong>The Playback Lab</strong><em>Open the Lab &rarr;</em></a>
     </div>
+    <article class="v2-ind-card v2-about-card" id="how-its-made">
+      <h2>How The Playback is made</h2>
+      <p><strong>AI helps write it; a person reviews it.</strong> Each issue is drafted with the help of an AI model. It reads the latest headlines from major crypto news outlets (CoinDesk, The Block, Decrypt, Cointelegraph and Bitcoin Magazine), picks the stories that matter most, and writes a short summary and a take on each one. Every issue is read and approved by a person before it is sent or published.</p>
+      <p><strong>Sources.</strong> Each story is based on the one article it links to, so you can always read the original. If a story quotes a public figure, the quote is only used when it appears word for word in that source, and software checks this before publication.</p>
+      <p><strong>The numbers.</strong> The prices, Fear &amp; Greed reading and every indicator on the site and in the newsletter are calculated by software from public data sources, not written by AI. Each indicator page and the Playback Lab explain the method and the data used.</p>
+      <p><strong>Limits.</strong> We do not independently verify every claim made in the articles we summarize, and AI can make mistakes. Indicators describe market conditions; they are not predictions, and nothing here is financial advice (see our <a href="terms.html">Terms</a>).</p>
+      <p><strong>Corrections.</strong> If you spot an error, please email <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a>. We fix mistakes on the website as soon as we can.</p>
+    </article>
     <article class="v2-ind-card v2-about-card" id="contact">
       <h2>Contact</h2>
       <p>Questions, tips, or feedback: <a href="mailto:info@cryptoplayback.com">info@cryptoplayback.com</a></p>

@@ -52,6 +52,10 @@ Crypto Playback newsletter (news item, then "here's what I think about it").
 Rules:
 - Base every fact ONLY on the headlines/summaries given to you. Never invent \
   numbers, quotes, or events not present in the source material.
+- NUMBERS: whenever you repeat a figure (dollar amounts, percentages, counts, dates), use the \
+  source's exact figure and unit. Never convert, round into a different amount, restate it as a \
+  different size (for example do not call a $400 million move 'a quarter of a billion'), or do \
+  arithmetic on it. If you describe a figure again in your take, copy the same number.
 - Base each story ENTIRELY on the ONE headline/summary you cite for it — do \
   not pull in facts from other headlines in the list, even true ones, once \
   you've picked a story.
