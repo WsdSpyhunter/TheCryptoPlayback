@@ -8,6 +8,7 @@ import re
 from datetime import datetime
 from html import escape
 
+import issue_label
 from partials import page, SITE_URL
 from home_v2 import missed_card
 from email_v3 import categorize
@@ -108,11 +109,12 @@ def render(post, root, market, entries, footer_links=""):
         b = (f'<a class="v2-post-nav-a v2-post-nav-r" href="{newer["slug"]}.html"><span>Next issue &rarr;</span><strong>{newer["title"]}</strong></a>' if newer else "<span></span>")
         nav = f'<nav class="v2-post-nav" aria-label="More issues">{a}{b}</nav>'
 
-    kicker = f'{tag} issue' + (f' · Issue #{issue}' if issue else "")
+    ed = issue_label.edition(tag)
+    kicker = f'Your Crypto Playback for <time datetime="{date_iso}">{issue_label.weekday_date(slug)}</time>' + (f' · {ed}' if ed else "")
     body = f"""<section class="v2-ind-hero v2-post-hero" aria-labelledby="post-h">
   <div class="v2-wrap">
     <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="{root}index.html">Home</a><span aria-hidden="true">›</span><a href="{root}archive.html">Archive</a><span aria-hidden="true">›</span><span aria-current="page">{post['date_display']}</span></nav>
-    <div class="v2-kicker v2-kicker-brass v2-ind-kicker">{kicker} · <time datetime="{date_iso}">{post['date_display']}</time></div>
+    <div class="v2-kicker v2-kicker-brass v2-ind-kicker">{kicker}</div>
     <h1 class="v2-ind-title v2-post-title" id="post-h">{post['title']}</h1>
   </div>
 </section>
@@ -140,7 +142,7 @@ def render(post, root, market, entries, footer_links=""):
               {"@type": "ListItem", "position": 2, "name": "Archive", "item": f"{SITE_URL}/archive.html"},
               {"@type": "ListItem", "position": 3, "name": plain_title, "item": f"{SITE_URL}/posts/{slug}.html"}]}]
     dt = datetime.strptime(date_iso, "%Y-%m-%d")
-    seo_title = f"{plain_title}: {tag} Bitcoin & Crypto Briefing, {dt.strftime('%b')} {dt.day}, {dt.year} | The Crypto Playback"
+    seo_title = f"{plain_title}: Bitcoin & Crypto Briefing, {dt.strftime('%b')} {dt.day}, {dt.year} | The Crypto Playback"
     return page(root, seo_title, body, datetime.now().year, theme="v2", indicator_links=footer_links,
                 description=_plain(post.get("excerpt", lede))[:158], path=f"posts/{slug}.html", og_type="article",
                 jsonld=json.dumps(ld, separators=(",", ":")))

@@ -17,6 +17,7 @@ import os
 import re
 from html import escape
 
+import issue_label
 import v2_ui as ui
 
 SITE_URL = "https://cryptoplayback.com/"
@@ -189,10 +190,16 @@ def bottom_line(live, intro):
 def top_bar(kicker, issue_no, view_url):
     return (f'<tr><td style="background:{NAVY_TOP};padding:6px 40px;" class="v3-pad">'
             f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
-            f'<td style="font-family:{COND};font-weight:500;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:{DK_SOFT};">{kicker} &middot; No. {issue_no}</td>'
+            f'<td style="font-family:{COND};font-weight:500;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:{DK_SOFT};">{kicker}</td>'
             f'<td align="right" style="font-family:{COND};font-weight:500;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">'
             f'<a href="{view_url}" style="color:{BRASS_HI} !important;text-decoration:none;"><span style="color:{BRASS_HI} !important;">View in browser</span></a></td>'
             f'</tr></table></td></tr>')
+
+
+def playback_row(slug):
+    """'Your Crypto Playback for Wednesday, October 21, 2026' under the header artwork."""
+    return (f'<tr><td align="center" style="background:{IVORY};padding:14px 28px 13px;text-align:center;border-bottom:1px solid {LINE};" class="v3-pad">'
+            f'<div style="font-family:{FRANK};font-weight:600;font-size:17px;line-height:1.35;color:{NAVY};text-align:center;">{issue_label.your_playback(slug)}</div></td></tr>')
 
 
 def header_row(header_url, alt):
@@ -572,13 +579,13 @@ a[x-apple-data-detectors] {{ color:inherit !important; text-decoration:none !imp
 def render(*, issue_title, intro, stories, ticker_prices, tag, date_display, date_abbrev, issue_number, live,
            missed_story=None, header_url, gauge_url, slug, year, base=ASSET_BASE, indicators_last=True):
     weekly = tag == "Weekly"
-    kicker = "Weekly Issue" if weekly else "Daily Issue"
+    kicker = "Weekend Edition" if weekly else "The Playback"
     view_url = f"{SITE_URL}posts/{slug}.html"
     stamp = f"6:00 AM CT, {date_display}"
     caption = f"Top six by market cap. Prices as of {stamp}."
     alt = f"The Crypto Playback. Daily research and news on Bitcoin and digital assets. {date_display}."
     parts = [
-        top_bar(kicker, issue_number, view_url), header_row(header_url, alt), price_strip(ticker_prices, caption),
+        top_bar(kicker, issue_number, view_url), header_row(header_url, alt), playback_row(slug), price_strip(ticker_prices, caption),
         snapshot_section(live, gauge_url, base), bottom_line_section(live, intro, base), dashboard_panel(live, base),
     ]
     if indicators_last:

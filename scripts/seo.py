@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from email.utils import format_datetime
 from html import escape
 
+import issue_label
 from partials import SITE_URL, page
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -165,7 +166,7 @@ def sitemap_html(entries, indicators, year):
         if e["slug"] in seen:
             continue
         seen.add(e["slug"])
-        posts.append((f"posts/{e['slug']}.html", f"{e['tag']} · {e['date_display']}: {_plain(e['title'])}"))
+        posts.append((f"posts/{e['slug']}.html", f"{(issue_label.edition(e['tag']) + ' · ') if issue_label.edition(e['tag']) else ''}{issue_label.weekday_date(e['slug'])}: {_plain(e['title'])}"))
     body = f"""<section class="v2-ind-hero" aria-labelledby="sm-h">
   <div class="v2-wrap">
     <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Site map</span></nav>

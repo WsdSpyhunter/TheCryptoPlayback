@@ -331,7 +331,7 @@ def sentiment_to_email_html(fng, mover, gauge_src):
 
 
 def release_row_email_html(date_display, issue_number, tag):
-    label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
+    label = "WEEKEND EDITION" if tag == "Weekly" else "THE PLAYBACK"
     return f"""<div style="margin:20px 20px 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F1EEE7; border-radius:4px; box-shadow:0 2px 5px rgba(23,21,18,0.18);">
   <tr>

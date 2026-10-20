@@ -11,6 +11,7 @@ from html import escape
 
 from partials import SITE_URL
 import v2_ui as ui
+import issue_label
 
 try:  # Central time for the hero date line (the site's reader timezone)
     from zoneinfo import ZoneInfo
@@ -219,7 +220,7 @@ def news(entries, teaser_image, missed=None):
         cards += f"""<article class="v2-story{' has-img' if img else ''}">
       <div class="v2-story-tile" aria-hidden="true">{ui.icon(tile_icon, 34)}</div>
       <div class="v2-story-body">
-        <div class="v2-kicker">{e['tag']} playback &middot; {e['date_display']}</div>
+        <div class="v2-kicker">{(issue_label.edition(e['tag']) + ' &middot; ') if issue_label.edition(e['tag']) else ''}{issue_label.weekday_date(e['slug'])}</div>
         <h3 class="v2-story-title"><a href="posts/{e['slug']}.html">{e['title']}</a></h3>
         <p>{e['excerpt']}</p>
         <a class="v2-story-link" href="posts/{e['slug']}.html">Read the full playback &rarr;</a>

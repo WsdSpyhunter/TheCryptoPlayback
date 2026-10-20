@@ -18,6 +18,7 @@ from partials import page, asset_version
 import home_v2
 import indicator_v2
 import post_v2
+import issue_label
 import seo
 
 HEADER_WEB_VERSION = asset_version("header-web.png")
@@ -267,7 +268,7 @@ def render_sentiment_combined(fng, mover, tag):
 
 
 def render_issue_pill(tag):
-    label = "DAILY ISSUE" if tag == "Daily" else "WEEKLY ISSUE"
+    label = "WEEKEND EDITION" if tag == "Weekly" else "THE PLAYBACK"
     return f'<span class="issue-pill">{label}</span>'
 
 
@@ -2098,8 +2099,10 @@ def render_indicator_pages(entries):
 def render_archive(entries):
     items = ""
     for e in entries:
+        ed = issue_label.edition(e["tag"])
+        ed_tag = f'<span class="v2-arch-tag v2-arch-weekly">{ed}</span>' if ed else ""
         items += f"""<a class="v2-arch-item" href="posts/{e['slug']}.html" data-tag="{e['tag']}">
-      <span class="v2-arch-meta"><span class="v2-arch-tag v2-arch-{e['tag'].lower()}">{e['tag']}</span><span class="v2-arch-date">{e['date_display']}</span></span>
+      <span class="v2-arch-meta">{ed_tag}<span class="v2-arch-date">{issue_label.weekday_date(e['slug'])}</span></span>
       <span class="v2-arch-title">{e['title']}</span>
       <span class="v2-arch-go" aria-hidden="true">&rarr;</span>
     </a>"""
@@ -2108,13 +2111,13 @@ def render_archive(entries):
     <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><span aria-current="page">Archive</span></nav>
     <div class="v2-kicker v2-kicker-brass v2-ind-kicker">Every issue, free to read</div>
     <h1 class="v2-ind-title" id="arch-h">The Playback Archive</h1>
-    <p class="v2-arch-sub">On this page you will find every daily and weekly newsletter we&rsquo;ve ever released.</p>
+    <p class="v2-arch-sub">On this page you will find every issue of The Playback we&rsquo;ve ever released.</p>
   </div>
 </section>
 <section class="v2-section v2-ind-body">
   <div class="v2-wrap">
     <div class="v2-arch-filters" role="group" aria-label="Filter issues">
-      <button class="active" data-filter="all">All</button><button data-filter="Daily">Daily</button><button data-filter="Weekly">Weekly</button>
+      <button class="active" data-filter="all">All</button><button data-filter="Daily">Weekday</button><button data-filter="Weekly">Weekend</button>
     </div>
     <div class="v2-arch-list" id="archive-items">{items}</div>
     <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the Playback free</a></p>
@@ -2136,8 +2139,8 @@ def render_archive(entries):
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoplayback.com/"},
         {"@type": "ListItem", "position": 2, "name": "Archive", "item": "https://cryptoplayback.com/archive.html"}]}
-    return page("", "Archive: Daily & Weekly Crypto Briefings | The Crypto Playback", body, datetime.now().year, theme="v2",
-                description="Every daily and weekly Bitcoin and crypto market briefing from The Crypto Playback, newest first.",
+    return page("", "Archive: Every Crypto Briefing | The Crypto Playback", body, datetime.now().year, theme="v2",
+                description="Every Bitcoin and crypto market briefing from The Crypto Playback, newest first.",
                 path="archive.html", jsonld=_json.dumps(crumbs, separators=(",", ":")),
                 indicator_links=_footer_indicator_links())
 
