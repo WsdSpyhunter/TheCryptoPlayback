@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-10-25T09:40:23.972955+00:00",
+  "updated_at": "2026-10-25T13:56:29.352012+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 80152,
-      "change_24h": -0.35155,
-      "change_7d": -1.5673
+      "price": 80309,
+      "change_24h": -0.36164,
+      "change_7d": -1.9507
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 2323.71,
-      "change_24h": -1.43102,
-      "change_7d": -3.0688
+      "price": 2334.36,
+      "change_24h": -1.3396,
+      "change_7d": -3.4086
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 735.66,
-      "change_24h": 0.6331,
-      "change_7d": 2.5164
+      "price": 737.07,
+      "change_24h": 0.90157,
+      "change_7d": 2.2448
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 1.29,
-      "change_24h": 1.13626,
-      "change_7d": 0.1733
+      "price": 1.3,
+      "change_24h": 1.16789,
+      "change_7d": -0.092
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 100.51,
-      "change_24h": -0.68301,
-      "change_7d": -2.4197
+      "price": 100.99,
+      "change_24h": -0.32746,
+      "change_7d": -2.8057
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.328917,
-      "change_24h": -0.21037,
-      "change_7d": -1.1323
+      "price": 0.32899,
+      "change_24h": -0.36947,
+      "change_7d": -1.1836
     }
   ],
   "fng": {
@@ -58,30 +58,30 @@
     "id": "zcash",
     "symbol": "ZEC",
     "name": "Zcash",
-    "price": 1183.78,
-    "change_24h": 3.48049,
-    "change_7d": 5.2887
+    "price": 1207.3,
+    "change_24h": 4.49188,
+    "change_7d": 7.512
   },
   "week_mover": {
     "id": "ethereum",
     "symbol": "ETH",
     "name": "Ethereum",
-    "price": 2323.71,
-    "change_24h": -1.43102,
-    "change_7d": -3.0688
+    "price": 2334.36,
+    "change_24h": -1.3396,
+    "change_7d": -3.4086
   },
   "sectors": [
     {
-      "label": "L1",
-      "change_24h": -0.4844578249440034
-    },
-    {
-      "label": "RWA",
-      "change_24h": -1.2037959715889388
-    },
-    {
       "label": "DePIN",
-      "change_24h": -1.2107011859790686
+      "change_24h": -0.3026049892553519
+    },
+    {
+      "label": "L1",
+      "change_24h": -0.34907836407439347
+    },
+    {
+      "label": "DeFi",
+      "change_24h": -0.4127202201906849
     }
   ],
   "stablecoins": {
@@ -89,35 +89,36 @@
     "change_7d_pct": -0.6515027546156196
   },
   "dominance": {
-    "btc_dominance_pct": 60.11948266888522,
-    "total_market_cap_usd": 2673202300219.073
+    "btc_dominance_pct": 59.495153651809694,
+    "total_market_cap_usd": 2707317313318.1025
   },
   "leverage": {
-    "funding_rate_pct": 0.00966503314411,
+    "funding_rate_pct": 0.00857696383979,
     "next_funding_time_ms": 1792972800000,
-    "open_interest_usd": 2404022598.810007
+    "open_interest_usd": 2413360988.7769284
   },
   "defi_tvl": {
-    "total_usd": 89111299002.0,
-    "change_7d_pct": -0.9267646861045432
+    "total_usd": 88902673344.0,
+    "change_7d_pct": -1.1587130376495745
   },
   "network_health": {
-    "hashrate_eh": 1068.047236805499,
-    "difficulty_change_pct": 4.906319673520465,
+    "hashrate_eh": 1064.162885405731,
+    "difficulty_change_pct": 4.916557591623039,
     "fastest_fee_satvb": 1,
-    "pending_tx_count": 38289
+    "pending_tx_count": 45116
   },
   "liquidations": {
-    "long_liq_usd": 646198.2987200001,
-    "short_liq_usd": 0.0,
+    "long_liq_usd": 305080.40959000017,
+    "short_liq_usd": 23522.63781,
     "event_count": 100,
-    "window_minutes": 5.647583333333333
+    "window_minutes": 253.69455
   },
   "whale_activity": {
     "amounts_btc": [
-      51.42329151,
-      49.84955488,
-      8.33726861
+      78.80410673,
+      14.62776997,
+      6.38223936,
+      6.30130599
     ],
     "sample_size": 1000
   },
