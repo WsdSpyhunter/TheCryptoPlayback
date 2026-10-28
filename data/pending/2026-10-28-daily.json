@@ -1,0 +1,175 @@
+{
+  "slug": "2026-10-28-daily",
+  "title": "Wall Street Keeps Tokenizing, Washington Keeps Stalling",
+  "date_display": "October 28, 2026",
+  "tag": "Daily",
+  "issue_number": 15,
+  "gauge_path": "assets/gauges/2026-10-28-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 80435,
+      "change_24h": -0.15997,
+      "change_7d": -3.9526
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2328.88,
+      "change_24h": -0.84299,
+      "change_7d": -5.8001
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 748.23,
+      "change_24h": -0.21694,
+      "change_7d": 0.383
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.31,
+      "change_24h": -0.71945,
+      "change_7d": -3.4243
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 100.79,
+      "change_24h": -0.16594,
+      "change_7d": -5.5935
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.330886,
+      "change_24h": 0.87981,
+      "change_7d": -0.0872
+    }
+  ],
+  "fng": {
+    "value": 51,
+    "classification": "Neutral"
+  },
+  "mover": {
+    "id": "monero",
+    "symbol": "XMR",
+    "name": "Monero",
+    "price": 601.36,
+    "change_24h": 1.84329,
+    "change_7d": -2.4355
+  },
+  "week_mover": {
+    "id": "ethereum",
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "price": 2328.88,
+    "change_24h": -0.84299,
+    "change_7d": -5.8001
+  },
+  "sectors": [
+    {
+      "label": "Memecoins",
+      "change_24h": 1.852576881152416
+    },
+    {
+      "label": "DeFi",
+      "change_24h": 1.6851945440791598
+    },
+    {
+      "label": "Gaming",
+      "change_24h": 0.3284321540942388
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 301993590723.9,
+    "change_7d_pct": -0.6278984050495408
+  },
+  "date_abbrev": "OCT. 28, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $80,435.00 <span style=\"color:#E8837A;\">(-0.2%)</span></span><span class=\"price-chip\">ETH $2,328.88 <span style=\"color:#E8837A;\">(-0.8%)</span></span><span class=\"price-chip\">BNB $748.23 <span style=\"color:#E8837A;\">(-0.2%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.31 <span style=\"color:#E8837A;\">(-0.7%)</span></span><span class=\"price-chip\">SOL $100.79 <span style=\"color:#E8837A;\">(-0.2%)</span></span><span class=\"price-chip\">TRX $0.33 <span style=\"color:#8FBF5C;\">(+0.9%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 28, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#8A7F5C;\">51</span>\n      <span class=\"sentiment-word\" style=\"color:#8A7F5C;\">Neutral</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">XMR</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+1.8%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin steadies near $80,500 heading into a Fed decision and the midterms while Wall Street's institutional plumbing \u2014 from DTCC to Ita\u00fa to Ripple \u2014 keeps wiring itself into crypto rails regardless of what Congress does.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Fed Day Arrives With Traders Betting on a Hold",
+      "body": "<p>The Federal Reserve hands down its rate decision with markets treating a hold as close to a foregone conclusion, and traders are watching for what it signals for both equities and Bitcoin.</p><p>A widely-expected outcome tends to be a non-event until it isn't \u2014 the real action is usually in the press conference, not the headline number. Worth watching whether the commentary moves markets more than the decision itself.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382044/fed-rate-decision-what-markets-bitcoin-traders-expect",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/08/Federal-Reserve-Bank-gID_7.jpg"
+    },
+    {
+      "headline": "Bitwise Thinks Bitcoin Hits $1.6 Million by 2036",
+      "body": "<p>Bitwise raised its 2036 bitcoin price target to $1.6 million, projecting 34.3% annual growth on the back of institutional demand and fixed supply.</p><p>Long-dated price targets are fun to argue about at parties, but they're ultimately a story about assumptions compounding over a decade, not a forecast you can plan a mortgage around. Still, it's a useful marker of how aggressively institutional research desks are leaning into the scarcity narrative.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/markets/bitwise-raises-bitcoin-target",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/10/Bitwise-Raises-Bitcoin-Target-to-1.6-Million-as-Institutions-Keep-Buying.jpg"
+    },
+    {
+      "headline": "The OKX-ICE Tokenized Stock Plan Now Has 33 Companies Saying No",
+      "body": "<p>Seven more companies, including JPMorgan Chase, Coca-Cola and Dell, have objected to trading their shares on the planned OKX-ICE tokenized stock venue, bringing the total number of objectors to 33.</p><p>Tokenized equities keep getting pitched as the inevitable future of markets, but the actual companies whose shares would be tokenized seem to have other ideas. That gap between the pitch deck and the cap table is worth paying attention to.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382043/jpmorgan-coca-cola-7-more-companies-objecting-okx-ice-tokenized-stocks",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/11/jp-morgan-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Treasury Says the U.S. Will Win the Digital Asset Race Even Without Congress",
+      "body": "<p>Treasury Secretary Scott Bessent said U.S. leadership in digital assets could reinforce the dollar's global reach even as the stalled CLARITY Act leaves regulators to fill the gap on their own.</p><p>It's a notable admission: the executive branch is signaling it won't wait around for legislators to get their act together. Whether regulatory improvisation is a durable substitute for actual law is the real question hanging over this.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/treasury-says-win-in-the-digital-asset",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/10/U.S.-Treasury-Says-U.S.-Will-Win-in-the-Digital-Asset-Stack-as-Clarity-Act-Stalls.jpg"
+    },
+    {
+      "headline": "Google Cloud Wants In on Institutional Bitcoin Custody",
+      "body": "<p>Google Cloud detailed its preview MPC service for institutional Bitcoin custody at a New York symposium focused on digital asset security.</p><p>Big cloud providers moving into custody infrastructure is a quiet but meaningful signal \u2014 it suggests the institutional plumbing for Bitcoin is being built by the same companies that already run the internet's backbone, not just crypto-native startups.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/google-cloud-mpc-service-bitcoin-custody?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M619SGSQW5DZ53QZ9KGCW2W1/hi-what-is-google-and-how-does-it-work.jpg"
+    },
+    {
+      "headline": "Brazil's Ita\u00fa Formally Enters Crypto as the Licensing Window Closes",
+      "body": "<p>Ita\u00fa has formally registered with Brazil's central bank to intermediate and custody crypto assets under the country's new licensing rules.</p><p>A banking giant locking in its crypto license right as the window closes is a tidy illustration of how regulated adoption actually happens \u2014 not with a bang, but with paperwork filed before a deadline.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/brazilian-banking-giant-itau-crypto",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/10/Brazilian-Banking-Giant-Itau-Formalizes-Bitcoin-and-Crypto-Role-as-Brazil-Closes-Its-Licensing-Window.jpg"
+    },
+    {
+      "headline": "DTCC Brings $30 Trillion in Securities Closer to Blockchain",
+      "body": "<p>Wall Street's post-trade backbone, DTCC, is bringing $30 trillion in securities closer to blockchain rails with major banks involved.</p><p>When the entity that already settles the bulk of U.S. securities starts building tokenization infrastructure, it's a different kind of signal than another startup launching a token \u2014 this is the plumbing of traditional finance quietly rewiring itself.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/10/28/wall-street-backbone-dtcc-brings-usd30-trillion-securities-closer-to-blockchain-with-major-banks",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/017c04b0a6f702fccd76ffd5aa923321e5b66146-2048x1152.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Ripple Eyes a $900 Million Revenue Run Rate as RLUSD Scales",
+      "body": "<p>Ripple expects a $900 million annualized product revenue run rate by the end of 2026, as RLUSD reaches $2.5 billion and payments near $150 billion in lifetime volume.</p><p>Ripple has spent years being defined by its legal fights; these numbers suggest the company is trying to pivot the conversation toward stablecoin and payments revenue instead. Worth watching whether that growth holds up as the stablecoin space gets more crowded.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-10-28-ripple-900-million-revenue-run-rate-rlusd-431920",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/01/20260108_Ripple_News.jpg"
+    },
+    {
+      "headline": "South Korea's Bithumb Confirms Internal System Breach",
+      "body": "<p>South Korea's second-largest crypto exchange says hackers accessed its internal system and leaked personal data, as it continues checking whether customer data was exposed \u2014 this comes as two other financial firms in the country also report breaches.</p><p>A cluster of breaches at financial firms in the same country in the same window is the kind of pattern that deserves more scrutiny than any single headline suggests. Exchanges can insist user funds are safe, but personal data leaks have their own long tail of consequences.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382022/bithumb-says-hackers-accessed-internal-system-leaking-personal-data",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/hacker3-gID_7.png"
+    }
+  ],
+  "missed_story": {
+    "headline": "A $150 Million Bitcoin Deal That Nobody Can Access",
+    "body": "Datavault AI's stock plummeted 50% after the firm said it cannot withdraw bitcoin tied to a $150 million deal with Scilex, under which Scilex had agreed to buy Datavault shares paid in bitcoin. It's the kind of headline that sounds like a typo until you read it twice \u2014 a company apparently locked out of the very bitcoin underpinning its own corporate transaction. The details are still murky, but it's a reminder that 'paid in bitcoin' comes with its own custody and counterparty risks that don't show up in a press release.",
+    "source_title": "The Block",
+    "source_url": "https://www.theblock.co/news/business/2026-10-27-datavault-ai-stock-plummets-bitcoin-deal-431962"
+  },
+  "playback_take": null,
+  "excerpt": "Bitcoin steadies near $80,500 heading into a Fed decision and the midterms while Wall Street's institutional plumbing \u2014 from DTCC to Ita\u00fa to Ripple \u2014 keeps wiring itself into crypto rails regardless of what Congress does",
+  "buttondown_email_id": "em_7b8c1rsb6n940sb351zrhqwqg7"
+}
