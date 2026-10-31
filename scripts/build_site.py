@@ -1731,16 +1731,7 @@ def compute_market_overview(indicators, signals, fng, sectors):
     total_count = len(confluence_items)
     negatives = [name for name, pos, _ in confluence_items if not pos]
     positives = [name for name, pos, _ in confluence_items if pos]
-    if positive_count == total_count:
-        interpretation = "Every signal we track is currently pointing the same direction: up."
-    elif positive_count == 0:
-        interpretation = "Every signal we track is currently pointing the same direction: down."
-    elif positive_count >= total_count - 1:
-        interpretation = f"Signals are broadly positive, with {negatives[0]} the lone holdout."
-    elif positive_count <= 1:
-        interpretation = f"Signals lean cautious, with {positives[0] if positives else 'nothing'} the lone bright spot."
-    else:
-        interpretation = "Signals are mixed, split between bullish and cautious readings."
+    interpretation = interpret_confluence(positives, negatives)
 
     fng_word = fng["classification"].lower()
     breadth_phrase = ("broad" if signals["breadth_pct"] >= 0.6
@@ -1788,6 +1779,41 @@ def load_market_overview():
     overview["updated"] = _format_live_updated(dashboard.get("updated_at"), entries[0].get("date_display", "") if entries else "")
     overview["fng_value"] = dashboard["fng"]["value"]
     return overview
+
+
+def _name_list(names, limit=3):
+    names = list(names)
+    shown = names[:limit]
+    if len(names) > limit:
+        return ", ".join(shown) + f" and {len(names) - limit} more"
+    return shown[0] if len(shown) == 1 else ", ".join(shown[:-1]) + " and " + shown[-1]
+
+
+def interpret_confluence(positives, negatives):
+    """One plain sentence for the Signal Confluence count, banded by the share of signals that are positive
+    (so 4 of 13 no longer reads as 'mixed'). Descriptive only: it never predicts anything."""
+    pos, neg = len(positives), len(negatives)
+    total = pos + neg
+    if total == 0:
+        return "No signals are available right now."
+    if neg == 0:
+        return "Every signal we track is currently pointing the same direction: up."
+    if pos == 0:
+        return "Every signal we track is currently pointing the same direction: down."
+    if neg == 1:
+        return f"Signals are broadly positive, with {negatives[0]} the lone holdout."
+    if pos == 1:
+        return f"Signals lean cautious, with {positives[0]} the lone bright spot."
+    share = pos / total
+    if share >= 0.75:
+        return f"Most signals are positive. The cautious readings: {_name_list(negatives)}."
+    if share >= 0.6:
+        return f"Signals lean positive, though some readings are cautious ({_name_list(negatives)})."
+    if share > 0.4:
+        return "Signals are mixed, roughly split between positive and cautious readings."
+    if share > 0.25:
+        return f"Signals lean cautious. The positive readings: {_name_list(positives)}."
+    return f"Most signals are cautious. The positive readings: {_name_list(positives)}."
 
 
 def _live_context(entries):
