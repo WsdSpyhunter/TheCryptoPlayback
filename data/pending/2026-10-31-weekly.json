@@ -1,0 +1,175 @@
+{
+  "slug": "2026-10-31-weekly",
+  "title": "A $6.3 Billion Wake-Up Call",
+  "date_display": "October 31, 2026",
+  "tag": "Weekly",
+  "issue_number": 7,
+  "gauge_path": "assets/gauges/2026-10-31-weekly.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 77545,
+      "change_24h": 0.17936,
+      "change_7d": -3.2851
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2249.46,
+      "change_24h": 0.97887,
+      "change_7d": -3.9405
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 704.47,
+      "change_24h": 0.61866,
+      "change_7d": -2.985
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.25,
+      "change_24h": 0.29694,
+      "change_7d": -1.6731
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 95.92,
+      "change_24h": 1.07744,
+      "change_7d": -4.4587
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.311538,
+      "change_24h": -7.17072,
+      "change_7d": -5.0165
+    }
+  ],
+  "fng": {
+    "value": 30,
+    "classification": "Fear"
+  },
+  "mover": {
+    "id": "tron",
+    "symbol": "TRX",
+    "name": "TRON",
+    "price": 0.311538,
+    "change_24h": -7.17072,
+    "change_7d": -5.0165
+  },
+  "week_mover": {
+    "id": "tron",
+    "symbol": "TRX",
+    "name": "TRON",
+    "price": 0.311538,
+    "change_24h": -7.17072,
+    "change_7d": -5.0165
+  },
+  "sectors": [
+    {
+      "label": "Gaming",
+      "change_24h": 1.876752903238489
+    },
+    {
+      "label": "NFT",
+      "change_24h": 1.4428163128494889
+    },
+    {
+      "label": "DePIN",
+      "change_24h": 1.014914642874254
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 299283367237.45,
+    "change_7d_pct": -1.2989601392735763
+  },
+  "date_abbrev": "OCT. 31, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $77,545.00 <span style=\"color:#8FBF5C;\">(+0.2%)</span></span><span class=\"price-chip\">ETH $2,249.46 <span style=\"color:#8FBF5C;\">(+1.0%)</span></span><span class=\"price-chip\">BNB $704.47 <span style=\"color:#8FBF5C;\">(+0.6%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.25 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span><span class=\"price-chip\">SOL $95.92 <span style=\"color:#8FBF5C;\">(+1.1%)</span></span><span class=\"price-chip\">TRX $0.31 <span style=\"color:#E8837A;\">(-7.2%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">OCT. 31, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">30</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">TRX</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-7.2%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKEND EDITION</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">The biggest hack in crypto history dominated the week, but a fight over who's really in charge of fixing it may matter more than the number itself.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "North Korea-Linked Hackers Pull Off Crypto's Biggest Heist Ever",
+      "body": "<p>Attackers tied to North Korea drained roughly $6.4 billion from the world's largest crypto exchange, instantly becoming the largest crypto hack on record. Investigators are still piecing together how the breach happened, who exactly is behind it, and what it means for exchange security going forward.</p><p>It's one thing to read about North Korean hacking groups in the abstract and another to watch them pull off a heist bigger than the GDP of some small countries using one exchange's infrastructure. The sheer scale here should make every custodian, not just the one that got hit, nervous about their own hot-wallet setup.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382306/binance-hack-everything-you-need-to-know",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/08/binance-decrypt-syle-01-gID_7.png"
+    },
+    {
+      "headline": "Binance Says It's Replaced 90% of What Got Stolen",
+      "body": "<p>Binance says it has replenished 90% of the stolen assets, with less-liquid tokens making up the remaining shortfall as the exchange continues buying replacement assets through market and over-the-counter trades, while targeting a Sunday restart for withdrawals.</p><p>Getting to 90% fast is genuinely impressive logistics, but it's also a reminder that the last 10% of any recovery is usually the hardest and most expensive part. Watching how they source those illiquid tokens without further spooking the market will say a lot about how deep their pockets actually are.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/binance-hack-90-percent-replenished?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M699FRTD1VV81MBCZE1W7405/binance-robot-hands.png"
+    },
+    {
+      "headline": "The Irony at the Heart of the Hack: Centralization Both Caused It and Saved It",
+      "body": "<p>A sharp CoinDesk analysis points out the $6.3 billion Binance hack paradox: centralization made the hack possible in the first place, but that same centralized control also saved $3 billion by letting the exchange and its partners freeze and claw back funds before they vanished entirely.</p><p>This is the uncomfortable truth crypto doesn't love to sit with: the properties that make centralized exchanges vulnerable to a single point of failure are the same ones that let them act fast when things go wrong. You can't have it both ways, and this week made that tension impossible to ignore.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/10/31/the-usd6-3-billion-binance-hack-paradox-centralization-made-the-hack-possible-but-also-saved-usd3-billion",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/6e0794b53fab4b04d9e3fdbc0f3d1a70cdf36125-1920x1283.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Washington Smells an Opportunity in the Wreckage",
+      "body": "<p>Following the $6.3 billion hack of the world's largest crypto exchange, calls are growing for legislation, and President Trump says the administration is looking into what happened as politicians jockey for position ahead of the next round of crypto rulemaking.</p><p>Nothing accelerates a regulatory conversation like a number this large landing in the headlines. Whatever framework eventually emerges from this, expect it to be shaped as much by the politics of a record-breaking hack as by careful policy design.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-10-30-trump-looking-into-binance-hack-calls-grow-for-crypto-rules-432236",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2025/06/20250602_Trump_News_3.jpg"
+    },
+    {
+      "headline": "Wall Street's Take: This Was an Exchange Problem, Not a Crypto Problem",
+      "body": "<p>Analysts across Wall Street are framing the $6.3 billion Binance hack as a contained failure rather than a crypto-wide risk, urging investors to look at crypto stocks on weakness rather than treat the breach as a verdict on the asset class itself.</p><p>It's a convenient narrative for firms that make money off crypto-adjacent equities, and it's not necessarily wrong, but 'this was someone else's security failure' is doing a lot of heavy lifting in that argument. Worth remembering that every exchange thinks it's the exception right up until it isn't.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/10/30/wall-street-analysts-urge-investors-to-buy-crypto-stocks-on-weakness-after-usd6-3-billion-binance-hack",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/4eb91a75bf79b6d64f57e6331203b48be45d8bbf-5608x3738.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Strategy Posts $19.5 Billion Q3 Net Income on Paper Bitcoin Gains",
+      "body": "<p>Strategy reported $19.53B in Q3 net income on a $20.91B bitcoin gain, now holds 848,517 BTC, and has moved its preferred shareholders to daily dividends.</p><p>Numbers like this are a reminder of how directly Strategy's fortunes are now tied to bitcoin's mark-to-market swings. A corporate earnings report that reads like a crypto price chart is still a strange sight, even after years of this strategy playing out.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-10-29-strategy-q3-net-income-preferred-daily-dividends-432141",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/Screenshot-2026-10-19-at-10.10.02.png"
+    },
+    {
+      "headline": "A Nasdaq Company Weighs Dumping $450 Million in Bitcoin",
+      "body": "<p>A Nasdaq-listed company may sell $450 million in bitcoin, citing both the Binance hack and lingering quantum computing fears as reasons to reconsider its holdings.</p><p>This is the kind of headline that turns an exchange hack into a broader confidence question for corporate bitcoin holders. If one treasury company starts rethinking its position over quantum fears, it's worth watching whether others quietly follow, or whether this turns out to be an outlier.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/10/31/a-nasdaq-listed-company-may-sell-usd450-million-bitcoin-citing-binance-hack-and-quantum-fears",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/4e9b4fc10f323d6782a7f938b1c23617a36d9d2b-1825x1369.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "NYSE's Parent Is Bringing Hyperliquid-Based Perps to the US",
+      "body": "<p>HYPE surged 15% after NYSE parent ICE moved to partner with and invest in Trade[XYZ] to launch regulated, Hyperliquid-based perpetual futures in the United States.</p><p>Having one of the most established names in traditional finance back a regulated path for Hyperliquid-style perps is a notable vote of confidence, hack headlines or not. It's a good reminder that adoption stories keep moving forward even in weeks dominated by security disasters.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-10-29-ice-tradexyz-hyperliquid-perpetual-futures-us-432132",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/04/20260410_Hyperliquid_News.jpg"
+    },
+    {
+      "headline": "Crypto Wrench Attacks Keep Getting More Violent",
+      "body": "<p>Two Texas brothers were sentenced to 15 years in prison for an armed crypto robbery and kidnapping, as home invasions became the most common form of crypto wrench attacks worldwide during the first half of 2026, rising to 20 incidents from one.</p><p>Hacks grab the bigger headlines, but this is the uglier, more personal side of crypto crime, where holding assets in self-custody can put a target on your back in the physical world. The jump from one incident to twenty is the kind of statistic that deserves more attention than it usually gets.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/texas-brothers-sentenced-to-15-years-in-prison-for-armed-crypto-robbery-kidnapping?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M692SNKAR10X68EF1R0WFNT5/hi-break-these-singapore-crypto-rulesand-face-200k-fines-or-jail.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "Elon Musk and CZ Trade Shots Over a Decade-Old SpaceX Bet",
+    "body": "After Elon Musk appeared to mock Binance's $6.3 billion hack, CZ fired back by reminding him that the exchange's $500 million bet on his Twitter takeover is now worth over $1 billion in SpaceX shares. It's a strange little flex in the middle of a crisis, a reminder that even amid a record-breaking hack, crypto's biggest personalities can't resist a public spat. Old deals apparently never really die, they just wait for the right moment to resurface.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/382236/elon-musk-cz-trade-blows-spacex-shares-binance-hack"
+  },
+  "playback_take": null,
+  "excerpt": "The biggest hack in crypto history dominated the week, but a fight over who's really in charge of fixing it may matter more than the number itself.",
+  "buttondown_email_id": "em_1a12vtervy830tm56215sxjnnq"
+}
