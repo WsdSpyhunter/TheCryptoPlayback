@@ -1,0 +1,168 @@
+{
+  "slug": "2026-11-02-daily",
+  "title": "Hack Hangover Meets Tokenization Pushback",
+  "date_display": "November 02, 2026",
+  "tag": "Daily",
+  "issue_number": 16,
+  "gauge_path": "assets/gauges/2026-11-02-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 76877,
+      "change_24h": -1.23186,
+      "change_7d": -3.7674
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2248.54,
+      "change_24h": -0.56479,
+      "change_7d": -2.82
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 695.54,
+      "change_24h": -1.75426,
+      "change_7d": -6.2527
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.25,
+      "change_24h": 0.03504,
+      "change_7d": -3.4012
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 91.56,
+      "change_24h": -2.81837,
+      "change_7d": -8.9592
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.317915,
+      "change_24h": 1.73037,
+      "change_7d": -3.9887
+    }
+  ],
+  "fng": {
+    "value": 37,
+    "classification": "Fear"
+  },
+  "mover": {
+    "id": "zcash",
+    "symbol": "ZEC",
+    "name": "Zcash",
+    "price": 1143.4,
+    "change_24h": -6.27624,
+    "change_7d": -6.4917
+  },
+  "week_mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 91.56,
+    "change_24h": -2.81837,
+    "change_7d": -8.9592
+  },
+  "sectors": [
+    {
+      "label": "RWA",
+      "change_24h": 56.60034903013751
+    },
+    {
+      "label": "L1",
+      "change_24h": -1.3486853556108702
+    },
+    {
+      "label": "Memecoins",
+      "change_24h": -2.6754610796540854
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 298233370823.99,
+    "change_7d_pct": -1.5148985829165984
+  },
+  "date_abbrev": "NOV. 2, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $76,877.00 <span style=\"color:#E8837A;\">(-1.2%)</span></span><span class=\"price-chip\">ETH $2,248.54 <span style=\"color:#E8837A;\">(-0.6%)</span></span><span class=\"price-chip\">BNB $695.54 <span style=\"color:#E8837A;\">(-1.8%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.25 <span style=\"color:#8FBF5C;\">(+0.0%)</span></span><span class=\"price-chip\">SOL $91.56 <span style=\"color:#E8837A;\">(-2.8%)</span></span><span class=\"price-chip\">TRX $0.32 <span style=\"color:#8FBF5C;\">(+1.7%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 2, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">37</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">ZEC</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-6.3%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Crypto is still cleaning up after the Binance hack while a parallel fight over tokenized stocks and a fresh exchange breach in Brazil keep the ledger of bad news growing.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Binance Reopens Withdrawals, Then Watches Billions Walk Out The Door",
+      "body": "<p>Binance published a zero-knowledge proof of reserves showing 1:1 backing across BTC, ETH, BNB, SOL, XRP and more as it works to restore the 95% of assets lost in its record hack. Users still pulled out hefty sums once withdrawals reopened, and the exchange says it has reserves to cover the remaining 5%, with post-mortem reviews staying open.</p><p>Publishing proof of reserves is the right move for trust, but trust isn't rebuilt by a snapshot \u2014 it's rebuilt by the exchange staying boring for a long stretch afterward.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-11-02-binance-zero-knowledge-proof-of-reserves-snapshot-hack-recovery-432321",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2024/11/20241127_Binance_News.jpg"
+    },
+    {
+      "headline": "North Korea's Laundering Machine Is Now Running on Autopilot",
+      "body": "<p>Decrypt reports North Korea is laundering stolen Binance funds through a new wallet every 25 seconds, with $2.85 billion of the $6.43 billion stolen now frozen or seized \u2014 a far higher recovery rate than the roughly 3% seen after the Bybit hack. The automated laundering effort spans 12,000 wallets.</p><p>The freeze rate is genuinely the interesting part here: chain analysis and exchange cooperation have clearly improved since Bybit, even if the thieves have also scaled up their automation to match.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382355/north-korea-laundering-binance-hack-loot-new-wallet-every-25-seconds",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/north-korea-missiles-dprk-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Brazil's Biggest Exchange Gets Hit for $46 Million",
+      "body": "<p>Mercado Bitcoin, Brazil's largest crypto exchange, confirmed a security incident and paused withdrawals after a $46 million breach, according to The Block. The timing lands the exchange squarely in a month already defined by the far larger Binance theft.</p><p>Two major exchange breaches inside the same news cycle is not a coincidence worth reading too much into, but it is a reminder that custody risk doesn't discriminate by exchange size or geography.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/defi/2026-11-02-mercado-bitcoin-hack-46-million-brazil-exchange-432333",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2025/06/20250603_Bitcoin_News.jpg"
+    },
+    {
+      "headline": "Morgan Stanley Takes a Machete to Coinbase's Price Target",
+      "body": "<p>Morgan Stanley cut its rating and slashed its price target on Coinbase by 53%, citing slowing trading activity and fallout from the Binance hack clouding the company's revenue prospects, per Cointelegraph.</p><p>A 53% cut is a dramatic reassessment, and it's a useful reminder that exchange hacks don't just hurt the exchange that got hacked \u2014 they put a shadow over the whole sector's near-term earnings story.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/morgan-stanley-cuts-coinbase-target-to-120-as-earnings-recovery-outlook-weakens?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M6ERG219T9H0636SG6JB00H1/hi-taxes-doesnt-apply-coinbasemanlaptop.png"
+    },
+    {
+      "headline": "Nvidia and Nike Lead a 50-Company Wall Against Tokenized Stocks",
+      "body": "<p>Fifty companies, including Nvidia, Microsoft and JPMorgan, have now blocked OKX and ICE from tokenizing their shares under the SEC's new Innovation Exemption, Bitcoin Magazine reports, with Nvidia, Costco and Nike among the latest dozen to object.</p><p>Tokenization keeps getting sold as inevitable, but this is a pretty clear signal that the companies whose shares would actually get tokenized aren't all on board with letting someone else wrap their stock without a seat at the table.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/50-companies-blocks-okx-ice-token",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/09/Pics-33.jpg"
+    },
+    {
+      "headline": "Bitcoin ETFs Close Out October in the Red",
+      "body": "<p>US spot Bitcoin ETFs ended October with $515 million in net withdrawals, Cointelegraph reports, while Ether funds posted a record $1.61 billion in monthly outflows, as the Binance hack weighed on sentiment into month's end.</p><p>A down October for ETF flows alongside a record-setting hack isn't exactly a shocking combination, but it does puncture the idea that institutional money is immune to exchange-level headline risk.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-etfs-october-red-binance-hack-outflows?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M6DFVVTB1BSHSCFQ2R7VR4PQ/hi-top-news-of-the-week-5-bitcoin.jpg"
+    },
+    {
+      "headline": "FATF Puts Crypto Hubs Under the Microscope",
+      "body": "<p>The global money-laundering watchdog FATF is reviewing crypto hubs' compliance with its standards, though it hasn't named the jurisdictions under review, per Cointelegraph. Initial findings are due in June 2027.</p><p>A multi-year review timeline means this won't move markets today, but it's worth filing away \u2014 a formal FATF spotlight tends to shape which jurisdictions exchanges want to be licensed in down the road.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/fatf-targeted-crypto-compliance-jurisdiction-reviews?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M6E1Z69CTQ1SFH9R33DZWPA6/fatf-rules.jpg"
+    },
+    {
+      "headline": "Strategy and Strive Keep Buying Through the Noise",
+      "body": "<p>Strategy bought 811 bitcoin for $65.5 million and Strive added 124 BTC, bringing their combined weekly addition to 935 coins, Bitcoin Magazine reports, with Strategy's holdings now at 849,327 BTC.</p><p>Treasury companies stacking through a month this chaotic is a statement in itself \u2014 whether you see it as conviction or as a strategy that only works until it doesn't is a matter of taste, not something I'll tell you how to feel about.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/strategy-mstr-adds-811-bitcoin-strive-too",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/09/Pics-43.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "When AI Agents Sue Each Other, Who Judges? Other AI Agents.",
+    "body": "Disputes between AI agents are now being sent to something called 'Internet Court,' where the verdicts come from a jury made up of different AI models rather than humans. The platform behind it, GenLayer, is reportedly already issuing thousands of judgements every day. It's a strange little glimpse of a future where machine-to-machine commerce needs machine-to-machine courts.",
+    "source_title": "Cointelegraph",
+    "source_url": "https://cointelegraph.com/magazine/ai-agent-disputes-sent-to-internet-court-and-a-jury-of-ai-agents?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+  },
+  "playback_take": null,
+  "excerpt": "Crypto is still cleaning up after the Binance hack while a parallel fight over tokenized stocks and a fresh exchange breach in Brazil keep the ledger of bad news growing.",
+  "buttondown_email_id": "em_73q9e3a3w09t0aaxc85r85kvnz"
+}
