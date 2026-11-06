@@ -1,0 +1,185 @@
+{
+  "slug": "2026-11-06-daily",
+  "title": "Fear Dips, Hackers Shuffle, Regulators Circle",
+  "date_display": "November 06, 2026",
+  "tag": "Daily",
+  "issue_number": 18,
+  "gauge_path": "assets/gauges/2026-11-06-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 75729,
+      "change_24h": -0.27302,
+      "change_7d": -2.0692
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2224.92,
+      "change_24h": -1.22563,
+      "change_7d": -0.3016
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 694.27,
+      "change_24h": 0.37702,
+      "change_7d": -0.8349
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.18,
+      "change_24h": -3.90611,
+      "change_7d": -4.8901
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 90.07,
+      "change_24h": 0.86732,
+      "change_7d": -5.1946
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.318791,
+      "change_24h": 0.57247,
+      "change_7d": -4.9055
+    }
+  ],
+  "fng": {
+    "value": 28,
+    "classification": "Fear"
+  },
+  "mover": {
+    "id": "zcash",
+    "symbol": "ZEC",
+    "name": "Zcash",
+    "price": 1353.81,
+    "change_24h": 9.13601,
+    "change_7d": 10.6771
+  },
+  "week_mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 90.07,
+    "change_24h": 0.86732,
+    "change_7d": -5.1946
+  },
+  "sectors": [
+    {
+      "label": "DePIN",
+      "change_24h": 3.3060902744517158
+    },
+    {
+      "label": "NFT",
+      "change_24h": 3.107308386589557
+    },
+    {
+      "label": "AI",
+      "change_24h": 2.8495918013401886
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 294868115432.03,
+    "change_7d_pct": -1.75254533322284
+  },
+  "date_abbrev": "NOV. 6, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $75,729.00 <span style=\"color:#E8837A;\">(-0.3%)</span></span><span class=\"price-chip\">ETH $2,224.92 <span style=\"color:#E8837A;\">(-1.2%)</span></span><span class=\"price-chip\">BNB $694.27 <span style=\"color:#8FBF5C;\">(+0.4%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.18 <span style=\"color:#E8837A;\">(-3.9%)</span></span><span class=\"price-chip\">SOL $90.07 <span style=\"color:#8FBF5C;\">(+0.9%)</span></span><span class=\"price-chip\">TRX $0.32 <span style=\"color:#8FBF5C;\">(+0.6%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 6, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">28</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">ZEC</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+9.1%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin spent the last two days chopping around $75K while Binance's hackers kept moving stolen funds, regulators from Thailand to Nigeria tightened the screws, and Washington inched a 401(k) crypto rule closer to daylight.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Binance Hackers Keep Converting the Loot, Most of It Still Sitting Still",
+      "body": "<p>Elliptic says the Binance hackers have swapped stolen tokens for $124M in bitcoin, while $2.85 billion of the stolen funds remains frozen. Binance itself is reportedly planning more withdrawal reopenings as it works through the aftermath.</p><p>The slow, methodical conversion into bitcoin says a lot about how these actors operate \u2014 they're not panicking, they're laundering patiently across chains and swaps. The fact that billions remain frozen is the one piece of good news in an otherwise grim saga.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-06-binance-hackers-swap-stolen-tokens-124-million-bitcoin-exchange-plans-withdrawal-reopenings-435930",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2024/11/20241127_Binance_News_4.jpg"
+    },
+    {
+      "headline": "Over $1 Billion Wiped Out as Bitcoin Tests an 11-Week Low",
+      "body": "<p>Bitcoin fell toward $75,500 after AI stocks plunged, and more than $1 billion in the crypto derivatives market has been liquidated as leveraged bets got unwound in a hurry.</p><p>Crypto's correlation to the AI-stock rout is a reminder that 'uncorrelated asset' is still more aspiration than reality for a lot of traders. When tech sentiment sours, crypto desks feel it almost immediately.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382717/bitcoin-price-11-week-low-crypto-liquidations-ai-stock",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/Chart4_red-gID_7.png"
+    },
+    {
+      "headline": "Thailand Files Criminal Charges Against a Large Overseas Exchange Before the Door Closes",
+      "body": "<p>Thailand's SEC filed a criminal complaint against a large overseas crypto exchange operator, BG Limited, for unlicensed Thai trading from 2022 to 2025 \u2014 timed ahead of a Dec. 5 access block in the country.</p><p>Regulators moving to formally charge an operator right before cutting off local access is a pretty clear statement of intent, not just a slap on the wrist. Exchanges operating across borders are learning that 'unlicensed but tolerated' has an expiration date.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://cryptoplayback.com/go/3c20fa6f7e39.html",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/02/Thailand-Moves-to-Cement-Bitcoin-and-Digital-Assets-in-Regulated-Derivatives-Market.jpg"
+    },
+    {
+      "headline": "Treasury Widens the Net on the Prince Group Scam Empire",
+      "body": "<p>The US sanctioned 45 more targets tied to the alleged Prince Group crypto scam empire, with OFAC targeting offshore companies and associates it says helped executives hide assets and dodge earlier sanctions.</p><p>This is what persistence looks like from Treasury \u2014 rather than a one-and-done sanctions list, they're following the money through shell structures. It's slow work, but it's the kind that actually makes evasion harder over time.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382730/us-sanctions-45-more-targets-tied-to-alleged-crypto-scam-empire-prince-group",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/09/Treasury-Department1-gID_7.jpg"
+    },
+    {
+      "headline": "Crypto-in-401(k) Rule Lands at the White House for Its Final Check",
+      "body": "<p>A final Labor Department rule that would create a fiduciary safe harbor for private equity, real estate and crypto in 401(k) menus arrived at OIRA, putting public release within reach.</p><p>This is the kind of bureaucratic milestone that doesn't make headlines but actually matters \u2014 a safe harbor changes the liability calculus for plan sponsors far more than any ETF launch does. Worth watching what the final language actually says once it clears review.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/dol-rule-crypto-401k-white-house-review",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/11/Rule-to-Allow-Crypto-in-401ks-Arrives-at-White-House-for-Final-Review.jpg"
+    },
+    {
+      "headline": "Strive's Bitcoin Stack Delivers a $509 Million Quarter Even as Shares Slide",
+      "body": "<p>Strive's bitcoin gains drove a $509 million Q3 profit as its bitcoin stash reached 43,124 BTC, even as its shares continued to slide despite the profitable quarter.</p><p>The disconnect between a profitable balance sheet and a falling stock price is the central tension of the corporate-treasury playbook right now \u2014 paper gains on bitcoin don't automatically translate into market confidence in the equity wrapped around them.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-11-06-strives-bitcoin-gains-509-million-q3-profit-btc-buying-ramps-up-435907",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/10/Screenshot-2026-10-19-at-14.32.12.png"
+    },
+    {
+      "headline": "Nigeria Bans Algorithmic Stablecoins, Tightens Licensing",
+      "body": "<p>Nigeria has banned algorithmic stablecoins and introduced reserve requirements for issuers as it expands central bank oversight of crypto payment services.</p><p>After watching algorithmic stablecoins blow up elsewhere, it makes sense that regulators would treat them as a special category of risk rather than lumping them in with fully-reserved tokens. It's a narrow rule, but it signals where African regulators are drawing their lines.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/nigeria-algorithmic-stablecoin-ban-crypto-licensing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M6RFZC8EDJXT26642DWHC0EV/hi-the-crypto-act-explained-nigeria-1.jpg"
+    },
+    {
+      "headline": "Zcash's NU7 Upgrade Goes Live, Reworking How Fees Fund the Future",
+      "body": "<p>Zcash's NU7 upgrade is live, recycling 60% of fees to fund future block rewards through a new Network Sustainability Mechanism that will reissue removed ZEC from 2031 within the 21 million cap.</p><p>Tinkering with monetary mechanics this directly is a bold move for a coin with a hard cap \u2014 it's a reminder that 'fixed supply' projects still have plenty of room to redesign the path to get there, even if the destination stays the same.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382692/zcashs-nu7-upgrade-goes-live-recycling-60-of-fees-to-fund-future-block-rewards",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/10/zcash-decrypt-style-03-gID_7.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "A Banking Collapse in Paraguay Revives the Self-Custody Argument",
+    "body": "Paraguay's president resigned after a bank lockout tied to Ueno's collapse trapped millions of depositors and hit 60% of the country. The crisis has become an unlikely talking point for Bitcoin's self-custody pitch, with the phrase 'Bitcoin Fixes This' making the rounds again. It's a stark real-world example of the exact failure mode that self-custody advocates have been describing in the abstract for years.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/382676/paraguay-president-resigns-bank-lockout-bitcoin-fixes-this"
+  },
+  "playback_take": {
+    "points": [
+      {
+        "label": "Sentiment",
+        "text": "Fear & Greed sits at 28 Fear, which is consistent with Signal Confluence showing only 6 of 13 signals positive."
+      },
+      {
+        "label": "ETF Flows",
+        "text": "ETF Flow shows $-430.2M in 1-day outflows, sitting alongside Institutional positioning's -1.23 reading in the Playback Lab."
+      },
+      {
+        "label": "Pockets of strength",
+        "text": "Top Sectors reads 3/3 positive and Narrative Momentum shows RWA +17.8%, even as the broader Playback Lab read is 1 supportive, 3 neutral, 3 caution."
+      }
+    ],
+    "tension": "Outflow and liquidation headlines sit alongside a cautious Fear & Greed score and negative ETF Flow reading, while sector-level and narrative momentum figures point in a different direction.",
+    "watch": "Whether stablecoin flows, currently showing -1.88% contraction over 7 days, stabilize alongside the Basis-trade crowding reading of 4 (Low, unwinding)."
+  },
+  "excerpt": "Bitcoin spent the last two days chopping around $75K while Binance's hackers kept moving stolen funds, regulators from Thailand to Nigeria tightened the screws, and Washington inched a 401(k) crypto rule closer to daylig",
+  "buttondown_email_id": "em_07s2gfyhfs8tzar197a7r3swk4"
+}
