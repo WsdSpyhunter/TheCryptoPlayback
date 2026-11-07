@@ -1,0 +1,185 @@
+{
+  "slug": "2026-11-07-weekly",
+  "title": "Treasury Swings the Axe, Markets Swing Lower",
+  "date_display": "November 07, 2026",
+  "tag": "Weekly",
+  "issue_number": 8,
+  "gauge_path": "assets/gauges/2026-11-07-weekly.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 75792,
+      "change_24h": 0.33566,
+      "change_7d": -2.3966
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2234.81,
+      "change_24h": 0.72251,
+      "change_7d": -0.7571
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 694.49,
+      "change_24h": 0.25111,
+      "change_7d": -1.6097
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.16,
+      "change_24h": -1.91204,
+      "change_7d": -7.3816
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 89.68,
+      "change_24h": 0.00688,
+      "change_7d": -6.667
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.319576,
+      "change_24h": 0.18193,
+      "change_7d": 2.3086
+    }
+  ],
+  "fng": {
+    "value": 25,
+    "classification": "Extreme Fear"
+  },
+  "mover": {
+    "id": "zcash",
+    "symbol": "ZEC",
+    "name": "Zcash",
+    "price": 1262.79,
+    "change_24h": -6.53942,
+    "change_7d": -1.867
+  },
+  "week_mover": {
+    "id": "ripple",
+    "symbol": "XRP",
+    "name": "XRP",
+    "price": 1.16,
+    "change_24h": -1.91204,
+    "change_7d": -7.3816
+  },
+  "sectors": [
+    {
+      "label": "L1",
+      "change_24h": -0.05060158021161103
+    },
+    {
+      "label": "RWA",
+      "change_24h": -0.11376709891463015
+    },
+    {
+      "label": "Gaming",
+      "change_24h": -0.2063024340138898
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 293601147067.3,
+    "change_7d_pct": -1.897835470061052
+  },
+  "date_abbrev": "NOV. 7, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $75,792.00 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span><span class=\"price-chip\">ETH $2,234.81 <span style=\"color:#8FBF5C;\">(+0.7%)</span></span><span class=\"price-chip\">BNB $694.49 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.16 <span style=\"color:#E8837A;\">(-1.9%)</span></span><span class=\"price-chip\">SOL $89.68 <span style=\"color:#8FBF5C;\">(+0.0%)</span></span><span class=\"price-chip\">TRX $0.32 <span style=\"color:#8FBF5C;\">(+0.2%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 7, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">25</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Extreme Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">ZEC</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-6.5%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKEND EDITION</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Between a $16 billion sanctions hammer, a tech-stock-driven ETF bleed, and Big Tech snubbing crypto's tokenized stock ambitions, this week was less about price and more about who gets to play in the sandbox.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Treasury Cuts Off Another Overseas Exchange Over $16 Billion in Alleged Illicit Flows",
+      "body": "<p>The U.S. Treasury moved to sever ties between the American financial system and another overseas crypto exchange, citing $16 billion in alleged illicit flows. It's the kind of number that makes you do a double take, and it's part of a broader pattern of Treasury using financial plumbing as a weapon against exchanges it says enabled sanctioned actors.</p><p>Here's what I think: these actions keep landing on offshore venues rather than the big U.S.-regulated players, which tells you where the real compliance gap still sits. Whether this actually chokes off $16 billion worth of flows or just reroutes them is the question nobody can answer yet.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://cryptoplayback.com/go/41fe170edde9.html",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/9b6c50614a95b8691bb96a1027e2c050c8f9b64c-960x720.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Bitcoin ETFs Go Negative for the Year After $1.28 Billion Outflow Week",
+      "body": "<p>Bitcoin ETFs flipped negative for 2026 after shedding $1.28 billion in a single week, the worst stretch since June. BlackRock's IBIT accounted for 98% of Friday's outflows, with $403 million leaving that fund alone.</p><p>My take: when the biggest, most 'institutional' vehicle in the space is responsible for nearly all of one day's exodus, it's a reminder that these flows are still just as reflexive and sentiment-driven as anything on a retail exchange. The wrapper changed; the behavior didn't.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-07-bitcoin-etfs-flip-negative-for-2026-after-1-28-billion-outflow-week-worst-since-june-435984",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/Neon-Liquid-Bitcoin-and-Ethereum-Flow_clean.png"
+    },
+    {
+      "headline": "Apple and Meta Say No Thanks to OKX-ICE Tokenized Stock Venue",
+      "body": "<p>Apple and Meta's objections mean all seven of the biggest U.S. tech companies have now asked to keep their shares off the planned OKX-ICE tokenized stock venue, completing a clean sweep of rejections from the Magnificent Seven.</p><p>I find this more telling than any regulatory statement could be: the companies whose shares would make tokenized equities genuinely compelling are the ones opting out first. Tokenization's pitch has always been access and liquidity, but apparently the issuers themselves aren't sold yet.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382768/apple-meta-every-magnificent-seven-stock-opts-out-okx-ice-venue",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/05/apple-logo-decrypy-style-01-gID_7.png"
+    },
+    {
+      "headline": "Gnosis Pay Breach Exposes Card Numbers and Linked Wallets",
+      "body": "<p>Gnosis Pay disclosed that a breach of its legacy debit card system exposed card numbers, home addresses, and linked crypto wallet information. The company said customer funds were not affected, but the personal data exposure is still significant.</p><p>Here's the uncomfortable truth: crypto cards promise the convenience of traditional finance layered on top of blockchain rails, and this breach is a reminder that bolting the two together also means inheriting the attack surface of both. 'Funds are safe' is a low bar when your home address and wallet are now out in the wild.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/11/07/gnosis-pay-breach-exposes-card-numbers-home-addresses-and-linked-crypto-wallets",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/422bf0c58d3c5d984b8ee7f8a379b85250db7bc2-6016x4016.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Treasury Quietly Walks Back Its Crypto Surveillance 'Travel Rule' Proposal",
+      "body": "<p>The Treasury Department has withdrawn a controversial proposal that would have expanded surveillance requirements for cryptocurrency transactions, a reversal on a rule that had drawn heavy industry pushback.</p><p>My take: it's worth noting the irony of the same week Treasury is wielding sanctions as a blunt instrument against offshore exchanges while backing off broader domestic surveillance. Apparently targeted enforcement and blanket monitoring are two very different political appetites.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-06-us-treasury-walks-back-crypto-surveillance-travel-rule-proposal-435951",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2020/02/department-of-treasury-3-getty.jpg"
+    },
+    {
+      "headline": "Binance Hackers Have Moved $124 Million Into Bitcoin, But $2.85 Billion Stays Frozen",
+      "body": "<p>Blockchain analytics firm Elliptic says the Binance hackers have swapped stolen tokens for $124 million in bitcoin so far, while $2.85 billion remains frozen and largely unmoved. The exchange is reportedly planning more withdrawal reopenings.</p><p>I think the frozen $2.85 billion is the real headline here. It suggests the industry's tracking tools are genuinely slowing down laundering at scale, even against actors with this much stolen crypto to work with.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-06-binance-hackers-swap-stolen-tokens-124-million-bitcoin-exchange-plans-withdrawal-reopenings-435930",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2024/11/20241127_Binance_News_4.jpg"
+    },
+    {
+      "headline": "Zcash's NU7 Upgrade Goes Live, Triples Block Speed",
+      "body": "<p>Zcash's major network upgrade, NU7, went live on mainnet, cutting block time by threefold and activating a Network Sustainability Mechanism that removes 60% of each block's transaction fees from circulation.</p><p>Here's my take: while attention has been on sanctions and ETF flows, privacy coins are quietly shipping real technical upgrades. A threefold speed-up plus a fee-burning mechanism is a substantive change, not a cosmetic rebrand, even if it won't make headlines the way a billion-dollar outflow does.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/defi/2026-11-06-zcashs-nu7-goes-live-435807",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/zcash-3.png"
+    },
+    {
+      "headline": "Crypto-in-401(k) Rule Lands at the White House for Final Review",
+      "body": "<p>A rule that would open up 401(k) retirement accounts to alternative assets, including cryptocurrencies, has landed at the White House for final review, putting public release within reach.</p><p>My take: this is the kind of plumbing-level regulatory shift that matters more over a decade than any single week's price swing. Retirement accounts are sticky, long-horizon money, and getting access to that menu is a structural change in who's allowed to hold crypto, not a trading signal.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-06-trump-administration-moves-closer-allowing-crypto-401k-retirement-plans-435939",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2025/05/20250523_DJT.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "Someone May Have Front-Run a Poll on a Prediction Market",
+    "body": "The New York Times reported suspicious betting activity on prediction markets shortly before two NYT/Siena political polls were publicly released. If bets were placed with advance knowledge of poll results, it raises uncomfortable questions about information leakage around these markets right as they're trying to be taken seriously by Wall Street and regulators. It's the kind of story that undercuts the pitch that prediction markets are just clean, efficient truth machines.",
+    "source_title": "Cointelegraph",
+    "source_url": "https://cointelegraph.com/news/suspicious-prediction-market-activity-seen-before-election-poll-release-nyt?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+  },
+  "playback_take": {
+    "points": [
+      {
+        "label": "Sentiment",
+        "text": "The Fear & Greed reading sits at 25 Extreme Fear, alongside a Signal Confluence of just 4 of 13 signals positive."
+      },
+      {
+        "label": "Flows",
+        "text": "ETF Flow shows $-411.9M over a 2-day outflow, which sits alongside a Capital Flow reading of 30 Distribution."
+      },
+      {
+        "label": "Lab Read",
+        "text": "The Playback Lab shows 1 supportive, 4 neutral, and 2 caution reads, with Macro backdrop at Caution (36 \u00b7 Headwind) and Stablecoin flows at Caution (-1.95% in 7 days)."
+      }
+    ],
+    "tension": "The week's outflow-heavy ETF and sanctions headlines sit alongside a Narrative Momentum reading of RWA +17.8%, a pocket of positive momentum amid an otherwise cautious confluence.",
+    "watch": "Whether the Stablecoin flows reading, currently contracting at -1.95% in 7 days, stabilizes in the next data pull."
+  },
+  "excerpt": "Between a $16 billion sanctions hammer, a tech-stock-driven ETF bleed, and Big Tech snubbing crypto's tokenized stock ambitions, this week was less about price and more about who gets to play in the sandbox.",
+  "buttondown_email_id": "em_29xw7q02mv91p9hv5vaepbhc0e"
+}
