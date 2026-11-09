@@ -12,7 +12,12 @@ on:
     - cron: "30 14 * * 1,3,5"
     - cron: "30 16 * * 1,3,5"   # later backups: GitHub sometimes starts scheduled runs hours late (Oct 26, Oct 28)
     - cron: "30 18 * * 1,3,5"
-  workflow_dispatch: {}     # lets you trigger it manually from the Actions tab to test
+  workflow_dispatch:
+    inputs:
+      from_timer:
+        description: "Set by the Cloudflare timer so the duplicate-draft guard applies (leave blank when starting by hand)"
+        required: false
+        default: ""     # lets you trigger it manually from the Actions tab to test
 
 permissions:
   contents: write
@@ -34,6 +39,7 @@ jobs:
         id: decide
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          FROM_TIMER: ${{ github.event.inputs.from_timer }}
           WORKFLOW_FILE: daily.yml
         run: python scripts/should_run.py
 

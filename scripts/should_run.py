@@ -10,7 +10,8 @@ not already been made?" The first start that says yes generates the issue;
 the rest skip. A dropped 6:30 run is therefore covered by the later backups,
 and no morning ever gets two drafts.
 
-Manual (workflow_dispatch) runs always go ahead.
+Manual (workflow_dispatch) runs always go ahead - EXCEPT starts sent by the Cloudflare timer (worker/timer.js),
+which set FROM_TIMER=true and are guarded exactly like scheduled starts, so they can never make a second draft.
 
 Writes `run=true|false` to $GITHUB_OUTPUT.
 """
@@ -75,6 +76,8 @@ def todays_state(repo, workflow_file, token, current_run_id, now_utc):
 if __name__ == "__main__":
     now = datetime.now(timezone.utc)
     event = os.environ.get("GITHUB_EVENT_NAME", "")
+    if event == "workflow_dispatch" and os.environ.get("FROM_TIMER", "").lower() == "true":
+        event = "schedule"      # a timer start: apply the same guard as a scheduled start
     made = running = False
     if event == "schedule":
         made, running = todays_state(
