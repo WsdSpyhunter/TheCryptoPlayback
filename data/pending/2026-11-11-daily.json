@@ -1,0 +1,168 @@
+{
+  "slug": "2026-11-11-daily",
+  "title": "Wall Street Keeps Building While Bitcoin Keeps Bleeding",
+  "date_display": "November 11, 2026",
+  "tag": "Daily",
+  "issue_number": 20,
+  "gauge_path": "assets/gauges/2026-11-11-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 74478,
+      "change_24h": 1.47838,
+      "change_7d": -7.4914
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 2085.9,
+      "change_24h": 2.27234,
+      "change_7d": -14.1105
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 687.53,
+      "change_24h": 1.96452,
+      "change_7d": -4.3213
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.068,
+      "change_24h": 0.03392,
+      "change_7d": -18.6447
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 85.15,
+      "change_24h": 2.79048,
+      "change_7d": -11.7583
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.316975,
+      "change_24h": -0.20354,
+      "change_7d": -1.3303
+    }
+  ],
+  "fng": {
+    "value": 29,
+    "classification": "Fear"
+  },
+  "mover": {
+    "id": "monero",
+    "symbol": "XMR",
+    "name": "Monero",
+    "price": 587.89,
+    "change_24h": 5.84302,
+    "change_7d": -7.1787
+  },
+  "week_mover": {
+    "id": "ripple",
+    "symbol": "XRP",
+    "name": "XRP",
+    "price": 1.068,
+    "change_24h": 0.03392,
+    "change_7d": -18.6447
+  },
+  "sectors": [
+    {
+      "label": "AI",
+      "change_24h": 2.9480214535109868
+    },
+    {
+      "label": "NFT",
+      "change_24h": 2.8329481820016174
+    },
+    {
+      "label": "Memecoins",
+      "change_24h": 1.9803109112272381
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 289895578607.94,
+    "change_7d_pct": -1.4874416937464647
+  },
+  "date_abbrev": "NOV. 11, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $74,478.00 <span style=\"color:#8FBF5C;\">(+1.5%)</span></span><span class=\"price-chip\">ETH $2,085.90 <span style=\"color:#8FBF5C;\">(+2.3%)</span></span><span class=\"price-chip\">BNB $687.53 <span style=\"color:#8FBF5C;\">(+2.0%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.07 <span style=\"color:#8FBF5C;\">(+0.0%)</span></span><span class=\"price-chip\">SOL $85.15 <span style=\"color:#8FBF5C;\">(+2.8%)</span></span><span class=\"price-chip\">TRX $0.32 <span style=\"color:#E8837A;\">(-0.2%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 11, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">29</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">XMR</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+5.8%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Institutions are quietly wiring crypto rails into the traditional financial system even as bitcoin's price action stays stuck in a fear-driven rut.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Flirts With a First-Ever Losing Streak",
+      "body": "<p>Bitcoin is heading toward its first back-to-back annual losses in its history, breaking an 18-year pattern, though Decrypt notes there's nuance in the underlying data that complicates a simple doom narrative.</p><p>Eighteen years is a long streak to snap, and whatever the caveats, the headline alone is going to dominate year-end retrospectives. Worth remembering that 'first time in history' statistics in an asset this young come around more often than they sound.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383049/bitcoin-first-back-to-back-annual-losses-history",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/07/Bitcoin-mountain-decrypt-style-gID_7.png"
+    },
+    {
+      "headline": "Stablecoins Just Had Their Worst Month Since 2022",
+      "body": "<p>Stablecoin supply dropped $14.2 billion in its largest contraction since the 2022 bear market, with USDT and USDC supply falling nearly $11 billion over the past month while gold-backed tokens held steady, per The Block.</p><p>Stablecoin supply is often read as crypto's dry powder, so a contraction this size is one of the more telling signals in the market right now, regardless of what bitcoin's price is doing day to day.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/ecosystems/2026-11-11-stablecoin-supply-drops-14-2-billion-largest-contraction-since-2022-bear-market-437907",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2025/06/20250602_Stablecoins_News.jpg"
+    },
+    {
+      "headline": "Tokenized Stocks Launch Date Set \u2014 But Big Tech Said No Thanks",
+      "body": "<p>OKX-ICE's tokenized stock venue is set to debut Nov. 23 under a new SEC exemption, testing the waters as Nasdaq pursues its own tokenized stock plans and warns that trading across platforms could fragment liquidity, according to Cointelegraph.</p><p>The fact that regulators are even entertaining this exemption says a lot about how far tokenization has come. The pushback from blue chips is the more interesting subplot \u2014 it suggests the fight over who controls tokenized versions of public companies is just getting started.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/okxice-tokenized-stocks-blue-chips-push-back?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M75S911M6Z2QY1MHSS3BEKGB/hi-how-binance-plans-to-bring-tokenized-us-stocks-5.png"
+    },
+    {
+      "headline": "MSCI's Index Review Puts Corporate Bitcoin Treasuries on the Chopping Block",
+      "body": "<p>MSCI publishes its November index review under a new non-operating company screen, and a draft potential list already marks Strategy, Metaplanet and three others as Deleted, per Bitcoin Magazine.</p><p>If this holds, it's a meaningful structural blow for the bitcoin-treasury-company playbook \u2014 passive index inclusion has been a quiet tailwind for these stocks, and losing it changes the calculus for anyone running that model.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/markets/msci-rules-today-strategy-mstr-deleted",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/11/MSCI-Strategy-Index-Decision.jpg"
+    },
+    {
+      "headline": "A Bug That Could Have Quietly Stalled Bitcoin Mining",
+      "body": "<p>Bitcoin Core disclosed three previously patched security flaws, including a high-severity bug capable of halting a miner's ability to build new blocks \u2014 not a coin theft risk, but a denial-of-service and privacy issue, per Decrypt.</p><p>No funds were ever at risk here, but 'could have stalled mining' is the kind of headline that should make everyone appreciate how much unglamorous maintenance work keeps the network running without drama.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383044/bitcoin-core-patches-bug-could-have-stalled-btc-mining",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/bitcoin-decrypt-style-pixel-gID_7.png"
+    },
+    {
+      "headline": "Germany's Biggest Bank Flips the Switch on Crypto Custody",
+      "body": "<p>Deutsche Bank has switched on bitcoin custody for paying clients, now holding bitcoin, ether and three stablecoins for institutional and corporate clients in Europe \u2014 though it hasn't named customers or disclosed fees, per Bitcoin Magazine.</p><p>When Germany's largest lender is willing to hold private keys for institutional clients, that's a meaningfully different conversation than a crypto-native custodian doing the same. The lack of named clients tells you plenty of due diligence is still happening quietly in the background.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/deutsche-bank-bitcoin-custody-live",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/11/Deutsche-Bank-Switches-On-Bitcoin-Custody-for-Paying-Clients.jpg"
+    },
+    {
+      "headline": "Russia Opens the Door to Organized Crypto Trading",
+      "body": "<p>A Bank of Russia ordinance published Wednesday lets exchanges start organized crypto trading on Nov. 22, pending central bank approval of their rules, with Moscow Exchange still aiming for a Dec. 1 start, per Bitcoin Magazine.</p><p>Sanctioned economies finding their way to crypto rails is a story that keeps repeating, and it's a reminder that regulatory attitudes toward this stuff vary wildly depending on who's asking and why.</p>",
+      "source_title": "Bitcoin Magazine",
+      "source_url": "https://bitcoinmagazine.com/news/russia-clears-exchange-crypto-trading",
+      "image_url": "https://bitcoinmagazine.com/wp-content/uploads/2026/11/Russia-Central-Bank-Clears-Exchange-Crypto-Trading-Nov-22.jpg"
+    },
+    {
+      "headline": "Trump Media's Quarterly Profit Came Courtesy of Its Bitcoin Stash",
+      "body": "<p>Truth Social's parent company booked $409.7 million in quarterly income largely from crypto investments, even as its own stock remains more than 94% below its March 2024 peak, per Decrypt.</p><p>A media company turning a huge quarterly profit mostly off its balance sheet holdings rather than its actual business is a sign of the times \u2014 for better or worse, corporate treasuries have become one of the more consequential forces in this market.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/382967/trump-media-posts-410-million-profit-bitcoin-gains",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/09/donald-trump-bitcoin-statue2-gID_7.jpeg"
+    }
+  ],
+  "missed_story": {
+    "headline": "When a Bank Collapses, Stablecoins Become the Backup Plan",
+    "body": "Ueno bank's collapse in Paraguay exposed just how fragile digital banking access can be when customers scramble to reach their own money. Stablecoins reportedly offered a lifeline of sorts during the chaos, giving people an alternative route to their funds when the traditional system froze up. It's a small, local story with an outsized lesson about what 'always-on money' is actually for.",
+    "source_title": "Cointelegraph",
+    "source_url": "https://cointelegraph.com/magazine/paraguay-bank-collapse-shows-stablecoins-can-offer-a-lifeline-of-sorts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+  },
+  "playback_take": null,
+  "excerpt": "Institutions are quietly wiring crypto rails into the traditional financial system even as bitcoin's price action stays stuck in a fear-driven rut.",
+  "buttondown_email_id": "em_3ess5s0y2992saatrryygdea1g"
+}
