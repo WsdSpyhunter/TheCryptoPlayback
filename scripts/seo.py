@@ -188,6 +188,7 @@ def write_seo_files(entries, indicators, indicator_files, updated=None):
         with open(os.path.join(ROOT, name), "w") as f:
             f.write(text)
     w("sitemap.xml", sitemap_xml(entries, indicator_files, updated))
+    w("sitemap.website.xml", sitemap_xml(entries, indicator_files, updated))   # old address still requested by Search Console; keep it valid
     w("robots.txt", robots_txt())
     w("feed.xml", feed_xml(entries))
     w("llms.txt", llms_txt(indicators))

@@ -335,7 +335,10 @@ def jsonld(indicators):
         "@context": "https://schema.org",
         "@graph": [
             {"@type": "Organization", "@id": f"{SITE_URL}/#org", "name": "The Crypto Playback", "url": SITE_URL + "/",
-             "logo": f"{SITE_URL}/assets/v2/the-crypto-playback-badge.webp", "email": "info@cryptoplayback.com"},
+             "logo": {"@type": "ImageObject", "url": f"{SITE_URL}/assets/v2/the-crypto-playback-badge.webp"},
+             "description": "The Crypto Playback is a free Bitcoin and crypto market newsletter and live indicator dashboard.",
+             "email": "info@cryptoplayback.com",
+             "contactPoint": {"@type": "ContactPoint", "contactType": "customer support", "email": "info@cryptoplayback.com"}},
             {"@type": "WebSite", "@id": f"{SITE_URL}/#site", "url": SITE_URL + "/", "name": "The Crypto Playback",
              "description": "Free Bitcoin and crypto market research, four times a week, with 24 live indicators.",
              "publisher": {"@id": f"{SITE_URL}/#org"}, "inLanguage": "en-US"},

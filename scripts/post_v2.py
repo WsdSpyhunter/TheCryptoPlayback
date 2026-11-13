@@ -143,7 +143,7 @@ def render(post, root, market, entries, footer_links=""):
 </section>"""
     plain_title = _plain(post["title"])
     first_img = next((s["image_url"] for s in post["stories"] if s.get("image_url")), None)
-    ld = [{"@context": "https://schema.org", "@type": "NewsArticle", "headline": plain_title, "datePublished": date_iso, "dateModified": date_iso, "articleSection": "Bitcoin and crypto markets",
+    ld = [{"@context": "https://schema.org", "@type": ["NewsArticle", "Article"], "headline": plain_title, "datePublished": date_iso, "dateModified": date_iso, "articleSection": "Bitcoin and crypto markets",
            "description": _plain(post.get("excerpt", lede)),
            "image": [first_img if (first_img and first_img.startswith("http")) else f"{SITE_URL}/assets/v2/the-crypto-playback-share-card.png"],
            "author": {"@type": "Organization", "name": "The Crypto Playback"},

@@ -940,6 +940,9 @@ def render_institutional():
                 indicator_links=_footer_links(),
                 description="Free live crypto market indicators in one place: Bitcoin trend and volatility, institutional positioning, ETF basis trade, miner stress, crowded-unwind risk and stablecoin flows. Updated every 2 hours.",
                 path=PAGE_FILE,
+                jsonld=('{"@context":"https://schema.org","@type":"WebPage","name":"The Crypto Playback Lab","url":"https://cryptoplayback.com/playback-lab.html",'
+                        '"isPartOf":{"@type":"WebSite","name":"The Crypto Playback","url":"https://cryptoplayback.com/"},'
+                        '"publisher":{"@type":"Organization","name":"The Crypto Playback","url":"https://cryptoplayback.com/"}}'),
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 
 
