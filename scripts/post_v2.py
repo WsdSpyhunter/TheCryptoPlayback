@@ -154,7 +154,10 @@ def render(post, root, market, entries, footer_links=""):
               {"@type": "ListItem", "position": 2, "name": "Archive", "item": f"{SITE_URL}/archive.html"},
               {"@type": "ListItem", "position": 3, "name": plain_title, "item": f"{SITE_URL}/posts/{slug}.html"}]}]
     dt = datetime.strptime(date_iso, "%Y-%m-%d")
-    seo_title = f"{plain_title}: Bitcoin & Crypto Briefing, {dt.strftime('%b')} {dt.day}, {dt.year} | The Crypto Playback"
+    # Keep page titles near the ~60-70 characters search engines show: the headline, plus the brand when it fits.
+    seo_title = f"{plain_title} | The Playback"
+    if len(seo_title) > 70:
+        seo_title = plain_title if len(plain_title) <= 70 else plain_title[:67].rsplit(" ", 1)[0] + "..."
     return page(root, seo_title, body, datetime.now().year, theme="v2", indicator_links=footer_links,
-                description=_plain(post.get("excerpt", lede))[:158], path=f"posts/{slug}.html", og_type="article",
+                description=_plain(post.get("excerpt", lede)), path=f"posts/{slug}.html", og_type="article",
                 jsonld=json.dumps(ld, separators=(",", ":")))

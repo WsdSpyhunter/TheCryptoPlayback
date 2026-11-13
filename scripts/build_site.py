@@ -2166,7 +2166,7 @@ def render_archive(entries):
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoplayback.com/"},
         {"@type": "ListItem", "position": 2, "name": "Archive", "item": "https://cryptoplayback.com/archive.html"}]}
     return page("", "Archive: Every Crypto Briefing | The Crypto Playback", body, datetime.now().year, theme="v2",
-                description="Every Bitcoin and crypto market briefing from The Crypto Playback, newest first.",
+                description="Every Bitcoin and crypto market briefing from The Crypto Playback, newest first. Browse weekday issues and the Saturday weekend edition.",
                 path="archive.html", jsonld=_json.dumps(crumbs, separators=(",", ":")),
                 indicator_links=_footer_indicator_links())
 

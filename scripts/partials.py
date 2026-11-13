@@ -116,7 +116,10 @@ V2_NAV = [("Indicators", "index.html#alerts"), ("Playback Lab", "playback-lab.ht
 def head_v2(root, title, description=None, path="", og_image=None, jsonld=None, og_type="website", noindex=False, extra_head=""):
     """<head> contents for a v2 page: fonts, stylesheet, SEO + social tags."""
     from html import escape
-    description = escape(description or DEFAULT_DESCRIPTION, quote=True)
+    description = description or DEFAULT_DESCRIPTION
+    if len(description) > 155:                       # search results cut descriptions near 155-160 characters
+        description = description[:152].rsplit(" ", 1)[0].rstrip(",;:-") + "..."
+    description = escape(description, quote=True)
     safe_title = escape(title, quote=True)
     url = f"{SITE_URL}/{path}" if path else f"{SITE_URL}/"
     image = og_image or f"{SITE_URL}/assets/v2/the-crypto-playback-share-card.png?v=2"
@@ -142,8 +145,6 @@ def head_v2(root, title, description=None, path="", og_image=None, jsonld=None, 
 <meta name="twitter:title" content="{safe_title}">
 <meta name="twitter:description" content="{description}">
 <meta name="twitter:image" content="{image}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{V2_FONTS}" rel="stylesheet">
 <link rel="stylesheet" href="{root}assets/v2.css?v={V2_CSS_VERSION}">
 <link rel="icon" type="image/png" href="{root}assets/v2/favicon.png?v={V2_FAVICON_VERSION}">
