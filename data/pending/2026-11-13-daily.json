@@ -1,0 +1,168 @@
+{
+  "slug": "2026-11-13-daily",
+  "title": "Extreme Fear, Extremely Busy DOJ",
+  "date_display": "November 13, 2026",
+  "tag": "Daily",
+  "issue_number": 21,
+  "gauge_path": "assets/gauges/2026-11-13-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 69215,
+      "change_24h": -4.85531,
+      "change_7d": -8.8562
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 1957.59,
+      "change_24h": -3.0065,
+      "change_7d": -12.4118
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 639.74,
+      "change_24h": -2.93265,
+      "change_7d": -8.0221
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 1.023,
+      "change_24h": -0.94059,
+      "change_7d": -14.5366
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 80.62,
+      "change_24h": -1.84576,
+      "change_7d": -10.434
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.312391,
+      "change_24h": -1.14973,
+      "change_7d": -1.7687
+    }
+  ],
+  "fng": {
+    "value": 20,
+    "classification": "Extreme Fear"
+  },
+  "mover": {
+    "id": "hyperliquid",
+    "symbol": "HYPE",
+    "name": "Hyperliquid",
+    "price": 73.84,
+    "change_24h": 5.1638,
+    "change_7d": -5.5583
+  },
+  "week_mover": {
+    "id": "ripple",
+    "symbol": "XRP",
+    "name": "XRP",
+    "price": 1.023,
+    "change_24h": -0.94059,
+    "change_7d": -14.5366
+  },
+  "sectors": [
+    {
+      "label": "AI",
+      "change_24h": 1.697149261597117
+    },
+    {
+      "label": "DePIN",
+      "change_24h": 0.11413250024061579
+    },
+    {
+      "label": "NFT",
+      "change_24h": -0.040531463600680905
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 288178564901.57,
+    "change_7d_pct": -1.65267643730369
+  },
+  "date_abbrev": "NOV. 13, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $69,215.00 <span style=\"color:#E8837A;\">(-4.9%)</span></span><span class=\"price-chip\">ETH $1,957.59 <span style=\"color:#E8837A;\">(-3.0%)</span></span><span class=\"price-chip\">BNB $639.74 <span style=\"color:#E8837A;\">(-2.9%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $1.02 <span style=\"color:#E8837A;\">(-0.9%)</span></span><span class=\"price-chip\">SOL $80.62 <span style=\"color:#E8837A;\">(-1.8%)</span></span><span class=\"price-chip\">TRX $0.31 <span style=\"color:#E8837A;\">(-1.1%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 13, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">20</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Extreme Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">HYPE</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+5.2%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin slid to multi-week lows alongside Nvidia-driven market jitters, while Washington kept busy seizing billions in hacked crypto and finally naming its crypto regulators.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Tumbles Below $69,000 as Nvidia Turmoil Piles on Fed Jitters",
+      "body": "<p>Bitcoin fell below $69,000 as turmoil around Nvidia added to Fed-driven market anxiety, with a total of $798 million in crypto positions liquidated over the past four hours, including $718.5 million in long positions.</p><p>Leverage has a way of making a bad day worse, and this looks like a textbook case of over-levered longs getting cleared out all at once rather than any single new piece of information changing the story.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-13-bitcoin-tumbles-below-69000-439643",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/bitcoin_nvidia_fed_1920x1080.jpg"
+    },
+    {
+      "headline": "DOJ Moves to Seize $1.2B From the Binance Hack, Freezes Top $2.7B",
+      "body": "<p>The DOJ is moving to seize $1.2 billion tied to the Binance hack, and authorities have now frozen over $2.7 billion in proceeds from that theft. Separately, the agency disrupted a FaceStealer scam that had stolen over $400 million over 18 months.</p><p>Watching the size of these numbers climb is a reminder that on-chain tracing has gotten genuinely good \u2014 the harder question is whether seized funds ever actually make their way back to victims.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/doj-12b-north-korean-crypto-seizure-400m-facestealer-scheme?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M79YHRJXWCDNFHCS2S55SWJY/hi-the-things-the-dojs-latest-move-again-mcafee-have-taught-us-about.jpg"
+    },
+    {
+      "headline": "Strategy Made $19.5B in Profit \u2014 So Why Is MSCI Kicking It Off the Index?",
+      "body": "<p>Michael Saylor's Bitcoin treasury company made $19.5 billion in profit, yet it's being excluded from major investment benchmarks, raising questions about what counts as a 'real' business for index purposes and whether the decision could slow its Bitcoin buying.</p><p>It's a strange position: wildly profitable on paper, apparently not profitable enough in the eyes of index committees that decide what counts as a normal operating company. That definitional fight matters more than the stock move itself.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383204/why-msci-removing-bitcoin-treasury-strategy-stock-indexes",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/strategy-logo-x-twitter-gID_7.png"
+    },
+    {
+      "headline": "Congress Wants Jensen Huang in a Room, Over Chip Exports to China",
+      "body": "<p>House panels have requested December interviews with Jensen Huang and Nvidia's top lawyer as scrutiny shifts toward Commerce's oversight of chip exports to China.</p><p>Crypto markets have become uncomfortably sensitive to whatever happens in AI-chip land, and a congressional hearing calendar is now effectively a macro calendar item too.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383211/congress-summons-ex-nvidia-ceo-jensen-huang-lutnick-over-chip-exports-to-china",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/11/jensen-huang-nvidia-decrypt-style-05-gID_7.jpg"
+    },
+    {
+      "headline": "White House Finally Names Its SEC and CFTC Picks",
+      "body": "<p>The White House sent crypto-relevant nominees to fill seats at the SEC and CFTC. The Crypto Council for Innovation's Ji Kim said this bipartisan lineup could develop durable rules that safeguard markets and support innovation.</p><p>Industry has been asking for regulatory clarity for years; actual confirmed humans in these seats is at least a step toward getting an answer, even if the answer takes a while to show up.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-12-white-house-crypto-picks-sec-cftc-439175",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/whitehouse-nomination.png"
+    },
+    {
+      "headline": "DOJ and CFTC Sue Arkansas to Protect Kalshi From State Crackdown",
+      "body": "<p>Arkansas sued Kalshi on Nov. 4 alleging it operated an illegal gambling platform in the state. Now the DOJ and CFTC are suing Arkansas to block that state enforcement action.</p><p>This is the federal-versus-state turf war over prediction markets playing out in real time, and it's going to keep generating headlines long before anyone settles what a 'prediction market' legally is.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-13-doj-cftc-sue-arkansas-to-block-state-enforcement-action-against-kalshi-439669",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/kalshi_cftc_arkansas_1920x1080.jpg"
+    },
+    {
+      "headline": "Illinois's Crypto Tax Unites the DOJ, Banks, and DeFi Against It",
+      "body": "<p>The DOJ, the U.S. Chamber of Commerce, SIFMA, and a crypto coalition led by a16z, Paradigm, and Uniswap all filed briefs backing a lawsuit to strike down Illinois's 0.2% levy on digital asset transactions.</p><p>When the Justice Department, Wall Street's trade groups, and DeFi protocols all show up on the same side of a filing, that's less about crypto specifically and more about everyone agreeing a poorly designed tax is a poorly designed tax.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383144/illinois-crypto-tax-draws-alliance-doj-banks-defi",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/08/money-bitcoin-gID_7.jpg"
+    },
+    {
+      "headline": "Thailand Wants a $148,000 Daily Ceiling on Stablecoin Transfers",
+      "body": "<p>Thailand's draft rules would cap certain stablecoin transfers at $148,000 per day to curb money laundering, and would also require stablecoins to move only between accounts or wallets belonging to the same person.</p><p>It's a pretty blunt instrument for a pretty specific problem, and it'll be worth watching whether other regulators in the region borrow the same playbook.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-13-thailand-seeks-daily-stablecoin-cap-439676",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/thailand.png"
+    }
+  ],
+  "missed_story": {
+    "headline": "North Korean Hackers Are Now Laundering Through Memecoins",
+    "body": "North Korean hackers have reportedly started launching memecoins as a way to launder funds stolen in the Binance hack, according to Cointelegraph's Asia Express roundup. In the same roundup, xStocks is said to be planning to add hundreds of Hong Kong-listed equities in the coming weeks. It's an odd pairing of stories \u2014 state-sponsored hackers using degen memecoin culture as a laundering vehicle, right next to tokenized equities expanding into new markets.",
+    "source_title": "Cointelegraph",
+    "source_url": "https://cointelegraph.com/magazine/nk-hackers-join-memecoin-trenches-xstocks-adds-hong-kong-equities-asia-express?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound"
+  },
+  "playback_take": null,
+  "excerpt": "Bitcoin slid to multi-week lows alongside Nvidia-driven market jitters, while Washington kept busy seizing billions in hacked crypto and finally naming its crypto regulators.",
+  "buttondown_email_id": "em_2md170mw06818bqp64tqmzznec"
+}
