@@ -936,9 +936,9 @@ def render_institutional():
         "All readings at a glance")
     body = (hero(meta) + sec_read(rd) + f'<section class="pro-ov-band" aria-labelledby="summary-h"><div class="v2-wrap">{summary_title}{ov}</div></section>'
             + sec_trend(tr) + sec_pressure(p) + sec_basis(b) + sec_reg(rg) + sec_miners(mi) + sec_liquidity(lq) + sec_unwind(u) + (sec_quality(q) if SHOW_QUALITY else "") + sec_stables(s) + sec_sources())
-    return page("", "The Crypto Playback Lab | Crypto Market Indicators", body, datetime.now().year, theme="v2",
+    return page("", "Crypto Market Indicators: Live Bitcoin Trend & ETF Data | Playback Lab", body, datetime.now().year, theme="v2",
                 indicator_links=_footer_links(),
-                description="The Crypto Playback Lab: live crypto market-structure indicators updated every 2 hours. Institutional positioning, ETF basis-trade crowding, regulatory and ETF-pipeline tracking, miner stress, on-chain crowded unwind risk and stablecoin flows.",
+                description="Free live crypto market indicators in one place: Bitcoin trend and volatility, institutional positioning, ETF basis trade, miner stress, crowded-unwind risk and stablecoin flows. Updated every 2 hours.",
                 path=PAGE_FILE,
                 extra_head='<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">')
 

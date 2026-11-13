@@ -11,6 +11,7 @@ from html import escape
 from partials import page, SITE_URL
 import v2_ui as ui
 from home_v2 import LAB_LINKS, indicator_footer_links
+from indicator_seo import SEO
 
 LAB_NAMES = {"pressure": "Institutional Positioning", "unwind": "Crowded Unwind Risk", "stables": "Stablecoin Flows"}
 
@@ -43,6 +44,13 @@ def render(ind, history_rows, refresh_note, all_inds):
     desc = f"{plain_title}: {first}" if first else f"{plain_title}, a live crypto market indicator from The Crypto Playback."
     if len(desc) > 158:
         desc = desc[:155].rsplit(" ", 1)[0] + "..."
+    seo = SEO.get(ind["id"])
+    faq_html = ""
+    if seo:
+        desc = seo["desc"]
+        qa = "".join(f'<article class="v2-ind-card"><h3>{q}</h3><p>{a}</p></article>' for q, a in seo["faq"])
+        faq_html = (f'<section class="v2-ind-faq" aria-labelledby="faq-h"><h2 id="faq-h">In plain English</h2>'
+                    f'<div class="v2-ind-grid">{qa}</div></section>')
     hero = f"""<section class="v2-ind-hero" aria-labelledby="ind-h">
   <div class="v2-wrap">
     <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><a href="index.html#alerts">Indicators</a><span aria-hidden="true">›</span><span aria-current="page">{title}</span></nav>
@@ -57,6 +65,7 @@ def render(ind, history_rows, refresh_note, all_inds):
   <div class="v2-wrap">
     <div class="v2-ind-grid">{cards}</div>
     {lab_html}
+    {faq_html}
     {history}
     {related}
     <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the Playback free</a></p>
@@ -66,5 +75,11 @@ def render(ind, history_rows, refresh_note, all_inds):
         {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE_URL}/"},
         {"@type": "ListItem", "position": 2, "name": "Indicators", "item": f"{SITE_URL}/#alerts"},
         {"@type": "ListItem", "position": 3, "name": plain_title, "item": f"{SITE_URL}/{ind['page']}"}]}
-    return page("", f"{plain_title}: Live Crypto Indicator | The Crypto Playback", body, datetime.now().year, theme="v2",
-                description=desc, path=ind["page"], indicator_links=indicator_footer_links(all_inds), jsonld=json.dumps(crumbs, separators=(",", ":")))
+    ld = json.dumps(crumbs, separators=(",", ":"))
+    if seo:
+        faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in seo["faq"]]}
+        ld += '</script><script type="application/ld+json">' + json.dumps(faq, separators=(",", ":"))
+    page_title = f"{seo['title']} | The Crypto Playback" if seo else f"{plain_title}: Live Crypto Indicator | The Crypto Playback"
+    return page("", page_title, body, datetime.now().year, theme="v2",
+                description=desc, path=ind["page"], indicator_links=indicator_footer_links(all_inds), jsonld=ld)

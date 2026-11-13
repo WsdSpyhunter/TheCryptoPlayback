@@ -957,3 +957,9 @@ body.v2 { overflow-x: clip; }
 /* Footer: "Latest issues" column between Explore and Live indicators */
 @media (min-width: 861px) { .v2-footer-cols { grid-template-columns: .8fr 1.3fr 1.7fr; } }
 .v2-footer-issues ul { gap: 9px; }
+
+/* Indicator pages: plain-English FAQ block */
+.v2-ind-faq { margin: 34px 0 0; }
+.v2-ind-faq h2 { margin: 0 0 14px; font-family: var(--f-cond); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: 17px; color: var(--navy); }
+.v2-ind-card h3 { margin: 0 0 8px; font-size: 17px; line-height: 1.35; color: var(--navy); }
+@media (max-width: 760px) { .v2-ind-faq h2 { text-align: center; } }
