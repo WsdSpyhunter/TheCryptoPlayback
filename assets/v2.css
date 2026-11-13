@@ -953,3 +953,7 @@ body.v2 { overflow-x: clip; }
 .v2-take-watch { margin: 12px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--text); }
 @media (max-width: 700px) { .v2-post-take { text-align: center; } .v2-post-take li { grid-template-columns: 1fr; gap: 2px; } }
 .v2-post-wrap .v2-post-take + .v2-missed { margin-top: 26px; }
+
+/* Footer: "Latest issues" column between Explore and Live indicators */
+@media (min-width: 861px) { .v2-footer-cols { grid-template-columns: .8fr 1.3fr 1.7fr; } }
+.v2-footer-issues ul { gap: 9px; }

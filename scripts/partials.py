@@ -1,6 +1,8 @@
 """Shared HTML fragments used across every generated/static page."""
 
 import hashlib
+import json
+import re
 from pathlib import Path
 
 
@@ -166,6 +168,25 @@ def header_v2(root):
 </header>"""
 
 
+def latest_issue_links(root, limit=5):
+    """Footer list of the newest issues, so every page (including the often-refreshed homepage and indicator
+    pages) gives Google crawlable links to them. Reads data/posts_index.json; returns '' if unavailable."""
+    try:
+        entries = json.load(open(Path(__file__).resolve().parent.parent / "data" / "posts_index.json"))
+    except (OSError, ValueError):
+        return ""
+    seen, items = set(), []
+    for e in entries:
+        if e["slug"] in seen:
+            continue
+        seen.add(e["slug"])
+        title = re.sub(r"<[^>]+>", "", e["title"]).replace("&amp;", "&")
+        items.append(f'<li><a href="{root}posts/{e["slug"]}.html">{title}</a></li>')
+        if len(items) == limit:
+            break
+    return "".join(items)
+
+
 def footer_v2(root, year, indicator_links=""):
     from html import escape  # noqa: F401
     return f"""<footer class="v2-footer">
@@ -186,6 +207,10 @@ def footer_v2(root, year, indicator_links=""):
           <li><a href="{root}sitemap.html">Site map</a></li>
           <li><a href="{root}index.html#subscribe">Subscribe free</a></li>
         </ul>
+      </div>
+      <div class="v2-footer-issues">
+        <h2 class="v2-footer-h">Latest issues</h2>
+        <ul>{latest_issue_links(root)}</ul>
       </div>
       <div class="v2-footer-ind">
         <h2 class="v2-footer-h">Live indicators</h2>
