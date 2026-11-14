@@ -1,0 +1,168 @@
+{
+  "slug": "2026-11-14-weekly",
+  "title": "Extreme Fear, Extreme Headlines",
+  "date_display": "November 14, 2026",
+  "tag": "Weekly",
+  "issue_number": 9,
+  "gauge_path": "assets/gauges/2026-11-14-weekly.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 65105,
+      "change_24h": -5.18151,
+      "change_7d": -13.5941
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 1815.09,
+      "change_24h": -5.81631,
+      "change_7d": -18.2903
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 584.57,
+      "change_24h": -7.27655,
+      "change_7d": -15.3414
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 0.947593,
+      "change_24h": -6.88681,
+      "change_7d": -17.28
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 72.18,
+      "change_24h": -9.19641,
+      "change_7d": -18.9543
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.308532,
+      "change_24h": -1.48462,
+      "change_7d": -3.343
+    }
+  ],
+  "fng": {
+    "value": 13,
+    "classification": "Extreme Fear"
+  },
+  "mover": {
+    "id": "hyperliquid",
+    "symbol": "HYPE",
+    "name": "Hyperliquid",
+    "price": 65.27,
+    "change_24h": -9.72465,
+    "change_7d": -14.6679
+  },
+  "week_mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 72.18,
+    "change_24h": -9.19641,
+    "change_7d": -18.9543
+  },
+  "sectors": [
+    {
+      "label": "RWA",
+      "change_24h": -0.8045574776703207
+    },
+    {
+      "label": "L1",
+      "change_24h": -5.599362199214579
+    },
+    {
+      "label": "Gaming",
+      "change_24h": -6.250279390796809
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 287420964421.32,
+    "change_7d_pct": -1.5215772738148776
+  },
+  "date_abbrev": "NOV. 14, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $65,105.00 <span style=\"color:#E8837A;\">(-5.2%)</span></span><span class=\"price-chip\">ETH $1,815.09 <span style=\"color:#E8837A;\">(-5.8%)</span></span><span class=\"price-chip\">BNB $584.57 <span style=\"color:#E8837A;\">(-7.3%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $0.95 <span style=\"color:#E8837A;\">(-6.9%)</span></span><span class=\"price-chip\">SOL $72.18 <span style=\"color:#E8837A;\">(-9.2%)</span></span><span class=\"price-chip\">TRX $0.31 <span style=\"color:#E8837A;\">(-1.5%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 14, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">13</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Extreme Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E24C4C\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7l6 6 4-4 8 8\"/><path d=\"M15 17h6v-6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">HYPE</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#E24C4C;\">-9.7%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKEND EDITION</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin slid to multi-month lows and ETF money kept leaving even as regulators, central banks, and tokenization projects quietly kept building out the plumbing underneath.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin's Fourth Capitulation Wave, According to the Charts",
+      "body": "<p>Bitcoin drifted back down to $65,000, a three-month low, with at least one analyst describing the move as a fourth capitulation wave and framing current levels as a 'deep value zone.'</p><p>Calling something a capitulation wave is a bit like calling a storm the 'big one' while it's still raining \u2014 it only really earns the label in hindsight. Extreme fear readings and repeated local lows make for a dramatic chart, but they don't tell you whether the selling is almost done or just getting warmed up.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/11/14/bitcoin-drifts-back-to-usd65-000-deep-value-zone-says-analyst",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/d8413015947b8b9c56385e9b360930b006c68771-2280x1284.png?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "BlackRock's Bitcoin ETF Can't Catch a Break",
+      "body": "<p>US spot Bitcoin ETFs shed $2.35 billion over two weeks, with BlackRock's IBIT now on an 11-session losing streak and Friday alone bringing $185.4 million in net outflows, $143.5 million of it from IBIT and $41.9 million from Fidelity's FBTC.</p><p>ETFs were supposed to be the boring, steady institutional pipe into bitcoin, but steady pipes can run in both directions. An 11-session streak is the kind of number that makes headlines regardless of what it actually predicts about where flows go next.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/markets/bitcoin-etf-outflows-2-35-billion-blackrock-11-session-streak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4FQAANP3H5Z0XYV77PNYB10/hi-will-the-blockchain-stop-leaks-of-crypto.jpg"
+    },
+    {
+      "headline": "DOJ Goes After $1.2 Billion Tied to a Major Hack and a North Korean Scheme",
+      "body": "<p>The Department of Justice moved to seize $1.2 billion connected to a hack of a large overseas crypto exchange, while also disrupting a North Korean deepfake scheme as part of the same push, according to The Block's daily roundup.</p><p>A billion-dollar seizure is a reminder that blockchain's much-touted transparency cuts both ways \u2014 it can take years, but the money trail eventually gets followed, even across borders and even when the original theft happened a long time ago.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/newsletters/the-daily/2026-11-14-meta-prediction-market-app-doj-binance-hack-more-crypto-news-440304",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2022/05/20220518_Meta-Facebook-Mark-Zuckerberg.jpg"
+    },
+    {
+      "headline": "Trump Sends Two Democrats to the SEC and CFTC",
+      "body": "<p>The White House's bipartisan slate of SEC and CFTC nominees includes Trump's first Democratic picks for either agency, aimed at refilling commissions that have effectively been steering crypto policy since the Clarity Act's collapse.</p><p>Bipartisan nominees at agencies that have spent the last stretch running the policy show solo is a notable shift in tone. Whether it changes substance or just adds more voices to the room is the actual question worth watching.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383260/trump-first-democratic-picks-sec-cftc-could-reshape-crypto",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/US-Capitol-decrypt-style-01-gID_7.png"
+    },
+    {
+      "headline": "Congress Weighs Benching Its Own Players From Prediction Markets",
+      "body": "<p>A House Oversight staff memorandum, citing suspicious trades by officials, military personnel and clearance holders, recommends Congress consider new limits on federal personnel betting on platforms like Kalshi and Polymarket.</p><p>Prediction markets selling themselves as a transparent crowd-sourced truth machine runs into an awkward problem when the crowd includes people with access to the truth before everyone else does. This is the kind of governance question the industry probably needed to answer before it got this popular, not after.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383271/government-officials-banned-prediction-markets-house-oversight",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/US-Capitol-decrypt-style-02-gID_7.png"
+    },
+    {
+      "headline": "Kazakhstan Takes Tokenized Bonds From Pilot to Policy",
+      "body": "<p>Kazakhstan plans to issue tokenized government bonds in the first quarter, following a $22 million tokenized note sale that apparently gave officials enough confidence to scale it up.</p><p>Sovereign tokenized debt moving from a pilot-sized $22 million sale to an actual issuance plan is a small but concrete data point for the 'real-world assets' thesis \u2014 it's one government deciding the experiment worked well enough to do it again, bigger.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/11/14/kazakhstan-plans-tokenized-government-bonds-in-first-quarter-after-usd22-million-note-sale",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/f848ee6dd7e6ff1afdc488982529261469645ec0-6708x4472.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Britain Eyes Turning Unused Wind Power Into Bitcoin",
+      "body": "<p>Britain is reportedly weighing whether to route wasted Scottish wind power into bitcoin mining as a way of cutting its $1.3 billion grid bill, the cost of paying wind farms to shut off when the grid can't absorb their output.</p><p>Using stranded energy for mining has been the industry's favorite pitch for years, and it's a genuinely sensible use case on paper. Whether it actually gets built at scale in the UK, versus staying a line in a policy paper, is a different matter entirely.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/11/13/britain-could-turn-wasted-scottish-wind-power-into-bitcoin-to-cut-its-usd1-3-billion-grid-bill",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/139f96d99240c3a1ed36b5aee8360db8f6ec9f2e-6000x4000.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "MegaETH Cuts Staff While Chasing AI",
+      "body": "<p>Ethereum scaling project MegaETH slashed staff by 20% as it pursues an AI business, a familiar pattern this cycle of crypto infrastructure teams redirecting resources toward AI.</p><p>Watching a scaling project trim its blockchain team while leaning into AI says something about where capital and attention are currently pointed. It's hard not to read this as a vote of relative confidence \u2014 just not necessarily in the project's original pitch.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/11/14/ethereum-scaling-project-megaeth-slashes-staff-by-20-as-it-pursues-ai-business",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/2cf1692a573ca1ba4ffb9090bf7fede6b3cb53e3-1920x1080.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    }
+  ],
+  "missed_story": {
+    "headline": "A 2011 Bitcoin Wallet Wakes Up Mid-Lawsuit",
+    "body": "A Satoshi-era wallet that has held bitcoin since 2011 moved 75 BTC right after being served in a $260 billion lawsuit. It's an unusual collision of ancient on-chain history and modern legal process, raising the question of who exactly controls coins that have sat untouched for 15 years. Whatever the backstory, it's a reminder that dormant wallets aren't just price-chart trivia \u2014 sometimes they're evidence.",
+    "source_title": "CoinDesk",
+    "source_url": "https://www.coindesk.com/markets/2026/11/13/satoshi-era-wallet-served-in-a-usd260-billion-lawsuit-moves-75-btc-it-held-since-2011"
+  },
+  "playback_take": null,
+  "excerpt": "Bitcoin slid to multi-month lows and ETF money kept leaving even as regulators, central banks, and tokenization projects quietly kept building out the plumbing underneath.",
+  "buttondown_email_id": "em_7ak8jsd72597er5s5163wsad6w"
+}
