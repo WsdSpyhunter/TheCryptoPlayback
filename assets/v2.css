@@ -963,3 +963,6 @@ body.v2 { overflow-x: clip; }
 .v2-ind-faq h2 { margin: 0 0 14px; font-family: var(--f-cond); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: 17px; color: var(--navy); }
 .v2-ind-card h3 { margin: 0 0 8px; font-size: 17px; line-height: 1.35; color: var(--navy); }
 @media (max-width: 760px) { .v2-ind-faq h2 { text-align: center; } }
+
+/* Indicator page heading: icon sits beside the h1 instead of inside it */
+.v2-ind-h1 { margin: 0; font: inherit; color: inherit; line-height: inherit; }

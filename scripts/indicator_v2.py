@@ -55,7 +55,7 @@ def render(ind, history_rows, refresh_note, all_inds):
   <div class="v2-wrap">
     <nav class="v2-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">›</span><a href="index.html#alerts">Indicators</a><span aria-hidden="true">›</span><span aria-current="page">{title}</span></nav>
     <div class="v2-kicker v2-kicker-brass v2-ind-kicker">Live indicator · refreshed automatically</div>
-    <h1 class="v2-ind-title" id="ind-h"><span class="v2-ind-icon" aria-hidden="true">{ui.icon(ind['id'], 40)}</span>{title}</h1>
+    <div class="v2-ind-title v2-ind-titlewrap"><span class="v2-ind-icon" aria-hidden="true">{ui.icon(ind['id'], 40)}</span><h1 class="v2-ind-h1" id="ind-h">{title}</h1></div>
     <div class="v2-ind-value">{ind['page_hero_html']}</div>
     <p class="v2-ind-updated">Last updated {ind['last_updated_display']}</p>
   </div>
@@ -80,6 +80,7 @@ def render(ind, history_rows, refresh_note, all_inds):
         faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in seo["faq"]]}
         ld += '</script><script type="application/ld+json">' + json.dumps(faq, separators=(",", ":"))
-    page_title = f"{seo['title']} | The Crypto Playback" if seo else f"{plain_title}: Live Crypto Indicator | The Crypto Playback"
+    base = seo["title"] if seo else f"{plain_title}: Live Crypto Indicator"
+    page_title = next((c for c in (f"{base} | The Crypto Playback", f"{base} | The Playback", base) if len(c) <= 70), base)
     return page("", page_title, body, datetime.now().year, theme="v2",
                 description=desc, path=ind["page"], indicator_links=indicator_footer_links(all_inds), jsonld=ld)
