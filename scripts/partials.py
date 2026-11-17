@@ -234,7 +234,7 @@ def footer_v2(root, year, indicator_links=""):
     </div>
   </div>
 </footer>
-<script>document.querySelectorAll('.v2-mail').forEach(function(e){var a=e.dataset.u+'@'+e.dataset.d,l=document.createElement('a');l.href='mailto:'+a;l.textContent=a;e.replaceWith(l);});</script>"""
+<script>document.querySelectorAll('.v2-mail').forEach(function(e){{var a=e.dataset.u+'@'+e.dataset.d,l=document.createElement('a');l.href='mailto:'+a;l.textContent=a;e.replaceWith(l);}});</script>"""
 
 
 def page_v2(root, title, body_html, year, indicator_links="", **meta):
