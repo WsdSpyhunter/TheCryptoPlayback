@@ -35,11 +35,11 @@ ABOUT_BODY = """<section class="v2-ind-hero" aria-labelledby="about-h">
       <p><strong>Sources.</strong> Each story is based on the one article it links to, so you can always read the original. If a story quotes a public figure, the quote is only used when it appears word for word in that source, and software checks this before publication.</p>
       <p><strong>The numbers.</strong> The prices, Fear &amp; Greed reading and every indicator on the site and in the newsletter are calculated by software from public data sources, not written by AI. Each indicator page and the Playback Lab explain the method and the data used.</p>
       <p><strong>Limits.</strong> We do not independently verify every claim made in the articles we summarize, and AI can make mistakes. Indicators describe market conditions; they are not predictions, and nothing here is financial advice (see our <a href="terms.html">Terms</a>).</p>
-      <p><strong>Corrections.</strong> If you spot an error, please email <a href="mailto:info&#64;cryptoplayback.com">info&#64;cryptoplayback.com</a>. We fix mistakes on the website as soon as we can.</p>
+      <p><strong>Corrections.</strong> If you spot an error, please email <span class="v2-mail" data-u="info" data-d="cryptoplayback.com">info (at) cryptoplayback.com</span>. We fix mistakes on the website as soon as we can.</p>
     </article>
     <article class="v2-ind-card v2-about-card" id="contact">
       <h2>Contact</h2>
-      <p>Questions, tips, or feedback: <a href="mailto:info&#64;cryptoplayback.com">info&#64;cryptoplayback.com</a></p>
+      <p>Questions, tips, or feedback: <span class="v2-mail" data-u="info" data-d="cryptoplayback.com">info (at) cryptoplayback.com</span></p>
     </article>
     <p class="v2-ind-sub"><a class="v2-btn v2-btn-navy" href="index.html#subscribe">Get the Playback free</a></p>
   </div>
@@ -56,7 +56,7 @@ TERMS_SECTIONS = [
     ("Third-party data, links and promotions", """<p>We rely on data and news from third parties and cannot guarantee that it is accurate, complete or timely; it can be delayed, revised or wrong. Their own terms apply to their data. The Service links to third-party sites, which we do not control. Some items, such as featured shows or sponsored placements, may be promotions. We label paid sponsorships as such. Inclusion of any resource is not an endorsement.</p>"""),
     ("Newsletter", """<p>If you subscribe, we will email you our newsletter. You can unsubscribe at any time using the link in every email. Emails are delivered through a third-party email provider.</p>"""),
     ("No warranty; limit of liability", """<p>The Service is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo;, without warranties of any kind, express or implied. To the fullest extent permitted by law, we are not liable for any loss or damage (including trading or investment losses) arising from your use of, or reliance on, the Service.</p>"""),
-    ("Changes and contact", """<p>We may update these terms from time to time; the effective date below shows the latest version, and continued use means you accept the changes. These terms are governed by the laws of the State of Tennessee, without regard to its conflict-of-law rules. Questions: <a href="mailto:info&#64;cryptoplayback.com">info&#64;cryptoplayback.com</a>.</p>
+    ("Changes and contact", """<p>We may update these terms from time to time; the effective date below shows the latest version, and continued use means you accept the changes. These terms are governed by the laws of the State of Tennessee, without regard to its conflict-of-law rules. Questions: <span class="v2-mail" data-u="info" data-d="cryptoplayback.com">info (at) cryptoplayback.com</span>.</p>
 <p class="v2-about-note">Effective October 9, 2026.</p>"""),
 ]
 
