@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-11-21T16:41:32.830995+00:00",
+  "updated_at": "2026-11-21T21:55:25.546437+00:00",
   "prices": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
       "name": "Bitcoin",
-      "price": 59879,
-      "change_24h": 0.78416,
-      "change_7d": -9.2287
+      "price": 60362,
+      "change_24h": 2.42989,
+      "change_7d": -8.2014
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
       "name": "Ethereum",
-      "price": 1679.61,
-      "change_24h": 2.20244,
-      "change_7d": -9.2727
+      "price": 1685.51,
+      "change_24h": 4.24539,
+      "change_7d": -8.2732
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
       "name": "BNB",
-      "price": 546.05,
-      "change_24h": -0.27821,
-      "change_7d": -9.0255
+      "price": 548.71,
+      "change_24h": 1.78258,
+      "change_7d": -7.0713
     },
     {
       "id": "ripple",
       "symbol": "XRP",
       "name": "XRP",
-      "price": 0.927708,
-      "change_24h": 1.45099,
-      "change_7d": -6.1212
+      "price": 0.928833,
+      "change_24h": 2.34319,
+      "change_7d": -2.2379
     },
     {
       "id": "solana",
       "symbol": "SOL",
       "name": "Solana",
-      "price": 70.41,
-      "change_24h": 1.64281,
-      "change_7d": -5.1132
+      "price": 70.34,
+      "change_24h": 2.13001,
+      "change_7d": -2.6038
     },
     {
       "id": "tron",
       "symbol": "TRX",
       "name": "TRON",
-      "price": 0.304863,
-      "change_24h": 0.752,
-      "change_7d": -1.6653
+      "price": 0.305186,
+      "change_24h": 1.16046,
+      "change_7d": -1.0915
     }
   ],
   "fng": {
@@ -58,30 +58,30 @@
     "id": "monero",
     "symbol": "XMR",
     "name": "Monero",
-    "price": 478.22,
-    "change_24h": 7.26143,
-    "change_7d": -8.7187
+    "price": 492.0,
+    "change_24h": 8.63434,
+    "change_7d": -1.3945
   },
   "week_mover": {
     "id": "ethereum",
     "symbol": "ETH",
     "name": "Ethereum",
-    "price": 1679.61,
-    "change_24h": 2.20244,
-    "change_7d": -9.2727
+    "price": 1685.51,
+    "change_24h": 4.24539,
+    "change_7d": -8.2732
   },
   "sectors": [
     {
       "label": "AI",
-      "change_24h": 2.285549588910609
+      "change_24h": 2.6514773737227184
     },
     {
-      "label": "DePIN",
-      "change_24h": 2.0431078572873327
+      "label": "L1",
+      "change_24h": 2.5527212192074775
     },
     {
       "label": "L2",
-      "change_24h": 1.5848020402515026
+      "change_24h": 2.074906146880926
     }
   ],
   "stablecoins": {
@@ -89,56 +89,58 @@
     "change_7d_pct": -1.5014889632056698
   },
   "dominance": {
-    "btc_dominance_pct": 57.88534795885118,
-    "total_market_cap_usd": 2076735188147.8633
+    "btc_dominance_pct": 57.97782382360288,
+    "total_market_cap_usd": 2088381988308.9187
   },
   "leverage": {
-    "funding_rate_pct": -0.00029624194076999997,
+    "funding_rate_pct": -0.00634720386214,
     "next_funding_time_ms": 1795334400000,
-    "open_interest_usd": 1918705527.8460069
+    "open_interest_usd": 1909865665.421807
   },
   "defi_tvl": {
-    "total_usd": 67795857568.0,
-    "change_7d_pct": -8.130427463485779
+    "total_usd": 67746936667.0,
+    "change_7d_pct": -8.196719747766766
   },
   "network_health": {
-    "hashrate_eh": 1054.811737519842,
-    "difficulty_change_pct": 9.846780440964299,
-    "fastest_fee_satvb": 1,
-    "pending_tx_count": 71223
+    "hashrate_eh": 1041.373362779417,
+    "difficulty_change_pct": 8.90192065845996,
+    "fastest_fee_satvb": 3,
+    "pending_tx_count": 80512
   },
   "liquidations": {
-    "long_liq_usd": 590364.1482099999,
-    "short_liq_usd": 212967.65830000004,
+    "long_liq_usd": 0.0,
+    "short_liq_usd": 315404.6152800002,
     "event_count": 100,
-    "window_minutes": 52.66376666666667
+    "window_minutes": 136.88078333333334
   },
   "whale_activity": {
     "amounts_btc": [
-      2486.17699008,
-      74.82428977,
-      51.85692249,
-      50.83038318,
-      40.80612897,
-      26.48462656,
-      22.75590622,
-      19.99996625,
-      19.97942246,
-      18.48796185,
-      16.17596721,
-      15.6916021,
-      12.39988378,
-      9.54465506,
-      9.41789394,
-      9.14817155,
-      9.12604795,
-      9.06081442,
-      8.15714331,
-      7.44256777,
-      6.49946255,
-      5.65939586,
-      5.48850563,
-      5.05209495
+      92.86629609,
+      88.25687397,
+      58.500051,
+      57.86004104,
+      56.0560585,
+      26.89762299,
+      23.64242611,
+      20.40436493,
+      18.78639127,
+      16.73576002,
+      16.44248967,
+      14.44257466,
+      14.36216577,
+      13.99303957,
+      11.46491662,
+      11.46458649,
+      9.23334759,
+      7.82619777,
+      7.09978181,
+      5.95168399,
+      5.57609748,
+      5.43428753,
+      5.43308795,
+      5.43003803,
+      5.42141052,
+      5.2420876
     ],
     "sample_size": 1000
   },
