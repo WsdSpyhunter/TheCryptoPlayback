@@ -1,0 +1,185 @@
+{
+  "slug": "2026-11-21-weekly",
+  "title": "Everything Sells Off, Hackers Don't Take a Day Off",
+  "date_display": "November 21, 2026",
+  "tag": "Weekly",
+  "issue_number": 10,
+  "gauge_path": "assets/gauges/2026-11-21-weekly.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 60053,
+      "change_24h": 1.83916,
+      "change_7d": -8.113
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 1682.15,
+      "change_24h": 3.29909,
+      "change_7d": -7.8936
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 547.89,
+      "change_24h": 1.00977,
+      "change_7d": -6.6444
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 0.932836,
+      "change_24h": 2.81849,
+      "change_7d": -2.4093
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 70.72,
+      "change_24h": 2.21425,
+      "change_7d": -2.5205
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.304954,
+      "change_24h": 0.98132,
+      "change_7d": -1.1711
+    }
+  ],
+  "fng": {
+    "value": 12,
+    "classification": "Extreme Fear"
+  },
+  "mover": {
+    "id": "monero",
+    "symbol": "XMR",
+    "name": "Monero",
+    "price": 481.19,
+    "change_24h": 8.12189,
+    "change_7d": -5.7904
+  },
+  "week_mover": {
+    "id": "bitcoin",
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "price": 60053,
+    "change_24h": 1.83916,
+    "change_7d": -8.113
+  },
+  "sectors": [
+    {
+      "label": "AI",
+      "change_24h": 3.5140968275797304
+    },
+    {
+      "label": "DePIN",
+      "change_24h": 2.6861147054541394
+    },
+    {
+      "label": "L2",
+      "change_24h": 1.896762334207295
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 283118110614.76,
+    "change_7d_pct": -1.5014889632056698
+  },
+  "date_abbrev": "NOV. 21, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $60,053.00 <span style=\"color:#8FBF5C;\">(+1.8%)</span></span><span class=\"price-chip\">ETH $1,682.15 <span style=\"color:#8FBF5C;\">(+3.3%)</span></span><span class=\"price-chip\">BNB $547.89 <span style=\"color:#8FBF5C;\">(+1.0%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $0.93 <span style=\"color:#8FBF5C;\">(+2.8%)</span></span><span class=\"price-chip\">SOL $70.72 <span style=\"color:#8FBF5C;\">(+2.2%)</span></span><span class=\"price-chip\">TRX $0.30 <span style=\"color:#8FBF5C;\">(+1.0%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 21, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">12</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Extreme Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER OF THE WEEK</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">XMR</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+8.1%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">WEEKEND EDITION</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin skidded to two-year lows alongside a broader tech wipeout, while a string of DeFi hacks and fresh regulatory moves kept the rest of crypto plenty busy.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin Tanks Below $57,000, First Time in Two Years",
+      "body": "<p>Bitcoin fell below $57,000 for the first time in two years, part of a broader selloff that dragged other assets down with it, according to CoinDesk.</p><p>Two-year lows tend to bring out two kinds of people: the ones calling it a generational entry point and the ones calling it the start of something worse. Neither camp has special knowledge right now, and that's worth remembering before trusting either one.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/11/21/bitcoin-tanks-below-usd57-000-for-the-first-time-in-two-years-and-its-not-alone",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/c4a0fdccd8d94e89522ad3903cb55ceb60c5e3d6-2158x1102.png?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Nvidia Crashes 48% as the AI Trade Gets a Reality Check",
+      "body": "<p>Tech stocks buckled after Anthropic's historic IPO and a leadership crisis at Nvidia, whose shares crashed 48%, while Bitcoin slipped below $60,000 alongside the rout. Experts quoted by Decrypt disagree on whether this is a correction or a dot-com-style bust.</p><p>Crypto spent years insisting it wasn't just a leveraged bet on risk appetite, and then AI showed up and proved that theory wrong in real time. When Nvidia sneezes, apparently Bitcoin still catches a cold.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383754/ai-bubble-finally-popping-nvidia-crashes-48-wall-street-alarm",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2026/02/stocks-gID_7.jpg"
+    },
+    {
+      "headline": "Chainflip's FLIP Tanks 30% After Suspected Vault Drain",
+      "body": "<p>Cross-chain protocol Chainflip's FLIP token tanked 30% after a suspected $4.86 million vault drain, per CoinDesk.</p><p>Cross-chain bridges and vaults remain one of the industry's favorite places to lose money that isn't theirs. Every exploit like this is a reminder that 'cross-chain' is often just a fancier word for 'more places for a key to go wrong.'</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/11/21/cross-chain-protocol-chainflip-s-flip-tanks-30-after-suspected-usd4-86-million-vault-drain",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/eeb54516a3b0a19f03d51ee5552619fa13b3be71-1920x1440.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Wrapped Monero Collapses 99.8% in Suspected $13.5M Exploit",
+      "body": "<p>Cointelegraph reports Bitquery traced $13.5 million in suspicious sales of a wrapped Monero token, whose price crashed 99.8%, as its operator blamed a security breach and promised to reimburse affected traders.</p><p>Wrapping privacy coins onto transparent chains always felt like a neat workaround until something exactly like this happened. A promise to reimburse is nice, but it's still a promise, not a transaction.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/wrapped-monero-token-crashes-998-amid-suspected-135m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M7X4D1A62D3GQT3E2RD261Q4/hi-company-hits-vulnerability-2.png"
+    },
+    {
+      "headline": "SEC Says Fake Exchanges Bilked Investors Out of $37 Million",
+      "body": "<p>Decrypt reports the SEC alleges eight Colorado-registered entities, likely run from overseas, posed as legitimate advisers and crypto platforms\u2014even faking SEC certificates and filings\u2014to defraud U.S. investors of more than $37 million.</p><p>Faking an SEC certificate is a bold move, and apparently a lucrative one until it isn't. It's a good reminder that the paperwork looking official has never been proof of anything.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/383752/fraudsters-fake-crypto-exchanges-steal-37-million-sec",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/06/SecuritiesExchange_logo-gID_7.png"
+    },
+    {
+      "headline": "Senate Passes 'Death Bets Act' to Ban War and Death Wagers",
+      "body": "<p>The U.S. Senate passed a bill to ban prediction market bets on war and death, according to CoinDesk, aiming to stop contracts tied to assassination, terrorism and military events amid concerns over potential insider trading.</p><p>Prediction markets have had a rough stretch of credibility questions, and legislating away the grimmest categories of contracts is an easy call politically. Whether it actually curbs insider trading elsewhere in the space is a separate question entirely.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/11/20/u-s-senated-passes-bill-to-ban-prediction-market-best-on-war-and-death",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/cb2a91ec8eda764f9a0f74f30550a6a716563fda-2517x1416.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Hong Kong Moves to License Crypto Custodians and Advisers",
+      "body": "<p>Hong Kong's securities regulator is pushing to bring crypto custodians and advisers under licensing rules, with the bill set for its first reading in the Legislative Council on Dec. 2, Cointelegraph reports.</p><p>Hong Kong keeps building out a comprehensive licensing stack while other jurisdictions argue about definitions. It's a slow, unglamorous way to become the place institutions actually trust with custody.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/hong-kong-crypto-custody-advisory-licensing-bill?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M7Y9VC5TT6XQ46DCK68VGC0X/regulation-hong-kong.jpg"
+    },
+    {
+      "headline": "AI Finds a Bug That Could Stall Bitcoin Nodes With One Repeated ID",
+      "body": "<p>CoinDesk reports Bitcoin nodes could be stalled by repeating one ID 50,000 times, a bug that was found by AI.</p><p>Having an AI catch a bug like this before an attacker does is the kind of win that doesn't make headlines the way a hack does, but it's exactly the unglamorous work that keeps the base layer boring in the best way possible.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/11/21/bitcoin-nodes-could-be-stalled-by-repeating-one-id-50-000-times-ai-found-the-bug",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/0fd512cd2b3b63152562fab784b9d94b8b8b56ea-1500x994.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    }
+  ],
+  "missed_story": {
+    "headline": "A GTA 6 Leaker Is Holding a PC Port Hostage for a Crypto Pump",
+    "body": "An anonymous leaker going by Cyberleek released a 209 GB Xbox build of GTA 6 but is withholding the executable that could enable a PC port until a token called CYBERLEEK hits $15 million. It's an odd mashup of gaming piracy and token speculation, essentially turning a leak into a market cap target. Whether anyone actually gets a PC port out of this, or just a lesson in how far people will go to pump a coin, remains to be seen.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/383756/gta-6-leaker-dangles-pc-port-15-million-crypto-pump"
+  },
+  "playback_take": {
+    "points": [
+      {
+        "label": "Sentiment",
+        "text": "Fear & Greed sits at 12, Extreme Fear, alongside a Signal Confluence reading of 5 of 14 signals positive."
+      },
+      {
+        "label": "ETF Flows",
+        "text": "ETF Flow shows $-582.2M in 3-day outflows, sitting alongside the Playback Lab's caution flag on stablecoin flows at -1.48% in 7 days."
+      },
+      {
+        "label": "Miner Picture",
+        "text": "Miner Health shows hash rate rising at 1055 EH/s, while the Playback Lab's miner stress reading sits at 80, capitulation risk."
+      }
+    ],
+    "tension": "Rising hash rate sits alongside a miner stress reading flagged for capitulation risk, pulling in different directions on how to read conditions for miners right now.",
+    "watch": "Whether Market Breadth, currently 8% Broad Weakness, shifts alongside Crowded unwind risk, currently a median of 62 with the highest reading at SOL 74."
+  },
+  "excerpt": "Bitcoin skidded to two-year lows alongside a broader tech wipeout, while a string of DeFi hacks and fresh regulatory moves kept the rest of crypto plenty busy.",
+  "buttondown_email_id": "em_06x8zxyjhj8kn8st8kyjk7j1vg"
+}
