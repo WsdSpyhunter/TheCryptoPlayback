@@ -1,0 +1,168 @@
+{
+  "slug": "2026-11-23-daily",
+  "title": "Jensen Huang Returns, Bitcoin Catches a Ride on the Coattails",
+  "date_display": "November 23, 2026",
+  "tag": "Daily",
+  "issue_number": 25,
+  "gauge_path": "assets/gauges/2026-11-23-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 61074,
+      "change_24h": 0.26003,
+      "change_7d": -5.7824
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 1706.92,
+      "change_24h": -0.4756,
+      "change_7d": -5.3658
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 555.02,
+      "change_24h": -0.15924,
+      "change_7d": -5.7581
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 0.935032,
+      "change_24h": 1.37165,
+      "change_7d": -1.4567
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 71.74,
+      "change_24h": 2.24919,
+      "change_7d": 1.312
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.309066,
+      "change_24h": 1.2425,
+      "change_7d": 1.2266
+    }
+  ],
+  "fng": {
+    "value": 11,
+    "classification": "Extreme Fear"
+  },
+  "mover": {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "price": 71.74,
+    "change_24h": 2.24919,
+    "change_7d": 1.312
+  },
+  "week_mover": {
+    "id": "bitcoin",
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "price": 61074,
+    "change_24h": 0.26003,
+    "change_7d": -5.7824
+  },
+  "sectors": [
+    {
+      "label": "RWA",
+      "change_24h": 73.8628353901658
+    },
+    {
+      "label": "Memecoins",
+      "change_24h": 1.8843595337780308
+    },
+    {
+      "label": "DeFi",
+      "change_24h": 0.6655578731740417
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 283206802636.01,
+    "change_7d_pct": -1.490122213836736
+  },
+  "date_abbrev": "NOV. 23, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $61,074.00 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span><span class=\"price-chip\">ETH $1,706.92 <span style=\"color:#E8837A;\">(-0.5%)</span></span><span class=\"price-chip\">BNB $555.02 <span style=\"color:#E8837A;\">(-0.2%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $0.94 <span style=\"color:#8FBF5C;\">(+1.4%)</span></span><span class=\"price-chip\">SOL $71.74 <span style=\"color:#8FBF5C;\">(+2.2%)</span></span><span class=\"price-chip\">TRX $0.31 <span style=\"color:#8FBF5C;\">(+1.2%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 23, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">11</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Extreme Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">SOL</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+2.2%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">A wild 48 hours saw Nvidia's CEO drama whipsaw crypto markets while regulators and hackers both chased nine-figure sums through the system.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Nvidia Reinstates Jensen Huang, and Crypto Comes Along for the Ride",
+      "body": "<p>Bitcoin, crypto stocks and the broader tech market rallied after Nvidia's board reinstated Jensen Huang as CEO, with NVDA jumping 30%. The move was far from a sure thing \u2014 Polymarket had put the odds of Huang rejoining by year's end at just 10.5% ahead of the announcement.</p><p>It's a reminder of how tightly bitcoin's short-term price action is now tethered to the AI trade and a handful of mega-cap tech names. When a single CEO's reinstatement can move crypto markets this much, it's worth asking how much of the 'crypto narrative' is really about crypto at all right now.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-23-bitcoin-crypto-tech-stocks-rally-nvidia-reinstates-jensen-huang-ceo-nvda-jumps-444952",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/GettyImages-2299100584-scaled.jpg"
+    },
+    {
+      "headline": "Grayscale Calls This Bitcoin's Longest Bear Market on Record",
+      "body": "<p>Grayscale said bitcoin's drop to about $55,000 made the current bear market the longest on record at 411 days, while arguing bitcoin and major altcoins now look 'oversold' with AI-related risks clouding the near-term outlook.</p><p>'Oversold' is doing a lot of work in that sentence, and it's the kind of framing that tends to show up right around the point where sentiment has gotten thoroughly miserable. Whether this marks a genuine inflection or just a longer bear market getting a fresh data point isn't something a single research note settles.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-23-grayscale-bitcoin-altcoins-oversold-ai-risks-crypto-outlook-445418",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/GettyImages-2217532638-scaled.jpg"
+    },
+    {
+      "headline": "DOJ Wants $1.17 Billion Back From the North Korea-Linked Binance Hack",
+      "body": "<p>The U.S. Justice Department is seeking to recover about $1.17 billion in USDC tied to the Oct. 29 Binance hack, and Circle could issue replacement tokens as part of the process.</p><p>A government agency formally going after over a billion dollars in stolen stablecoins is a notable test of how fast and how cleanly the system can claw back funds after a state-linked heist \u2014 and how much the issuer's cooperation matters when that happens.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-23-doj-1-17-billion-usdc-binance-hack-circle-replacement-tokens-445398",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/GettyImages-961565068-scaled.jpg"
+    },
+    {
+      "headline": "CFTC's Prediction Market Power Grab Heads to the White House",
+      "body": "<p>A proposed set of CFTC rules meant to further assert its oversight of prediction markets has advanced to White House review, amid an ongoing fight between state and federal regulators over who actually gets to govern these platforms.</p><p>Prediction markets have quietly become one of the more contested regulatory battlegrounds in the whole space, and this review is a concrete step toward settling \u2014 or at least formalizing \u2014 the jurisdiction fight that's been simmering for a while.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/regulation/2026-11-23-cftc-prediction-market-rules-advance-white-house-review-amid-state-federal-jurisdiction-fight-445384",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/selig-cftc-scaled.jpg"
+    },
+    {
+      "headline": "Kalshi Keeps Operating in New York, For Now",
+      "body": "<p>A New York judge declined to block Kalshi from operating in the state while its legal battle over sports-related event contracts continues toward a January hearing.</p><p>It's a temporary win rather than a resolution, but it keeps Kalshi in business in one of the country's biggest markets while the bigger question of how states treat prediction markets gets sorted out in court.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/policy/2026/11/23/new-york-judge-declines-to-block-kalshi-from-operating-in-the-state-for-now",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/9c6baa6823c28467fc75fe889e204ecc283367d0-8192x5464.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "113 Tokenized Stocks Go Live Despite Issuer Pushback",
+      "body": "<p>A tokenized securities venue launched with 113 assets confirmed for 24/7 trading, with issuers and asset managers including eToro, Fidelity, Strive, BitGo, Circle, Coinbase, Robinhood and Strategy.</p><p>Getting that many big-name issuers onto one venue, even amid some reported objections, is a meaningful marker for tokenized equities moving from pitch deck to live product. Whether 24/7 trading of traditional securities actually sticks with investors is a separate question entirely.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/business/2026-11-23-okxice-launches-tokenized-securities-venue-444898",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/okx-1920-scaled-e1795429769945.jpg"
+    },
+    {
+      "headline": "A DeFi Stablecoin Pool Runs Dry, and Its Cofounder Is Weighing a Fire Sale",
+      "body": "<p>Sky's cofounder is weighing a sale of SKY tokens to repay $77 million, as the separate stUSDS lending pool had no funds available for withdrawals \u2014 even as USDS itself held near $1 on Monday.</p><p>A stablecoin holding its peg while a related lending pool quietly runs out of liquidity is exactly the kind of mismatch that looks fine until the moment it isn't. Worth watching how a token sale to backstop the shortfall actually plays out.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/defi/2026-11-23-sky-cofounder-weighs-sky-sale-repay-77-million-stusds-pool-runs-dry-445373",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/workflow_V2-COMPANY-Article-cover-image_2026-11-23_17-14-17.png"
+    },
+    {
+      "headline": "Strategy Keeps Stacking: 457 More Bitcoin, Bigger Buyback Program",
+      "body": "<p>Strategy bought 457 Bitcoin and spent $212 million on preferred share buybacks, while also raising its preferred stock buyback limit to $4 billion and authorizing the transfer of up to $1 billion from its dollar reserve.</p><p>The purchase itself is modest by Strategy's usual standards, but the move to expand the buyback authorization and shuffle reserve capital says more about how the company is managing its balance sheet through this stretch than the bitcoin buy does on its own.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/strategy-buy-457-bitcoin-btc-treasury-losses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/10/01M4QZS9YXDW2XY08FHFBXVMGD/hi-how-michael-saylors-strategy-became-the-largest-bitcoin-holder-3.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "A Tiny Miner Just Beat Million-Dollar Odds Again",
+    "body": "A solo miner running Solo CKPool solved block 977057 and pocketed 3.13 BTC, worth about $191,000, in a feat that normally only industrial-scale mining farms pull off. It's a lottery-like win against the odds, and a nice reminder that Bitcoin's mining game still has room for the little guy to occasionally hit the jackpot.",
+    "source_title": "Decrypt",
+    "source_url": "https://decrypt.co/383818/solo-bitcoin-miner-scores-again-191000-jackpot"
+  },
+  "playback_take": null,
+  "excerpt": "A wild 48 hours saw Nvidia's CEO drama whipsaw crypto markets while regulators and hackers both chased nine-figure sums through the system.",
+  "buttondown_email_id": "em_08402qyvjr8gcbf20a9zfcfwrh"
+}
