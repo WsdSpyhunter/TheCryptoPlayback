@@ -927,6 +927,12 @@ def _build_indicator_registry(dashboard, gauge_src):
                  "Index, which blends volatility, market momentum and volume, social media activity, market "
                  "dominance, and search trends into a single score. We don't calculate this ourselves &mdash; "
                  "we display their published reading as of each issue.</p>"),
+                ("What Each Level Means", "<p><strong>0&ndash;24, Extreme Fear:</strong> investors are very worried and "
+                 "selling pressure is high. <strong>25&ndash;49, Fear:</strong> caution outweighs confidence. "
+                 "<strong>50, Neutral:</strong> neither side is in control. <strong>51&ndash;74, Greed:</strong> "
+                 "buyers are confident and chasing gains. <strong>75&ndash;100, Extreme Greed:</strong> optimism is "
+                 "stretched, so markets can be overheated. These are the bands Alternative.me publishes; they describe "
+                 "mood, not what price does next.</p>"),
                 ("Why It Matters", "<p>Extreme readings often &mdash; not always &mdash; line up with "
                  "emotional turning points: extreme fear near local bottoms, extreme greed near local tops. "
                  "It's a sentiment gauge, not a price prediction.</p>"),
