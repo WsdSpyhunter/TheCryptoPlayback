@@ -5,6 +5,42 @@ predicts. Indicators without an entry keep the generic title and first-section d
 """
 
 SEO = {
+    "fear_greed": {
+        "title": "Crypto Fear & Greed Index Today: Live Score",
+        "desc": "Today's crypto Fear & Greed Index, live: the 0-100 sentiment score from Extreme Fear to Extreme Greed, with what each level means. Updated every 15 minutes.",
+        "faq": [
+            ("What is the crypto Fear & Greed Index?", "It is a 0 to 100 score of overall crypto market sentiment. Low numbers mean Extreme Fear, high numbers mean Extreme Greed, and the middle is Neutral. We show the reading published by Alternative.me and refresh it every 15 minutes."),
+            ("What does Extreme Fear mean?", "It means traders are very cautious or selling. Some people treat extreme readings as a sign the mood has stretched, but the index is a snapshot of sentiment, not a forecast of where price goes next."),
+            ("How often does the Fear & Greed Index change?", "The underlying index updates daily. This page checks for a new reading every 15 minutes and keeps a history of recent readings below."),
+        ],
+    },
+    "risk_radar": {
+        "title": "Crypto Risk Score Today: Live Market Risk Radar",
+        "desc": "A live crypto risk score: Low, Moderate or Elevated, built from market sentiment and how far prices moved in 24 hours. Updated every 15 minutes.",
+        "faq": [
+            ("What is the crypto risk score?", "It is a simple Crypto Playback score of how turbulent conditions are right now: Low, Moderate or Elevated. It combines how extreme the Fear & Greed reading is with the average 24-hour move of the six coins we track."),
+            ("Is it a prediction?", "No. It is a temperature check on current conditions, not a forecast of what happens next."),
+            ("Where does the data come from?", "Fear & Greed from Alternative.me and prices from CoinGecko. We compute the score ourselves; it is not taken from any outside risk rating."),
+        ],
+    },
+    "whale_activity": {
+        "title": "Bitcoin Whale Transactions Today: Live Count",
+        "desc": "Live count of large Bitcoin transactions of $1 million or more in a recent sample of network activity. A simple read on whale movement, updated every 15 minutes.",
+        "faq": [
+            ("What is whale activity?", "It tracks very large Bitcoin transfers. We count transactions of $1,000,000 or more in a recent sample of network activity."),
+            ("Does a lot of whale activity mean the price will move?", "Not by itself. Large transfers can be exchange shuffling, custody moves or trades, so the count shows how active big holders are, not their intent."),
+            ("How often is it updated?", "Every 15 minutes, from public blockchain data."),
+        ],
+    },
+    "etf_flow": {
+        "title": "Bitcoin ETF Flows Today: Daily Inflows & Outflows",
+        "desc": "Net daily money flowing into or out of US spot Bitcoin ETFs, with recent history. A plain-English read on institutional demand, updated daily.",
+        "faq": [
+            ("What are Bitcoin ETF flows?", "They are the net amount of money going into or out of US spot Bitcoin ETFs each day, measured by shares created or redeemed and valued in dollars."),
+            ("Why do ETF flows matter?", "They show whether institutions and investors using ETFs are adding or reducing Bitcoin exposure. Sustained inflows mean steady buying through these funds; outflows mean the opposite."),
+            ("Is a big inflow day a buy signal?", "No. It describes what already happened, not what comes next."),
+        ],
+    },
     "leverage_heat": {
         "title": "Bitcoin Funding Rate Today: Live Leverage Heat",
         "desc": "Live Bitcoin perpetual futures funding rate and what it says about crowded leverage. Updated every 15 minutes, with plain-English reading help.",
