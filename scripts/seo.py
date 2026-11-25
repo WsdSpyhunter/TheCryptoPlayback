@@ -45,6 +45,12 @@ def sitemap_xml(entries, indicator_files, updated=None):
     for path, freq, prio in STATIC_PAGES:
         lm = now if path in ("", "playback-lab.html") else (latest_post if path in ("archive.html", "sitemap.html") else STATIC_LASTMOD)
         urls.append((f"{SITE_URL}/{path}", _iso(lm), freq, prio))
+    try:
+        import learn
+        for lp in learn.paths():
+            urls.append((f"{SITE_URL}/{lp}", _iso(datetime.fromisoformat(learn.PUBLISHED).replace(tzinfo=timezone.utc)), "monthly", "0.7"))
+    except Exception:
+        pass
     for fn in sorted(indicator_files):
         urls.append((f"{SITE_URL}/{fn}", _iso(now), "hourly", "0.9"))
     seen = set()

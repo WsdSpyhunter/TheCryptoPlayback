@@ -2259,6 +2259,11 @@ if __name__ == "__main__":
     n_posts = rebuild_post_pages()
     write_seo(entries, indicator_pages.keys())
     try:
+        import learn                   # plain-English explainer pages
+        print(f"Built {learn.build()} learn page(s)")
+    except Exception as exc:     # noqa: BLE001 - never break the main build
+        print(f"Learn pages skipped: {exc}")
+    try:
         import build_static_pages      # About + Resources: regenerated every build so their stylesheet version never goes stale
         build_static_pages.build()
     except Exception as exc:     # noqa: BLE001 - never break the main build
