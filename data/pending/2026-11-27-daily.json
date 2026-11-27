@@ -1,0 +1,182 @@
+{
+  "slug": "2026-11-27-daily",
+  "title": "Capitulation Calls, Frozen Accounts, and a December Ethereum Date",
+  "date_display": "November 27, 2026",
+  "tag": "Daily",
+  "issue_number": 27,
+  "gauge_path": "assets/gauges/2026-11-27-daily.png",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "price": 61544,
+      "change_24h": 1.58848,
+      "change_7d": -0.6902
+    },
+    {
+      "id": "ethereum",
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "price": 1720.11,
+      "change_24h": 1.17493,
+      "change_7d": -1.925
+    },
+    {
+      "id": "binancecoin",
+      "symbol": "BNB",
+      "name": "BNB",
+      "price": 563.43,
+      "change_24h": 2.34191,
+      "change_7d": -1.6951
+    },
+    {
+      "id": "ripple",
+      "symbol": "XRP",
+      "name": "XRP",
+      "price": 0.972856,
+      "change_24h": 2.55972,
+      "change_7d": 1.3342
+    },
+    {
+      "id": "solana",
+      "symbol": "SOL",
+      "name": "Solana",
+      "price": 73.0,
+      "change_24h": 3.27561,
+      "change_7d": 0.9515
+    },
+    {
+      "id": "tron",
+      "symbol": "TRX",
+      "name": "TRON",
+      "price": 0.304282,
+      "change_24h": 0.33869,
+      "change_7d": -1.0929
+    }
+  ],
+  "fng": {
+    "value": 12,
+    "classification": "Extreme Fear"
+  },
+  "mover": {
+    "id": "hyperliquid",
+    "symbol": "HYPE",
+    "name": "Hyperliquid",
+    "price": 65.71,
+    "change_24h": 8.33263,
+    "change_7d": 1.4095
+  },
+  "week_mover": {
+    "id": "ethereum",
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "price": 1720.11,
+    "change_24h": 1.17493,
+    "change_7d": -1.925
+  },
+  "sectors": [
+    {
+      "label": "DeFi",
+      "change_24h": 3.97235235100894
+    },
+    {
+      "label": "Memecoins",
+      "change_24h": 2.4378085375283365
+    },
+    {
+      "label": "Gaming",
+      "change_24h": 2.332977323732673
+    }
+  ],
+  "stablecoins": {
+    "total_usd": 282366107473.91,
+    "change_7d_pct": -0.6053837772146182
+  },
+  "date_abbrev": "NOV. 27, 2026",
+  "ticker_html": "<div class=\"ticker-bar\">\n    <div class=\"ticker-top5-col\">\n      <div class=\"ticker-tab-wrap\">\n        <span class=\"ticker-tab\">Top 6 Market</span>\n        <span class=\"ticker-arrow\"></span>\n      </div>\n      <span class=\"ticker-caption\">prices as of 6AM (cst)<br>on printed date</span>\n    </div>\n    <div class=\"ticker-prices\"><div class=\"price-row\"><span class=\"price-chip\">BTC $61,544.00 <span style=\"color:#8FBF5C;\">(+1.6%)</span></span><span class=\"price-chip\">ETH $1,720.11 <span style=\"color:#8FBF5C;\">(+1.2%)</span></span><span class=\"price-chip\">BNB $563.43 <span style=\"color:#8FBF5C;\">(+2.3%)</span></span></div><div class=\"price-row\" style=\"margin-top:9px;\"><span class=\"price-chip\">XRP $0.97 <span style=\"color:#8FBF5C;\">(+2.6%)</span></span><span class=\"price-chip\">SOL $73.00 <span style=\"color:#8FBF5C;\">(+3.3%)</span></span><span class=\"price-chip\">TRX $0.30 <span style=\"color:#8FBF5C;\">(+0.3%)</span></span></div></div>\n  </div>\n  <div class=\"ticker-news-pill\">\n    <span>TOP NEWS: <em style=\"color:#F2C94C;\">NOV. 27, 2026</em></span>\n  </div>\n  <div class=\"ticker-subscribe-row\">\n    <span class=\"ticker-share-prompt\">Enjoying this? Share it with a friend &rarr;</span>\n    <a class=\"ticker-subscribe-text\" href=\"https://cryptoplayback.com/#subscribe\" style=\"text-decoration:none;\">SUBSCRIBE HERE</a>\n    <a class=\"ticker-icon\" href=\"#\" style=\"background:#B5702E;\" aria-label=\"Email\">&#9993;</a>\n    <a class=\"ticker-icon\" href=\"https://x.com/cryptoplayback\" style=\"background:#4A90D9;\" aria-label=\"X\">X</a>\n  </div>",
+  "sentiment_html": "<div class=\"sentiment-band\">\n    <div class=\"sentiment-box\" style=\"border-color:#3A362F;\">\n      <img class=\"sentiment-gauge\" src=\"{gauge_src}\" alt=\"Fear and Greed gauge\">\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">FEAR &amp; GREED</span>\n      <span class=\"sentiment-value\" style=\"color:#E24C4C;\">12</span>\n      <span class=\"sentiment-word\" style=\"color:#E24C4C;\">Extreme Fear</span>\n      <span class=\"sentiment-divider\"></span>\n      <svg class=\"sentiment-mover-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#256B32\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6-6 4 4 8-8\"/><path d=\"M15 7h6v6\"/></svg>\n      <span class=\"sentiment-label\" style=\"color:#975F25;\">BIGGEST MOVER TODAY</span>\n      <span class=\"sentiment-value\" style=\"color:#256B32;\">HYPE</span>\n      <span class=\"sentiment-word-bold\" style=\"color:#256B32;\">+8.3%</span>\n    </div>\n  </div>",
+  "issue_pill_html": "<span class=\"issue-pill\">THE PLAYBACK</span>",
+  "top_story_html": "<div class=\"top-story\">\n    <span class=\"top-story-tab\">TOP STORY</span>\n    <p class=\"top-story-text\">Bitcoin's bear-market chatter keeps getting louder just as regulators from Madrid to London tighten their grip on crypto accounts and DeFi access.</p>\n  </div>",
+  "stories": [
+    {
+      "headline": "Bitcoin ETFs Are Having Their Worst Month Ever",
+      "body": "<p>Spot bitcoin ETFs have already racked up record monthly net outflows of $5.39 billion in November, and the month isn't even over yet, according to The Block. That puts this stretch on track to be the worst month on record for the funds that were supposed to be crypto's bridge to institutional money.</p><p>It's a blunt reminder that ETF flows cut both ways \u2014 the same wrapper that made it easy to pile in made it just as easy to leave, and right now the exits are crowded.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-26-spot-bitcoin-etfs-worst-month-november-446814",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/bitcoin-unsplash-scaled.jpg"
+    },
+    {
+      "headline": "Binance Finally Lets Everyone Out, Four Weeks After the $6.3 Billion Hack",
+      "body": "<p>Binance says customer withdrawals are fully restored, four weeks after the $6.3 billion hack that forced the exchange to freeze funds, according to CoinDesk. The phased recovery wrapped up a month-long process that began with Bitcoin withdrawals in early November.</p><p>Getting withdrawals back online is the easy part; the harder question is how much trust Binance clawed back in the process, and whether four weeks felt like a reasonable timeline to the people who had money locked up the whole time.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/markets/2026/11/27/binance-says-its-withdrawal-suspension-is-over-four-weeks-after-a-usd6-3-billion-hack",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/6afa7aee3dd3e7c1e37e3929a4ac24b7cebaccdd-6000x4000.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "JPMorgan Says Strategy's Sinking NAV Multiple Is a 'Capitulation' Signal",
+      "body": "<p>JPMorgan analysts said Strategy's valuation relative to its bitcoin holdings has hit a record low, which they're reading as a sign of bitcoin 'capitulation,' per The Block. When the company most associated with corporate bitcoin treasuries starts trading like a discount, that's a signal in itself.</p><p>Capitulation calls from a bank's analysts are a data point, not a verdict \u2014 but they do tell you something about how the mood on trading desks has shifted over the past few weeks.</p>",
+      "source_title": "The Block",
+      "source_url": "https://www.theblock.co/news/markets/2026-11-26-jpmorgan-bitcoin-capitulation-strategy-low-nav-multiple-447007",
+      "image_url": "https://www.tbstat.com/cdn-cgi/image/width=1600,height=900,fit=cover,format=jpeg,quality=80/wp/uploads/2026/11/GettyImages-1395728828.jpg"
+    },
+    {
+      "headline": "Galaxy Takes Back Its 'Bitcoin Has Bottomed' Call",
+      "body": "<p>A month after saying Bitcoin had bottomed in June, Galaxy Research now says a daily close below $58,525 would signal a materially lower low, according to Decrypt. That's a notable reversal from a firm that had been in the camp calling the bottom in.</p><p>Walking back a bottom call isn't a small thing \u2014 it's an admission that the data looked different a month ago, and that's worth sitting with rather than brushing past.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/384030/galaxy-research-withdraws-call-that-bitcoins-bear-market-is-over",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Bear-market-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Ethereum Sets a Real Date for Glamsterdam, Gas Changes Unaltered",
+      "body": "<p>Core developers will ship Glamsterdam's contested gas changes unaltered, with a December 15 date now set for the delayed testnet upgrade, after security concerns halted the Hoodi fork back in October, Decrypt reports.</p><p>Shipping the changes 'unaltered' after a delay caused by security concerns is a vote of confidence from the dev team \u2014 but it also means the burden of proof now sits with the testnet to show those concerns were actually resolved.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/384104/ethereum-sets-december-15-date-for-delayed-glamsterdam-testnet-upgrade",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/08/ethereum-decrypt-style-06-gID_7.jpg"
+    },
+    {
+      "headline": "Spain's Financial Police Can Now Freeze Your Crypto Without a Judge",
+      "body": "<p>Spain's financial intelligence unit, Sepblac, can now suspend crypto, bank and payment accounts for up to five working days without a court order, with courts only deciding on any extension afterward, according to Decrypt. It's a meaningful expansion of power for a non-judicial body.</p><p>Five days without a judge involved is a short window, but it's still a window \u2014 and the precedent of regulators getting first-strike authority over accounts is the kind of thing that tends to spread once one country does it.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/384063/spain-lets-its-financial-intelligence-unit-freeze-crypto-accounts-without-a-court-order",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/05/Judge-decrypt-style-2-gID_7.png"
+    },
+    {
+      "headline": "UK Regulator Points at the Binance Hack to Justify Tougher DeFi Rules",
+      "body": "<p>The FCA plans to require DeFi platforms to be authorized and to keep regulated exchanges from routing UK retail trades to them, citing the Binance hack as part of its reasoning for rules tougher than those in the US and EU, per a Decrypt report.</p><p>Using a centralized exchange hack to justify restricting decentralized finance is an interesting bit of logic \u2014 the two aren't quite the same risk, but regulators clearly aren't in the mood to split that hair right now.</p>",
+      "source_title": "Decrypt",
+      "source_url": "https://decrypt.co/384027/uk-regulator-cites-binance-hack-as-it-plans-tougher-defi-rules-than-us-and-eu-report",
+      "image_url": "https://cdn.decrypt.co/wp-content/uploads/2025/09/uk-fca-financial-conduct-authority-decrypt-style-gID_7.jpg"
+    },
+    {
+      "headline": "Brazil's Stock Exchange Teams Up With Banks for a Real-Pegged Stablecoin",
+      "body": "<p>Brazil's stock exchange is teaming up with major banks to launch a real-pegged stablecoin, according to CoinDesk. It's a notable example of traditional financial infrastructure building its own stablecoin rail rather than leaving that space to crypto-native issuers.</p><p>When an exchange and a bank consortium build the stablecoin instead of a crypto company, it says something about who expects to own the plumbing of tokenized money going forward.</p>",
+      "source_title": "CoinDesk",
+      "source_url": "https://www.coindesk.com/business/2026/11/27/brazil-s-stock-exchange-teams-up-with-major-banks-to-launch-real-pegged-stablecoin",
+      "image_url": "https://cdn.sanity.io/images/s3y3vcno/production/b2b575e5fb400b044ebb5d3c2d88d2a80846eafb-1920x1080.jpg?fm=jpg&w=800&h=450&crop=focalpoint&fit=clip"
+    },
+    {
+      "headline": "Privacy Coins Split: Monero Gets Dropped, Zcash Gets Praised",
+      "body": "<p>As an overseas crypto exchange joins others dropping Monero ahead of new EU restrictions, Grayscale argues that Zcash's privacy design sets it apart, Cointelegraph reports. The two privacy coins that used to be lumped together are now heading in opposite directions, reputationally speaking.</p><p>Watching one privacy coin get delisted while another gets a Grayscale endorsement is a reminder that 'privacy coin' was always too broad a category \u2014 the design choices underneath matter a lot to regulators and exchanges alike.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cryptoplayback.com/go/2bf08572bba2.html",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/11/01M8CWT0VSVGTZXTJSC0TTYCYY/red-graphs-removed.png"
+    },
+    {
+      "headline": "New York Wins $1.37B Judgment Against Fugitive NovaTech Founders",
+      "body": "<p>New York's AG secured a $1.37B court judgment against the NovaTech founders, following an August 2025 default ruling over a Ponzi scheme that targeted Haitian and other immigrant communities, per Cointelegraph. The founders had already fled the US before that default ruling.</p><p>A $1.37B judgment against people who aren't around to pay it is more symbolic than collectible \u2014 it closes the legal chapter, but it doesn't put money back in the pockets of the people the scheme actually hurt.</p>",
+      "source_title": "Cointelegraph",
+      "source_url": "https://cointelegraph.com/news/new-york-ag-137b-court-judgment-novatech?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "image_url": "https://s3-images.ctmedia.io/media/article-covers/2026/09/01M25608EVZEXN61YVC0S0C6R6/regulation-judgement-judge-crypto-breaking-news.jpg"
+    }
+  ],
+  "missed_story": {
+    "headline": "A Single Tiny Payment Can Unmask a Bitcoin Wallet's IP Address",
+    "body": "A developer found that a tiny payment can expose the IP address behind a bitcoin wallet, according to CoinDesk. It's a quiet reminder that privacy on a public blockchain isn't just about addresses and amounts \u2014 the network layer itself can leak who you are with almost no effort from an attacker.",
+    "source_title": "CoinDesk",
+    "source_url": "https://www.coindesk.com/tech/2026/11/26/a-tiny-payment-can-expose-the-ip-address-behind-a-bitcoin-wallet-developer-finds"
+  },
+  "playback_take": null,
+  "excerpt": "Bitcoin's bear-market chatter keeps getting louder just as regulators from Madrid to London tighten their grip on crypto accounts and DeFi access.",
+  "buttondown_email_id": "em_4d7ff3hd4680qt201vjerask72"
+}
